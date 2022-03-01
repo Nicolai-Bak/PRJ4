@@ -1,0 +1,34 @@
+.new-item-form {
+	display: flex;
+	justify-content: right;
+    padding: 2%;
+	grid-column: 2;
+	grid-row: 2;
+	flex-wrap: wrap;
+    margin: 0 3%;
+}
+
+.new-item-form input {
+	background: #f4f2eb;
+	padding: 0 2%;
+	border: 1px solid black;
+	margin: 0 5%;
+	width: 200%;
+    min-height: 30px;
+	border-radius: 5px;
+    font-size: 22px;
+    outline: none;
+}
+
+.new-item-form input:hover {
+	background: white;
+}
+
+.new-item-form input:focus {
+	border: 3px solid #5885af;
+    background: white;
+}
+
+.new-item-form button{
+	margin-right: 5%;
+}

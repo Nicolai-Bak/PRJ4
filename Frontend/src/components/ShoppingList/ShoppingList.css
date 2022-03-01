@@ -1,0 +1,31 @@
+.shopping-list {
+	display: grid;
+	background-color: #f8ea8c;
+	height: 95vh;
+	align-self: center;
+	width: 100%;
+	margin: 3rem auto 1rem;
+	grid-template-columns: 50px 1fr 50px;
+	grid-template-rows: 40px 0.25fr 1fr 0.1fr 40px;
+	border-radius: 14px;
+	font-size: 21px;
+	grid-column: 2;
+}
+
+button {
+	padding: 0.5em 1em;
+	border-radius: 10px;
+	align-self: end;
+	justify-self: right;
+	background: #3f5e98b6;
+	color: white;
+	border: 1.5px solid #c4a622;
+	font-size: 20px;
+}
+
+.search-button {
+	margin-right: 5%;
+	max-width: 220px;
+	grid-column: 2;
+	grid-row: 4;
+}
