@@ -9,7 +9,7 @@ const NewItemForm = () => {
         setAddItem(input);
         event.preventDefault();
         console.log(`You just tried to add ${input}`)
-        setAddItem("");github
+        setAddItem("");
     }
 
     const inputChangeHandler = (event) => {

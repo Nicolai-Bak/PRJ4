@@ -7,7 +7,6 @@ function App() {
     <div className="App">
       <ShoppingList>
       </ShoppingList>
-      <ShoppingOption/>
     </div>
   );
 }

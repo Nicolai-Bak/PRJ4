@@ -1,0 +1,7 @@
+.search-results {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    max-width: 70rem;
+    margin-inline: auto;
+}
