@@ -10,6 +10,10 @@ namespace PrisninjaDatabaseAPI
     public class Item
     {
         [JsonProperty(PropertyName = "id")]
+        
+        public string Id { get; set; }
+        
+        [JsonProperty(PropertyName = "EAN")]
         public string EAN { get; set; }
         public string Name { get; set; }
         public float Weight { get; set; }

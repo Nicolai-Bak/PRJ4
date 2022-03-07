@@ -106,6 +106,7 @@ namespace PrisninjaDatabaseAPI
             Console.WriteLine("dhudfhsu");
             Item item1 = new Item
             {
+                Id = "23",
                 EAN = "3123",
                 Name = "Skinke",
                 Weight = 12,
