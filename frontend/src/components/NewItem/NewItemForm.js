@@ -1,36 +1,68 @@
-import './NewItemForm.css'
-import {useState} from 'react'
+import "./NewItemForm.css";
+import { useState } from "react";
 
-const NewItemForm = () => {
-    let input;
-    const [addItem, setAddItem] = useState([]);
+const NewItemForm = (props) => {
+	const [newItem, setNewItem] = useState("");
+	const [amount, setAmount] = useState(1);
 
-    const submitItemHandler = (event) => {
-        setAddItem(input);
-        event.preventDefault();
-        console.log(`You just tried to add ${input}`)
-        setAddItem("");
-    }
+	const submitItemHandler = (event) => {
+		event.preventDefault();
+		console.log(`You just tried to add ${amount} ${newItem}'s`);
 
-    const inputChangeHandler = (event) => {
-        setAddItem(event.target.value);
-    }
+		if (validInput(newItem, amount)) props.onItemAdded(newItem, amount);
 
-    // const labelContainer = () => {
-    //     return (
-    //     )
-    // }
+		setNewItem("");
+		setAmount(1);
+	};
 
-    return(
-    <form onSubmit={submitItemHandler}>
-        <input type="text" value={input} onChange={inputChangeHandler} placeholder='Tilføj vare her'></input>
-        <button type="submit" >Tilføj</button>
-        <br></br>
-        <label>{addItem}</label>
-    </form>
+	const itemChangeHandler = (event) => {
+		setNewItem(event.target.value);
+	};
 
-    )
-}
+	const amountChangeHandler = (event) => {
+		const added = event.target.value;
+		added < 0
+			? console.log(`Item amount too small, was: ${added}`)
+			: setAmount(added);
+	};
 
+	const validInput = (newItem, amount) => {
+		if (!newItem.length > 0) {
+			console.log("No item was detected in the input field");
+			return false;
+		}
+		if (!amount > 0) {
+			console.log("amount too small");
+			return false;
+		}
+
+		return true;
+	};
+
+	return (
+		<form onSubmit={submitItemHandler} className="add-item-form">
+			<div className="item-inputs">
+				<input
+					className="item-name"
+					type="text"
+					value={newItem}
+					onChange={itemChangeHandler}
+					placeholder="Tilføj vare her"
+				></input>
+				<input
+					className="item-amount"
+					required
+					type="number"
+					value={amount}
+					onChange={amountChangeHandler}
+				></input>
+			</div>
+			<button type="submit" className="add-item-button">
+				Tilføj Vare
+			</button>
+			<br></br>
+		</form>
+	);
+};
 
 export default NewItemForm;
