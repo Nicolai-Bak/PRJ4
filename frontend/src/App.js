@@ -2,6 +2,7 @@ import "./App.css";
 import ShoppingList from "./components/ShoppingList/ShoppingList";
 import ShoppingOption from "./components/SearchResults/ShoppingOption";
 import NewItemForm from "./components/NewItem/NewItemForm";
+import NavBar from './components/NavBar/NavBar';
 import { useState } from "react";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 
 	return (
 		<div className="App">
+      <NavBar/>
 			<NewItemForm onItemAdded={newItemHandler} />
       <ShoppingList items={shoppingList}/>
 		</div>
