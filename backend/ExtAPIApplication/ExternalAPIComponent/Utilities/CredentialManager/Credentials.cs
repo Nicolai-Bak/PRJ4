@@ -1,5 +1,3 @@
-using System.Text.Json;
-using Newtonsoft.Json;
 using Serilog;
 
 namespace ExternalAPIComponent;
@@ -11,8 +9,6 @@ namespace ExternalAPIComponent;
  */
 public class Credentials
 {
-    public Dictionary<string, string> Keys { get; } = new();
-
     private readonly string _apiKeyPath = Path.Combine(Directory.GetCurrentDirectory(), "api-keys.json");
 
     private Credentials()
@@ -28,6 +24,8 @@ public class Credentials
             throw;
         }
     }
+
+    public Dictionary<string, string> Keys { get; } = new();
 
     public static Credentials Instance { get; } = new();
 }
