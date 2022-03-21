@@ -5,7 +5,7 @@ namespace ExternalAPIComponent;
 /*
  * Singleton patterned class to acquire and store secrets.
  *
- * Default path: {PROJECT_DIR}/api-key.txt
+ * Default path: {PROJECT_DIR}/Utilities/api-keys.json
  */
 public class Credentials
 {
@@ -25,6 +25,9 @@ public class Credentials
         }
     }
 
+    /**
+     * Every Key is stored within this dictionary.
+     */
     public Dictionary<string, string> Keys { get; } = new();
 
     public static Credentials Instance { get; } = new();

@@ -7,6 +7,18 @@
     {
       "Name": "Database",
       "Key": "databasekey103453205"
+    },
+    {
+      "Name": "Salling-Admin",
+      "Key": "a24adf48776283b0ccdd3c9f005c6c0f"
+    },
+    {
+      "Name": "Salling-Application",
+      "Key": "F9VBJLR1BK"
+    },
+    {
+      "Name": "Salling-IndexName",
+      "Key": "prod_FOETEX_PRODUCTS"
     }
   ]
 }

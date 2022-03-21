@@ -3,17 +3,16 @@ using Serilog;
 
 namespace ExternalAPIComponent;
 
-static class Program
+internal static class Program
 {
-    
     public static void Main()
     {
         // Configure logger for start up
         BackendLogger.BuildLogger();
-        
+
         try
         {
-            MakeRequest();
+            //MakeRequest();
             Console.WriteLine("Hit ENTER to exit...");
             Console.ReadLine();
         }
@@ -31,12 +30,12 @@ static class Program
     {
         var client = new HttpClient();
         var queryString = HttpUtility.ParseQueryString(string.Empty);
-        
+
         var credentials = Credentials.Instance;
-        
+
         // Request headers
         client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", credentials.Keys["Coop"]);
-        
+
         var uri = "https://api.cl.coop.dk/assortmentapi/v1/product/1290?" + queryString;
 
         var response = await client.GetAsync(uri);
@@ -46,4 +45,3 @@ static class Program
         Console.WriteLine(result);
     }
 }
-
