@@ -1,18 +1,24 @@
 using System.Web;
+using ExternalAPIComponent.Callers.Salling;
 using Serilog;
 
 namespace ExternalAPIComponent;
 
 internal static class Program
 {
-    public static void Main()
+    public static async Task Main()
     {
         // Configure logger for start up
         BackendLogger.BuildLogger();
 
         try
         {
-            //MakeRequest();
+            SallingProductCaller caller = new();
+
+            var result = await caller.Call(new SallingRequestBuilder().Build());
+
+            result.ForEach(obj => Console.WriteLine(obj.ToString()));
+
             Console.WriteLine("Hit ENTER to exit...");
             Console.ReadLine();
         }
