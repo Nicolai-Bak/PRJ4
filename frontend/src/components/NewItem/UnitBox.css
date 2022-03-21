@@ -1,0 +1,14 @@
+.unitBox__container{
+    display: flex;
+    color: white;
+}
+
+label {
+    margin: 4px;
+}
+
+#amount {
+    width: 130px;
+}
+
+

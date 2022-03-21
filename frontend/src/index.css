@@ -1,6 +1,18 @@
+
+#root{
+  --primary-color: #1a2226;
+  --secondary-color: #ebde2e;
+  --tertiary-color: #47887a;
+  --quartenary-color: rgb(30, 83, 53);
+  --default-white: rgb(238, 235, 235)
+}
+
 *{
   box-sizing: border-box;
   margin: 0;
+}
+
+html {
 }
 
 body {
@@ -10,7 +22,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: #3f3f3f;
 }
 
 code {
