@@ -1,17 +1,17 @@
 using Algolia.Search.Clients;
 
-namespace ExternalAPIComponent;
+namespace ExternalAPIComponent.Callers;
 
-public class SallingProductCaller : ICaller
+public class SallingProductCaller : Caller
 {
     private SearchClient client;
-    
+
     public SallingProductCaller()
     {
-        SearchClient client = new SearchClient("YourApplicationID", "YourAdminAPIKey");
+        var client = new SearchClient("YourApplicationID", "YourAdminAPIKey");
     }
-    
-    public string Call()
+
+    public override string Call(IRequestBuilder requestBuilder)
     {
         throw new NotImplementedException();
     }
