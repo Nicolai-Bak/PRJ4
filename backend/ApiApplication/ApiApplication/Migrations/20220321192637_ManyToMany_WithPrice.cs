@@ -5,7 +5,7 @@
 namespace ApiApplication.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class ManyToMany_WithPrice : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,9 +18,9 @@ namespace ApiApplication.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Unit = table.Column<float>(type: "real", nullable: false),
+                    Unit = table.Column<double>(type: "float", nullable: false),
                     Measurement = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false)
+                    Price = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -34,8 +34,8 @@ namespace ApiApplication.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Brand = table.Column<int>(type: "int", nullable: false),
-                    Location_X = table.Column<float>(type: "real", nullable: false),
-                    Location_Y = table.Column<float>(type: "real", nullable: false),
+                    Location_X = table.Column<double>(type: "float", nullable: false),
+                    Location_Y = table.Column<double>(type: "float", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -44,40 +44,41 @@ namespace ApiApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductStore",
+                name: "ProductStores",
                 columns: table => new
                 {
-                    ProductsEAN = table.Column<int>(type: "int", nullable: false),
-                    StoresID = table.Column<int>(type: "int", nullable: false)
+                    ProductKey = table.Column<int>(type: "int", nullable: false),
+                    StoreKey = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductStore", x => new { x.ProductsEAN, x.StoresID });
+                    table.PrimaryKey("PK_ProductStores", x => new { x.ProductKey, x.StoreKey });
                     table.ForeignKey(
-                        name: "FK_ProductStore_Products_ProductsEAN",
-                        column: x => x.ProductsEAN,
+                        name: "FK_ProductStores_Products_ProductKey",
+                        column: x => x.ProductKey,
                         principalTable: "Products",
                         principalColumn: "EAN",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductStore_Stores_StoresID",
-                        column: x => x.StoresID,
+                        name: "FK_ProductStores_Stores_StoreKey",
+                        column: x => x.StoreKey,
                         principalTable: "Stores",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductStore_StoresID",
-                table: "ProductStore",
-                column: "StoresID");
+                name: "IX_ProductStores_StoreKey",
+                table: "ProductStores",
+                column: "StoreKey");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductStore");
+                name: "ProductStores");
 
             migrationBuilder.DropTable(
                 name: "Products");

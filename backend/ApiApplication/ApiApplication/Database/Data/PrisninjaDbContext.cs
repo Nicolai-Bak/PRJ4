@@ -18,6 +18,7 @@ public class PrisninjaDbContext : DbContext
 
     public DbSet<Store> Stores => Set<Store>();
     public DbSet<Product> Products => Set<Product>();
+    public DbSet<ProductStore> ProductStores => Set<ProductStore>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,8 +28,16 @@ public class PrisninjaDbContext : DbContext
         modelBuilder.Entity<Product>()
             .HasKey(p => p.EAN);
 
-        modelBuilder.Entity<Store>()
-            .HasMany<Product>(s => s.Products)
-            .WithMany(p => p.Stores);
+        modelBuilder.Entity<ProductStore>()
+            .HasKey(ps => new { ps.ProductKey, ps.StoreKey });
+        
+        modelBuilder.Entity<ProductStore>()
+            .HasOne<Product>(ps => ps.Product)
+            .WithMany(p => p.ProductStores)
+            .HasForeignKey(ps => ps.ProductKey);
+        modelBuilder.Entity<ProductStore>()
+            .HasOne<Store>(ps => ps.Store)
+            .WithMany(s => s.ProductStores)
+            .HasForeignKey(ps => ps.StoreKey);
     }
 }

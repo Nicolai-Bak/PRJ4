@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiApplication.Migrations
 {
     [DbContext(typeof(PrisninjaDbContext))]
-    [Migration("20220321161909_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220321192637_ManyToMany_WithPrice")]
+    partial class ManyToMany_WithPrice
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,15 +44,33 @@ namespace ApiApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
-                    b.Property<float>("Unit")
-                        .HasColumnType("real");
+                    b.Property<double>("Unit")
+                        .HasColumnType("float");
 
                     b.HasKey("EAN");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ApiApplication.Database.Models.ProductStore", b =>
+                {
+                    b.Property<int>("ProductKey")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StoreKey")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("ProductKey", "StoreKey");
+
+                    b.HasIndex("StoreKey");
+
+                    b.ToTable("ProductStores");
                 });
 
             modelBuilder.Entity("ApiApplication.Database.Models.Store", b =>
@@ -70,45 +88,44 @@ namespace ApiApplication.Migrations
                     b.Property<int>("Brand")
                         .HasColumnType("int");
 
-                    b.Property<float>("Location_X")
-                        .HasColumnType("real");
+                    b.Property<double>("Location_X")
+                        .HasColumnType("float");
 
-                    b.Property<float>("Location_Y")
-                        .HasColumnType("real");
+                    b.Property<double>("Location_Y")
+                        .HasColumnType("float");
 
                     b.HasKey("ID");
 
                     b.ToTable("Stores");
                 });
 
-            modelBuilder.Entity("ProductStore", b =>
+            modelBuilder.Entity("ApiApplication.Database.Models.ProductStore", b =>
                 {
-                    b.Property<int>("ProductsEAN")
-                        .HasColumnType("int");
+                    b.HasOne("ApiApplication.Database.Models.Product", "Product")
+                        .WithMany("ProductStores")
+                        .HasForeignKey("ProductKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("StoresID")
-                        .HasColumnType("int");
+                    b.HasOne("ApiApplication.Database.Models.Store", "Store")
+                        .WithMany("ProductStores")
+                        .HasForeignKey("StoreKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasKey("ProductsEAN", "StoresID");
+                    b.Navigation("Product");
 
-                    b.HasIndex("StoresID");
-
-                    b.ToTable("ProductStore");
+                    b.Navigation("Store");
                 });
 
-            modelBuilder.Entity("ProductStore", b =>
+            modelBuilder.Entity("ApiApplication.Database.Models.Product", b =>
                 {
-                    b.HasOne("ApiApplication.Database.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsEAN")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ProductStores");
+                });
 
-                    b.HasOne("ApiApplication.Database.Models.Store", null)
-                        .WithMany()
-                        .HasForeignKey("StoresID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("ApiApplication.Database.Models.Store", b =>
+                {
+                    b.Navigation("ProductStores");
                 });
 #pragma warning restore 612, 618
         }
