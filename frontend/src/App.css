@@ -1,7 +1,12 @@
 .App {
   text-align: center;
+  background: var(--primary-color);
+  min-height: 100vh;
 }
 
+html{
+
+}
 
 .App-header {
   background-color: #282c34;

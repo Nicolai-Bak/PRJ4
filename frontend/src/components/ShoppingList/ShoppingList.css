@@ -1,8 +1,19 @@
 .shopping-list{
-    background-color: rgb(231, 222, 89);
-    height: 400px;
-    width: 300px;
+    background-color: var(--default-white);
+    min-height: 50vh;
+    height: auto;
+    width: 35%;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 1rem;
+    border-radius: 12px;
 }
 
+.list-items{
+    list-style: none;
+}
+
+@media screen and (max-width: 720px){
+	.shopping-list{
+		width: 80%;
+	}
+}
