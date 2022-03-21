@@ -16,7 +16,7 @@ const SearchButton = () => {
 
     return(
         <div className="search-button">
-            <button onClick={searchEventHandler}>I am Searchman</button>
+            <button onClick={searchEventHandler}>Søg</button>
         </div>
 
     )
