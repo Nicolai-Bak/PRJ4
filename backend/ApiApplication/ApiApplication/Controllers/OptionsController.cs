@@ -24,8 +24,8 @@ namespace ApiApplication.Controllers
         }
 
 
-        [HttpGet("/options")]
-        public async Task<Root> GetOptions()
+        [HttpGet("/options/{products}")]
+        public async Task<Root> GetOptions(List<string> products)
         {
             var root = new Root();
             var best = new Best();
