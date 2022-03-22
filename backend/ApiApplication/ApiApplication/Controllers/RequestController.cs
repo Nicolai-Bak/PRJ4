@@ -6,11 +6,11 @@ namespace ApiApplication.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class OptionsController : Controller
+    public class RequestController : Controller
     {
         private readonly IPrisninjaDB _db;
 
-        public OptionsController(IPrisninjaDB db)
+        public RequestController(IPrisninjaDB db)
         {
             _db = db;
         }
