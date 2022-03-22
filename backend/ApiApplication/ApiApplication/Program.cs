@@ -27,54 +27,18 @@ using Microsoft.EntityFrameworkCore;
 // app.UseAuthorization();
 //
 // app.MapControllers();
+//
+// app.Run();
 
-// using (var context = new PrisninjaDbContext())
-// {
-//     Store newStore = new Store()
-//     {
-//         Brand = 3,
-//         Location_X = 12.5,
-//         Location_Y = 1.2,
-//         Address = "vejen 14"
-//     };
-//     
-//     Product newProduct = new Product()
-//     {
-//         EAN = 389021,
-//         Name = "æg",
-//         Brand = "jkdla",
-//         Unit = 10,
-//         Measurement = "stk",
-//         Price = 10
-//     };
-//
-//     ProductStore newPS = new ProductStore()
-//     {
-//         Product = newProduct,
-//         Store = newStore,
-//         Price = 13.5
-//     };
-//
-//     context.Add(newStore);
-//     context.Add(newProduct);
-//     context.Add(newPS);
-//     
-//     context.Database.OpenConnectionAsync();
-//     try
-//     {
-//         context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products ON");
-//         context.SaveChangesAsync();
-//         context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products OFF");
-//     }
-//     finally
-//     {
-//         context.Database.CloseConnectionAsync();
-//     }
-//
-//     Console.WriteLine("hello\n");
-// }
+Product p = new Product()
+{
+    EAN = 6571938,
+    Name = "æ",
+    Brand = "jdlwajkdla",
+    Unit = 110,
+    Measurement = "s24",
+    Price = 102
+};
 
 PrisninjaDb db = new PrisninjaDb(new PrisninjaDbContext());
-await db.InsertProduct(new Product(), new Store(), 12);
-
-//app.Run();
+await db.InsertProduct(p, 2, 1.5);

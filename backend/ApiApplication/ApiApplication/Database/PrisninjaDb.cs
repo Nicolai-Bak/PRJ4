@@ -22,35 +22,45 @@ public class PrisninjaDb
         {
             await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores ON");
             await _context.SaveChangesAsync();
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Store OFF");
+            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores OFF");
         }
+        catch (DbUpdateException ex)
+        { }
         finally
         {
             await _context.Database.CloseConnectionAsync();
         }
     }
-    public async Task InsertProduct(Product product, Store store, double price)
+    public async Task InsertProduct(Product product, int storeId, double price)
     {
-        _context.Add(product);
+        if (!_context.Products.Contains(product))
+        {
+            _context.Add(product);
+            
+            await _context.Database.OpenConnectionAsync();
+            try
+            {
+                await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products ON");
+                await _context.SaveChangesAsync();
+                await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products OFF");
+            }
+            catch (DbUpdateException ex) 
+            { }
+            finally
+            {
+                await _context.Database.CloseConnectionAsync();
+            }
+        }
+
+        _context.Add(new ProductStore() { ProductKey = product.EAN, StoreKey = storeId, Price = price });
+        
         await _context.Database.OpenConnectionAsync();
         try
         {
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products ON");
             await _context.SaveChangesAsync();
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products OFF");
         }
-        finally
-        {
-            await _context.Database.CloseConnectionAsync();
-        }
-        
-        _context.Add(new ProductStore() { Product = product, Store = store, Price = price });
-        try
-        {
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products ON");
-            await _context.SaveChangesAsync();
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products OFF");
-        }
+        catch (DbUpdateException ex)
+        { }
         finally
         {
             await _context.Database.CloseConnectionAsync();
