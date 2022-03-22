@@ -8,7 +8,6 @@ namespace ApiApplication.Database;
 public interface IPrisninjaDB
 {
     List<string> GetAllProductNames();
-
 }
 
 public class PrisninjaDb : IPrisninjaDB
@@ -44,7 +43,8 @@ public class PrisninjaDb : IPrisninjaDB
             .Where(p => p.ProductStores
                 .Select(ps => ps.StoreKey)
                 .Any(psk => storeKeys
-                    .Any(sk => sk == psk)))
+                    .Any(sk => sk == psk)) 
+                        && p.Name.Contains(productName))
             .ToList();
     }
 

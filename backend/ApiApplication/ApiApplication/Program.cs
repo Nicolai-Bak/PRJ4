@@ -32,20 +32,27 @@ app.MapControllers();
 
 app.Run();
 
-Product p = new Product()
-{
-    EAN = 6571938,
-    Name = "æ",
-    Brand = "jdlwajkdla",
-    Unit = 110,
-    Measurement = "s24",
-    Price = 102
-};
+// Product p = new Product()
+// {
+//     EAN = 6571938,
+//     Name = "æ",
+//     Brand = "jdlwajkdla",
+//     Unit = 110,
+//     Measurement = "s24",
+//     Price = 102
+// };
 
-PrisninjaDb db = new PrisninjaDb(new PrisninjaDbContext());
+// PrisninjaDb db = new PrisninjaDb(new PrisninjaDbContext());
 // await db.InsertProduct(p, 2, 1.5);
-List<string> names = db.GetAllProductNames();
-foreach (var name in names)
-{
-    Console.WriteLine(name);
-}
+// List<string> names = db.GetAllProductNames();
+// foreach (var name in names)
+// {
+//     Console.WriteLine(name);
+// }
+
+// List<Product> products = db.GetProductsFromSpecificStores(new List<int>() { 1 }, "k");
+//
+// foreach (var p in products)
+// {
+//     Console.WriteLine(p.Name);
+// }
