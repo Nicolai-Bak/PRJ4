@@ -7,13 +7,9 @@ public class PrisninjaDbContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("" +
-                                    "Data Source=localhost;" +
-                                    "Database=TestDB;" +
-                                    "TrustServerCertificate=true;" +
-                                    "User ID=SA;" +
-                                    "PASSWORD=<Tofirebananer147>"
-        );
+        optionsBuilder.UseSqlServer("Server=tcp:prj4server.database.windows.net,1433;Initial Catalog=PRJ4 Database;Persist Security Info=False;User ID=superadmin;Password=Superpassword1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                         
+       
     }
 
     public DbSet<Store> Stores => Set<Store>();

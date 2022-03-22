@@ -5,7 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiApplication.Database;
 
-public class PrisninjaDb
+public interface IPrisninjaDB
+{
+    List<string> GetAllProductNames();
+
+}
+
+public class PrisninjaDb : IPrisninjaDB
 {
     private PrisninjaDbContext _context;
 
