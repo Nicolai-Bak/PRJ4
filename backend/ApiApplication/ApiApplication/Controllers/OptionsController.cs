@@ -66,10 +66,7 @@ namespace ApiApplication.Controllers
             root.Cheapest = cheapest;
 
             return root;
-
-
         }
-
     }
 
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
