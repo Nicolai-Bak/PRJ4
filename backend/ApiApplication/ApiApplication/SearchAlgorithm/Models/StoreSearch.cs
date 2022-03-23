@@ -9,8 +9,9 @@ namespace Sorteringsalgoritme
 {
     public class StoreSearch
     {
-        
         public int StoreID { get; set; }
+        
+        public float Distance { get; set; }
         public List<ProductSearch> Products { get; set; }
 
         public StoreSearch(int id)
@@ -18,7 +19,7 @@ namespace Sorteringsalgoritme
             StoreID = id;
         }
 
-        public float getTotal()
+        public float GetTotalPrice()
         {
             float total = 0;
             foreach (var product in Products)

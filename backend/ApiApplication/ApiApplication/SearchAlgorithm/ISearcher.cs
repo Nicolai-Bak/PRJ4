@@ -8,6 +8,6 @@ namespace Sorteringsalgoritme.SearchAlgorithm
 {
     public interface ISearcher
     {
-        public StoreSearch FindStore(List<string> productNames, int xCoordinate, int yCoordinate, int range);
+        public StoreSearch FindStore(List<string> productNames, double xCoordinate, double yCoordinate, int range);
     }
 }

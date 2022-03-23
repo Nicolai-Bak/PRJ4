@@ -24,7 +24,7 @@ public class PrisninjaDb : IPrisninjaDB
         return _context.Products.Select(p => p.Name).ToList();
     }
 
-    public List<int> GetStoresInRange(double x, double y, double range)
+    public List<int> GetStoresInRange(double x, double y, int range)
     {
         return _context.Stores
             .Select(s => s)

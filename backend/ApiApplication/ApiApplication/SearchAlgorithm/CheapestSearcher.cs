@@ -12,7 +12,7 @@ namespace Sorteringsalgoritme.SearchAlgorithm
     public class CheapestSearcher : ISearcher
     {
         private PrisninjaDb database = new PrisninjaDb(new PrisninjaDbContext());
-        public StoreSearch FindStore(List<string> productNames, int xCoordinate, int yCoordinate, int range)
+        public StoreSearch FindStore(List<string> productNames, double xCoordinate, double yCoordinate, int range)
         {
             //1. Create list of StoreSearchs
             List<int> storeIDs = database.GetStoresInRange(xCoordinate, yCoordinate, range);
@@ -53,7 +53,17 @@ namespace Sorteringsalgoritme.SearchAlgorithm
                 }
             }
 
-            return stores.MinBy(s => s.getTotal());
+            return new StoreSearch(2)
+            {
+                Products = new List<ProductSearch>()
+                {
+                    new ProductSearch()
+                    {
+                        Price = 12
+                    }
+                }
+            };
+            return stores.MinBy(s => s.GetTotalPrice());
         }
     }
 }

@@ -1,6 +1,8 @@
 using System.Runtime.InteropServices;
 using ApiApplication.Database;
 using Microsoft.AspNetCore.Mvc;
+using Sorteringsalgoritme;
+using Sorteringsalgoritme.SearchAlgorithm;
 
 namespace ApiApplication.Controllers
 {
@@ -24,37 +26,67 @@ namespace ApiApplication.Controllers
 
 
         [HttpPost("/options")]
-        public async Task<ShoppingOptions> GetOptions(List<string> shoppingList)
+        public async Task<ShoppingOptions> GetOptions(ShoppingList shoppingList)
         {
-            ProductDTO product = new ProductDTO()
-            {
-                Name = "GRAASTEN ITALIENSKSALAT",
-                Name2 = "150 g",
-                Price = 12.95
-            };
+            // ProductDTO product = new ProductDTO()
+            // {
+            //     Name = "GRAASTEN ITALIENSKSALAT",
+            //     Name2 = "150 g",
+            //     Price = 12.95
+            // };
+            //
+            // ProductDTO product2 = new ProductDTO()
+            // {
+            //     Name = "GRAASTEN ITALIENSKSALAT",
+            //     Name2 = "150 g",
+            //     Price = 12.95
+            // };
+            //
+            // var options = new ShoppingOptions()
+            // {
+            //     Best = new ShoppingOption()
+            //     {
+            //         StoreName = "Rema",
+            //         TotalPrice = "123",
+            //         TotalDistance = "2km",
+            //         Products = new List<ProductDTO>()
+            //         {
+            //             product,
+            //             product2
+            //         }
+            //     }
+            // };
+            // options.Cheapest = options.Nearest = options.Best;
+            //
+            // return options;
 
-            ProductDTO product2 = new ProductDTO()
-            {
-                Name = "GRAASTEN ITALIENSKSALAT",
-                Name2 = "150 g",
-                Price = 12.95
-            };
+            CheapestSearcher search = new CheapestSearcher();
+            StoreSearch result = search.FindStore(
+                shoppingList.productNames,
+                shoppingList.x,
+                shoppingList.y,
+                shoppingList.range);
 
             var options = new ShoppingOptions()
             {
-                Best = new ShoppingOption()
+                Cheapest = new ShoppingOption()
                 {
-                    StoreName = "Rema",
-                    TotalPrice = "123",
-                    TotalDistance = "2km",
+                    StoreName = result.StoreID.ToString(),
+                    TotalPrice = result.GetTotalPrice(),
+                    TotalDistance = result.Distance,
                     Products = new List<ProductDTO>()
-                    {
-                        product,
-                        product2
-                    }
                 }
             };
-            options.Cheapest = options.Nearest = options.Best;
+
+            foreach (var p in result.Products)
+            {
+                options.Cheapest.Products.Add(new ProductDTO()
+                {
+                    Name = p.Name,
+                    Name2 = p.Brand,
+                    Price = p.Price
+                });
+            }
 
             return options;
         }
@@ -70,8 +102,8 @@ namespace ApiApplication.Controllers
     public class ShoppingOption
     {
         public string StoreName { get; set; }
-        public string TotalPrice { get; set; }
-        public string TotalDistance { get; set; }
+        public float TotalPrice { get; set; }
+        public float TotalDistance { get; set; }
         public List<ProductDTO> Products { get; set; }
     }
 
@@ -80,5 +112,13 @@ namespace ApiApplication.Controllers
         public ShoppingOption Best { get; set; }
         public ShoppingOption Cheapest { get; set; }
         public ShoppingOption Nearest { get; set; }
+    }
+
+    public class ShoppingList
+    {
+        public List<string> productNames { get; set; }
+        public double x { get; set; }
+        public double y { get; set; }
+        public int range { get; set; }
     }
 }
