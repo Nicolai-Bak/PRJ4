@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Algolia.Search" Version="6.12.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0-preview.2.22152.2" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0-preview.2.22152.2" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0-preview.2.22152.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Serilog" Version="2.11.0-dev-01380" />
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.1-dev-00787" />
+        <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
+        <PackageReference Include="Serilog.Enrichers.Thread" Version="3.2.0-dev-00752" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.1-dev-00296" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.0.2-dev-00890" />
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00947" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include=".idea\.idea.CoopApi\.idea\.gitignore" />
+      <Content Include=".idea\.idea.CoopApi\.idea\indexLayout.xml" />
+      <Content Include=".idea\.idea.CoopApi\.idea\projectSettingsUpdater.xml" />
+      <Content Include=".idea\.idea.CoopApi\.idea\workspace.xml" />
+      <Content Include=".idea\.idea.ExtAPIApplication\.idea\.gitignore" />
+      <Content Include=".idea\.idea.ExtAPIApplication\.idea\indexLayout.xml" />
+      <Content Include=".idea\.idea.ExtAPIApplication\.idea\misc.xml" />
+      <Content Include=".idea\.idea.ExtAPIApplication\.idea\projectSettingsUpdater.xml" />
+      <Content Include=".idea\.idea.ExtAPIApplication\.idea\shelf\Uncommitted_changes_before_Update_at_23_03_2022_13_49_[Changes]\shelved.patch" />
+      <Content Include=".idea\.idea.ExtAPIApplication\.idea\shelf\Uncommitted_changes_before_Update_at_23_03_2022_13_49__Changes_.xml" />
+      <Content Include=".idea\.idea.ExtAPIApplication\.idea\vcs.xml" />
+      <Content Include=".idea\.idea.ExtAPIApplication\.idea\workspace.xml" />
+      <Content Include="ExternalAPIComponent\ExternalAPIComponent.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Configuration.Json" />
+    </ItemGroup>
+
+</Project>
