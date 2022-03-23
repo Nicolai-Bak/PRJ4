@@ -9,11 +9,7 @@ namespace ExternalAPIComponent;
  */
 public class Credentials
 {
-    private readonly string _apiKeyPath = Path.Combine(
-        Directory.GetCurrentDirectory(),
-        "Utilities",
-        "CredentialManager",
-        "api-keys.json");
+    private readonly string _apiKeyPath = Path.Combine(Directory.GetCurrentDirectory(), "api-keys.json");
 
     private Credentials()
     {

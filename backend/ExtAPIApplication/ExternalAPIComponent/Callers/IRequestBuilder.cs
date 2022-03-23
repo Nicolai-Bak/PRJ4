@@ -1,8 +1,9 @@
-namespace ExternalAPIComponent.Callers.Interfaces;
+namespace ExternalAPIComponent.Callers;
 
 public interface IRequestBuilder
 {
     public IRequest Build();
+
 
     #region Product Images
 
@@ -11,14 +12,14 @@ public interface IRequestBuilder
      * Type: Array of strings
      * Example: https://dsdam.imgix.net/services/assets.img/id/c1899e4f-ca81-4511-a0fe-2dbeb213ffa5/size/DEFAULT.jpg
      */
-    public IRequestBuilder AddImages();
+    public void AddImages();
 
     /**
      * GUIDs for image URL of the product
      * Type: Array of strings
      * Example: c1899e4f-ca81-4511-a0fe-2dbeb213ffa5
      */
-    public IRequestBuilder AddImageGuids();
+    public void AddImageGuids();
 
     #endregion
 
@@ -29,7 +30,7 @@ public interface IRequestBuilder
      * Type: String
      * Example: Bananer
      */
-    public IRequestBuilder AddProductType();
+    public void AddProductType();
 
     /**
      * *  List of inStock, price, unitPrice and unitOfMeasurement for every store
@@ -47,14 +48,14 @@ public interface IRequestBuilder
      * "unitsOfMeasureShowPrice": 1579
      * },
      */
-    public IRequestBuilder AddStoreData();
+    public void AddStoreData();
 
     /**
      * Short description of the product
      * Type: string
      * Example: Bananer 4 pak øko
      */
-    public IRequestBuilder AddDescription();
+    public void AddDescription();
 
     /**
      * A list of infos - Expanded Description, Nutritional and Product details
@@ -64,35 +65,35 @@ public interface IRequestBuilder
      * Nutritional (100g): Energy (kCal/kJ), Fat, Carbs, Protein
      * Product Details: Weight, Product type, EAN, Article, PID
      */
-    public IRequestBuilder AddInfos();
+    public void AddInfos();
 
     /**
      * Numerical value of weight, piece, volume etc. as determined by UnitsOfMeasure
      * Type: Int
      * Example: 4
      */
-    public IRequestBuilder AddUnits();
+    public void AddUnits();
 
     /**
      * Unit of measurement for the product
      * Type: String
      * Example: stk
      */
-    public IRequestBuilder AddUnitsOfMeasure();
+    public void AddUnitsOfMeasure();
 
     /**
      * Country of Origin - Can be null
      * Type: String
      * Example: Spanien
      */
-    public IRequestBuilder AddCountryOfOrigin();
+    public void AddCountryOfOrigin();
 
     /**
      * List of product attributes like Fairtrade, Økologisk etc.
      * Type: String
      * Example: Fairtrade
      */
-    public IRequestBuilder AddProperties();
+    public void AddProperties();
 
     #endregion
 
@@ -103,48 +104,48 @@ public interface IRequestBuilder
      * Type: String
      * Example: Bananer 4 pak øko
      */
-    public IRequestBuilder AddName();
+    public void AddName();
 
     /**
      * Alternative name of the product - Not always the same as Name
      * Type: String
      * Exmaple: Økologiske bananer
      */
-    public IRequestBuilder AddProductName();
+    public void AddProductName();
 
     /**
      * Internal identifier for the product
      * Type: Int
      * Example: 89300505023
      */
-    public IRequestBuilder AddArticle();
+    public void AddArticle();
 
     /**
      * Brand of the product - May be null
      * Type: String
      * Example: Salling ØKO
      */
-    public IRequestBuilder AddBrand();
+    public void AddBrand();
 
     /**
      * Alternative brand of the product - May be null
      * Type: String
      * Example: Vores
      */
-    public IRequestBuilder AddSubBrand();
+    public void AddSubBrand();
 
     /**
      * Internal identifier for the object of the product - Same as used in product URL
      * Type: String
      * Example: 72008
      */
-    public IRequestBuilder AddObjectId();
+    public void AddObjectId();
 
     /**
      * Store IDs of the stores who has the product on discount
      * Type: Array of Ints
      */
-    public IRequestBuilder AddIsInOffer();
+    public void AddIsInOffer();
 
     #endregion
 
@@ -154,68 +155,68 @@ public interface IRequestBuilder
      * Whether the product has an active member discount
      * Type: boolean
      */
-    public IRequestBuilder AddCpOffer();
+    public void AddCpOffer();
 
     /**
      * Price of the product including discount
      * Type: Int
      */
-    public IRequestBuilder AddCpOfferPrice();
+    public void AddCpOfferPrice();
 
     /**
      * Amount of products required to purchase in bulk in order to satisfy the discount conditions
      * Type: Int
      * Example: 1
      */
-    public IRequestBuilder AddCpOfferAmount();
+    public void AddCpOfferAmount();
 
     /**
      * Identifier for the offer - Matching ids mean product mixing allowed
      * Type: Int
      */
-    public IRequestBuilder AddCpOfferId();
+    public void AddCpOfferId();
 
     /**
      * Start of offer period
      * Type: String
      * Example: 2022-03-18
      */
-    public IRequestBuilder AddCpOfferFromDate();
+    public void AddCpOfferFromDate();
 
     /**
      * End of offer period
      * Type: String
      * Example: 2022-03-25
      */
-    public IRequestBuilder AddCpOfferToDate();
+    public void AddCpOfferToDate();
 
     /**
      * Title of the offer
      * Type: String
      * Example: Salling økologisk hvid spidskål
      */
-    public IRequestBuilder AddCpOfferTitle();
+    public void AddCpOfferTitle();
 
     /**
      * The price reduced by a fixed numerical amount
      * Type: Int
      * Example: 600
      */
-    public IRequestBuilder AddCpDiscount();
+    public void AddCpDiscount();
 
     /**
      * The price reduced by a fixed percentage
      * Type: Int
      * Example: 33
      */
-    public IRequestBuilder AddCpPercentDiscount();
+    public void AddCpPercentDiscount();
 
     /**
      * Original price of the product
      * Type: Int
      * Example 1500
      */
-    public IRequestBuilder AddCpOriginalPrice();
+    public void AddCpOriginalPrice();
 
     #endregion
 
@@ -225,48 +226,48 @@ public interface IRequestBuilder
      * Breadcrums to the category of the product
      * Type: Array
      */
-    public IRequestBuilder AddConsumerFacingHierarchy();
+    public void AddConsumerFacingHierarchy();
 
     /**
      * See AddConsumerFacingHierarchy()
      */
-    public IRequestBuilder AddCategories();
+    public void AddCategories();
 
     /**
      * Related search terms of the product
      * Type: Array of Objects
      */
-    public IRequestBuilder AddSearchHierarchy(); // Hierachy
+    public void AddSearchHierarchy(); // Hierachy
 
     /**
      * Whether the product has a deposit
      * Type: boolean
      */
-    public IRequestBuilder AddPant();
+    public void AddPant();
 
     /**
      * List of stores that has the product in stock
      * Type: Array
      */
-    public IRequestBuilder AddInStockStore();
+    public void AddInStockStore();
 
     /**
      * List of stores that do not have the product in stock
      * Type: Array
      */
-    public IRequestBuilder AddOutStockStore();
+    public void AddOutStockStore();
 
     /**
      * Miscellaneous product names
      * Type: Array
      */
-    public IRequestBuilder AddAttributes();
+    public void AddAttributes();
 
     /**
      * Deepest breadcrumb
      * Type: String
      */
-    public IRequestBuilder AddDeepestCategoryPath();
+    public void AddDeepestCategoryPath();
 
     #endregion
 }
