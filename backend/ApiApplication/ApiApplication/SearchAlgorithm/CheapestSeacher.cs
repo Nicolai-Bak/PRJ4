@@ -4,43 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DatabaseApi;
+using ApiApplication.Database;
+using ApiApplication.Database.Data;
+using ApiApplication.Database.Models;
 
 namespace Sorteringsalgoritme.SearchAlgorithm
 {
     public class CheapestSeacher : ISearcher
     {
-        private DatabaseReader database = new DatabaseReader();
-        public Store findStore(List<string> productNames, int xCoordinate, int yCoordinate)
+        private PrisninjaDb database = new PrisninjaDb(new PrisninjaDbContext());
+        public StoreSearch FindStore(List<string> productNames, int xCoordinate, int yCoordinate, int range)
         {
-            //1. Create list of stores
-            List<Store> stores = new List<Store>();
+            //1. Create list of StoreSearchs
+            List<int> storeIDs = database.GetStoresInRange(xCoordinate, yCoordinate, range);
+            List<StoreSearch> stores = new List<StoreSearch>();
 
-            //2. Get Products from area
-            List<Product> products = database.getProductsFromArea(productNames[0], xCoordinate, yCoordinate);
-
-            //3.1 Tilføj manglende stores
-            foreach (Product product in products)
+            foreach (var storeID in storeIDs)
             {
-                if (!stores.Select(s => s.StoreID).Contains(product.StoreID))
-                {
-                    stores.Add(new Store(product.StoreID));
-                }
+                stores.Add(new StoreSearch(storeID));
             }
+            
 
             // Tilføj dee billigste products i butikken til hver store - fjern store hvis den ikke har alle varer
             for (int i = 0; i < productNames.Count(); i++)
             {
-                List<Product> productsToAdd = database.getProductsFromStores(productNames[i], stores);
-                foreach (Store store in stores.ToList())
+                List<Product> productsToAdd = database.GetProductsFromSpecificStores(storeIDs, productNames[i]);
+                foreach (int storeID in storeIDs.ToList())
                 {
-                    Product temp = products.Where(p => p.StoreID == store.StoreID).MinBy(p => p.Price);
+                    Product temp = productsToAdd
+                            .Where(p => p.ProductStores.Select(ps => ps.StoreKey)
+                            .Any(sk => sk == storeID))
+                            .MinBy(p => p.ProductStores.Select(ps => ps.Price));
                     if (temp != null)
                     {
-                        store.Products[0] = temp;
+                        stores.Find(s => s.StoreID == storeID).Products[i] = temp;
                     }
                     else
                     {
-                        stores.Remove(store);
+                        stores.Remove(stores.Find(s => s.StoreID == storeID));
+                        storeIDs.Remove(storeID);
                     }
                 }
             }

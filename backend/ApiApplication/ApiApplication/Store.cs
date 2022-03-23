@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Sorteringsalgoritme
 {
-    public class Store
+    public class StoreSearch
     {
         
         public int StoreID { get; set; }
         public List<Product> Products { get; set; }
 
-        public Store(int id)
+        public StoreSearch(int id)
         {
             StoreID = id;
         }
