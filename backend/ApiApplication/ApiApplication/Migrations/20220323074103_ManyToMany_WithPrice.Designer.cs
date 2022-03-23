@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiApplication.Migrations
 {
     [DbContext(typeof(PrisninjaDbContext))]
-    [Migration("20220321192637_ManyToMany_WithPrice")]
+    [Migration("20220323074103_ManyToMany_WithPrice")]
     partial class ManyToMany_WithPrice
     {
         /// <inheritdoc />
@@ -43,9 +43,6 @@ namespace ApiApplication.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
 
                     b.Property<double>("Unit")
                         .HasColumnType("float");

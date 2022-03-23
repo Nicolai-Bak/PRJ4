@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApiApplication.Database.Models;
 
 namespace Sorteringsalgoritme
 {
@@ -10,7 +11,7 @@ namespace Sorteringsalgoritme
     {
         
         public int StoreID { get; set; }
-        public List<Product> Products { get; set; }
+        public List<ProductSearch> Products { get; set; }
 
         public StoreSearch(int id)
         {
@@ -22,7 +23,7 @@ namespace Sorteringsalgoritme
             float total = 0;
             foreach (var product in Products)
             {
-                total += product.Price;
+                total += (float)product.Price;
             }
             return total;
         }

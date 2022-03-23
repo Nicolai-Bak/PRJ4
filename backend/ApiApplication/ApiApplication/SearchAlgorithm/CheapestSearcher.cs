@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DatabaseApi;
 using ApiApplication.Database;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
 
 namespace Sorteringsalgoritme.SearchAlgorithm
 {
-    public class CheapestSeacher : ISearcher
+    public class CheapestSearcher : ISearcher
     {
         private PrisninjaDb database = new PrisninjaDb(new PrisninjaDbContext());
         public StoreSearch FindStore(List<string> productNames, int xCoordinate, int yCoordinate, int range)
@@ -24,7 +23,6 @@ namespace Sorteringsalgoritme.SearchAlgorithm
                 stores.Add(new StoreSearch(storeID));
             }
             
-
             // Tilføj dee billigste products i butikken til hver store - fjern store hvis den ikke har alle varer
             for (int i = 0; i < productNames.Count(); i++)
             {
@@ -37,7 +35,15 @@ namespace Sorteringsalgoritme.SearchAlgorithm
                             .MinBy(p => p.ProductStores.Select(ps => ps.Price));
                     if (temp != null)
                     {
-                        stores.Find(s => s.StoreID == storeID).Products[i] = temp;
+                        stores.Find(s => s.StoreID == storeID).Products[i] = new ProductSearch()
+                        {
+                            EAN = temp.EAN,
+                            Name = temp.Name,
+                            Brand = temp.Brand,
+                            Unit = temp.Unit,
+                            Measurement = temp.Measurement,
+                            Price = temp.ProductStores.Find(ps => ps.StoreKey == storeID).Price
+                        };
                     }
                     else
                     {
