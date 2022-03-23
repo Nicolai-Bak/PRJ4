@@ -1,8 +1,8 @@
 using System.Runtime.InteropServices;
 using ApiApplication.Database;
+using ApiApplication.SearchAlgorithm;
+using ApiApplication.SearchAlgorithm.Models;
 using Microsoft.AspNetCore.Mvc;
-using Sorteringsalgoritme;
-using Sorteringsalgoritme.SearchAlgorithm;
 
 namespace ApiApplication.Controllers
 {
@@ -28,6 +28,36 @@ namespace ApiApplication.Controllers
         [HttpPost("/options")]
         public async Task<ShoppingOptions> GetOptions(ShoppingList shoppingList)
         {
+            CheapestSearcher search = new CheapestSearcher();
+            StoreSearch result = search.FindStore(
+                shoppingList.productNames,
+                shoppingList.x,
+                shoppingList.y,
+                shoppingList.range);
+
+            var options = new ShoppingOptions()
+            {
+                Cheapest = new ShoppingOption()
+                {
+                    StoreName = result.StoreID.ToString(),
+                    TotalPrice = result.GetTotalPrice(),
+                    TotalDistance = result.Distance,
+                    Products = new List<ProductDTO>()
+                }
+            };
+
+            foreach (var p in result.Products)
+            {
+                options.Cheapest.Products.Add(new ProductDTO()
+                {
+                    Name = p.Name,
+                    Name2 = p.Brand,
+                    Price = p.Price
+                });
+            }
+
+            return options;
+            
             // ProductDTO product = new ProductDTO()
             // {
             //     Name = "GRAASTEN ITALIENSKSALAT",
@@ -59,36 +89,6 @@ namespace ApiApplication.Controllers
             // options.Cheapest = options.Nearest = options.Best;
             //
             // return options;
-
-            CheapestSearcher search = new CheapestSearcher();
-            StoreSearch result = search.FindStore(
-                shoppingList.productNames,
-                shoppingList.x,
-                shoppingList.y,
-                shoppingList.range);
-
-            var options = new ShoppingOptions()
-            {
-                Cheapest = new ShoppingOption()
-                {
-                    StoreName = result.StoreID.ToString(),
-                    TotalPrice = result.GetTotalPrice(),
-                    TotalDistance = result.Distance,
-                    Products = new List<ProductDTO>()
-                }
-            };
-
-            foreach (var p in result.Products)
-            {
-                options.Cheapest.Products.Add(new ProductDTO()
-                {
-                    Name = p.Name,
-                    Name2 = p.Brand,
-                    Price = p.Price
-                });
-            }
-
-            return options;
         }
     }
 

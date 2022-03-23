@@ -1,4 +1,4 @@
-﻿namespace Sorteringsalgoritme;
+﻿namespace ApiApplication.SearchAlgorithm.Models;
 
 public class ProductSearch
 {

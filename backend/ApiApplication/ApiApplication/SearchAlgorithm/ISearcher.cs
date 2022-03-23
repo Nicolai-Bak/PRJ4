@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ApiApplication.SearchAlgorithm.Models;
 
-namespace Sorteringsalgoritme.SearchAlgorithm
+namespace ApiApplication.SearchAlgorithm
 {
     public interface ISearcher
     {

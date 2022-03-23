@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApiApplication.Database;
+﻿using ApiApplication.Database;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
+using ApiApplication.SearchAlgorithm.Models;
 
-namespace Sorteringsalgoritme.SearchAlgorithm
+namespace ApiApplication.SearchAlgorithm
 {
     public class CheapestSearcher : ISearcher
     {
