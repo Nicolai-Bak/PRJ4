@@ -42,9 +42,4 @@
       <Reference Include="Microsoft.Extensions.Configuration.Json" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="ExternalAPIComponent\Filters\" />
-      <Folder Include="ExternalAPIComponent\NewFolder\" />
-    </ItemGroup>
-
 </Project>
