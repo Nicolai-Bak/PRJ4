@@ -1,0 +1,36 @@
+.about-page{
+    background-color: var(--default-black);
+    min-height: 100vh;
+}
+
+.about-page__container {
+    padding: 5rem;
+    display: flex;
+}
+
+h1 {
+    color: var(--default-white);
+    margin-bottom: 1rem;
+}
+
+h2 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.description{
+    flex-basis: 700px;
+    width: 700px;
+    color: rgb(207, 205, 205);
+}
+
+.image__container{
+    display: flex;
+    width: 700px;
+    height: 300px;
+    justify-content: right;
+}
+
+#ninja-about {
+    width: 250px;
+}
