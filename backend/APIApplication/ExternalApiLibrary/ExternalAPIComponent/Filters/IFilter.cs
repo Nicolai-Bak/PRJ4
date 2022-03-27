@@ -8,6 +8,6 @@ namespace ExternalApiLibrary.ExternalAPIComponent.Filters
 {
     public interface IFilter
     {
-        public string Filter(string s);
+        public List<object> Filter(List<object> s);
     }
 }
