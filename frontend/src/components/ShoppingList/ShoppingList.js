@@ -10,11 +10,13 @@ const ShoppingList = (props) => {
 
 	const decreaseAmountHandler = (id) => {
 		console.log(`decreaseAmountHandler called with id: ${id}`);
-		props.onAmountChanged(id, -1);
+		const change = -1;
+		props.onAmountChanged(id, change);
 	};
-	const increaseAmountHandler = (id) => {
-		console.log(`decreaseAmountHandler called with id: ${id}`);
-		props.onAmountChanged(id, 1);
+	const increaseAmountHandler = (amount) => {
+		console.log(`increaseAmountHandler called with id: ${amount}`);
+		const change = 1;
+		props.onAmountChanged(amount, change);
 	};
 
 	const itemsList = props.items.map((item) => (

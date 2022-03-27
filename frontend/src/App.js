@@ -13,7 +13,7 @@ function App() {
 		);
 
 		setShoppingList((prevShoppingList) => {
-			console.log("setting shopping list")
+			console.log("setting shopping list");
 			return [
 				...prevShoppingList,
 				{
@@ -33,26 +33,30 @@ function App() {
 		});
 	};
 
-	const changeAmountHandler = (id, sign) => {
-		console.log(`changeAmountHandler called with id: ${id}`);
+	const changeAmountHandler = (id, change) => {
+		console.log(`changeAmountHandler called with id: ${id} and change: ${change}`);
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
 				if (item.id === id) {
+					let oldAmount = +item.amount;
 					return {
 						...item,
-						amount: sign, // needs to decrease!!
+						amount: (oldAmount + change).toFixed(2),
 					};
-				}
+				} else return item;
 			});
 		});
 	};
-
 
 	return (
 		<div className="App">
 			<NavBar />
 			<NewItemForm onItemAdded={newItemHandler} />
-			<ShoppingList items={shoppingList} onRemoveItem={removeItemHandler} onAmountChanged={changeAmountHandler}/>
+			<ShoppingList
+				items={shoppingList}
+				onRemoveItem={removeItemHandler}
+				onAmountChanged={changeAmountHandler}
+			/>
 		</div>
 	);
 }
