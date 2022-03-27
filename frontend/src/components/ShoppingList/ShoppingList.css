@@ -8,9 +8,6 @@
     border-radius: 12px;
 }
 
-.list-items{
-    list-style: none;
-}
 
 @media screen and (max-width: 1400px){
 	.shopping-list{

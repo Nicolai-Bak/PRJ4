@@ -1,0 +1,14 @@
+.List__item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0.5rem 0;
+	padding: 0.5rem;
+	border-radius: 12px;
+	background: #2b383f;
+	box-shadow: 2px 2px rgba(0, 0, 0, 0.26);
+	font-size: 1rem;
+	color: #fff8d0;
+	font-weight: bold;
+	cursor: pointer;
+}
