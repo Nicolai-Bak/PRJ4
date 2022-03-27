@@ -12,7 +12,13 @@
     list-style: none;
 }
 
-@media screen and (max-width: 720px){
+@media screen and (max-width: 1400px){
+	.shopping-list{
+		width: 60%;
+	}
+}
+
+@media screen and (max-width: 1000px){
 	.shopping-list{
 		width: 80%;
 	}

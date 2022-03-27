@@ -6,10 +6,11 @@ import { useState } from "react";
 
 function App() {
 	const [shoppingList, setShoppingList] = useState([]);
-
+	
 	const newItemHandler = (item, amount, unit) => {
 		console.log(
 			`newItemHandler called with item: ${item}, amount: ${amount}, and unit: ${unit}`
+			
 		);
 
 		setShoppingList((prevShoppingList) => {
