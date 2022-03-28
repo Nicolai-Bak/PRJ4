@@ -1,4 +1,5 @@
 using System.Web;
+using ApiApplication.Database.Models;
 using ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Filters;
@@ -50,6 +51,7 @@ internal static class Program
             convertedResult.ForEach(x =>
             {
                 ConvertedSallingProduct y = (ConvertedSallingProduct)x;
+                //Product y = (Product)x;
                 Console.WriteLine(y.EAN+"\n"+y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
                 foreach (var keyValuePair in y.Stores!)
                 {
