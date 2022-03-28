@@ -53,11 +53,14 @@
 	transition: all 0.2s ease-in-out 0.1s;
 }
 
-.item-name {
-	width: 320px;
+
+@media screen and (max-width: 1400px){
+	.add-item-form{
+		width: 60%;
+	}
 }
 
-@media screen and (max-width: 720px){
+@media screen and (max-width: 1000px){
 	.add-item-form{
 		width: 80%;
 	}
