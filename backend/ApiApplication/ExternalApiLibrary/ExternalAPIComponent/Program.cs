@@ -1,5 +1,6 @@
 using System.Web;
 using ExternalAPIComponent.Callers.Salling;
+using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Filters;
 using Serilog;
 
@@ -24,23 +25,37 @@ internal static class Program
             var result = await caller.Call(builder.Build());
 
             //result.ForEach(obj => Console.WriteLine(obj.ToString()));
+            Console.WriteLine(result[0]);
 
             IFilter filter = new SallingProductFilter();
-
-            Console.WriteLine(result[0]);
             var filteredResult = filter.Filter(result);
 
             Console.WriteLine();
 
-            filteredResult.ForEach(x =>
+            //filteredResult.ForEach(x =>
+            //{
+            //    FilteredSallingProduct y = (FilteredSallingProduct)x;
+            //    Console.WriteLine(y.HighlightResults.ProductName.Text);
+            //    Console.WriteLine(value: y.Infos.Find(info => info.Code == "product_details").Items.Find(item => item.Title == "EAN").Value);
+            //    foreach (var keyValuePair in y.Stores)
+            //    {
+            //        Console.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.Price);
+            //    }
+            //});
+
+            IConverter converter = new SallingProductConverter();
+
+            var convertedResult = converter.Convert(filteredResult);
+
+            convertedResult.ForEach(x =>
             {
-                FilteredSallingProduct y = (FilteredSallingProduct)x;
-                Console.WriteLine(y.HighlightResults.ProductName.Text);
-                Console.WriteLine(value: y.Infos.Find(info => info.Code == "product_details").Items.Find(item => item.Title == "EAN").Value);
-                foreach (var keyValuePair in y.Stores)
+                ConvertedSallingProduct y = (ConvertedSallingProduct)x;
+                Console.WriteLine(y.EAN+"\n"+y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
+                foreach (var keyValuePair in y.Stores!)
                 {
                     Console.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.Price);
                 }
+                Console.WriteLine();
             });
 
             Console.WriteLine("Hit ENTER to exit...");

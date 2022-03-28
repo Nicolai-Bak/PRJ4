@@ -8,6 +8,6 @@ namespace ExternalApiLibrary.ExternalAPIComponent.Converters
 {
     public interface IConverter
     {
-        public string Convert(string s);
+        public List<object> Convert(List<object> list);
     }
 }
