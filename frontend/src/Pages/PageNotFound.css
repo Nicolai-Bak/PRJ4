@@ -1,0 +1,40 @@
+.page-not-found {
+    margin-bottom: 4rem;
+    height: 20vh;
+}
+
+.page-not-found__container {
+    /**centering**/
+    position: relative;
+    text-align: center;
+    margin-top: 15%;
+}
+
+
+.page-not-found__container > * {
+  /* Center vertically and horizontally */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+#ninja {
+    width: 200px;
+    position: absolute;
+    left: 120%;
+}
+
+#error-number {
+    font-size: 7rem;
+    font-weight: 700;
+}
+
+p {
+    font-size: 1.25rem;
+    color: rgb(56, 56, 56);
+    margin-top: 3%;
+    font-weight: 200;
+}

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiApplication.Migrations
 {
     [DbContext(typeof(PrisninjaDbContext))]
-    [Migration("20220323074103_ManyToMany_WithPrice")]
+    [Migration("20220328083027_ManyToMany_WithPrice")]
     partial class ManyToMany_WithPrice
     {
         /// <inheritdoc />
