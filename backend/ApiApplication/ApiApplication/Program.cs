@@ -1,10 +1,8 @@
 using ApiApplication.Database;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
-using ExternalAPIComponent;
-using ExternalAPIComponent.Callers.Salling;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
