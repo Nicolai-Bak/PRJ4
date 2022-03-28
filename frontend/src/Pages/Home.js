@@ -25,6 +25,28 @@ function Home() {
 		});
 	};
 
+	
+	const removeItemHandler = (id) => {
+		console.log(`removeItemHandler called with id: ${id}`);
+		setShoppingList((prevShoppingList) => {
+			return prevShoppingList.filter((item) => item.id !== id);
+		});
+	};
+
+	const changeAmountHandler = (id, change) => {
+		console.log(`changeAmountHandler called with id: ${id} and change: ${change}`);
+		setShoppingList((prevShoppingList) => {
+			return prevShoppingList.map((item) => {
+				if (item.id === id) {
+					let oldAmount = +item.amount;
+					return {
+						...item,
+						amount: (oldAmount + change).toFixed(2),
+					};
+				} else return item;
+			});
+		});
+	};
 	return (
 		<div className="home">
 			<div className="slogan__container">
@@ -36,7 +58,10 @@ function Home() {
 			</div>
 			<NewItemForm onItemAdded={newItemHandler} 
 			/>
-      <ShoppingList items={shoppingList}/>
+			<ShoppingList items={shoppingList}
+				onRemoveItem={removeItemHandler}
+				onAmountChanged={changeAmountHandler}
+	  />
 		</div>
 	);
 }
