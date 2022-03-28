@@ -1,30 +1,13 @@
 import "./App.css";
-import ShoppingList from "./components/ShoppingList/ShoppingList";
-import NewItemForm from "./components/NewItem/NewItemForm";
-import NavBar from "./components/NavBar/NavBar";
-import { useState } from "react";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import NavBar from "./components/NavBar/NavBar"
+import Home from "./Pages/Home";
+import About from "./Pages/About";
+import PageNotFound from "./Pages/PageNotFound";
+import SearchResultsPage from "./Pages/SearchResultsPage";
+import Footer from "./components/Footer/Footer";
 
 function App() {
-	const [shoppingList, setShoppingList] = useState([]);
-
-	const newItemHandler = (item, amount, unit) => {
-		console.log(
-			`newItemHandler called with item: ${item}, amount: ${amount}, and unit: ${unit}`
-		);
-
-		setShoppingList((prevShoppingList) => {
-			console.log("setting shopping list");
-			return [
-				...prevShoppingList,
-				{
-					name: item,
-					amount: amount,
-					unit: unit,
-					id: Math.random().toString(), //<---- id needs to be changed
-				},
-			];
-		});
-	};
 
 	const removeItemHandler = (id) => {
 		console.log(`removeItemHandler called with id: ${id}`);
@@ -49,14 +32,19 @@ function App() {
 	};
 
 	return (
-		<div className="App">
-			<NavBar />
-			<NewItemForm onItemAdded={newItemHandler} />
-			<ShoppingList
-				items={shoppingList}
-				onRemoveItem={removeItemHandler}
-				onAmountChanged={changeAmountHandler}
-			/>
+		<div className="page__container">
+		<div className="content-wrapper">
+		<Router>
+			<NavBar/>
+		<Routes>
+			<Route path='/' element={<Home/>}/>
+			<Route path="/about" element={<About />} />
+			<Route path="*" element={<PageNotFound />} />
+			<Route path="/searchResults" element={<SearchResultsPage />} />
+		</Routes>
+		</Router>
+		</div>
+		<Footer/>
 		</div>
 	);
 }

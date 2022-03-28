@@ -1,4 +1,4 @@
-namespace DatabaseApi;
+namespace ApiApplication;
 
 public class WeatherForecast
 {
