@@ -1,9 +1,10 @@
 import "./SearchButton.css"
 import ReactDOM from "react-dom";
-import React from "react";
+import {useNavigate} from "react-router-dom"
 import SearchResults from "../SearchResults/SearchResults"
 
-const SearchButton = () => {
+
+/*const SearchButton = () => {
     const searchEventHandler = () => {
         ReactDOM.render(
             <React.StrictMode>
@@ -11,12 +12,16 @@ const SearchButton = () => {
             </React.StrictMode>,
             document.getElementById('root')
         );
-    }
+    }*/
 
+function SearchButton(){
+
+    let navigate = useNavigate();
 
     return(
         <div className="search-button">
-            <button onClick={searchEventHandler}>I am Searchman</button>
+            <button onClick={()=> {navigate("/SearchResults")}}> 
+                Søgeninja</button>
         </div>
 
     )

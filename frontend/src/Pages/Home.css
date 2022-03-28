@@ -1,0 +1,38 @@
+.home {
+    background: var(--default-black);
+    text-align: center;
+    min-height: 150vh;
+  }
+ 
+.slogan__container{
+  margin: 0px auto;
+  background-color: var(--tertiary-color);
+  height: 26rem;
+}
+
+.slogan {
+  display: inline-block;
+  padding-top: 11%;
+  color: var(--default-white);
+  font-size: 2.5rem;
+  font-weight: 700;
+  width: fit-content;
+}
+
+.slogan__container:hover {
+  background-color: var(--tertiary-color-light);
+  transition: all 0.2s ease-in-out 0.1s;
+}
+
+#ninja-landing {
+  float: left;
+  width: 80px;
+  color:bisque;
+}
+
+#ninja-rightside {
+  float: right;
+  width: 70px;
+  color:bisque;
+  padding-left: 0.5rem;
+}
