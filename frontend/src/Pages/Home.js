@@ -2,30 +2,21 @@ import "./Home.css";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
+import { type } from "@testing-library/user-event/dist/type";
 
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
 		: [];
-	
-	console.log("InitialShoppingList: " + initialShoppingList);
+
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
 
-	console.log(shoppingList);
 	useEffect(() => {
 		if (localStorage.hasOwnProperty("shoppingList")) {
-			const tempList = localStorage.getItem(
-				"shoppingList",
-				JSON.stringify(shoppingList)
-			);
 			console.log(
-				"A change has been made to shoppingList. Before: " + tempList
+				"A change has been made to shoppingList, updating localStorage"
 			);
-
 			localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
-			console.log(
-				"Now: " + localStorage.getItem("shoppingList")
-			);
 		}
 	}, [shoppingList]);
 
@@ -53,27 +44,45 @@ function Home() {
 		);
 	};
 
-	const removeItemHandler = (id) => {
-		console.log(`removeItemHandler called with id: ${id}`);
+	const removeItemHandler = (id, name) => {
+		console.log(`removeItemHandler called with id: ${id} and name: ${name}`);
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.filter((item) => item.id !== id);
 		});
 	};
 
+	const decimalController = (amount, change) => {
+		amount = +amount;
+
+		if (amount % 1 === 0) {
+			return amount + change;
+		}
+		if (amount < 1) {
+			return Number(+amount.toFixed(2) + change * 0.01).toFixed(2);
+		}
+		if (amount == amount.toFixed(1)) {
+			console.log("1 decimal");
+			return Number(+amount.toFixed(1) + +change / 10).toFixed(1);
+		}
+		return Number(amount + change / 100).toFixed(2);
+	};
+
 	const changeAmountHandler = (id, change) => {
-		console.log(
-			`changeAmountHandler called with id: ${id} and change: ${change}`
-		);
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
-				if (item.id === id) {
-					let oldAmount = +item.amount;
+				if (item.id !== id || item.amount + change < 0) return item; //change can be positive or negative
+				let oldAmount = +item.amount;
+
+				if (item.unit !== "stk" && Math.round(item.amount) !== item.amount) {
 					return {
 						...item,
-						amount: (oldAmount + change).toFixed(2),
+						amount: decimalController(oldAmount, +change),
 					};
 				} else {
-					return item;
+					return {
+						...item,
+						amount: decimalController(oldAmount, +change),
+					};
 				}
 			});
 		});
