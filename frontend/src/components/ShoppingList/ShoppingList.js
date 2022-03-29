@@ -7,6 +7,7 @@ const ShoppingList = (props) => {
 		console.log(`removeItemHandler called with id: ${id}`);
 		props.onRemoveItem(id);
 	};
+	console.log("ShoppingList is called with these props: " + props.items);
 
 	const decreaseAmountHandler = (id) => {
 		console.log(`decreaseAmountHandler called with id: ${id}`);
