@@ -1,12 +1,13 @@
 using System.Web;
 using ApiApplication.Database.Models;
-using ExternalAPIComponent.Callers.Salling;
+using ExternalAPIComponent;
+using ExternalAPIComponent.Callers.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Filters;
 using Serilog;
 
-namespace ExternalAPIComponent;
+namespace ExternalApiLibrary.ExternalAPIComponent;
 
 internal static class Program
 {
@@ -17,47 +18,46 @@ internal static class Program
 
         try
         {
-            SallingProductCaller caller = new();
+            ///// Products - Salling
+            SallingProductCaller productCaller = new();
             SallingRequestBuilder builder = new SallingRequestBuilder();
             builder.AddInfos()
                     .AddUnits()
                     .AddUnitsOfMeasure()
                     .AddStoreData();
+            IFilter productFilter = new SallingProductFilter();
+            IConverter productConverter = new SallingProductConverter();
 
-            var result = await caller.Call(builder.Build());
+            var products = await productCaller.Call(builder.Build());
+            var filteredProducts = productFilter.Filter(products);
+            var convertedProducts = productConverter.Convert(filteredProducts);
 
-            //result.ForEach(obj => Console.WriteLine(obj.ToString()));
-            Console.WriteLine(result[0]);
-
-            IFilter filter = new SallingProductFilter();
-            var filteredResult = filter.Filter(result);
-
-            Console.WriteLine();
-
-            //filteredResult.ForEach(x =>
-            //{
-            //    FilteredSallingProduct y = (FilteredSallingProduct)x;
-            //    Console.WriteLine(y.HighlightResults.ProductName.Text);
-            //    Console.WriteLine(value: y.Infos.Find(info => info.Code == "product_details").Items.Find(item => item.Title == "EAN").Value);
-            //    foreach (var keyValuePair in y.Stores)
-            //    {
-            //        Console.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.Price);
-            //    }
-            //});
-
-            IConverter converter = new SallingProductConverter();
-
-            var convertedResult = converter.Convert(filteredResult);
-
-            convertedResult.ForEach(x =>
+            convertedProducts.ForEach(x =>
             {
                 ConvertedSallingProduct y = (ConvertedSallingProduct)x;
                 //Product y = (Product)x;
-                Console.WriteLine(y.EAN+"\n"+y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
+                Console.WriteLine(y.EAN + "\n" + y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
                 foreach (var keyValuePair in y.Stores!)
                 {
                     Console.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.Price);
                 }
+                Console.WriteLine();
+            });
+
+
+            ///// Stores - Salling
+            ICaller storeCaller = new SallingStoreCaller();
+            IFilter storeFilter = new SallingStoreFilter();
+            IConverter storeConverter = new SallingStoreConverter();
+
+            var stores = await storeCaller.Call(null);
+            var filteredStores = storeFilter.Filter(stores);
+            var convertedStores = storeConverter.Convert(filteredStores);
+
+            convertedStores.ForEach(x =>
+            {
+                Store y = (Store)x;
+                Console.WriteLine(y.ID + "\n" + y.Brand + "\n" + y.Address + "\n" + y.Location_X + ", " + y.Location_Y);
                 Console.WriteLine();
             });
 
@@ -73,4 +73,6 @@ internal static class Program
             Log.CloseAndFlush();
         }
     }
+
+
 }

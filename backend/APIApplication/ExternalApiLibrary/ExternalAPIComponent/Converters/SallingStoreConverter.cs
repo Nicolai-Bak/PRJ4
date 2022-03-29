@@ -13,8 +13,8 @@ public class SallingStoreConverter : IConverter
         {
             ID = store.Id,
             Brand = store.Brand,
-            Location_X = store.Coordinates[0].Value,
-            Location_Y = store.Coordinates[1].Value,
+            Location_X = store.Coordinates[0],
+            Location_Y = store.Coordinates[1],
             Address = store.Address.Street + ", " + store.Address.Zip + " " + store.Address.City + ", " + store.Address.Country
         }).ToList();
 

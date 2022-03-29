@@ -1,6 +1,5 @@
 using Algolia.Search.Clients;
 using ExternalAPIComponent.Callers.Interfaces;
-using ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Utilities.CredentialManager;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;

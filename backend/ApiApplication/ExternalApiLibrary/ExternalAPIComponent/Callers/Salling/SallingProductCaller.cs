@@ -1,6 +1,6 @@
 using ExternalAPIComponent.Callers.Interfaces;
 
-namespace ExternalAPIComponent.Callers.Salling;
+namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 
 /**
  * Handles calling the API with requests.

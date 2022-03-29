@@ -2,7 +2,7 @@ using Algolia.Search.Clients;
 using Algolia.Search.Models.Search;
 using ExternalAPIComponent.Callers.Interfaces;
 
-namespace ExternalAPIComponent.Callers.Salling;
+namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 
 /**
  * Handles requesting the API for products with given attributes to retrieve.

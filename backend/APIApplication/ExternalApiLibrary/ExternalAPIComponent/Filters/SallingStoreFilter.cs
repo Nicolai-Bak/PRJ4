@@ -21,7 +21,7 @@ namespace ExternalApiLibrary.ExternalAPIComponent.Filters
     {
         [JsonProperty("sapSiteId")] public int Id { get; set; }
         [JsonProperty("brand")] public string Brand { get; set; }
-        [JsonProperty("coordinates")] public List<Coordinate> Coordinates { get; set; }
+        [JsonProperty("coordinates")] public List<double> Coordinates { get; set; }
         [JsonProperty("address")] public Address Address { get; set; }
     }
     public class Coordinate
