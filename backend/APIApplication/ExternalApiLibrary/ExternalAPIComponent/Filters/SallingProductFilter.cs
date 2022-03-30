@@ -17,7 +17,7 @@ public class FilteredSallingProduct
     [JsonProperty("infos")] public List<Info>? Infos { get; set; }
     [JsonProperty("units")] public float? Units { get; set; }
     [JsonProperty("unitsOfMeasure")] public string? UnitsOfMeasure { get; set; }
-    [JsonProperty("storeData")] public Dictionary<string, StoreData>? Stores { get; set; }
+    [JsonProperty("storeData")] public Dictionary<int, StoreData>? Stores { get; set; }
 }
 
 public class StoreData

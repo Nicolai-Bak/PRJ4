@@ -1,7 +1,8 @@
 using Algolia.Search.Clients;
 using ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Utilities.CredentialManager;
 
-namespace ExternalAPIComponent.Callers.Salling;
+namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 
 /**
  * Builds a request from a builder pattern of parameters
