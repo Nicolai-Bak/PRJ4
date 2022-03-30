@@ -18,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PrisninjaDbContext>();
 builder.Services.AddScoped<IPrisninjaDB, PrisninjaDb>();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 
