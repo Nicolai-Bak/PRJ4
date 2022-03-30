@@ -35,7 +35,7 @@ const ShoppingList = (props) => {
 	return (
 		<div className="shopping-list">
 			<ul>{itemsList}</ul>
-			<SearchButton />
+			<SearchButton onSearch={ () => props.onSearch()}/>
 		</div>
 	);
 };

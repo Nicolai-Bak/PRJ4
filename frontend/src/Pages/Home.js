@@ -2,7 +2,6 @@ import "./Home.css";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
-import { type } from "@testing-library/user-event/dist/type";
 
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
@@ -20,7 +19,7 @@ function Home() {
 		}
 	}, [shoppingList]);
 
-	const newItemHandler = (item, amount, unit, id) => {
+	const newItemHandler = (item, amount, unit) => {
 		console.log(
 			`newItemHandler called with item: ${item}, amount: ${amount}, and unit: ${unit}`
 		);
@@ -87,6 +86,21 @@ function Home() {
 			});
 		});
 	};
+
+	const searchHandler = async () => {
+		console.log(
+			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
+		);
+		// send amount, name, unit to search function
+		// search function should return a list of items that matches the search
+		// if no items are found, return an empty list
+
+		const request = await fetch("https://prisninjawebapi.azurewebsites.net/option"); // is blocked by CORS
+		const data = await request.json();
+		console.log(data);
+
+		// return list of items?
+	};
 	return (
 		<div className="home">
 			<div className="slogan__container">
@@ -99,6 +113,7 @@ function Home() {
 			<NewItemForm onItemAdded={newItemHandler} />
 			<ShoppingList
 				items={shoppingList}
+				onSearch={searchHandler}
 				onRemoveItem={removeItemHandler}
 				onAmountChanged={changeAmountHandler}
 			/>

@@ -3,13 +3,19 @@ import ReactDOM from "react-dom";
 import {useNavigate} from "react-router-dom"
 import SearchResults from "../SearchResults/SearchResults"
 
-function SearchButton(){
+function SearchButton(props){
 
     let navigate = useNavigate();
 
+    const searchHandler = (event) => {
+        console.log("searching...")
+        props.onSearch();
+        navigate("/SearchResults")
+    }
+
     return(
         <div className="search-button">
-            <button onClick={()=> {navigate("/SearchResults")}}> 
+            <button onClick={searchHandler}> 
                 Søgeninja</button>
         </div>
 
