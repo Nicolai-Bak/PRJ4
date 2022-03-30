@@ -6,7 +6,7 @@ function Footer() {
   return (
 
     <div className='footer'>
-        <h4 id='footerLink__about'>Kontakt Os - Hvem er vi? - Betingelser </h4>
+        <h4 id='footerLink__about'>Kontakt os - Hvem er vi? - Betingelser </h4>
         <p id='footerText'>&copy;{new Date().getFullYear()} PRIS NINJA INC </p>
     </div>
   )

@@ -19,8 +19,8 @@ function SearchButton(){
     let navigate = useNavigate();
 
     return(
-        <div className="search-button">
-            <button onClick={()=> {navigate("/SearchResults")}}> 
+        <div className="searchButton">
+            <button id="search-button" onClick={()=> {navigate("/SearchResults")}}> 
                 Søgeninja</button>
         </div>
 

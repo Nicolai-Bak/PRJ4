@@ -1,7 +1,7 @@
 .home {
     background: var(--default-black);
     text-align: center;
-    min-height: 150vh;
+    height: 150vh;
   }
  
 .slogan__container{
