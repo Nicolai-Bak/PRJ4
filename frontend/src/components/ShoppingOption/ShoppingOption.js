@@ -1,7 +1,7 @@
 import "./ShoppingOption.css"
 
 const ShoppingOption = (props) => {
-
+    console.log("ShoppingOptions");
     return ( 
         <div className="shopping-option" >
             <div className="store">

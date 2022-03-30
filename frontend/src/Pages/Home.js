@@ -95,19 +95,54 @@ function Home() {
 		// search function should return a list of items that matches the search
 		// if no items are found, return an empty list
 
-		const request = await fetch("https://prisninjawebapi.azurewebsites.net/option"); // is blocked by CORS
-		const data = await request.json();
-		console.log(data);
+		const searchList = shoppingList.map((item) => item.name);
+		console.log("searchlist: " + JSON.stringify(searchList));
 
-		// return list of items?
+		const request = await fetch(
+			"https://prisninjawebapi.azurewebsites.net/options/",
+			{
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ productNames: searchList }),
+			}
+			// ); // is blocked by CORS
+		);
+		console.log("request received: " + request);
+		// const getter = await fetch(
+		// 	"https://prisninjawebapi.azurewebsites.net/names/",
+		// 	{
+		// 		method: "GET",
+		// 		headers: {
+		// 			Accept: "application/json",
+		// 			"Content-Type": "application/json",
+		// 		},
+		// 	}
+		// );
+
+		const data = await request.json();
+		console.log("Data received from database: " + JSON.stringify(data));
 	};
+
+	// return list of items?
+
 	return (
 		<div className="home">
 			<div className="slogan__container">
 				<div className="slogan">
-					<img id="ninja-landing" src="/images/ninja-landing.svg" />
+					<img
+						id="ninja-landing"
+						src="/images/ninja-landing.svg"
+						alt="ninja-landing"
+					/>
 					<i>Find tilbuddene, før din nabo gør det!</i>
-					<img id="ninja-rightside" src="/images/ninja-about.svg" />
+					<img
+						id="ninja-rightside"
+						src="/images/ninja-about.svg"
+						alt="ninja-rightside"
+					/>
 				</div>
 			</div>
 			<NewItemForm onItemAdded={newItemHandler} />

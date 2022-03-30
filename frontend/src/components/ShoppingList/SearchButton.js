@@ -1,7 +1,5 @@
 import "./SearchButton.css"
-import ReactDOM from "react-dom";
 import {useNavigate} from "react-router-dom"
-import SearchResults from "../SearchResults/SearchResults"
 
 function SearchButton(props){
 
