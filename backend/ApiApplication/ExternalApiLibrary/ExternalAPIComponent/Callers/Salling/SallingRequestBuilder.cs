@@ -1,7 +1,8 @@
 using Algolia.Search.Clients;
 using ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Utilities.CredentialManager;
 
-namespace ExternalAPIComponent.Callers.Salling;
+namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 
 /**
  * Builds a request from a builder pattern of parameters
@@ -36,7 +37,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: Array of strings
      * Example: https://dsdam.imgix.net/services/assets.img/id/c1899e4f-ca81-4511-a0fe-2dbeb213ffa5/size/DEFAULT.jpg
      */
-    public IRequestBuilder AddImages()
+    public SallingRequestBuilder AddImages()
     {
         _parameters.Add("images");
         return this;
@@ -47,7 +48,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: Array of strings
      * Example: c1899e4f-ca81-4511-a0fe-2dbeb213ffa5
      */
-    public IRequestBuilder AddImageGuids()
+    public SallingRequestBuilder AddImageGuids()
     {
         _parameters.Add("imageGUIDs");
         return this;
@@ -60,7 +61,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: Bananer
      */
-    public IRequestBuilder AddProductType()
+    public SallingRequestBuilder AddProductType()
     {
         _parameters.Add("productType");
         return this;
@@ -82,7 +83,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * "unitsOfMeasureShowPrice": 1579
      * },
      */
-    public IRequestBuilder AddStoreData()
+    public SallingRequestBuilder AddStoreData()
     {
         _parameters.Add("storeData");
         return this;
@@ -93,7 +94,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: string
      * Example: Bananer 4 pak øko
      */
-    public IRequestBuilder AddDescription()
+    public SallingRequestBuilder AddDescription()
     {
         _parameters.Add("description");
         return this;
@@ -107,7 +108,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Nutritional (100g): Energy (kCal/kJ), Fat, Carbs, Protein
      * Product Details: Weight, Product type, EAN, Article, PID
      */
-    public IRequestBuilder AddInfos()
+    public SallingRequestBuilder AddInfos()
     {
         _parameters.Add("infos");
         return this;
@@ -118,7 +119,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: Int
      * Example: 4
      */
-    public IRequestBuilder AddUnits()
+    public SallingRequestBuilder AddUnits()
     {
         _parameters.Add("units");
         return this;
@@ -129,7 +130,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: stk
      */
-    public IRequestBuilder AddUnitsOfMeasure()
+    public SallingRequestBuilder AddUnitsOfMeasure()
     {
         _parameters.Add("unitsOfMeasure");
         return this;
@@ -140,7 +141,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: Spanien
      */
-    public IRequestBuilder AddCountryOfOrigin()
+    public SallingRequestBuilder AddCountryOfOrigin()
     {
         _parameters.Add("countryOfOrigin");
         return this;
@@ -151,7 +152,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: Fairtrade
      */
-    public IRequestBuilder AddProperties()
+    public SallingRequestBuilder AddProperties()
     {
         _parameters.Add("properties");
         return this;
@@ -164,7 +165,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: Bananer 4 pak øko
      */
-    public IRequestBuilder AddName()
+    public SallingRequestBuilder AddName()
     {
         _parameters.Add("name");
         return this;
@@ -175,7 +176,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Exmaple: Økologiske bananer
      */
-    public IRequestBuilder AddProductName()
+    public SallingRequestBuilder AddProductName()
     {
         _parameters.Add("productName");
         return this;
@@ -186,7 +187,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: Int
      * Example: 89300505023
      */
-    public IRequestBuilder AddArticle()
+    public SallingRequestBuilder AddArticle()
     {
         _parameters.Add("article");
         return this;
@@ -197,7 +198,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: Salling ØKO
      */
-    public IRequestBuilder AddBrand()
+    public SallingRequestBuilder AddBrand()
     {
         _parameters.Add("brand");
         return this;
@@ -208,7 +209,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: Vores
      */
-    public IRequestBuilder AddSubBrand()
+    public SallingRequestBuilder AddSubBrand()
     {
         _parameters.Add("subBrand");
         return this;
@@ -219,7 +220,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: 72008
      */
-    public IRequestBuilder AddObjectId()
+    public SallingRequestBuilder AddObjectId()
     {
         _parameters.Add("objectId");
         return this;
@@ -229,7 +230,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Store IDs of the stores who has the product on discount
      * Type: Array of Ints
      */
-    public IRequestBuilder AddIsInOffer()
+    public SallingRequestBuilder AddIsInOffer()
     {
         _parameters.Add("isInOffer");
         return this;
@@ -241,7 +242,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Whether the product has an active member discount
      * Type: boolean
      */
-    public IRequestBuilder AddCpOffer()
+    public SallingRequestBuilder AddCpOffer()
     {
         _parameters.Add("cpOffer");
         return this;
@@ -251,7 +252,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Price of the product including discount
      * Type: Int
      */
-    public IRequestBuilder AddCpOfferPrice()
+    public SallingRequestBuilder AddCpOfferPrice()
     {
         _parameters.Add("cpOfferPrice");
         return this;
@@ -262,7 +263,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: Int
      * Example: 1
      */
-    public IRequestBuilder AddCpOfferAmount()
+    public SallingRequestBuilder AddCpOfferAmount()
     {
         _parameters.Add("cpOfferAmount");
         return this;
@@ -272,7 +273,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Identifier for the offer - Matching ids mean product mixing allowed
      * Type: Int
      */
-    public IRequestBuilder AddCpOfferId()
+    public SallingRequestBuilder AddCpOfferId()
     {
         _parameters.Add("cpOfferId");
         return this;
@@ -283,7 +284,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: 2022-03-18
      */
-    public IRequestBuilder AddCpOfferFromDate()
+    public SallingRequestBuilder AddCpOfferFromDate()
     {
         _parameters.Add("cpOfferFromDate");
         return this;
@@ -294,7 +295,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: 2022-03-25
      */
-    public IRequestBuilder AddCpOfferToDate()
+    public SallingRequestBuilder AddCpOfferToDate()
     {
         _parameters.Add("cpOfferToDate");
         return this;
@@ -305,7 +306,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: String
      * Example: Salling økologisk hvid spidskål
      */
-    public IRequestBuilder AddCpOfferTitle()
+    public SallingRequestBuilder AddCpOfferTitle()
     {
         _parameters.Add("cpOfferTitle");
         return this;
@@ -316,7 +317,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: Int
      * Example: 600
      */
-    public IRequestBuilder AddCpDiscount()
+    public SallingRequestBuilder AddCpDiscount()
     {
         _parameters.Add("cpDiscount");
         return this;
@@ -327,7 +328,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: Int
      * Example: 33
      */
-    public IRequestBuilder AddCpPercentDiscount()
+    public SallingRequestBuilder AddCpPercentDiscount()
     {
         _parameters.Add("cpPercentDiscount");
         return this;
@@ -338,7 +339,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Type: Int
      * Example 1500
      */
-    public IRequestBuilder AddCpOriginalPrice()
+    public SallingRequestBuilder AddCpOriginalPrice()
     {
         _parameters.Add("cpOriginalPrice");
         return this;
@@ -351,7 +352,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Breadcrumbs to the category of the product
      * Type: Array
      */
-    public IRequestBuilder AddConsumerFacingHierarchy()
+    public SallingRequestBuilder AddConsumerFacingHierarchy()
     {
         _parameters.Add("consumerFacingHierarchy");
         return this;
@@ -360,7 +361,7 @@ public class SallingRequestBuilder : IRequestBuilder
     /**
      * See AddConsumerFacingHierarchy()
      */
-    public IRequestBuilder AddCategories()
+    public SallingRequestBuilder AddCategories()
     {
         _parameters.Add("categories");
         return this;
@@ -370,7 +371,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Related search terms of the product
      * Type: Array of Objects
      */
-    public IRequestBuilder AddSearchHierarchy()
+    public SallingRequestBuilder AddSearchHierarchy()
     {
         // Typo in the Salling API
         _parameters.Add("searchHierchy");
@@ -381,7 +382,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Whether the product has a deposit
      * Type: boolean
      */
-    public IRequestBuilder AddPant()
+    public SallingRequestBuilder AddPant()
     {
         _parameters.Add("pant");
         return this;
@@ -391,7 +392,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * List of stores that has the product in stock
      * Type: Array
      */
-    public IRequestBuilder AddInStockStore()
+    public SallingRequestBuilder AddInStockStore()
     {
         _parameters.Add("inStockStore");
         return this;
@@ -401,7 +402,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * List of stores that do not have the product in stock
      * Type: Array
      */
-    public IRequestBuilder AddOutStockStore()
+    public SallingRequestBuilder AddOutStockStore()
     {
         _parameters.Add("outStockStore");
         return this;
@@ -411,7 +412,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Miscellaneous product names
      * Type: Array
      */
-    public IRequestBuilder AddAttributes()
+    public SallingRequestBuilder AddAttributes()
     {
         _parameters.Add("attributes");
         return this;
@@ -421,7 +422,7 @@ public class SallingRequestBuilder : IRequestBuilder
      * Deepest breadcrumb
      * Type: String
      */
-    public IRequestBuilder AddDeepestCategoryPath()
+    public SallingRequestBuilder AddDeepestCategoryPath()
     {
         _parameters.Add("deepestCategoryPath");
         return this;

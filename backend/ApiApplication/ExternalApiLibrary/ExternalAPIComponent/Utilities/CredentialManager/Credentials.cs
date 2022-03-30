@@ -1,6 +1,7 @@
+using ExternalAPIComponent;
 using Serilog;
 
-namespace ExternalAPIComponent;
+namespace ExternalApiLibrary.ExternalAPIComponent.Utilities.CredentialManager;
 
 /*
  * Singleton patterned class to acquire and store secrets.
