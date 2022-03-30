@@ -2,13 +2,18 @@
 	display: grid;
     grid-template-columns: 1fr 1fr;
 	padding: 0 1rem;
-	border-radius: 8px;
-	background: #2b383f;
+	border-radius: 2rem;
+	background: var(--secondary-color);
 	box-shadow: 2px 2px rgba(0, 0, 0, 0.26);
-	font-size: 1rem;
-	color: #fff8d0;
-	font-weight: bold;
-	cursor: pointer;
+	font-size: 0.5rem;
+	color: var(--default-black);
+	font-weight: 600;
+	margin: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.list-item:hover {
+	transition: all 0.2s ease-in-out 0.1s;
+	background: var(--secondary-color-shadow);
 }
 
 .list-item__left {
@@ -16,7 +21,7 @@
 	place-self: start;
     align-self: center;
     margin: 0 .4em;
-	font-size: 1.6rem;
+	font-size: 1rem;
 }
 .list-item__left::first-letter {
     text-transform: uppercase;
@@ -28,7 +33,7 @@
     justify-items: space-between;
     grid-column: 2 / span 4;
 	flex-wrap: nowrap;
-	font-size: 1.4rem;
+	font-size: 1rem;
 }
 
 .unit-amount {
@@ -40,7 +45,7 @@
     gap: .2rem;
     align-items: center;
     justify-self: center;
-    padding: 1em;
+    padding: 1rem;
 }
 
 .remove-button {
@@ -49,14 +54,21 @@
     max-width: 70%;
     align-self: center;
     justify-self: end;
+	padding: 0 0.5rem 0.2rem 0.2rem.5rem;
 }
 
 .list-item button {
 	flex-shrink: 1;
-	font-size: 1.2rem;
+	font-size: 0.75rem;
 	box-shadow: 1px 1px rgba(0, 0, 0, 0.1);
 	max-width: 6em;
-	border-radius: 6px;
+	border-radius: 1rem;
 	font-weight: bold;
 	border: 0.1rem solid #0e1614;
+	cursor: pointer;
+}
+
+.remove-button:hover {
+	transition: all 0.2s ease-in-out 0.1s;
+	background: var(--red);
 }

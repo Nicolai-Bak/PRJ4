@@ -24,12 +24,12 @@
 	/* margin-bottom: 1rem; */
 	max-height: 35%;
 	background: var(--default-white);
-	max-width: 80%;
+	max-width: 100%;
 }
 
 .item-amount {
 	width: 3rem;
-	text-align: center;
+	
 	margin: 0.2rem 0.4rem 0 0.2rem;
 }
 

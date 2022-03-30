@@ -8,7 +8,7 @@ function About() {
 			<div className="about-page__container">
 				<div className="description">
 			    <h1>Hvem er vi?</h1>
-				Pris Ninja har eksisteret siden 1990 og er en virksomhed i fuld fremdrift. 
+				Pris Ninja har eksisteret siden 2022 og er en virksomhed i fuld fremdrift. 
 				Vi har udelukkende et mål: At give DIG de bedste handlemuligheder, så du
 				slipper for at tage stilling til, hvor netop du skal handle. 
 				Vi sætter dine behov først og sammensætter en optimeret løsning, som sparer

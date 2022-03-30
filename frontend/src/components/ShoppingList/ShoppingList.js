@@ -13,10 +13,10 @@ const ShoppingList = (props) => {
 		const change = -1;
 		props.onAmountChanged(id, change);
 	};
-	const increaseAmountHandler = (amount) => {
-		console.log(`increaseAmountHandler called with id: ${amount}`);
+	const increaseAmountHandler = (id) => {
+		console.log(`increaseAmountHandler called with id: ${id}`);
 		const change = 1;
-		props.onAmountChanged(amount, change);
+		props.onAmountChanged(id, change);
 	};
 
 	const itemsList = props.items.map((item) => (
@@ -28,13 +28,14 @@ const ShoppingList = (props) => {
 			name={item.name}
 			amount={item.amount}
 			unit={item.unit}
+			key={item.key}
 		/>
 	));
 
 	return (
 		<div className="shopping-list">
 			<ul>{itemsList}</ul>
-			<SearchButton />
+			<SearchButton onSearch={ () => props.onSearch()}/>
 		</div>
 	);
 };
