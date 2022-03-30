@@ -1,0 +1,137 @@
+03/06/2022 19:28:18 Error acquiring credentials
+System.IO.FileNotFoundException: Could not find file 'C:\api-key.txt'.
+File name: 'C:\api-key.txt'
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding)
+   at System.IO.File.ReadAllText(String path)
+   at ExternalAPIComponent.Credentials.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\Credentials.cs:line 29
+03/06/2022 19:31:22 Reading credentials from "\api-key.txt"
+03/06/2022 19:31:22 Error acquiring credentials
+System.IO.FileNotFoundException: Could not find file 'C:\api-key.txt'.
+File name: 'C:\api-key.txt'
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding)
+   at System.IO.File.ReadAllText(String path)
+   at ExternalAPIComponent.Credentials.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\Credentials.cs:line 31
+03/06/2022 19:36:32 Reading credentials from "\api-key.txt"
+03/06/2022 19:36:33 Error acquiring credentials
+System.IO.FileNotFoundException: Could not find file 'C:\api-key.txt'.
+File name: 'C:\api-key.txt'
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding)
+   at System.IO.File.ReadAllText(String path)
+   at ExternalAPIComponent.Credentials.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\Credentials.cs:line 33
+03/06/2022 19:36:48 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent
+03/06/2022 19:36:48 Reading credentials from "\api-key.txt"
+03/06/2022 19:36:48 Error acquiring credentials
+System.IO.FileNotFoundException: Could not find file 'C:\api-key.txt'.
+File name: 'C:\api-key.txt'
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding)
+   at System.IO.File.ReadAllText(String path)
+   at ExternalAPIComponent.Credentials.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\Credentials.cs:line 34
+03/06/2022 19:38:01 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent
+03/06/2022 19:38:01 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 19:38:01 Acquired Coop credentials: "884084086c844e7bab7c9d1f23646d6d"
+03/06/2022 21:16:00 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 21:16:00 Error acquiring credentials
+Newtonsoft.Json.JsonReaderException: Input string '884084086c844e7bab7c9d1f23646d6d' is not a valid number. Path '', line 1, position 32.
+   at Newtonsoft.Json.JsonTextReader.ParseReadNumber(ReadType readType, Char firstChar, Int32 initialPosition)
+   at Newtonsoft.Json.JsonTextReader.ParseValue()
+   at Newtonsoft.Json.JsonReader.ReadAndMoveToContent()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at ExternalAPIComponent.Credentials.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\Credentials.cs:line 31
+03/06/2022 21:18:18 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 21:18:18 Error acquiring credentials
+Newtonsoft.Json.JsonReaderException: Input string '884084086c844e7bab7c9d1f23646d6d' is not a valid number. Path '', line 1, position 32.
+   at Newtonsoft.Json.JsonTextReader.ParseReadNumber(ReadType readType, Char firstChar, Int32 initialPosition)
+   at Newtonsoft.Json.JsonTextReader.ParseNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ParseValue()
+   at Newtonsoft.Json.JsonTextReader.Read()
+   at Newtonsoft.Json.JsonReader.ReadAndMoveToContent()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at ExternalAPIComponent.Credentials.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\Credentials.cs:line 31
+03/06/2022 21:48:09 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 21:48:09 Error acquiring credentials
+Newtonsoft.Json.JsonSerializationException: Cannot deserialize the current JSON object (e.g. {"name":"value"}) into type 'System.Collections.Generic.List`1[ExternalAPIComponent.Credentials+ApiKey]' because the type requires a JSON array (e.g. [1,2,3]) to deserialize correctly.
+To fix this error either change the JSON to a JSON array (e.g. [1,2,3]) or change the deserialized type so that it is a normal .NET type (e.g. not a primitive type like integer, not a collection type like an array or List<T>) that can be deserialized from a JSON object. JsonObjectAttribute can also be added to the type to force it to deserialize from a JSON object.
+Path 'ApiKeys', line 2, position 12.
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at ExternalAPIComponent.Credentials.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\Credentials.cs:line 31
+03/06/2022 21:52:37 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 21:52:37 Error acquiring credentials
+Newtonsoft.Json.JsonReaderException: Invalid property identifier character: [. Path '', line 2, position 2.
+   at Newtonsoft.Json.JsonTextReader.ParseProperty()
+   at Newtonsoft.Json.JsonTextReader.ParseObject()
+   at Newtonsoft.Json.JsonReader.ReadAndAssert()
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at ExternalAPIComponent.Credentials.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\Credentials.cs:line 31
+03/06/2022 21:56:54 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 21:56:54 Error acquiring credentials
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at ExternalAPIComponent.Credentials.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\Credentials.cs:line 33
+03/06/2022 21:57:48 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 21:58:27 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 21:59:08 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 21:59:08 Acquired credentials: []
+03/06/2022 21:59:20 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 22:01:06 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-key.txt"
+03/06/2022 22:01:07 Read key from "Coop": "884084086c844e7bab7c9d1f23646d6d"
+03/06/2022 22:01:07 Read key from "Database": "databasekey103453205"
+03/06/2022 22:01:07 Acquired credentials: [("Coop": "884084086c844e7bab7c9d1f23646d6d"), ("Database": "databasekey103453205")]
+03/06/2022 23:37:04 Reading credentials from "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-keys.json"
+03/06/2022 23:37:04 Read key from "Coop": "884084086c844e7bab7c9d1f23646d6d"
+03/06/2022 23:37:04 Read key from "Database": "databasekey103453205"
+03/06/2022 23:37:04 Acquired credentials: [("Coop": "884084086c844e7bab7c9d1f23646d6d"), ("Database": "databasekey103453205")]
+03/06/2022 23:40:05 Error acquiring credentials - No API key file found. Place "api-keys.json" at "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-keys.json".
+03/06/2022 23:41:53 Error acquiring credentials - No API key file found. Place "api-keys.json" at "C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\api-keys.json".
+03/06/2022 23:41:54 Error in Credentials
+System.Exception: Exception of type 'System.Exception' was thrown.
+   at ExternalAPIComponent.CredentialDeserializer.AcquireCredentials(String path) in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\CredentialManager\CredentialDeserializer.cs:line 14
+   at ExternalAPIComponent.Credentials..ctor() in C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\API\CoopApi\ExternalAPIComponent\CredentialManager\Credentials.cs:line 22

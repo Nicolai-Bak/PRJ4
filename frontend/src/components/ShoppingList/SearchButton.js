@@ -14,8 +14,8 @@ function SearchButton(props){
     }
 
     return(
-        <div className="search-button">
-            <button onClick={searchHandler}> 
+        <div className="searchButton">
+            <button id="search-button" onClick={searchHandler}> 
                 Søgeninja</button>
         </div>
 

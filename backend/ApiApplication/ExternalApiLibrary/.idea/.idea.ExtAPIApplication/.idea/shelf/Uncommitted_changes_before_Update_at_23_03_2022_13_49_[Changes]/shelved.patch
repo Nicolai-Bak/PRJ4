@@ -1,0 +1,703 @@
+Index: ExternalAPIComponent/Callers/IRequest.cs
+===================================================================
+diff --git a/ExternalAPIComponent/Callers/IRequest.cs b/ExternalAPIComponent/Callers/IRequest.cs
+deleted file mode 100644
+--- a/ExternalAPIComponent/Callers/IRequest.cs	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
++++ /dev/null	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
+@@ -1,5 +0,0 @@
+-namespace ExternalAPIComponent.Callers;
+-
+-public interface IRequest
+-{
+-}
+\ No newline at end of file
+Index: ExternalAPIComponent/Callers/IRequestBuilder.cs
+===================================================================
+diff --git a/ExternalAPIComponent/Callers/IRequestBuilder.cs b/ExternalAPIComponent/Callers/IRequestBuilder.cs
+deleted file mode 100644
+--- a/ExternalAPIComponent/Callers/IRequestBuilder.cs	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
++++ /dev/null	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
+@@ -1,273 +0,0 @@
+-namespace ExternalAPIComponent.Callers;
+-
+-public interface IRequestBuilder
+-{
+-    public IRequest Build();
+-
+-
+-    #region Product Images
+-
+-    /**
+-     * Images in the form of a full URL
+-     * Type: Array of strings
+-     * Example: https://dsdam.imgix.net/services/assets.img/id/c1899e4f-ca81-4511-a0fe-2dbeb213ffa5/size/DEFAULT.jpg
+-     */
+-    public void AddImages();
+-
+-    /**
+-     * GUIDs for image URL of the product
+-     * Type: Array of strings
+-     * Example: c1899e4f-ca81-4511-a0fe-2dbeb213ffa5
+-     */
+-    public void AddImageGuids();
+-
+-    #endregion
+-
+-    #region Product Information
+-
+-    /**
+-     * Short description of the product
+-     * Type: String
+-     * Example: Bananer
+-     */
+-    public void AddProductType();
+-
+-    /**
+-     * *  List of inStock, price, unitPrice and unitOfMeasurement for every store
+-     * *  Type: Array
+-     * *  Example:
+-     * * "1373": {
+-     * "inStock": true,
+-     * "multipromo": "",
+-     * "offerDescription": "Tilbud",
+-     * "price": 1500,
+-     * "multiPromoPrice": "",
+-     * "unitsOfMeasurePrice": 2416,
+-     * "unitsOfMeasurePriceUnit": "Kg.",
+-     * "unitsOfMeasureOfferPrice": 1579,
+-     * "unitsOfMeasureShowPrice": 1579
+-     * },
+-     */
+-    public void AddStoreData();
+-
+-    /**
+-     * Short description of the product
+-     * Type: string
+-     * Example: Bananer 4 pak øko
+-     */
+-    public void AddDescription();
+-
+-    /**
+-     * A list of infos - Expanded Description, Nutritional and Product details
+-     * Type: Array
+-     * Example:
+-     * Expanded Description: A long description of the product
+-     * Nutritional (100g): Energy (kCal/kJ), Fat, Carbs, Protein
+-     * Product Details: Weight, Product type, EAN, Article, PID
+-     */
+-    public void AddInfos();
+-
+-    /**
+-     * Numerical value of weight, piece, volume etc. as determined by UnitsOfMeasure
+-     * Type: Int
+-     * Example: 4
+-     */
+-    public void AddUnits();
+-
+-    /**
+-     * Unit of measurement for the product
+-     * Type: String
+-     * Example: stk
+-     */
+-    public void AddUnitsOfMeasure();
+-
+-    /**
+-     * Country of Origin - Can be null
+-     * Type: String
+-     * Example: Spanien
+-     */
+-    public void AddCountryOfOrigin();
+-
+-    /**
+-     * List of product attributes like Fairtrade, Økologisk etc.
+-     * Type: String
+-     * Example: Fairtrade
+-     */
+-    public void AddProperties();
+-
+-    #endregion
+-
+-    #region Product Identifiers
+-
+-    /**
+-     * Name of the product
+-     * Type: String
+-     * Example: Bananer 4 pak øko
+-     */
+-    public void AddName();
+-
+-    /**
+-     * Alternative name of the product - Not always the same as Name
+-     * Type: String
+-     * Exmaple: Økologiske bananer
+-     */
+-    public void AddProductName();
+-
+-    /**
+-     * Internal identifier for the product
+-     * Type: Int
+-     * Example: 89300505023
+-     */
+-    public void AddArticle();
+-
+-    /**
+-     * Brand of the product - May be null
+-     * Type: String
+-     * Example: Salling ØKO
+-     */
+-    public void AddBrand();
+-
+-    /**
+-     * Alternative brand of the product - May be null
+-     * Type: String
+-     * Example: Vores
+-     */
+-    public void AddSubBrand();
+-
+-    /**
+-     * Internal identifier for the object of the product - Same as used in product URL
+-     * Type: String
+-     * Example: 72008
+-     */
+-    public void AddObjectId();
+-
+-    /**
+-     * Store IDs of the stores who has the product on discount
+-     * Type: Array of Ints
+-     */
+-    public void AddIsInOffer();
+-
+-    #endregion
+-
+-    #region Member Discount Information
+-
+-    /**
+-     * Whether the product has an active member discount
+-     * Type: boolean
+-     */
+-    public void AddCpOffer();
+-
+-    /**
+-     * Price of the product including discount
+-     * Type: Int
+-     */
+-    public void AddCpOfferPrice();
+-
+-    /**
+-     * Amount of products required to purchase in bulk in order to satisfy the discount conditions
+-     * Type: Int
+-     * Example: 1
+-     */
+-    public void AddCpOfferAmount();
+-
+-    /**
+-     * Identifier for the offer - Matching ids mean product mixing allowed
+-     * Type: Int
+-     */
+-    public void AddCpOfferId();
+-
+-    /**
+-     * Start of offer period
+-     * Type: String
+-     * Example: 2022-03-18
+-     */
+-    public void AddCpOfferFromDate();
+-
+-    /**
+-     * End of offer period
+-     * Type: String
+-     * Example: 2022-03-25
+-     */
+-    public void AddCpOfferToDate();
+-
+-    /**
+-     * Title of the offer
+-     * Type: String
+-     * Example: Salling økologisk hvid spidskål
+-     */
+-    public void AddCpOfferTitle();
+-
+-    /**
+-     * The price reduced by a fixed numerical amount
+-     * Type: Int
+-     * Example: 600
+-     */
+-    public void AddCpDiscount();
+-
+-    /**
+-     * The price reduced by a fixed percentage
+-     * Type: Int
+-     * Example: 33
+-     */
+-    public void AddCpPercentDiscount();
+-
+-    /**
+-     * Original price of the product
+-     * Type: Int
+-     * Example 1500
+-     */
+-    public void AddCpOriginalPrice();
+-
+-    #endregion
+-
+-    #region Misc. Product Information
+-
+-    /**
+-     * Breadcrums to the category of the product
+-     * Type: Array
+-     */
+-    public void AddConsumerFacingHierarchy();
+-
+-    /**
+-     * See AddConsumerFacingHierarchy()
+-     */
+-    public void AddCategories();
+-
+-    /**
+-     * Related search terms of the product
+-     * Type: Array of Objects
+-     */
+-    public void AddSearchHierarchy(); // Hierachy
+-
+-    /**
+-     * Whether the product has a deposit
+-     * Type: boolean
+-     */
+-    public void AddPant();
+-
+-    /**
+-     * List of stores that has the product in stock
+-     * Type: Array
+-     */
+-    public void AddInStockStore();
+-
+-    /**
+-     * List of stores that do not have the product in stock
+-     * Type: Array
+-     */
+-    public void AddOutStockStore();
+-
+-    /**
+-     * Miscellaneous product names
+-     * Type: Array
+-     */
+-    public void AddAttributes();
+-
+-    /**
+-     * Deepest breadcrumb
+-     * Type: String
+-     */
+-    public void AddDeepestCategoryPath();
+-
+-    #endregion
+-}
+\ No newline at end of file
+Index: ExternalAPIComponent/Utilities/api-keys.json
+===================================================================
+diff --git a/ExternalAPIComponent/Utilities/api-keys.json b/ExternalAPIComponent/Utilities/api-keys.json
+deleted file mode 100644
+--- a/ExternalAPIComponent/Utilities/api-keys.json	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
++++ /dev/null	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
+@@ -1,24 +0,0 @@
+-{
+-  "ApiKeys": [
+-    {
+-      "Name": "Coop",
+-      "Key": "884084086c844e7bab7c9d1f23646d6d"
+-    },
+-    {
+-      "Name": "Database",
+-      "Key": "databasekey103453205"
+-    },
+-    {
+-      "Name": "Salling-Admin",
+-      "Key": "a24adf48776283b0ccdd3c9f005c6c0f"
+-    },
+-    {
+-      "Name": "Salling-Application",
+-      "Key": "F9VBJLR1BK"
+-    },
+-    {
+-      "Name": "Salling-IndexName",
+-      "Key": "prod_FOETEX_PRODUCTS"
+-    }
+-  ]
+-}
+\ No newline at end of file
+Index: ExternalAPIComponent/Callers/Request.cs
+===================================================================
+diff --git a/ExternalAPIComponent/Callers/Request.cs b/ExternalAPIComponent/Callers/Request.cs
+deleted file mode 100644
+--- a/ExternalAPIComponent/Callers/Request.cs	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
++++ /dev/null	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
+@@ -1,26 +0,0 @@
+-using Algolia.Search.Clients;
+-using Algolia.Search.Models.Settings;
+-
+-namespace ExternalAPIComponent.Callers;
+-
+-public class Request : IRequest
+-{
+-    private readonly SearchClient client;
+-    private readonly SearchIndex index;
+-
+-    public Request(SearchClient client, SearchIndex index)
+-    {
+-        this.client = client;
+-        this.index = index;
+-    }
+-
+-    public void SetParameters(List<string> parameters)
+-    {
+-        var settings = new IndexSettings
+-        {
+-            AttributesToRetrieve = parameters
+-        };
+-
+-        index.SetSettings(settings);
+-    }
+-}
+\ No newline at end of file
+Index: ExternalAPIComponent/Callers/ICaller.cs
+===================================================================
+diff --git a/ExternalAPIComponent/Callers/ICaller.cs b/ExternalAPIComponent/Callers/ICaller.cs
+deleted file mode 100644
+--- a/ExternalAPIComponent/Callers/ICaller.cs	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
++++ /dev/null	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
+@@ -1,6 +0,0 @@
+-namespace ExternalAPIComponent.Callers;
+-
+-public abstract class Caller
+-{
+-    public abstract string Call(IRequestBuilder requestBuilder);
+-}
+\ No newline at end of file
+Index: ExternalAPIComponent/Callers/RequestBuilder.cs
+===================================================================
+diff --git a/ExternalAPIComponent/Callers/RequestBuilder.cs b/ExternalAPIComponent/Callers/RequestBuilder.cs
+deleted file mode 100644
+--- a/ExternalAPIComponent/Callers/RequestBuilder.cs	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
++++ /dev/null	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
+@@ -1,204 +0,0 @@
+-using Algolia.Search.Clients;
+-
+-namespace ExternalAPIComponent.Callers;
+-
+-public class RequestBuilder : IRequestBuilder
+-{
+-    private readonly Request _newRequest;
+-    private readonly List<string> parameters = new();
+-
+-    public RequestBuilder()
+-    {
+-        var credentials = Credentials.Instance;
+-
+-        var client = new SearchClient(
+-            credentials.Keys["Salling-Application"],
+-            credentials.Keys["Salling-Admin"]);
+-
+-        var index = client.InitIndex(credentials.Keys["Salling-IndexName"]);
+-
+-        _newRequest = new Request(client, index);
+-    }
+-
+-    public IRequest Build()
+-    {
+-        _newRequest.SetParameters(parameters);
+-        return _newRequest;
+-    }
+-
+-    public void AddImages()
+-    {
+-        parameters.Add("images");
+-    }
+-
+-    public void AddImageGuids()
+-    {
+-        parameters.Add("imageGUIDs");
+-    }
+-
+-    public void AddProductType()
+-    {
+-        parameters.Add("productType");
+-    }
+-
+-    public void AddStoreData()
+-    {
+-        parameters.Add("storeData");
+-    }
+-
+-    public void AddDescription()
+-    {
+-        parameters.Add("description");
+-    }
+-
+-    public void AddInfos()
+-    {
+-        parameters.Add("infos");
+-    }
+-
+-    public void AddUnits()
+-    {
+-        parameters.Add("units");
+-    }
+-
+-    public void AddUnitsOfMeasure()
+-    {
+-        parameters.Add("unitsOfMeasure");
+-    }
+-
+-    public void AddCountryOfOrigin()
+-    {
+-        parameters.Add("countryOfOrigin");
+-    }
+-
+-    public void AddProperties()
+-    {
+-        parameters.Add("properties");
+-    }
+-
+-    public void AddName()
+-    {
+-        parameters.Add("name");
+-    }
+-
+-    public void AddProductName()
+-    {
+-        parameters.Add("productName");
+-    }
+-
+-    public void AddArticle()
+-    {
+-        parameters.Add("article");
+-    }
+-
+-    public void AddBrand()
+-    {
+-        parameters.Add("brand");
+-    }
+-
+-    public void AddSubBrand()
+-    {
+-        parameters.Add("subBrand");
+-    }
+-
+-    public void AddObjectId()
+-    {
+-        parameters.Add("objectId");
+-    }
+-
+-    public void AddIsInOffer()
+-    {
+-        parameters.Add("isInOffer");
+-    }
+-
+-    public void AddCpOffer()
+-    {
+-        parameters.Add("cpOffer");
+-    }
+-
+-    public void AddCpOfferPrice()
+-    {
+-        parameters.Add("cpOfferPrice");
+-    }
+-
+-    public void AddCpOfferAmount()
+-    {
+-        parameters.Add("cpOfferAmount");
+-    }
+-
+-    public void AddCpOfferId()
+-    {
+-        parameters.Add("cpOfferId");
+-    }
+-
+-    public void AddCpOfferFromDate()
+-    {
+-        parameters.Add("cpOfferFromDate");
+-    }
+-
+-    public void AddCpOfferToDate()
+-    {
+-        parameters.Add("cpOfferToDate");
+-    }
+-
+-    public void AddCpOfferTitle()
+-    {
+-        parameters.Add("cpOfferTitle");
+-    }
+-
+-    public void AddCpDiscount()
+-    {
+-        parameters.Add("cpDiscount");
+-    }
+-
+-    public void AddCpPercentDiscount()
+-    {
+-        parameters.Add("cpPercentDiscount");
+-    }
+-
+-    public void AddCpOriginalPrice()
+-    {
+-        parameters.Add("cpOriginalPrice");
+-    }
+-
+-    public void AddConsumerFacingHierarchy()
+-    {
+-        parameters.Add("consumerFacingHierarchy");
+-    }
+-
+-    public void AddCategories()
+-    {
+-        parameters.Add("categories");
+-    }
+-
+-    public void AddSearchHierarchy()
+-    {
+-        parameters.Add("searchHierchy");
+-        // Typo in the Salling API
+-    }
+-
+-    public void AddPant()
+-    {
+-        parameters.Add("pant");
+-    }
+-
+-    public void AddInStockStore()
+-    {
+-        parameters.Add("inStockStore");
+-    }
+-
+-    public void AddOutStockStore()
+-    {
+-        parameters.Add("outStockStore");
+-    }
+-
+-    public void AddAttributes()
+-    {
+-        parameters.Add("attributes");
+-    }
+-
+-    public void AddDeepestCategoryPath()
+-    {
+-        parameters.Add("deepestCategoryPath");
+-    }
+-}
+\ No newline at end of file
+Index: ExternalAPIComponent/Callers/SallingProductCaller.cs
+===================================================================
+diff --git a/ExternalAPIComponent/Callers/SallingProductCaller.cs b/ExternalAPIComponent/Callers/SallingProductCaller.cs
+deleted file mode 100644
+--- a/ExternalAPIComponent/Callers/SallingProductCaller.cs	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
++++ /dev/null	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
+@@ -1,18 +0,0 @@
+-using Algolia.Search.Clients;
+-
+-namespace ExternalAPIComponent.Callers;
+-
+-public class SallingProductCaller : Caller
+-{
+-    private SearchClient client;
+-
+-    public SallingProductCaller()
+-    {
+-        var client = new SearchClient("YourApplicationID", "YourAdminAPIKey");
+-    }
+-
+-    public override string Call(IRequestBuilder requestBuilder)
+-    {
+-        throw new NotImplementedException();
+-    }
+-}
+\ No newline at end of file
+Index: ExternalAPIComponent/Program.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System.Web;\r\nusing Serilog;\r\n\r\nnamespace ExternalAPIComponent;\r\n\r\ninternal static class Program\r\n{\r\n    public static void Main()\r\n    {\r\n        // Configure logger for start up\r\n        BackendLogger.BuildLogger();\r\n\r\n        try\r\n        {\r\n            //MakeRequest();\r\n            Console.WriteLine(\"Hit ENTER to exit...\");\r\n            Console.ReadLine();\r\n        }\r\n        catch (Exception e)\r\n        {\r\n            Log.Fatal(e, \"Application failed to start\");\r\n        }\r\n        finally\r\n        {\r\n            Log.CloseAndFlush();\r\n        }\r\n    }\r\n\r\n    private static async void MakeRequest()\r\n    {\r\n        var client = new HttpClient();\r\n        var queryString = HttpUtility.ParseQueryString(string.Empty);\r\n\r\n        var credentials = Credentials.Instance;\r\n\r\n        // Request headers\r\n        client.DefaultRequestHeaders.Add(\"Ocp-Apim-Subscription-Key\", credentials.Keys[\"Coop\"]);\r\n\r\n        var uri = \"https://api.cl.coop.dk/assortmentapi/v1/product/1290?\" + queryString;\r\n\r\n        var response = await client.GetAsync(uri);\r\n        response.EnsureSuccessStatusCode();\r\n\r\n        var result = await response.Content.ReadAsStringAsync();\r\n        Console.WriteLine(result);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ExternalAPIComponent/Program.cs b/ExternalAPIComponent/Program.cs
+--- a/ExternalAPIComponent/Program.cs	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
++++ b/ExternalAPIComponent/Program.cs	(date 1648034728154)
+@@ -1,18 +1,29 @@
+-using System.Web;
++using ExternalAPIComponent.Callers.Salling;
+ using Serilog;
+ 
+ namespace ExternalAPIComponent;
+ 
+ internal static class Program
+ {
+-    public static void Main()
++    public static async Task Main()
+     {
+         // Configure logger for start up
+         BackendLogger.BuildLogger();
+ 
+         try
+         {
+-            //MakeRequest();
++            SallingProductCaller caller = new();
++
++            var result = await caller.Call(new SallingRequestBuilder().Build());
++
++            var i = 0;
++            result.ForEach(obj =>
++            {
++                Console.WriteLine();
++                Console.WriteLine($"Product #{++i}");
++                Console.WriteLine(obj.ToString());
++            });
++
+             Console.WriteLine("Hit ENTER to exit...");
+             Console.ReadLine();
+         }
+@@ -25,23 +36,4 @@
+             Log.CloseAndFlush();
+         }
+     }
+-
+-    private static async void MakeRequest()
+-    {
+-        var client = new HttpClient();
+-        var queryString = HttpUtility.ParseQueryString(string.Empty);
+-
+-        var credentials = Credentials.Instance;
+-
+-        // Request headers
+-        client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", credentials.Keys["Coop"]);
+-
+-        var uri = "https://api.cl.coop.dk/assortmentapi/v1/product/1290?" + queryString;
+-
+-        var response = await client.GetAsync(uri);
+-        response.EnsureSuccessStatusCode();
+-
+-        var result = await response.Content.ReadAsStringAsync();
+-        Console.WriteLine(result);
+-    }
+ }
+\ No newline at end of file
+Index: ExternalAPIComponent/Utilities/CredentialManager/Credentials.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using Serilog;\r\n\r\nnamespace ExternalAPIComponent;\r\n\r\n/*\r\n * Singleton patterned class to acquire and store secrets.\r\n *\r\n * Default path: {PROJECT_DIR}/Utilities/api-keys.json\r\n */\r\npublic class Credentials\r\n{\r\n    private readonly string _apiKeyPath = Path.Combine(Directory.GetCurrentDirectory(), \"api-keys.json\");\r\n\r\n    private Credentials()\r\n    {\r\n        try\r\n        {\r\n            Keys = CredentialDeserializer.AcquireCredentials(_apiKeyPath);\r\n            Log.Information(\"Acquired credentials: {@Key}\", Keys);\r\n        }\r\n        catch (Exception e)\r\n        {\r\n            Log.Fatal(e, \"Error in acquiring credentials\");\r\n            throw;\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Every Key is stored within this dictionary.\r\n     */\r\n    public Dictionary<string, string> Keys { get; } = new();\r\n\r\n    public static Credentials Instance { get; } = new();\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ExternalAPIComponent/Utilities/CredentialManager/Credentials.cs b/ExternalAPIComponent/Utilities/CredentialManager/Credentials.cs
+--- a/ExternalAPIComponent/Utilities/CredentialManager/Credentials.cs	(revision 7c8697099399fd3b53734c00270d8d5d206ab862)
++++ b/ExternalAPIComponent/Utilities/CredentialManager/Credentials.cs	(date 1647869262865)
+@@ -9,7 +9,11 @@
+  */
+ public class Credentials
+ {
+-    private readonly string _apiKeyPath = Path.Combine(Directory.GetCurrentDirectory(), "api-keys.json");
++    private readonly string _apiKeyPath = Path.Combine(
++        Directory.GetCurrentDirectory(),
++        "Utilities",
++        "CredentialManager",
++        "api-keys.json");
+ 
+     private Credentials()
+     {

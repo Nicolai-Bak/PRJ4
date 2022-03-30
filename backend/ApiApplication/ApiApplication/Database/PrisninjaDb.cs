@@ -5,7 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiApplication.Database;
 
-public class PrisninjaDb
+public interface IPrisninjaDB
+{
+    List<string> GetAllProductNames();
+}
+
+public class PrisninjaDb : IPrisninjaDB
 {
     private PrisninjaDbContext _context;
 
@@ -19,7 +24,7 @@ public class PrisninjaDb
         return _context.Products.Select(p => p.Name).ToList();
     }
 
-    public List<int> GetStoresInRange(double x, double y, double range)
+    public List<int> GetStoresInRange(double x, double y, int range)
     {
         return _context.Stores
             .Select(s => s)
@@ -38,7 +43,8 @@ public class PrisninjaDb
             .Where(p => p.ProductStores
                 .Select(ps => ps.StoreKey)
                 .Any(psk => storeKeys
-                    .Any(sk => sk == psk)))
+                    .Any(sk => sk == psk)) 
+                        && p.Name.Contains(productName))
             .ToList();
     }
 
