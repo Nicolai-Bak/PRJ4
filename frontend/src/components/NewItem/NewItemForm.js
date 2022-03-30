@@ -25,7 +25,6 @@ const NewItemForm = (props) => {
 
 	const amountChangeHandler = (event) => {
 		const added = event.target.value;
-		console.log(added);
 		added < 0
 			? console.log(`Item amount too small, was: ${added}`)
 			: setAmount(added);
@@ -45,7 +44,6 @@ const NewItemForm = (props) => {
 	};
 
 	const unitChangeHandler = (event) => {
-		console.log(event);
 		setUnit(event);
 	};
 
