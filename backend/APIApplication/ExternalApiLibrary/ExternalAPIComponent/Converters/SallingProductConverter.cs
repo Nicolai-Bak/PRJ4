@@ -34,5 +34,5 @@ public class ConvertedSallingProduct
     public string Brand { get; set; }
     public double Unit { get; set; }
     public string Measurement { get; set; }
-    public Dictionary<string, StoreData>? Stores { get; set; }
+    public Dictionary<int, StoreData>? Stores { get; set; }
 }

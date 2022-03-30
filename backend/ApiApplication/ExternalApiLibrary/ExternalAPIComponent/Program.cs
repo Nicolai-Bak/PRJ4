@@ -1,4 +1,6 @@
 using System.Web;
+using ApiApplication.Database;
+using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
 using ExternalAPIComponent;
 using ExternalAPIComponent.Callers.Interfaces;
@@ -35,7 +37,6 @@ internal static class Program
             convertedProducts.ForEach(x =>
             {
                 ConvertedSallingProduct y = (ConvertedSallingProduct)x;
-                //Product y = (Product)x;
                 Console.WriteLine(y.EAN + "\n" + y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
                 foreach (var keyValuePair in y.Stores!)
                 {
@@ -54,11 +55,37 @@ internal static class Program
             var filteredStores = storeFilter.Filter(stores);
             var convertedStores = storeConverter.Convert(filteredStores);
 
-            convertedStores.ForEach(x =>
+            //convertedStores.ForEach(x =>
+            //{
+            //    Store y = (Store)x;
+            //    Console.WriteLine(y.ID + "\n" + y.Brand + "\n" + y.Address + "\n" + y.Location_X + ", " + y.Location_Y);
+            //    Console.WriteLine();
+            //});
+
+            ////// Insert stores
+            PrisninjaDb db = new PrisninjaDb(new PrisninjaDbContext());
+            convertedStores.ForEach(async store =>
             {
-                Store y = (Store)x;
-                Console.WriteLine(y.ID + "\n" + y.Brand + "\n" + y.Address + "\n" + y.Location_X + ", " + y.Location_Y);
-                Console.WriteLine();
+                await db.InsertStore((Store)store);
+            });
+
+            ///// Insert products
+            convertedProducts.ForEach(convertedProduct =>
+            {
+                ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)convertedProduct;
+                var product = new Product()
+                {
+                    EAN = sallingProduct.EAN,
+                    Name = sallingProduct.Name,
+                    Brand = sallingProduct.Brand,
+                    Unit = sallingProduct.Unit,
+                    Measurement = sallingProduct.Measurement
+                };
+                convertedStores.ForEach(async convertedStore =>
+                {
+                    Store store = (Store)convertedStore;
+                    await db.InsertProduct(product, store.ID, price: sallingProduct.Stores[0].Price);
+                });
             });
 
             Console.WriteLine("Hit ENTER to exit...");
