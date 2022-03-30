@@ -3,7 +3,7 @@ using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
-
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +16,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PrisninjaDbContext>();
 builder.Services.AddScoped<IPrisninjaDB, PrisninjaDb>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        builder =>
+        {
+            builder.WithOrigins()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
