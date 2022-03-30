@@ -8,6 +8,8 @@ namespace ApiApplication.Database;
 public interface IPrisninjaDB
 {
     List<string> GetAllProductNames();
+    Task InsertStore(Store store);
+    Task InsertProduct(Product product, int storeId, double price);
 }
 
 public class PrisninjaDb : IPrisninjaDB

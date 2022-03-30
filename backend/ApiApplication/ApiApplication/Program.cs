@@ -1,9 +1,8 @@
 using ApiApplication.Database;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
+using ApiApplication.HostedServices;
 using Microsoft.EntityFrameworkCore;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PrisninjaDbContext>();
 builder.Services.AddScoped<IPrisninjaDB, PrisninjaDb>();
-
+builder.Services.AddHostedService<FoetexService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

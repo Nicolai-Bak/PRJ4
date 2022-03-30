@@ -1,5 +1,4 @@
-﻿using ApiApplication.Database.Models;
-using ExternalApiLibrary.ExternalAPIComponent.Filters;
+﻿using ExternalApiLibrary.ExternalAPIComponent.Filters;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Converters;
 
@@ -9,7 +8,7 @@ public class SallingStoreConverter : IConverter
     {
         List<FilteredSallingStore> filteredList = list.Cast<FilteredSallingStore>().ToList();
 
-        var stores = filteredList.Select(store => new Store()
+        var stores = filteredList.Select(store => new ConvertedStore()
         {
             ID = store.Id,
             Brand = store.Brand,
@@ -20,4 +19,13 @@ public class SallingStoreConverter : IConverter
 
         return new List<object>(stores);
     }
+}
+
+public class ConvertedStore
+{
+    public int ID { get; set; }
+    public string Brand { get; set; }
+    public double Location_X { get; set; }
+    public double Location_Y { get; set; }
+    public string Address { get; set; }
 }
