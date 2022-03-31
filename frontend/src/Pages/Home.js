@@ -19,16 +19,47 @@ function Home() {
 		}
 	}, [shoppingList]);
 
-	const newItemHandler = (item, amount, unit) => {
-		console.log(
-			`newItemHandler called with item: ${item}, amount: ${amount}, and unit: ${unit}`
+	const ValidateItem = async (name) => {
+		const request = await fetch(
+			"https://prisninjawebapi.azurewebsites.net/names/",
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
 		);
+		const response = await request.json();
+		console.log(response);
+		let matchFound = false;
+		response.filter((item) => {
+			if (item.includes(name)) {
+				console.log("match found");
+				matchFound = true;
+			}
+			return false;
+		});
+		if (matchFound) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	const newItemHandler = async (name, amount, unit) => {
+		console.log(
+			`newItemHandler called with item: ${name}, amount: ${amount}, and unit: ${unit}`
+		);
+		if (!(await ValidateItem(name))) {
+			console.log("item not found in database");
+			return;
+		}
 
 		setShoppingList((prevShoppingList) => {
 			return [
 				...prevShoppingList,
 				{
-					name: item,
+					name: name,
 					amount: amount,
 					unit: unit,
 					id: Math.random() * 12, //<---- id needs to be changed
@@ -91,9 +122,6 @@ function Home() {
 		console.log(
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
 		);
-		// send amount, name, unit to search function
-		// search function should return a list of items that matches the search
-		// if no items are found, return an empty list
 
 		const searchList = shoppingList.map((item) => item.name);
 		console.log("searchlist: " + JSON.stringify(searchList));
@@ -108,25 +136,12 @@ function Home() {
 				},
 				body: JSON.stringify({ productNames: searchList }),
 			}
-			// ); // is blocked by CORS
 		);
 		console.log("request received: " + request);
-		// const getter = await fetch(
-		// 	"https://prisninjawebapi.azurewebsites.net/names/",
-		// 	{
-		// 		method: "GET",
-		// 		headers: {
-		// 			Accept: "application/json",
-		// 			"Content-Type": "application/json",
-		// 		},
-		// 	}
-		// );
 
 		const data = await request.json();
 		console.log("Data received from database: " + JSON.stringify(data));
 	};
-
-	// return list of items?
 
 	return (
 		<div className="home">
