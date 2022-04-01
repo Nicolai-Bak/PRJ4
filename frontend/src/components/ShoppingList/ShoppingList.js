@@ -3,18 +3,18 @@ import SearchButton from "./SearchButton";
 import ListItem from "./ShoppingListItem/ListItem";
 
 const ShoppingList = (props) => {
-	const removeItemHandler = (id) => {
-		console.log(`removeItemHandler called with id: ${id}`);
-		props.onRemoveItem(id);
+	const removeItemHandler = (id, name) => {
+		// console.log(`removeItemHandler called with id: ${id}`);
+		props.onRemoveItem(id, name);
 	};
 
 	const decreaseAmountHandler = (id) => {
-		console.log(`decreaseAmountHandler called with id: ${id}`);
+		// console.log(`decreaseAmountHandler called with id: ${id}`);
 		const change = -1;
 		props.onAmountChanged(id, change);
 	};
 	const increaseAmountHandler = (id) => {
-		console.log(`increaseAmountHandler called with id: ${id}`);
+		// console.log(`increaseAmountHandler called with id: ${id}`);
 		const change = 1;
 		props.onAmountChanged(id, change);
 	};
