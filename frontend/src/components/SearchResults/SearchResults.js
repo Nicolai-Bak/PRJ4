@@ -19,39 +19,36 @@ const SearchResults = () => {
 
 const GetShoppingOptions = () => {
 	const options = JSON.parse(localStorage.getItem("SearchResults"));
-	console.log(options);
+	// console.log(options);
+	let cheapest = null;
+	let best = null;
+	let nearest = null;
 
-	// iterate over options object and save all non null attributes to new object
-	const newOptions = {};
-	for (const key in options) {
-		if (options[key] !== null) {
-			newOptions[key] = options[key];
-		}
-	}
-
-	console.log(newOptions);
-		const cheapest = {
+	if (options.cheapest !== null) {
+		cheapest = {
 			StoreName: options.cheapest.storeName,
 			TotalPrice: options.cheapest.totalPrice,
 			TotalDistance: options.cheapest.totalDistance,
 			Products: options.cheapest.products,
 		};
-
-	if (Object.keys(options.best).length !== 0) {
-		const best = {
-			StoreName: options.Best.StoreName,
-			TotalPrice: options.Best.TotalPrice,
-			TotalDistance: options.Best.TotalDistance,
-			Products: options.Best.Products,
-		};
 	}
 
-	if (options.nearest != null) {
-		const Nearest = {
-			StoreName: options.Nearest.StoreName,
-			TotalPrice: options.Nearest.TotalPrice,
-			TotalDistance: options.Nearest.TotalDistance,
-			Products: options.Nearest.Products,
+	if (options.best !== null) {
+		best = {
+			StoreName: options.best.StoreName,
+			TotalPrice: options.best.TotalPrice,
+			TotalDistance: options.best.TotalDistance,
+			Products: options.best.Products,
+		};
+		return;
+	}
+
+	if (options.nearest !== null) {
+		nearest = {
+			StoreName: options.nNearest.StoreName,
+			TotalPrice: options.nearest.TotalPrice,
+			TotalDistance: options.nearest.TotalDistance,
+			Products: options.nearest.Products,
 		};
 	}
 
