@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Jv09EQjotpFFM76mg2iyr6uo7dwJH5pI7bgNDaHGGk9HNvhyXq6ECiWLahrKzWHvQ0YK3Q+XTrhHZyxCpMtHoA==",
+  "dgSpecHash": "7FPNYaYz8D2FC+LWK7gD01rhslc3OmznX7XAreJPQz7kBsdT4BDHAGe+yiHsHVjsCIgxwojSVhrfnceNgZMHGA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj",
+  "projectFilePath": "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lukas\\.nuget\\packages\\algolia.search\\6.12.1\\algolia.search.6.12.1.nupkg.sha512",
     "C:\\Users\\lukas\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",

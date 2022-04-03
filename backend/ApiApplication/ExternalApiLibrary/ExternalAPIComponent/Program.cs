@@ -90,6 +90,7 @@ internal static class Program
                     await db.InsertProduct(product, store.ID, price: sallingProduct.Stores[0].Price);
                 });
             });
+            //PrintSallingProductSample();
 
             Console.WriteLine("Hit ENTER to exit...");
             Console.ReadLine();

@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj": {}
+    "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj": {
+    "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj",
+        "projectUniqueName": "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj",
         "projectName": "ApiApplication",
-        "projectPath": "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj",
+        "projectPath": "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj",
         "packagesPath": "C:\\Users\\lukas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\obj\\",
+        "outputPath": "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\lukas\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\lukas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -95,40 +89,34 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\lukas\\.dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj": {
+    "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj",
         "projectName": "ExternalApiLibrary",
-        "projectPath": "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj",
+        "projectPath": "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\ExternalApiLibrary.csproj",
         "packagesPath": "C:\\Users\\lukas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\obj\\",
+        "outputPath": "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ExternalApiLibrary\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\lukas\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\lukas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj": {
-                "projectPath": "C:\\Users\\lukas\\OneDrive - Aarhus Universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj"
+              "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj": {
+                "projectPath": "C:\\Users\\lukas\\OneDrive - Aarhus universitet\\4. Semester\\PRJ\\PRJ4\\backend\\APIApplication\\ApiApplication\\ApiApplication.csproj"
               }
             }
           }
@@ -214,7 +202,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\lukas\\.dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
