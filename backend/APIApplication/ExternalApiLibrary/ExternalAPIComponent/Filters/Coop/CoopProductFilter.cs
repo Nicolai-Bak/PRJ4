@@ -10,8 +10,8 @@ public class CoopProductFilter : IFilter
         
         o.ForEach(response =>
         {
-            var deserializedRoot = JsonConvert.DeserializeObject<FilteredCoopProduct>((string) response);
-            if (deserializedRoot != null) result.Add(deserializedRoot);
+            var deserializedRoot = JsonConvert.DeserializeObject<Root>((string) response);
+            if (deserializedRoot != null) result.Add(deserializedRoot.products);
         });
         
         return result;
@@ -59,7 +59,7 @@ public class SalesPrice
     public string major { get; set; }
 }
 
-public class Product
+public class FilteredCoopProduct
 {
     public string id { get; set; }
     public string displayName { get; set; }
@@ -76,7 +76,7 @@ public class Product
     public object contentsText { get; set; }
 }
 
-public class FilteredCoopProduct
+public class Root
 {
-    public List<Product> products { get; set; }
+    public List<FilteredCoopProduct> products { get; set; }
 }
