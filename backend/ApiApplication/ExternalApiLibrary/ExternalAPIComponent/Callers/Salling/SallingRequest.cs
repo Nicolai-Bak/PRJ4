@@ -22,9 +22,9 @@ public class Request : IRequest
      * Number of products to receive per request
      * Maximum products per request is 1000
      */
-    private int _pageSize { get; } = 1;
+    private int _pageSize { get; } = 1000;
 
-    private int _maxPages { get; } = 10;
+    private int _maxPages { get; } = 1000;
     private int _page { get; set; }
 
     public async Task<object> CallPage()
