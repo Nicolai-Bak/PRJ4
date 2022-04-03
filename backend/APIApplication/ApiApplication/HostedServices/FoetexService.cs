@@ -72,6 +72,12 @@ namespace ApiApplication.HostedServices
             var filteredStores = storeFilter.Filter(stores);
             var convertedStores = storeConverter.Convert(filteredStores);
 
+            var foetexStores = convertedStores.Where(store =>
+            {
+                ConvertedSallingStore sallingStore = (ConvertedSallingStore) store;
+                return sallingStore.Brand == "foetex";
+            });
+
             ////// Insert stores
             //foreach (var s in convertedStores )
             //{
@@ -99,22 +105,25 @@ namespace ApiApplication.HostedServices
                     Unit = sallingProduct.Unit,
                     Measurement = sallingProduct.Measurement
                 };
-                foreach (var s in convertedStores)
+                //foreach (var s in convertedStores)
+                foreach (var s in foetexStores)
                 {
-                    ConvertedSallingStore sallingStore = (ConvertedSallingStore)s;
+                    ConvertedSallingStore foetexStore = (ConvertedSallingStore)s;
                     var store = new Store()
                     {
-                        ID = sallingStore.ID,
-                        Brand = sallingStore.Brand,
-                        Location_X = sallingStore.Location_X,
-                        Location_Y = sallingStore.Location_Y,
-                        Address = sallingStore.Address,
+                        ID = foetexStore.ID,
+                        Brand = foetexStore.Brand,
+                        Location_X = foetexStore.Location_X,
+                        Location_Y = foetexStore.Location_Y,
+                        Address = foetexStore.Address,
                     };
 
-                    if (store.Brand == "foetex")
-                    {
-                        await _db.InsertProduct(product, store.ID, sallingProduct.Stores.First().Value.Price);
-                    }
+                    //if (store.Brand == "foetex")
+                    //{
+                    //    await _db.InsertProduct(product, store.ID, sallingProduct.Stores.First().Value.Price);
+                    //}
+
+                    await _db.InsertProduct(product, store.ID, sallingProduct.Stores.First().Value.Price);
                 }
             }
         }
