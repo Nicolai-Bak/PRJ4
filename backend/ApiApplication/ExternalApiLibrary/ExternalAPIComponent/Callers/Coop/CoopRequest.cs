@@ -24,7 +24,7 @@ public class CoopRequest : IRequest
     public CoopRequest(string baseUrl)
     {
         _baseUrl = baseUrl;
-        _pageSize = 1;
+        _pageSize = 10;
     }
     
     public async Task<object> CallPage()

@@ -149,7 +149,6 @@ C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApp
 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\ApiApplication.runtimeconfig.json
 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\ApiApplication.exe
-C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\ref\ExternalApiLibrary.dll
 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\Azure.Identity.dll
 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -202,3 +201,4 @@ C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApp
 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\ApiApplication.dll
 C:\Users\lukas\OneDrive - Aarhus Universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\bin\Debug\net6.0\ApiApplication.pdb
+C:\Users\lukas\OneDrive - Aarhus universitet\4. Semester\PRJ\PRJ4\backend\APIApplication\ExternalApiLibrary\obj\Debug\net6.0\refint\ExternalApiLibrary.dll

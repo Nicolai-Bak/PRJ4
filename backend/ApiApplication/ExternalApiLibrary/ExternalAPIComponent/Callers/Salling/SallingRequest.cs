@@ -20,7 +20,7 @@ public class SallingRequest : IRequest
      * Maximum products per request is 1000
      * Set to 1 to receive 1 product per page
      */
-    private int _pageSize;
+    private int _pageSize = 1000;
     
     /**
      * Limits the amount of pages read
@@ -29,7 +29,7 @@ public class SallingRequest : IRequest
      * as this value increases the number
      * of calls made to the API.
      */
-    private int _maxPages { get; set; } = 10;
+    private int _maxPages { get; set; } = 2;
     private int _pageIndex { get; set; }
 
     public List<string> Parameters = new();
@@ -37,10 +37,9 @@ public class SallingRequest : IRequest
     public SallingRequest(SearchIndex index)
     {
         _index = index;
-        _pageSize = 1; // Receive products individually
     }
     
-    public async Task<object> CallPage()
+    public async Task<List<object>> CallPage()
     {
         var response = await _index.SearchAsync<object>(new Query("")
         {
@@ -48,18 +47,17 @@ public class SallingRequest : IRequest
             HitsPerPage = _pageSize,
             Page = _pageIndex
         });
-
         
         // Only uncomment the line below if every product needs to be called for
-        /* if (response.NbPages != _maxPages) _maxPages = response.NbPages; */
+        // if (response.NbPages != _maxPages) _maxPages = response.NbPages;
 
-        return response.Hits[0];
+        return response.Hits;
     }
 
     public async Task<List<object>> CallAll()
     {
         List<object> responses = new();
-
+        
         do
         {
             responses.Add(await CallPage());
