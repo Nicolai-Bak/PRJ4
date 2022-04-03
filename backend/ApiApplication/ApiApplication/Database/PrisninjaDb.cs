@@ -8,6 +8,8 @@ namespace ApiApplication.Database;
 public interface IPrisninjaDB
 {
     List<string> GetAllProductNames();
+    Task InsertStore(Store store);
+    Task InsertProduct(Product product, int storeId, double price);
 }
 
 public class PrisninjaDb : IPrisninjaDB
@@ -43,7 +45,7 @@ public class PrisninjaDb : IPrisninjaDB
             .Where(p => p.ProductStores
                 .Select(ps => ps.StoreKey)
                 .Any(psk => storeKeys
-                    .Any(sk => sk == psk)) 
+                    .Any(sk => sk == psk))
                         && p.Name.Contains(productName))
             .ToList();
     }
@@ -90,19 +92,24 @@ public class PrisninjaDb : IPrisninjaDB
             }
         }
 
-        _context.Add(new ProductStore() {ProductKey = product.EAN, StoreKey = storeId, Price = price});
+        var productStore = new ProductStore() { ProductKey = product.EAN, StoreKey = storeId, Price = price };
 
-        await _context.Database.OpenConnectionAsync();
-        try
+        if (!_context.ProductStores.Contains(productStore))
         {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateException ex)
-        {
-        }
-        finally
-        {
-            await _context.Database.CloseConnectionAsync();
+            _context.Add(productStore);
+
+            await _context.Database.OpenConnectionAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+            }
+            finally
+            {
+                await _context.Database.CloseConnectionAsync();
+            }
         }
     }
 }

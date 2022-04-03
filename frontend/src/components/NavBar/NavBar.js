@@ -11,7 +11,7 @@ function NavBar() {
                 PRISNINJA
             </div>
             <div className='rightSide__container'>
-                <div className='navbarLinks'>Kontakt Os</div>
+                <div className='navbarLinks'>Kontakt os</div>
                 <div className='navbarLinks' onClick={() => navigate("/About")}>Hvem er vi?</div>
                 <img id="shopping__cart" src="/images/shopping-cart.svg"/>
             </div>

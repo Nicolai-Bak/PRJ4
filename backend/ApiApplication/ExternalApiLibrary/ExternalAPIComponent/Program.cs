@@ -1,7 +1,7 @@
 using System.Web;
-using ApiApplication.Database;
-using ApiApplication.Database.Data;
-using ApiApplication.Database.Models;
+//using ApiApplication.Database;
+//using ApiApplication.Database.Data;
+//using ApiApplication.Database.Models;
 using ExternalAPIComponent;
 using ExternalAPIComponent.Callers.Coop;
 using ExternalAPIComponent.Callers.Interfaces;
@@ -14,10 +14,11 @@ using Serilog;
 
 namespace ExternalApiLibrary.ExternalAPIComponent;
 
-internal static class Program
+public static class Program
 {
     public static async Task Main()
     {
+        /*
         // Configure logger for start up
         BackendLogger.BuildLogger();
 
@@ -37,16 +38,16 @@ internal static class Program
             var filteredProducts = productFilter.Filter(products);
             var convertedProducts = productConverter.Convert(filteredProducts);
 
-            convertedProducts.ForEach(x =>
-            {
-                ConvertedSallingProduct y = (ConvertedSallingProduct)x;
-                Console.WriteLine(y.EAN + "\n" + y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
-                foreach (var keyValuePair in y.Stores!)
-                {
-                    Console.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.Price);
-                }
-                Console.WriteLine();
-            });
+            //convertedProducts.ForEach(x =>
+            //{
+            //    ConvertedSallingProduct y = (ConvertedSallingProduct)x;
+            //    Console.WriteLine(y.EAN + "\n" + y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
+            //    foreach (var keyValuePair in y.Stores!)
+            //    {
+            //        Console.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.Price);
+            //    }
+            //    Console.WriteLine();
+            //});
 
 
             ///// Stores - Salling
@@ -87,7 +88,10 @@ internal static class Program
                 convertedStores.ForEach(async convertedStore =>
                 {
                     Store store = (Store)convertedStore;
-                    await db.InsertProduct(product, store.ID, price: sallingProduct.Stores[0].Price);
+                    if (store.Brand == "foetex")
+                    {
+                        await db.InsertProduct(product, store.ID, price: sallingProduct.Stores[0].Price);
+                    }
                 });
             });
             //PrintSallingProductSample();
@@ -103,6 +107,7 @@ internal static class Program
         {
             Log.CloseAndFlush();
         }
+        */
     }
 
     private static async void PrintCoopProductSample()

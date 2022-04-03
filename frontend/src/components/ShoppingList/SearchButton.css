@@ -1,13 +1,13 @@
 
 
-.search-button {
+.searchButton {
     margin: auto;
     width: 150px;
     height:30px;
     padding-top: 40px;
 }
 
-button {
+#search-button {
     max-width: 10em;
 	width: 255px;
 	height: 34px;
@@ -20,7 +20,7 @@ button {
 	cursor: pointer;
 }
 
-button:hover {
-    background-color: var(--default-white);
+#search-button:hover {
+    background-color: var(--secondary-color-shadow);
     transition: all 0.2s ease-in-out 0.1s;
 }

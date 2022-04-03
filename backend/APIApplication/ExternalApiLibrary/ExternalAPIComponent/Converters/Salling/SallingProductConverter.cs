@@ -1,7 +1,4 @@
-﻿using ApiApplication;
-using ApiApplication.Database.Data;
-using ApiApplication.Database.Models;
-using ExternalApiLibrary.ExternalAPIComponent.Filters;
+﻿using ExternalApiLibrary.ExternalAPIComponent.Filters;
 
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Converters;

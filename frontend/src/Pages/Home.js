@@ -1,11 +1,23 @@
 import "./Home.css";
-import ShoppingList from "../components/ShoppingList/ShoppingList"
+import ShoppingList from "../components/ShoppingList/ShoppingList";
 import NewItemForm from "../components/NewItem/NewItemForm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Home() {
-	
-	const [shoppingList, setShoppingList] = useState([]);
+	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
+		? JSON.parse(localStorage.getItem("shoppingList"))
+		: [];
+
+	const [shoppingList, setShoppingList] = useState(initialShoppingList);
+
+	useEffect(() => {
+		if (localStorage.hasOwnProperty("shoppingList")) {
+			console.log(
+				"A change has been made to shoppingList, updating localStorage"
+			);
+			localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+		}
+	}, [shoppingList]);
 
 	const newItemHandler = (item, amount, unit) => {
 		console.log(
@@ -19,49 +31,127 @@ function Home() {
 					name: item,
 					amount: amount,
 					unit: unit,
-					id: Math.random().toString(), //<---- id needs to be changed
+					id: Math.random() * 12, //<---- id needs to be changed
+					key: Math.random() * 21,
 				},
 			];
 		});
+
+		localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+		console.log(
+			"Local Storage now contains: " + localStorage.getItem("shoppingList")
+		);
 	};
 
-	
-	const removeItemHandler = (id) => {
-		console.log(`removeItemHandler called with id: ${id}`);
+	const removeItemHandler = (id, name) => {
+		console.log(`removeItemHandler called with id: ${id} and name: ${name}`);
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.filter((item) => item.id !== id);
 		});
 	};
 
+	const decimalController = (amount, change) => {
+		amount = +amount;
+
+		if (amount % 1 === 0) {
+			return amount + change;
+		}
+		if (amount < 1) {
+			return Number(+amount.toFixed(2) + change * 0.01).toFixed(2);
+		}
+		if (amount == amount.toFixed(1)) {
+			console.log("1 decimal");
+			return Number(+amount.toFixed(1) + +change / 10).toFixed(1);
+		}
+		return Number(amount + change / 100).toFixed(2);
+	};
+
 	const changeAmountHandler = (id, change) => {
-		console.log(`changeAmountHandler called with id: ${id} and change: ${change}`);
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
-				if (item.id === id) {
-					let oldAmount = +item.amount;
+				if (item.id !== id || item.amount + change < 0) return item; //change can be positive or negative
+				let oldAmount = +item.amount;
+
+				if (item.unit !== "stk" && Math.round(item.amount) !== item.amount) {
 					return {
 						...item,
-						amount: (oldAmount + change).toFixed(2),
+						amount: decimalController(oldAmount, +change),
 					};
-				} else return item;
+				} else {
+					return {
+						...item,
+						amount: decimalController(oldAmount, +change),
+					};
+				}
 			});
 		});
 	};
+
+	const searchHandler = async () => {
+		console.log(
+			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
+		);
+		// send amount, name, unit to search function
+		// search function should return a list of items that matches the search
+		// if no items are found, return an empty list
+
+		const searchList = shoppingList.map((item) => item.name);
+		console.log("searchlist: " + JSON.stringify(searchList));
+
+		const request = await fetch(
+			"https://prisninjawebapi.azurewebsites.net/options/",
+			{
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ productNames: searchList }),
+			}
+			// ); // is blocked by CORS
+		);
+		console.log("request received: " + request);
+		// const getter = await fetch(
+		// 	"https://prisninjawebapi.azurewebsites.net/names/",
+		// 	{
+		// 		method: "GET",
+		// 		headers: {
+		// 			Accept: "application/json",
+		// 			"Content-Type": "application/json",
+		// 		},
+		// 	}
+		// );
+
+		const data = await request.json();
+		console.log("Data received from database: " + JSON.stringify(data));
+	};
+
+	// return list of items?
+
 	return (
 		<div className="home">
 			<div className="slogan__container">
-			<div className="slogan">
-				<img id="ninja-landing" src="/images/ninja-landing.svg"/>
-				<i>Find tilbuddene, før din nabo gør det!</i>
-				<img id="ninja-rightside" src="/images/ninja-about.svg"/>
+				<div className="slogan">
+					<img
+						id="ninja-landing"
+						src="/images/ninja-landing.svg"
+						alt="ninja-landing"
+					/>
+					<i>Find tilbuddene, før din nabo gør det!</i>
+					<img
+						id="ninja-rightside"
+						src="/images/ninja-about.svg"
+						alt="ninja-rightside"
+					/>
+				</div>
 			</div>
-			</div>
-			<NewItemForm onItemAdded={newItemHandler} 
-			/>
-			<ShoppingList items={shoppingList}
+			<NewItemForm onItemAdded={newItemHandler} />
+			<ShoppingList
+				items={shoppingList}
+				onSearch={searchHandler}
 				onRemoveItem={removeItemHandler}
 				onAmountChanged={changeAmountHandler}
-	  />
+			/>
 		</div>
 	);
 }

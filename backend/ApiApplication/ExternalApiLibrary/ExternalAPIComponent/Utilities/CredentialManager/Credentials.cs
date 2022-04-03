@@ -11,7 +11,8 @@ namespace ExternalApiLibrary.ExternalAPIComponent.Utilities.CredentialManager;
 public class Credentials
 {
     private readonly string _apiKeyPath = Path.Combine(
-        Path.GetFullPath(@"..\..\..\"),
+        Path.GetFullPath(@"..\"),
+        "ExternalApiLibrary",
         "ExternalAPIComponent",
         "Utilities",
         "CredentialManager",
