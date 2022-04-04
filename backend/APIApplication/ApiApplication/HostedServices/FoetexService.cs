@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices.ComTypes;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices.ComTypes;
 using ApiApplication.Database;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
@@ -17,7 +18,6 @@ namespace ApiApplication.HostedServices
 
         public FoetexService(IServiceProvider sp)
         {
-
             _db = sp.CreateScope().ServiceProvider.GetRequiredService<IPrisninjaDB>();
         }
 
@@ -52,9 +52,9 @@ namespace ApiApplication.HostedServices
             SallingProductCaller productCaller = new();
             SallingRequestBuilder builder = new SallingRequestBuilder();
             builder.AddInfos()
-                    .AddUnits()
-                    .AddUnitsOfMeasure()
-                    .AddStoreData();
+                .AddUnits()
+                .AddUnitsOfMeasure()
+                .AddStoreData();
 
             var products = await productCaller.Call(builder.Build());
 
@@ -74,58 +74,67 @@ namespace ApiApplication.HostedServices
 
             var foetexStores = convertedStores.Where(store =>
             {
-                ConvertedSallingStore sallingStore = (ConvertedSallingStore)store;
+                ConvertedSallingStore sallingStore = (ConvertedSallingStore) store;
                 return sallingStore.Brand == "foetex";
             }).ToList();
 
             //// Insert stores
-            //foreach (var s in convertedStores)
+            Console.WriteLine("Inserting stores - " + DateTime.Now);
+            var storeList = new List<Store>();
             convertedStores.ForEach(s =>
             {
-                ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
-                Store store = new Store()
+                ConvertedSallingStore convertedStore = (ConvertedSallingStore) s;
+                storeList.Add(new Store()
                 {
                     ID = convertedStore.ID,
                     Brand = convertedStore.Brand,
                     Location_X = convertedStore.Location_X,
                     Location_Y = convertedStore.Location_Y,
                     Address = convertedStore.Address
-                };
-                _db.InsertStore(store);
+                });
             });
-            await _db.SaveChangesStores();
-
+            Console.WriteLine("Bulk insert - " + DateTime.Now);
+            _db.InsertStores(storeList);
+            
             ///// Insert products
-            //foreach (var p in convertedProducts)
+            Console.WriteLine("Inserting Products - " + DateTime.Now);
+            var productList = new List<Product>();
             convertedProducts.ForEach(p =>
             {
-                ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
-                var product = new Product()
+                ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct) p;
+                productList.Add(new Product()
                 {
                     EAN = sallingProduct.EAN,
                     Name = sallingProduct.Name,
                     Brand = sallingProduct.Brand,
                     Unit = sallingProduct.Unit,
                     Measurement = sallingProduct.Measurement
-                };
-                //foreach (var s in convertedStores)
-                //foreach (var s in foetexStores)
-                foetexStores.ForEach(s =>
-                {
-                    ConvertedSallingStore foetexStore = (ConvertedSallingStore)s;
-                    var store = new Store()
-                    {
-                        ID = foetexStore.ID,
-                        Brand = foetexStore.Brand,
-                        Location_X = foetexStore.Location_X,
-                        Location_Y = foetexStore.Location_Y,
-                        Address = foetexStore.Address,
-                    };
-                    _db.InsertProduct(product, store.ID, sallingProduct.Stores.First().Value.Price);
                 });
             });
-
-            await _db.SaveChangesProducts();
+            Console.WriteLine("Bulk insert - " + DateTime.Now);
+            _db.InsertProducts(productList);
+            
+            ///// Insert productStores
+            Console.WriteLine("Inserting ProductStores - " + DateTime.Now);
+            var productStoreList = new List<ProductStore>();
+            convertedProducts.ForEach(p =>
+            {
+                ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct) p;
+                convertedStores.ForEach(s =>
+                {
+                    ConvertedSallingStore convertedStore = (ConvertedSallingStore) s;
+                    productStoreList.Add(new ProductStore()
+                    {
+                        ProductKey = sallingProduct.EAN,
+                        StoreKey = convertedStore.ID,
+                        Price = sallingProduct.Stores.First().Value.Price
+                    });
+                });
+            });
+            Console.WriteLine("Bulk insert - " + DateTime.Now);
+            _db.InsertProductStores(productStoreList);
+            
+            Console.WriteLine("DONE! - " + DateTime.Now);
         }
     }
 }
