@@ -9,18 +9,36 @@ const NewItemForm = (props) => {
 	const id = Math.random() * 21;
 	let key = 0.001;
 
-	
+	useEffect(() => {
+		async function fetchItems() {
+			const request = await fetch(
+				"https://prisninjawebapi.azurewebsites.net/names/",
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
 
+			localStorage.setItem("itemNames", JSON.stringify(await request.json()));
 
-	const submitItemHandler = (event, key) => {
+			const response = await JSON.parse(localStorage.getItem("itemNames"));
+			console.log(response);
+		}
+
+		fetchItems();
+	}, []);
+
+	const submitItemHandler = (event) => {
 		event.preventDefault();
-		console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
+		// console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
 
 		if (validInput(newItem, amount)) {
-			props.onItemAdded(newItem, amount, unit, id);
+			props.onItemAdded(newItem, amount, unit, id, key);
 		} else return;
-		
-		key += 0.001;
+
+		key++;
 		setNewItem("");
 		setAmount("");
 	};
@@ -68,7 +86,7 @@ const NewItemForm = (props) => {
 					placeholder="Tilføj varer her"
 				></input>
 			</div>
-			<UnitBox onUnitSelected={unitChangeHandler}/>
+			<UnitBox onUnitSelected={unitChangeHandler} />
 			<input
 				type="number"
 				step="0.01"

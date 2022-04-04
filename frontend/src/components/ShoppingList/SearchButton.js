@@ -7,7 +7,6 @@ function SearchButton(props) {
 	const searchHandler = (event) => {
 		console.log("searching...");
 		props.onSearch();
-		// navigate("/SearchResults");
 	};
 
 	return (

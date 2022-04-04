@@ -40,7 +40,7 @@ function Home() {
 					amount: amount,
 					unit: unit,
 					id: id, //<---- id needs to be changed to something unique
-					key: Math.random() * 21,
+					key: key
 				},
 			];
 		});
