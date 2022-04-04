@@ -23,11 +23,11 @@ namespace ApiApplication.Migrations
 
             modelBuilder.Entity("ApiApplication.Database.Models.Product", b =>
                 {
-                    b.Property<int>("EAN")
+                    b.Property<long>("EAN")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EAN"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("EAN"), 1L, 1);
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -51,8 +51,8 @@ namespace ApiApplication.Migrations
 
             modelBuilder.Entity("ApiApplication.Database.Models.ProductStore", b =>
                 {
-                    b.Property<int>("ProductKey")
-                        .HasColumnType("int");
+                    b.Property<long>("ProductKey")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("StoreKey")
                         .HasColumnType("int");
@@ -79,8 +79,9 @@ namespace ApiApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Brand")
-                        .HasColumnType("int");
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Location_X")
                         .HasColumnType("float");
