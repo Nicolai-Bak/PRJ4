@@ -21,7 +21,7 @@ const ListItem = (props) => {
 					<button onClick={() => props.onDecreaseAmount(props.id)}>-</button>
 					<button onClick={() => props.onIncreaseAmount(props.id)}>+</button>
 				</span>
-				<button className="remove-button" onClick={() => props.onRemoveItem(props.id)}>Slet</button>
+				<button className="remove-button" onClick={() => props.onRemoveItem(props.id, props.name)}>Slet</button>
 			</span>
 		</div>
 	);

@@ -14,7 +14,7 @@ namespace ApiApplication.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    EAN = table.Column<int>(type: "int", nullable: false)
+                    EAN = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -32,7 +32,7 @@ namespace ApiApplication.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Brand = table.Column<int>(type: "int", nullable: false),
+                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location_X = table.Column<double>(type: "float", nullable: false),
                     Location_Y = table.Column<double>(type: "float", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -46,7 +46,7 @@ namespace ApiApplication.Migrations
                 name: "ProductStores",
                 columns: table => new
                 {
-                    ProductKey = table.Column<int>(type: "int", nullable: false),
+                    ProductKey = table.Column<long>(type: "bigint", nullable: false),
                     StoreKey = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false)
                 },

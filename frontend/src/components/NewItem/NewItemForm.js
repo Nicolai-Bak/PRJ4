@@ -6,15 +6,18 @@ const NewItemForm = (props) => {
 	const [newItem, setNewItem] = useState("");
 	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
+	const id = Math.random() * 21;
+	let key = 0.001;
 
 	const submitItemHandler = (event) => {
 		event.preventDefault();
 		console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
 
 		if (validInput(newItem, amount)) {
-			props.onItemAdded(newItem, amount, unit);
+			props.onItemAdded(newItem, amount, unit, id, key);
 		} else return;
-
+		
+		key += 0.001;
 		setNewItem("");
 		setAmount("");
 	};
@@ -76,6 +79,7 @@ const NewItemForm = (props) => {
 				Tilføj Vare
 			</button>
 			<br></br>
+			{/* ^^lol what: */}
 		</form>
 	);
 };
