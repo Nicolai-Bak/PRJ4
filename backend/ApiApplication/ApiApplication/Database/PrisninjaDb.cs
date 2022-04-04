@@ -75,21 +75,6 @@ public class PrisninjaDb : IPrisninjaDB
         if (!_context.Products.Contains(product))
         {
             _context.Add(product);
-
-            await _context.Database.OpenConnectionAsync();
-            try
-            {
-                await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products ON");
-                await _context.SaveChangesAsync();
-                await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products OFF");
-            }
-            catch (DbUpdateException ex)
-            {
-            }
-            finally
-            {
-                await _context.Database.CloseConnectionAsync();
-            }
         }
 
         var productStore = new ProductStore() { ProductKey = product.EAN, StoreKey = storeId, Price = price };
@@ -97,19 +82,24 @@ public class PrisninjaDb : IPrisninjaDB
         if (!_context.ProductStores.Contains(productStore))
         {
             _context.Add(productStore);
+        }
+    }
 
-            await _context.Database.OpenConnectionAsync();
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex)
-            {
-            }
-            finally
-            {
-                await _context.Database.CloseConnectionAsync();
-            }
+    public async void SaveChanges()
+    {
+        await _context.Database.OpenConnectionAsync();
+        try
+        {
+            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products ON");
+            await _context.SaveChangesAsync();
+            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products OFF");
+        }
+        catch (DbUpdateException ex)
+        {
+        }
+        finally
+        {
+            await _context.Database.CloseConnectionAsync();
         }
     }
 }
