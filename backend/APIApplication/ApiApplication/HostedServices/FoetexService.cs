@@ -74,27 +74,30 @@ namespace ApiApplication.HostedServices
 
             var foetexStores = convertedStores.Where(store =>
             {
-                ConvertedSallingStore sallingStore = (ConvertedSallingStore) store;
+                ConvertedSallingStore sallingStore = (ConvertedSallingStore)store;
                 return sallingStore.Brand == "foetex";
-            });
+            }).ToList();
 
-            ////// Insert stores
-            //foreach (var s in convertedStores )
-            //{
-            //    ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
-            //    Store store = new Store()
-            //    {
-            //        ID = convertedStore.ID,
-            //        Brand = convertedStore.Brand,
-            //        Location_X = convertedStore.Location_X,
-            //        Location_Y = convertedStore.Location_Y,
-            //        Address = convertedStore.Address
-            //    };
-            //    await _db.InsertStore(store);
-            //}
+            //// Insert stores
+            //foreach (var s in convertedStores)
+            convertedStores.ForEach(s =>
+            {
+                ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
+                Store store = new Store()
+                {
+                    ID = convertedStore.ID,
+                    Brand = convertedStore.Brand,
+                    Location_X = convertedStore.Location_X,
+                    Location_Y = convertedStore.Location_Y,
+                    Address = convertedStore.Address
+                };
+                _db.InsertStore(store);
+            });
+            await _db.SaveChangesStores();
 
             ///// Insert products
-            foreach (var p in convertedProducts)
+            //foreach (var p in convertedProducts)
+            convertedProducts.ForEach(p =>
             {
                 ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
                 var product = new Product()
@@ -106,7 +109,8 @@ namespace ApiApplication.HostedServices
                     Measurement = sallingProduct.Measurement
                 };
                 //foreach (var s in convertedStores)
-                foreach (var s in foetexStores)
+                //foreach (var s in foetexStores)
+                foetexStores.ForEach(s =>
                 {
                     ConvertedSallingStore foetexStore = (ConvertedSallingStore)s;
                     var store = new Store()
@@ -117,15 +121,11 @@ namespace ApiApplication.HostedServices
                         Location_Y = foetexStore.Location_Y,
                         Address = foetexStore.Address,
                     };
+                    _db.InsertProduct(product, store.ID, sallingProduct.Stores.First().Value.Price);
+                });
+            });
 
-                    //if (store.Brand == "foetex")
-                    //{
-                    //    await _db.InsertProduct(product, store.ID, sallingProduct.Stores.First().Value.Price);
-                    //}
-
-                    await _db.InsertProduct(product, store.ID, sallingProduct.Stores.First().Value.Price);
-                }
-            }
+            await _db.SaveChangesProducts();
         }
     }
 }

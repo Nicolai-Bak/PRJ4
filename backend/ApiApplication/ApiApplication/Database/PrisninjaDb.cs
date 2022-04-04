@@ -8,8 +8,10 @@ namespace ApiApplication.Database;
 public interface IPrisninjaDB
 {
     List<string> GetAllProductNames();
-    Task InsertStore(Store store);
-    Task InsertProduct(Product product, int storeId, double price);
+    void InsertStore(Store store);
+    void InsertProduct(Product product, int storeId, double price);
+    Task SaveChangesProducts();
+    Task SaveChangesStores();
 }
 
 public class PrisninjaDb : IPrisninjaDB
@@ -50,27 +52,15 @@ public class PrisninjaDb : IPrisninjaDB
             .ToList();
     }
 
-    public async Task InsertStore(Store store)
+    public void InsertStore(Store store)
     {
-        _context.Add(store);
-
-        await _context.Database.OpenConnectionAsync();
-        try
+        if (!_context.Stores.Contains(store))
         {
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores ON");
-            await _context.SaveChangesAsync();
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores OFF");
-        }
-        catch (DbUpdateException ex)
-        {
-        }
-        finally
-        {
-            await _context.Database.CloseConnectionAsync();
+            _context.Add(store);
         }
     }
 
-    public async Task InsertProduct(Product product, int storeId, double price)
+    public void InsertProduct(Product product, int storeId, double price)
     {
         if (!_context.Products.Contains(product))
         {
@@ -85,7 +75,7 @@ public class PrisninjaDb : IPrisninjaDB
         }
     }
 
-    public async void SaveChanges()
+    public async Task SaveChangesProducts()
     {
         await _context.Database.OpenConnectionAsync();
         try
@@ -93,6 +83,23 @@ public class PrisninjaDb : IPrisninjaDB
             await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products ON");
             await _context.SaveChangesAsync();
             await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products OFF");
+        }
+        catch (DbUpdateException ex)
+        {
+        }
+        finally
+        {
+            await _context.Database.CloseConnectionAsync();
+        }
+    } 
+    public async Task SaveChangesStores()
+    {
+        await _context.Database.OpenConnectionAsync();
+        try
+        {
+            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores ON");
+            await _context.SaveChangesAsync();
+            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores OFF");
         }
         catch (DbUpdateException ex)
         {

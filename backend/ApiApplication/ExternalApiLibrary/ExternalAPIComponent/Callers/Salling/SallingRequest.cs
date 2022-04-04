@@ -20,7 +20,7 @@ public class SallingRequest : IRequest
      * Maximum products per request is 1000
      * Set to 1 to receive 1 product per page
      */
-    private int _pageSize = 100;
+    private int _pageSize = 60;
     
     /**
      * Limits the amount of pages read
