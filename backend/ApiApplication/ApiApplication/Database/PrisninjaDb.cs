@@ -8,8 +8,9 @@ namespace ApiApplication.Database;
 public interface IPrisninjaDB
 {
     List<string> GetAllProductNames();
-    void InsertStore(Store store);
-    void InsertProduct(Product product, int storeId, double price);
+    void InsertStores(List<Store> stores);
+    void InsertProducts(List<Product> products);
+    void InsertProductStores(List<ProductStore> productStores);
     Task SaveChangesProducts();
     Task SaveChangesStores();
 }
@@ -52,27 +53,19 @@ public class PrisninjaDb : IPrisninjaDB
             .ToList();
     }
 
-    public void InsertStore(Store store)
+    public void InsertStores(List<Store> stores)
     {
-        if (!_context.Stores.Contains(store))
-        {
-            _context.Add(store);
-        }
+        _context.Stores.BulkInsert(stores);
     }
 
-    public void InsertProduct(Product product, int storeId, double price)
+    public void InsertProducts(List<Product> products)
     {
-        if (!_context.Products.Contains(product))
-        {
-            _context.Add(product);
-        }
+        _context.Products.BulkInsert(products);
+    }
 
-        var productStore = new ProductStore() { ProductKey = product.EAN, StoreKey = storeId, Price = price };
-
-        if (!_context.ProductStores.Contains(productStore))
-        {
-            _context.Add(productStore);
-        }
+    public void InsertProductStores(List<ProductStore> productStores)
+    {
+        _context.ProductStores.BulkInsert(productStores);
     }
 
     public async Task SaveChangesProducts()
