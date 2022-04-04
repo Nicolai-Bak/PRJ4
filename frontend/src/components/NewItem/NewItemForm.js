@@ -1,24 +1,25 @@
 import "./NewItemForm.css";
-import UnitBox from "./UnitBox"
-import { useState } from "react";
+import UnitBox from "./UnitBox";
+import React, { useState } from "react";
 
 const NewItemForm = (props) => {
 	const [newItem, setNewItem] = useState("");
-	const [amount, setAmount] = useState(1);
+	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
+	const id = Math.random() * 21;
+	let key = 0.001;
 
 	const submitItemHandler = (event) => {
 		event.preventDefault();
 		console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
 
 		if (validInput(newItem, amount)) {
-			props.onItemAdded(newItem, amount, unit);
-			return;
-		}
+			props.onItemAdded(newItem, amount, unit, id, key);
+		} else return;
 		
+		key += 0.001;
 		setNewItem("");
-		setAmount(1);
-		setUnit("kg");
+		setAmount("");
 	};
 
 	const itemChangeHandler = (event) => {
@@ -26,8 +27,7 @@ const NewItemForm = (props) => {
 	};
 
 	const amountChangeHandler = (event) => {
-		const added = event;
-		console.log(added + "hello");
+		const added = event.target.value;
 		added < 0
 			? console.log(`Item amount too small, was: ${added}`)
 			: setAmount(added);
@@ -47,9 +47,12 @@ const NewItemForm = (props) => {
 	};
 
 	const unitChangeHandler = (event) => {
-		console.log(event);
 		setUnit(event);
-	}
+	};
+
+	const clearInput = () => {
+		setAmount("");
+	};
 
 	return (
 		<form onSubmit={submitItemHandler} className="add-item-form">
@@ -62,13 +65,21 @@ const NewItemForm = (props) => {
 					placeholder="Tilføj varer her"
 				></input>
 			</div>
-			<UnitBox onUnitSelected={unitChangeHandler}
-				onAmountChanged={ amountChangeHandler}
-			/>
+			<UnitBox onUnitSelected={unitChangeHandler}/>
+			<input
+				type="number"
+				step="0.01"
+				id="amount"
+				placeholder="antal/mængde"
+				onFocus={clearInput}
+				value={amount}
+				onChange={amountChangeHandler}
+			></input>
 			<button type="submit" className="add-item-button">
 				Tilføj Vare
 			</button>
 			<br></br>
+			{/* ^^lol what: */}
 		</form>
 	);
 };

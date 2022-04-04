@@ -5,12 +5,6 @@
     display: flex;
 }
 
-img {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-} 
-
 .leftSide__container{
     display: flex;
     flex: 30%;
@@ -28,12 +22,40 @@ img {
     padding-right: 5%;
 }
 
+.navbarLinks {
+    float:left;
+    font-size: 1.25rem;
+    font-weight: 900;
+    padding-top: 2rem;
+    padding-right: 3rem;
+}
+
+.navbarLinks:hover {
+    font-style: italic;
+    cursor: pointer;
+}
+
 #shopping__cart{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
     height: 50px;
+    cursor: pointer;
+}
+
+#shopping__cart:hover {
+    transition: all 0.2s ease-in-out 0.2s;
+    top:45%;
 }
 
 #ninja__logo{
     height: 70px;
     padding-right: 10%;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+
+#ninja__logo:hover {
+    transition: all 0.2s ease-in-out 0.1s;
+    margin-top: 5px;
 }

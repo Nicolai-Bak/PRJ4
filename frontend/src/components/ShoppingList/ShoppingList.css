@@ -1,18 +1,27 @@
 .shopping-list{
-    background-color: var(--default-white);
+    background-color: var(--primary-color);
     min-height: 50vh;
-    height: auto;
     width: 35%;
     margin: auto;
+    padding-top: 1rem;
     margin-top: 1rem;
     border-radius: 12px;
+    margin-bottom: 4rem;
+    box-shadow: 4px 6px rgba(22, 22, 22, 0.26);
 }
 
-.list-items{
-    list-style: none;
+.shopping-list ul{
+    padding: .4rem .4rem;
 }
 
-@media screen and (max-width: 720px){
+
+@media screen and (max-width: 1400px){
+	.shopping-list{
+		width: 60%;
+	}
+}
+
+@media screen and (max-width: 1000px){
 	.shopping-list{
 		width: 80%;
 	}

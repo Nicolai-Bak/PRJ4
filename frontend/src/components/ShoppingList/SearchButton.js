@@ -1,26 +1,22 @@
-import "./SearchButton.css"
-import ReactDOM from "react-dom";
-import React from "react";
-import SearchResults from "../SearchResults/SearchResults"
+import "./SearchButton.css";
+import { useNavigate } from "react-router-dom";
 
-const SearchButton = () => {
-    const searchEventHandler = () => {
-        ReactDOM.render(
-            <React.StrictMode>
-                <SearchResults/>
-            </React.StrictMode>,
-            document.getElementById('root')
-        );
-    }
+function SearchButton(props) {
+	let navigate = useNavigate();
 
+	const searchHandler = (event) => {
+		console.log("searching...");
+		props.onSearch();
+		navigate("/SearchResults");
+	};
 
-    return(
-        <div className="search-button">
-            <button onClick={searchEventHandler}>I am Searchman</button>
-        </div>
-
-    )
-
+	return (
+		<div className="searchButton">
+			<button id="search-button" onClick={searchHandler}>
+				Søgeninja
+			</button>
+		</div>
+	);
 }
 
 export default SearchButton;
