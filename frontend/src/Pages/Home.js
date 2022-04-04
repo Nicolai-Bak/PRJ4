@@ -2,11 +2,14 @@ import "./Home.css";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
 		: [];
+
+	let navigate = useNavigate();
 
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
 
@@ -21,7 +24,7 @@ function Home() {
 
 	const newItemHandler = async (name, amount, unit, id, key) => {
 		console.log(
-			`newItemHandler called with item: ${name}, amount: ${amount}, and unit: ${unit}`
+			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${id}, key: ${key}`
 		);
 		// if the item exists in the database
 		if (!(await ValidateItem(name))) {
@@ -108,15 +111,19 @@ function Home() {
 					Accept: "application/json",
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ productNames: searchList }),
+				body: JSON.stringify({ productNames: searchList, t: "1" }),
 			}
 		);
+
 		console.log("request received: " + request);
 
 		const data = await request.json();
-		console.log("Data received from database: " + JSON.stringify(data));
 
+		console.log("Data received from database: " + JSON.stringify(data));
 		localStorage.setItem("SearchResults", JSON.stringify(data));
+		
+		navigate("/SearchResults");
+
 	};
 
 	return (
@@ -159,12 +166,12 @@ function Home() {
 		console.log(response);
 
 		let matchFound = false;
-		console.log()
+		console.log();
 		response.filter((item) => {
 			if (item.toLowerCase().includes(name.toLowerCase())) {
-				console.log("Searching for " + name.toLowerCase() + "... --> match found: " + item);
-				
-
+				console.log(
+					"Searching for " + name.toLowerCase() + "... --> match found: " + item
+				);
 				matchFound = true;
 			}
 			return false;
