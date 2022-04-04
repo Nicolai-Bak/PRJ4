@@ -6,11 +6,29 @@ public class SallingProductFilter : IFilter
 {
     public List<object> Filter(List<object> o)
     {
-        List<FilteredSallingProduct> json = JsonConvert.DeserializeObject<List<FilteredSallingProduct>>(JsonConvert.SerializeObject(o));
+        List<List<FilteredSallingProduct>> json = JsonConvert.DeserializeObject<List<List<FilteredSallingProduct>>>(JsonConvert.SerializeObject(o));
 
-        return new List<object>(json);
+        //return new List<object>(json);
+
+        var result = new List<object>();
+
+        json.ForEach(j =>
+        {
+            j.ForEach(s =>
+                {
+                    result.Add(s);
+                });
+        });
+
+        return result;
     }
 }
+
+public class Root
+{
+    public List<FilteredSallingProduct>? Products { get; set; }
+}
+
 public class FilteredSallingProduct
 {
     [JsonProperty("_highlightResult")] public HighlightResult? HighlightResults { get; set; }
