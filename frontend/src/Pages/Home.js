@@ -27,7 +27,7 @@ function Home() {
 			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${id}, key: ${key}`
 		);
 		// if the item exists in the database
-		if (!(await ValidateItem(name))) {
+		if (!(await ValidateItem(name, unit))) {
 			console.log("item not found in database");
 			return;
 		}
@@ -111,7 +111,7 @@ function Home() {
 					Accept: "application/json",
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ productNames: searchList, t: "1" }),
+				body: JSON.stringify({ productNames: searchList }),
 			}
 		);
 
@@ -121,9 +121,8 @@ function Home() {
 
 		console.log("Data received from database: " + JSON.stringify(data));
 		localStorage.setItem("SearchResults", JSON.stringify(data));
-		
-		navigate("/SearchResults");
 
+		navigate("/SearchResults");
 	};
 
 	return (
@@ -152,7 +151,7 @@ function Home() {
 			/>
 		</div>
 	);
-	async function ValidateItem(name) {
+	async function ValidateItem(name, unit) {
 		const request = await fetch(
 			"https://prisninjawebapi.azurewebsites.net/names/",
 			{
@@ -167,18 +166,30 @@ function Home() {
 
 		let matchFound = false;
 		console.log();
-		response.filter((item) => {
-			if (item.toLowerCase().includes(name.toLowerCase())) {
-				console.log(
-					"Searching for " + name.toLowerCase() + "... --> match found: " + item
-				);
-				matchFound = true;
-			}
-			return false;
-		});
+		let foundItems = [];
 
+		if (response.length < 1) {
+			console.log("no response received");
+			return;
+		}
+
+		response.forEach((item) => {
+			if (item.toLowerCase().includes(name.toLowerCase())) {
+				// this needs to be uncommented when a unit is received
+
+				// if (item.unit !== unit) {
+				// 	console.log(`unit not found, received: ${item.unit}`);
+				// 	return;
+				// }
+				foundItems.push(item);
+				console.log("unit found");
+			}
+		});
+		if (foundItems.length > 0) {
+			console.log("items found:" + foundItems);
+			matchFound = true;
+		}
 		return matchFound;
 	}
 }
-
 export default Home;

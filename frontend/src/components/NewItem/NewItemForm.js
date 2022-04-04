@@ -1,6 +1,6 @@
 import "./NewItemForm.css";
 import UnitBox from "./UnitBox";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const NewItemForm = (props) => {
 	const [newItem, setNewItem] = useState("");
@@ -9,12 +9,15 @@ const NewItemForm = (props) => {
 	const id = Math.random() * 21;
 	let key = 0.001;
 
-	const submitItemHandler = (event) => {
+	
+
+
+	const submitItemHandler = (event, key) => {
 		event.preventDefault();
 		console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
 
 		if (validInput(newItem, amount)) {
-			props.onItemAdded(newItem, amount, unit, id, key);
+			props.onItemAdded(newItem, amount, unit, id);
 		} else return;
 		
 		key += 0.001;
