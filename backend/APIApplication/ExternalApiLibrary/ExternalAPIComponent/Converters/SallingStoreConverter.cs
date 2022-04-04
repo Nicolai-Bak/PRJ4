@@ -8,7 +8,7 @@ public class SallingStoreConverter : IConverter
     {
         List<FilteredSallingStore> filteredList = list.Cast<FilteredSallingStore>().ToList();
 
-        var stores = filteredList.Select(store => new ConvertedStore()
+        var stores = filteredList.Select(store => new ConvertedSallingStore()
         {
             ID = store.Id,
             Brand = store.Brand,
@@ -21,7 +21,7 @@ public class SallingStoreConverter : IConverter
     }
 }
 
-public class ConvertedStore
+public class ConvertedSallingStore
 {
     public int ID { get; set; }
     public string Brand { get; set; }
