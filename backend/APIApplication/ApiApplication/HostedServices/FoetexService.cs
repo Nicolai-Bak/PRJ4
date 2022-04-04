@@ -81,7 +81,7 @@ namespace ApiApplication.HostedServices
             //// Insert stores
             Console.WriteLine("Inserting stores - " + DateTime.Now);
             var storeList = new List<Store>();
-            convertedStores.ForEach(s =>
+            foetexStores.ForEach(s =>
             {
                 ConvertedSallingStore convertedStore = (ConvertedSallingStore) s;
                 storeList.Add(new Store()
@@ -120,7 +120,7 @@ namespace ApiApplication.HostedServices
             convertedProducts.ForEach(p =>
             {
                 ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct) p;
-                convertedStores.ForEach(s =>
+                foetexStores.ForEach(s =>
                 {
                     ConvertedSallingStore convertedStore = (ConvertedSallingStore) s;
                     productStoreList.Add(new ProductStore()

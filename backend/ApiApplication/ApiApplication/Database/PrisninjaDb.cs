@@ -55,17 +55,17 @@ public class PrisninjaDb : IPrisninjaDB
 
     public void InsertStores(List<Store> stores)
     {
-        _context.Stores.BulkInsert(stores);
+        _context.Stores.BulkInsert(stores, options => options.InsertKeepIdentity = true);
     }
 
     public void InsertProducts(List<Product> products)
     {
-        _context.Products.BulkInsert(products);
+        _context.Products.BulkInsert(products, options => options.InsertKeepIdentity = true);
     }
 
     public void InsertProductStores(List<ProductStore> productStores)
     {
-        _context.ProductStores.BulkInsert(productStores);
+        _context.ProductStores.BulkInsert(productStores, options => options.InsertKeepIdentity = true);
     }
 
     public async Task SaveChangesProducts()
