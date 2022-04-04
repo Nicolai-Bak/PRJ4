@@ -24,11 +24,14 @@ function Home() {
 
 	const newItemHandler = async (name, amount, unit, id) => {
 		console.log(
-			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${id.toString().slice(0, 5) + "..."}`
+			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
+				id.toString().slice(0, 5) + "..."
+			}`
 		);
 		// if the item exists in the database
 		if (!(await ValidateItem(name, unit))) {
 			console.log("item not found in database");
+			alert("Varen kan ikke genkendes");
 			return;
 		}
 
@@ -40,7 +43,7 @@ function Home() {
 					amount: amount,
 					unit: unit,
 					id: id, //uuid()
-					key: id
+					key: id,
 				},
 			];
 		});
@@ -152,28 +155,18 @@ function Home() {
 		</div>
 	);
 	async function ValidateItem(name, unit) {
-		const request = await fetch(
-			"https://prisninjawebapi.azurewebsites.net/names/",
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
-		const response = await request.json();
-		console.log(response);
+		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
+
+		console.log("itemNames: " + itemNames)
 
 		let matchFound = false;
-		console.log();
 		let foundItems = [];
-
-		if (response.length < 1) {
-			console.log("no response received");
+		if (itemNames.length < 1) {
+			console.log("No items in localStorage");
 			return;
 		}
 
-		response.forEach((item) => {
+		itemNames.forEach((item) => {
 			if (item.toLowerCase().includes(name.toLowerCase())) {
 				// this needs to be uncommented when a unit is received
 
@@ -186,7 +179,7 @@ function Home() {
 			}
 		});
 		if (foundItems.length > 0) {
-			console.log("items found:" + foundItems);
+			console.log("items found: " + foundItems);
 			matchFound = true;
 		}
 		return matchFound;

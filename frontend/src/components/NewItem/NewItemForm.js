@@ -1,10 +1,11 @@
 import "./NewItemForm.css";
 import UnitBox from "./UnitBox";
 import React, { useState, useEffect } from "react";
-import { v4 as uuid} from 'uuid'
+import { v4 as uuid } from "uuid";
+import SearchField from "./SearchField";
 
 const NewItemForm = (props) => {
-	const [newItem, setNewItem] = useState("");
+	const [newItem, setNewItem] = useState(null);
 	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
 	const id = uuid();
@@ -42,8 +43,8 @@ const NewItemForm = (props) => {
 		setAmount("");
 	};
 
-	const itemChangeHandler = (event) => {
-		setNewItem(event.target.value);
+	const itemChangeHandler = (itemReceived) => {
+		setNewItem(itemReceived);
 	};
 
 	const amountChangeHandler = (event) => {
@@ -54,7 +55,7 @@ const NewItemForm = (props) => {
 	};
 
 	const validInput = (newItem, amount) => {
-		if (!newItem.length > 0) {
+		if (newItem === null || !newItem.length > 0) {
 			console.log("No item was detected in the input field");
 			return false;
 		}
@@ -76,7 +77,7 @@ const NewItemForm = (props) => {
 
 	return (
 		<form onSubmit={submitItemHandler} className="add-item-form">
-			<div className="item-inputs">
+			{/* <div className="item-inputs">
 				<input
 					className="item-name"
 					type="text"
@@ -84,7 +85,8 @@ const NewItemForm = (props) => {
 					onChange={itemChangeHandler}
 					placeholder="Tilføj varer her"
 				></input>
-			</div>
+			</div> */}
+			<SearchField onItemChanged={itemChangeHandler} />
 			<UnitBox onUnitSelected={unitChangeHandler} />
 			<input
 				type="number"
