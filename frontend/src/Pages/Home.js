@@ -22,9 +22,9 @@ function Home() {
 		}
 	}, [shoppingList]);
 
-	const newItemHandler = async (name, amount, unit, id, key) => {
+	const newItemHandler = async (name, amount, unit, id) => {
 		console.log(
-			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${id}, key: ${key}`
+			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${id.toString().slice(0, 5) + "..."}`
 		);
 		// if the item exists in the database
 		if (!(await ValidateItem(name, unit))) {
@@ -39,8 +39,8 @@ function Home() {
 					name: name,
 					amount: amount,
 					unit: unit,
-					id: id, //<---- id needs to be changed to something unique
-					key: key
+					id: id, //uuid()
+					key: id
 				},
 			];
 		});

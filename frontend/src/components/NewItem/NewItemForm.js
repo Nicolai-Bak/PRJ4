@@ -1,13 +1,13 @@
 import "./NewItemForm.css";
 import UnitBox from "./UnitBox";
 import React, { useState, useEffect } from "react";
+import { v4 as uuid} from 'uuid'
 
 const NewItemForm = (props) => {
 	const [newItem, setNewItem] = useState("");
 	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
-	const id = Math.random() * 21;
-	let key = 0.001;
+	const id = uuid();
 
 	useEffect(() => {
 		async function fetchItems() {
@@ -35,10 +35,9 @@ const NewItemForm = (props) => {
 		// console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
 
 		if (validInput(newItem, amount)) {
-			props.onItemAdded(newItem, amount, unit, id, key);
+			props.onItemAdded(newItem, amount, unit, id);
 		} else return;
 
-		key++;
 		setNewItem("");
 		setAmount("");
 	};
