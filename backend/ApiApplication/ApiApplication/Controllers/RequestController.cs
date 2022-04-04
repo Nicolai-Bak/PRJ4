@@ -29,11 +29,7 @@ namespace ApiApplication.Controllers
         public async Task<ShoppingOptions> GetOptions(ShoppingList shoppingList)
         {
             CheapestSearcher search = new CheapestSearcher();
-            StoreSearch result = search.FindStore(
-                shoppingList.productNames,
-                shoppingList.x,
-                shoppingList.y,
-                shoppingList.range);
+            StoreSearch result = search.FindStore(shoppingList);
 
             var options = new ShoppingOptions()
             {
@@ -116,9 +112,16 @@ namespace ApiApplication.Controllers
 
     public class ShoppingList
     {
-        public List<string> productNames { get; set; }
-        public double x { get; set; }
-        public double y { get; set; }
-        public int range { get; set; }
+        public List<ShoppingListItem> Products { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public int Range { get; set; }
+    }
+    
+    public class ShoppingListItem
+    {
+        public string Name { get; set; }
+        public double Unit { get; set; }
+        public string Measurement { get; set; }
     }
 }

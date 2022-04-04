@@ -1,4 +1,5 @@
-﻿using ApiApplication.Database;
+﻿using ApiApplication.Controllers;
+using ApiApplication.Database;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
 using ApiApplication.SearchAlgorithm.Models;
@@ -8,7 +9,7 @@ namespace ApiApplication.SearchAlgorithm
     public class CheapestSearcher : ISearcher
     {
         private PrisninjaDb database = new PrisninjaDb(new PrisninjaDbContext());
-        public StoreSearch FindStore(List<string> productNames, double xCoordinate, double yCoordinate, int range)
+        public StoreSearch FindStore(ShoppingList shoppingList)
         {
             //1. Create list of StoreSearchs
             List<int> storeIDs = database.GetStoresInRange(xCoordinate, yCoordinate, range);
