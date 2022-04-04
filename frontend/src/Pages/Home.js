@@ -13,34 +13,40 @@ function Home() {
 	useEffect(() => {
 		if (localStorage.hasOwnProperty("shoppingList")) {
 			console.log(
-				"A change has been made to shoppingList, updating localStorage"
+				"A change has been made to shoppingList, updating localStorage..."
 			);
 			localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
 		}
 	}, [shoppingList]);
 
-	const newItemHandler = (item, amount, unit) => {
+	const newItemHandler = async (name, amount, unit, id, key) => {
 		console.log(
-			`newItemHandler called with item: ${item}, amount: ${amount}, and unit: ${unit}`
+			`newItemHandler called with item: ${name}, amount: ${amount}, and unit: ${unit}`
 		);
+		// if the item exists in the database
+		if (!(await ValidateItem(name))) {
+			console.log("item not found in database");
+			return;
+		}
 
 		setShoppingList((prevShoppingList) => {
 			return [
 				...prevShoppingList,
 				{
-					name: item,
+					name: name,
 					amount: amount,
 					unit: unit,
-					id: Math.random() * 12, //<---- id needs to be changed
+					id: id, //<---- id needs to be changed to something unique
 					key: Math.random() * 21,
 				},
 			];
 		});
 
 		localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
-		console.log(
-			"Local Storage now contains: " + localStorage.getItem("shoppingList")
-		);
+		// console.log(
+		// 	"Local Storage now contains: " + localStorage.getItem("shoppingList")
+		// );
+
 	};
 
 	const removeItemHandler = (id, name) => {
@@ -91,9 +97,6 @@ function Home() {
 		console.log(
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
 		);
-		// send amount, name, unit to search function
-		// search function should return a list of items that matches the search
-		// if no items are found, return an empty list
 
 		const searchList = shoppingList.map((item) => item.name);
 		console.log("searchlist: " + JSON.stringify(searchList));
@@ -108,25 +111,14 @@ function Home() {
 				},
 				body: JSON.stringify({ productNames: searchList }),
 			}
-			// ); // is blocked by CORS
 		);
 		console.log("request received: " + request);
-		// const getter = await fetch(
-		// 	"https://prisninjawebapi.azurewebsites.net/names/",
-		// 	{
-		// 		method: "GET",
-		// 		headers: {
-		// 			Accept: "application/json",
-		// 			"Content-Type": "application/json",
-		// 		},
-		// 	}
-		// );
 
 		const data = await request.json();
 		console.log("Data received from database: " + JSON.stringify(data));
-	};
 
-	// return list of items?
+		localStorage.setItem("SearchResults", JSON.stringify(data));
+	};
 
 	return (
 		<div className="home">
@@ -154,6 +146,30 @@ function Home() {
 			/>
 		</div>
 	);
+	async function ValidateItem(name) {
+		const request = await fetch(
+			"https://prisninjawebapi.azurewebsites.net/names/",
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		const response = await request.json();
+		console.log(response);
+
+		let matchFound = false;
+		response.filter((item) => {
+			if (item.includes(name)) {
+				console.log("match found");
+				matchFound = true;
+			}
+			return false;
+		});
+
+		return matchFound;
+	}
 }
 
 export default Home;
