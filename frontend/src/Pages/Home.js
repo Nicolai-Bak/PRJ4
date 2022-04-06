@@ -3,6 +3,7 @@ import ShoppingList from "../components/ShoppingList/ShoppingList";
 import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
 
+
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
@@ -109,7 +110,7 @@ function Home() {
 					Accept: "application/json",
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ productNames: searchList }),
+				body: JSON.stringify({ productNames: searchList, y:latitude, x: longitude }),
 			}
 		);
 		console.log("request received: " + request);
@@ -118,7 +119,31 @@ function Home() {
 		console.log("Data received from database: " + JSON.stringify(data));
 
 		localStorage.setItem("SearchResults", JSON.stringify(data));
+
+
 	};
+
+
+	//GEOLOCATION
+	const [longitude, setLongitude] = useState(null);
+	const [latitude, setLatitude] = useState(null);
+	const [status, setStatus] = useState(null);
+
+	useEffect(() => {
+			if (!navigator.geolocation) {
+					setStatus('Geolokation understøttes ikke af din browser');
+				} else {
+					navigator.geolocation.getCurrentPosition((position) => {
+						setStatus(null);
+						setLatitude(position.coords.latitude);
+						setLongitude(position.coords.longitude);
+					});
+				}
+				console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+	}, []);
+
+
+	
 
 	return (
 		<div className="home">
