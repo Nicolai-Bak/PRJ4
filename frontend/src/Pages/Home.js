@@ -47,7 +47,6 @@ function Home() {
 		// console.log(
 		// 	"Local Storage now contains: " + localStorage.getItem("shoppingList")
 		// );
-
 	};
 
 	const removeItemHandler = (id, name) => {
@@ -185,9 +184,12 @@ function Home() {
 		console.log(response);
 
 		let matchFound = false;
+		console.log()
 		response.filter((item) => {
-			if (item.includes(name)) {
-				console.log("match found");
+			if (item.toLowerCase().includes(name.toLowerCase())) {
+				console.log("Searching for " + name.toLowerCase() + "... --> match found: " + item);
+				
+
 				matchFound = true;
 			}
 			return false;
