@@ -4,6 +4,7 @@ import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
@@ -114,7 +115,7 @@ function Home() {
 					Accept: "application/json",
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ productNames: searchList }),
+				body: JSON.stringify({ productNames: searchList, y:latitude, x: longitude }),
 			}
 		);
 
@@ -127,6 +128,28 @@ function Home() {
 
 		navigate("/SearchResults");
 	};
+
+
+	//GEOLOCATION
+	const [longitude, setLongitude] = useState(null);
+	const [latitude, setLatitude] = useState(null);
+	const [status, setStatus] = useState(null);
+
+	useEffect(() => {
+			if (!navigator.geolocation) {
+					setStatus('Geolokation understøttes ikke af din browser');
+				} else {
+					navigator.geolocation.getCurrentPosition((position) => {
+						setStatus(null);
+						setLatitude(position.coords.latitude);
+						setLongitude(position.coords.longitude);
+					});
+				}
+				console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+	}, []);
+
+
+	
 
 	return (
 		<div className="home">

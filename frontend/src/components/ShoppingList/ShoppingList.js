@@ -2,6 +2,7 @@ import "./ShoppingList.css";
 import SearchButton from "./SearchButton";
 import ListItem from "./ShoppingListItem/ListItem";
 
+
 const ShoppingList = (props) => {
 	const removeItemHandler = (id, name) => {
 		// console.log(`removeItemHandler called with id: ${id}`);
@@ -13,6 +14,7 @@ const ShoppingList = (props) => {
 		const change = -1;
 		props.onAmountChanged(id, change);
 	};
+	
 	const increaseAmountHandler = (id) => {
 		// console.log(`increaseAmountHandler called with id: ${id}`);
 		const change = 1;

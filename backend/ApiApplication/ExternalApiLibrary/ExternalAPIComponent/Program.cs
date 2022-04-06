@@ -3,10 +3,13 @@ using System.Web;
 //using ApiApplication.Database.Data;
 //using ApiApplication.Database.Models;
 using ExternalAPIComponent;
+using ExternalAPIComponent.Callers.Coop;
 using ExternalAPIComponent.Callers.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Converters;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
 using ExternalApiLibrary.ExternalAPIComponent.Filters;
+using ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
 using Serilog;
 
 namespace ExternalApiLibrary.ExternalAPIComponent;
@@ -91,6 +94,7 @@ public static class Program
                     }
                 });
             });
+            //PrintSallingProductSample();
 
             Console.WriteLine("Hit ENTER to exit...");
             Console.ReadLine();
@@ -104,6 +108,41 @@ public static class Program
             Log.CloseAndFlush();
         }
         */
+    }
+
+    private static async void PrintCoopProductSample()
+    {
+        CoopProductCaller coopCaller = new();
+        CoopProductFilter coopFilter = new();
+        CoopProductConverter coopConverter = new();
+
+        var coopResult = await coopCaller.Call(new CoopRequestBuilder().Build());
+        var filteredProducts = coopFilter.Filter(coopResult);
+        var convertedProducts = coopConverter.Convert(filteredProducts);
+        
+        convertedProducts.ForEach(x =>
+        {
+            var y = (ConvertedCoopProduct) x;
+            Console.WriteLine(y.EAN + "\n" + y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
+            Console.WriteLine();
+        });
+
+        //Console.ForegroundColor = ConsoleColor.Red;
+        //Console.WriteLine("\n\n ------------ Coop Products ------------ ");
+        //Console.ResetColor();
+        //coopResult.ForEach(obj => Console.WriteLine(JToken.Parse((string) obj).ToString(Formatting.Indented) + "\n"));
+    }
+    
+    private static async void PrintSallingProductSample()
+    {
+        SallingProductCaller sallingCaller = new();
+        var sallingResult = await sallingCaller.Call(new SallingRequestBuilder().Build());
+            
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("\n\n ------------ Salling Products ------------ ");
+        Console.ResetColor();
+        Console.WriteLine(sallingResult[0].ToString());
+        //sallingResult.ForEach(obj => Console.WriteLine(JToken.Parse((string) obj).ToString(Formatting.Indented) + "\n"));
     }
 
 
