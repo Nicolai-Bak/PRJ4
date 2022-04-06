@@ -30,14 +30,14 @@ const ShoppingList = (props) => {
 			name={item.name}
 			amount={item.amount}
 			unit={item.unit}
-			key={item.key}
+			key={item.id}
 		/>
 	));
 
 	return (
 		<div className="shopping-list">
 			<ul>{itemsList}</ul>
-			<SearchButton onSearch={ () => props.onSearch()}/>
+			<SearchButton onSearch={() => props.onSearch()} />
 		</div>
 	);
 };

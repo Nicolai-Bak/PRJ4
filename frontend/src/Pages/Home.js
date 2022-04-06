@@ -2,12 +2,15 @@ import "./Home.css";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
 		: [];
+
+	let navigate = useNavigate();
 
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
 
@@ -20,13 +23,16 @@ function Home() {
 		}
 	}, [shoppingList]);
 
-	const newItemHandler = async (name, amount, unit, id, key) => {
+	const newItemHandler = async (name, amount, unit, id) => {
 		console.log(
-			`newItemHandler called with item: ${name}, amount: ${amount}, and unit: ${unit}`
+			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
+				id.toString().slice(0, 5) + "..."
+			}`
 		);
 		// if the item exists in the database
-		if (!(await ValidateItem(name))) {
+		if (!(await ValidateItem(name, unit))) {
 			console.log("item not found in database");
+			alert("Varen kan ikke genkendes");
 			return;
 		}
 
@@ -37,8 +43,8 @@ function Home() {
 					name: name,
 					amount: amount,
 					unit: unit,
-					id: id, //<---- id needs to be changed to something unique
-					key: Math.random() * 21,
+					id: id, //uuid()
+					key: id,
 				},
 			];
 		});
@@ -112,14 +118,15 @@ function Home() {
 				body: JSON.stringify({ productNames: searchList, y:latitude, x: longitude }),
 			}
 		);
+
 		console.log("request received: " + request);
 
 		const data = await request.json();
-		console.log("Data received from database: " + JSON.stringify(data));
 
+		console.log("Data received from database: " + JSON.stringify(data));
 		localStorage.setItem("SearchResults", JSON.stringify(data));
 
-
+		navigate("/SearchResults");
 	};
 
 
@@ -170,33 +177,35 @@ function Home() {
 			/>
 		</div>
 	);
-	async function ValidateItem(name) {
-		const request = await fetch(
-			"https://prisninjawebapi.azurewebsites.net/names/",
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
-		const response = await request.json();
-		console.log(response);
+	async function ValidateItem(name, unit) {
+		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
+
+		console.log("itemNames: " + itemNames)
 
 		let matchFound = false;
-		console.log()
-		response.filter((item) => {
+		let foundItems = [];
+		if (itemNames.length < 1) {
+			console.log("No items in localStorage");
+			return;
+		}
+
+		itemNames.forEach((item) => {
 			if (item.toLowerCase().includes(name.toLowerCase())) {
-				console.log("Searching for " + name.toLowerCase() + "... --> match found: " + item);
-				
+				// this needs to be uncommented when a unit is received
 
-				matchFound = true;
+				// if (item.unit !== unit) {
+				// 	console.log(`unit not found, received: ${item.unit}`);
+				// 	return;
+				// }
+				foundItems.push(item);
+				console.log("unit found");
 			}
-			return false;
 		});
-
+		if (foundItems.length > 0) {
+			console.log("items found: " + foundItems);
+			matchFound = true;
+		}
 		return matchFound;
 	}
 }
-
 export default Home;

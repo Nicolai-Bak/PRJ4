@@ -1,13 +1,13 @@
 import React from "react";
-import { forwardRef} from "react";
 import "./UnitBox.css";
 
-const UnitBox = forwardRef((props, ref) => {
+const UnitBox = props => {
 	const unitChangedHandler = (event) => {
 		console.log(event.target.value);
 		return props.onUnitSelected(event.target.value);
 	};
 
+	const options = JSON.parse(localStorage.getItem("itemNames"))
 	return (
 		<div className="unitBox__container">
 			<input
@@ -43,6 +43,6 @@ const UnitBox = forwardRef((props, ref) => {
 			</label>
 		</div>
 	);
-});
+};
 
 export default UnitBox;
