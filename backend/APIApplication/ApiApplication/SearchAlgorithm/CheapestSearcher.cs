@@ -52,6 +52,20 @@ namespace ApiApplication.SearchAlgorithm
                 }
             }
 
+            List<Store> topStoreData = database.GetDataFromStores(storeIDs);
+            foreach (Store store in topStoreData)
+            {
+                foreach (var storeSearch in stores)
+                {
+                    if (storeSearch.StoreID == store.ID)
+                    {
+                        storeSearch.Address = store.Address;
+                        storeSearch.Brand = store.Brand;
+                        storeSearch.Distance = GetDistance(store.Location_X, store.Location_Y, shoppingList.X, shoppingList.Y);
+                    }
+                }
+            }
+
             //List<StoreSearch> sea = new List<StoreSearch>();
             //sea.Add(new StoreSearch(2)
             //{
@@ -72,6 +86,13 @@ namespace ApiApplication.SearchAlgorithm
             amount = (int)Math.Ceiling(unitsToGet / unitsPerPiece);
             price = amount * pricePerPiece;
             return price;
+        }
+
+        private double GetDistance(double storeX, double storeY, double customerX, double customerY)
+        {
+            return Math.Sqrt(
+                Math.Pow(Math.Abs(storeX - customerX), 2) +
+                Math.Pow(Math.Abs(storeY - customerY), 2));
         }
     }
 }
