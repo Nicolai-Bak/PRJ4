@@ -11,8 +11,6 @@ public interface IPrisninjaDB
     void InsertStores(List<Store> stores);
     void InsertProducts(List<Product> products);
     void InsertProductStores(List<ProductStore> productStores);
-    Task SaveChangesProducts();
-    Task SaveChangesStores();
 }
 
 public class PrisninjaDb : IPrisninjaDB
@@ -66,40 +64,5 @@ public class PrisninjaDb : IPrisninjaDB
     public void InsertProductStores(List<ProductStore> productStores)
     {
         _context.ProductStores.BulkInsert(productStores, options => options.InsertKeepIdentity = true);
-    }
-
-    public async Task SaveChangesProducts()
-    {
-        await _context.Database.OpenConnectionAsync();
-        try
-        {
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products ON");
-            await _context.SaveChangesAsync();
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products OFF");
-        }
-        catch (DbUpdateException ex)
-        {
-        }
-        finally
-        {
-            await _context.Database.CloseConnectionAsync();
-        }
-    } 
-    public async Task SaveChangesStores()
-    {
-        await _context.Database.OpenConnectionAsync();
-        try
-        {
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores ON");
-            await _context.SaveChangesAsync();
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores OFF");
-        }
-        catch (DbUpdateException ex)
-        {
-        }
-        finally
-        {
-            await _context.Database.CloseConnectionAsync();
-        }
     }
 }
