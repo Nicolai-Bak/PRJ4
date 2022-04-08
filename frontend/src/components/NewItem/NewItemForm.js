@@ -1,29 +1,50 @@
 import "./NewItemForm.css";
 import UnitBox from "./UnitBox";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { v4 as uuid } from "uuid";
+import SearchField from "./SearchField";
 
 const NewItemForm = (props) => {
-	const [newItem, setNewItem] = useState("");
+	const [newItem, setNewItem] = useState(null);
 	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
-	const id = Math.random() * 21;
-	let key = 0.001;
+	const id = uuid();
+
+	useEffect(() => {
+		async function fetchItems() {
+			const request = await fetch(
+				"https://prisninjawebapi.azurewebsites.net/names/",
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+
+			localStorage.setItem("itemNames", JSON.stringify(await request.json()));
+
+			const response = await JSON.parse(localStorage.getItem("itemNames"));
+			console.log(response);
+		}
+
+		fetchItems();
+	}, []);
 
 	const submitItemHandler = (event) => {
 		event.preventDefault();
-		console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
+		// console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
 
 		if (validInput(newItem, amount)) {
-			props.onItemAdded(newItem, amount, unit, id, key);
+			props.onItemAdded(newItem, amount, unit, id);
 		} else return;
-		
-		key += 0.001;
+
 		setNewItem("");
 		setAmount("");
 	};
 
-	const itemChangeHandler = (event) => {
-		setNewItem(event.target.value);
+	const itemChangeHandler = (itemReceived) => {
+		setNewItem(itemReceived);
 	};
 
 	const amountChangeHandler = (event) => {
@@ -34,7 +55,7 @@ const NewItemForm = (props) => {
 	};
 
 	const validInput = (newItem, amount) => {
-		if (!newItem.length > 0) {
+		if (newItem === null || !newItem.length > 0) {
 			console.log("No item was detected in the input field");
 			return false;
 		}
@@ -56,7 +77,7 @@ const NewItemForm = (props) => {
 
 	return (
 		<form onSubmit={submitItemHandler} className="add-item-form">
-			<div className="item-inputs">
+			{/* <div className="item-inputs">
 				<input
 					className="item-name"
 					type="text"
@@ -64,8 +85,9 @@ const NewItemForm = (props) => {
 					onChange={itemChangeHandler}
 					placeholder="Tilføj varer her"
 				></input>
-			</div>
-			<UnitBox onUnitSelected={unitChangeHandler}/>
+			</div> */}
+			<SearchField onItemChanged={itemChangeHandler} />
+			<UnitBox onUnitSelected={unitChangeHandler} />
 			<input
 				type="number"
 				step="0.01"
