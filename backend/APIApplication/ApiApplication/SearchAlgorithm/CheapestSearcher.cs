@@ -8,17 +8,17 @@ namespace ApiApplication.SearchAlgorithm
 {
     public class CheapestSearcher : ISearcher
     {
-        private IPrisninjaDB database = new PrisninjaDb(new PrisninjaDbContext());
+        private IPrisninjaDB _database = new PrisninjaDb(new PrisninjaDbContext());
 
         public CheapestSearcher(IPrisninjaDB database)
         {
-
+            _database = database;
         }
 
         public List<StoreSearch> FindStores(ShoppingList shoppingList)
         {
             //1. Create list of StoreSearchs
-            List<int> storeIDs = database.GetStoresInRange(shoppingList.X, shoppingList.Y, shoppingList.Range);
+            List<int> storeIDs = _database.GetStoresInRange(shoppingList.X, shoppingList.Y, shoppingList.Range);
             List<StoreSearch> stores = new List<StoreSearch>();
 
             foreach (var storeID in storeIDs)
@@ -29,7 +29,7 @@ namespace ApiApplication.SearchAlgorithm
             // Tilføj dee billigste products i butikken til hver store - fjern store hvis den ikke har alle varer
             for (int i = 0; i < shoppingList.Products.Count(); i++)
             {
-                List<Product> productsToAdd = database.GetProductsFromSpecificStores(storeIDs, shoppingList.Products[i].Name);
+                List<Product> productsToAdd = _database.GetProductsFromSpecificStores(storeIDs, shoppingList.Products[i].Name);
                 foreach (int storeID in storeIDs.ToList())
                 {
                     double price = 0;
@@ -40,15 +40,7 @@ namespace ApiApplication.SearchAlgorithm
                             //.MinBy(p => p.ProductStores.Select(ps => ps.Price));
                     if (temp != null)
                     {
-                        stores.Find(s => s.StoreID == storeID).Add(new ProductSearch()
-                        {
-                            Name = temp.Name,
-                            Brand = temp.Brand,
-                            Unit = temp.Unit,
-                            Measurement = temp.Measurement,
-                            Price = price,
-                            Amount = amount
-                        });
+                        stores.Find(s => s.StoreID == storeID).Add(new ProductSearch(temp, price, amount));
                     }
                     else
                     {
@@ -58,7 +50,7 @@ namespace ApiApplication.SearchAlgorithm
                 }
             }
 
-            List<Store> topStoreData = database.GetDataFromStores(storeIDs);
+            List<Store> topStoreData = _database.GetDataFromStores(storeIDs);
             foreach (Store store in topStoreData)
             {
                 foreach (var storeSearch in stores)
