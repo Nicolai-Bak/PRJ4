@@ -8,7 +8,13 @@ namespace ApiApplication.SearchAlgorithm
 {
     public class CheapestSearcher : ISearcher
     {
-        private PrisninjaDb database = new PrisninjaDb(new PrisninjaDbContext());
+        private IPrisninjaDB database = new PrisninjaDb(new PrisninjaDbContext());
+
+        public CheapestSearcher(IPrisninjaDB database)
+        {
+
+        }
+
         public List<StoreSearch> FindStores(ShoppingList shoppingList)
         {
             //1. Create list of StoreSearchs

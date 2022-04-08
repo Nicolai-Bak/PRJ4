@@ -5,11 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiApplication.Database;
 
+// Skal vi have noget interface seperation her?? Tænker der måske er to funktionaliteter - ændring af database og læsning af database
 public interface IPrisninjaDB
 {
     List<string> GetAllProductNames();
     Task InsertStore(Store store);
     Task InsertProduct(Product product, int storeId, double price);
+
+    List<int> GetStoresInRange(double x, double y, int range);
+
+    List<Store> GetDataFromStores(List<int> topStores);
+
+    List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName);
 }
 
 public class PrisninjaDb : IPrisninjaDB
