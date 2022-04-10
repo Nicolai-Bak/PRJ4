@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using System.Web;
 //using ApiApplication.Database;
 //using ApiApplication.Database.Data;
@@ -108,6 +110,7 @@ public static class Program
             Log.CloseAndFlush();
         }
         */
+
     }
 
     private static async void PrintCoopProductSample()
