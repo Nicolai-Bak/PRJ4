@@ -7,31 +7,31 @@ public class PrisninjaDbContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("" +
-                                    "Server=tcp:prj4server.database.windows.net,1433;" +
-                                    "Initial Catalog=PRJ4 Database;" +
-                                    "Persist Security Info=False;" +
-                                    "User ID=superadmin;" +
-                                    "Password=Superpassword1;" +
-                                    "MultipleActiveResultSets=False;" +
-                                    "Encrypt=True;" +
-                                    "TrustServerCertificate=False;" +
-                                    "Connection Timeout=30;"
-        );
-
         // optionsBuilder.UseSqlServer("" +
-        //                             "Data Source=" + ";" +
-        //                             "Database=TestDB;" +
-        //                             "TrustServerCertificate=true;" +
-        //                             "User ID=SA;" +
-        //                             "PASSWORD=<Tofirebananer147>"
+        //                             "Server=tcp:prj4server.database.windows.net,1433;" +
+        //                             "Initial Catalog=PRJ4 Database;" +
+        //                             "Persist Security Info=False;" +
+        //                             "User ID=superadmin;" +
+        //                             "Password=Superpassword1;" +
+        //                             "MultipleActiveResultSets=False;" +
+        //                             "Encrypt=True;" +
+        //                             "TrustServerCertificate=False;" +
+        //                             "Connection Timeout=30;"
         // );
+
+        optionsBuilder.UseSqlServer("" +
+                                    "Data Source=localhost;" +
+                                    "Database=TestDB;" +
+                                    "TrustServerCertificate=true;" +
+                                    "User ID=SA;" +
+                                    "PASSWORD=<Tofirebananer147>"
+        );
     }
 
     public DbSet<Store> Stores => Set<Store>();
     public DbSet<Product> Products => Set<Product>();
     public DbSet<ProductStore> ProductStores => Set<ProductStore>();
-
+    public DbSet<ProductStandardName> ProductStandardNames => Set<ProductStandardName>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Store>()
@@ -42,6 +42,9 @@ public class PrisninjaDbContext : DbContext
 
         modelBuilder.Entity<ProductStore>()
             .HasKey(ps => new {ps.ProductKey, ps.StoreKey});
+
+        modelBuilder.Entity<ProductStandardName>()
+            .HasKey(psn => psn.Name);
 
         modelBuilder.Entity<ProductStore>()
             .HasOne<Product>(ps => ps.Product)

@@ -3,6 +3,7 @@ using ApiApplication.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiApplication.Migrations
 {
     [DbContext(typeof(PrisninjaDbContext))]
-    partial class PrisninjaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410124458_Organic+Image")]
+    partial class OrganicImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,31 +57,6 @@ namespace ApiApplication.Migrations
                     b.HasKey("EAN");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("ApiApplication.Database.Models.ProductStandardName", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("MeasureG")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("MeasureL")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("MeasureStk")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Organic")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("StandardUnits")
-                        .HasColumnType("float");
-
-                    b.HasKey("Name");
-
-                    b.ToTable("ProductStandardNames");
                 });
 
             modelBuilder.Entity("ApiApplication.Database.Models.ProductStore", b =>

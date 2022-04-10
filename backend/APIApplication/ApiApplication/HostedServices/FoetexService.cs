@@ -3,6 +3,7 @@ using System.Runtime.InteropServices.ComTypes;
 using ApiApplication.Database;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
+using ApiApplication.Database.ProductNameStandardize;
 using ExternalAPIComponent;
 using ExternalAPIComponent.Callers.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
@@ -107,8 +108,10 @@ namespace ApiApplication.HostedServices
                     EAN = sallingProduct.EAN,
                     Name = sallingProduct.Name,
                     Brand = sallingProduct.Brand,
-                    Unit = sallingProduct.Unit,
-                    Measurement = sallingProduct.Measurement
+                    Units = sallingProduct.Unit,
+                    Measurement = sallingProduct.Measurement,
+                    Organic = false,
+                    ImageUrl = ""
                 });
             });
             Console.WriteLine("Bulk insert - " + DateTime.Now);
@@ -135,6 +138,10 @@ namespace ApiApplication.HostedServices
             _db.InsertProductStores(productStoreList);
             
             Console.WriteLine("DONE! - " + DateTime.Now);
+
+            ProductNameStandardizer pns = new ProductNameStandardizer();
+            var standardizedList = pns.Standardize(_db.GetAllProducts());
+            _db.InsertProductStandardNames(standardizedList);
         }
     }
 }
