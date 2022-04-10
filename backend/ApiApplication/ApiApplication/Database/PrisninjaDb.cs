@@ -9,6 +9,7 @@ public interface IPrisninjaDB
 {
     List<string> GetAllProductNames();
     List<Product> GetAllProducts();
+    ProductStandardName GetProductInfo(string name);
     void InsertStores(List<Store> stores);
     void InsertProducts(List<Product> products);
     void InsertProductStores(List<ProductStore> productStores);
@@ -32,6 +33,11 @@ public class PrisninjaDb : IPrisninjaDB
     public List<Product> GetAllProducts()
     {
         return _context.Products.ToList();
+    }
+    
+    public ProductStandardName? GetProductInfo(string name)
+    {
+        return _context.ProductStandardNames.FirstOrDefault(sn => sn.Name == name);
     }
 
     public List<int> GetStoresInRange(double x, double y, int range)
