@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Filters;
+namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
 
 public class SallingProductFilter : IFilter
 {

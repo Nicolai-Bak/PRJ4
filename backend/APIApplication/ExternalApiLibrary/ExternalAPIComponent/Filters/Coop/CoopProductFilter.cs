@@ -1,3 +1,4 @@
+using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 using Newtonsoft.Json;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;

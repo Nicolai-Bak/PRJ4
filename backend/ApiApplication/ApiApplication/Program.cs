@@ -33,7 +33,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddHostedService<FoetexService>();
+builder.Services.AddHostedService<Service>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
