@@ -8,7 +8,7 @@ public class ProductNameStandardizer
     public List<ProductStandardName> Standardize(List<Product> products)
     {
         var standardList = new List<ProductStandardName>();
-        
+
         products.ForEach(p =>
         {
             p.Name = p.Name
@@ -21,31 +21,52 @@ public class ProductNameStandardizer
                 .Replace("  ", " ")
                 .Trim();
         });
-        
+
         products.ForEach(p =>
         {
             var psn = new ProductStandardName()
             {
                 Name = p.Name,
-                MeasureG = false,
-                MeasureL = false,
-                MeasureStk = false,
-                Organic = false,
+                MeasureG = (p.Measurement.ToLower().Contains("g") ? true : false),
+                MeasureL = (p.Measurement.ToLower().Contains("l") ? true : false),
+                MeasureStk = (p.Measurement.ToLower().Contains("stk") ? true : false),
+                Organic = p.Organic,
                 StandardUnits = 0
             };
-            
-            if (standardList.Any(sn => sn.Name.Contains(p.Name)))
+            if (standardList.Any(sn => sn.Name == p.Name))
             {
-                standardList.Find(sl => sl.Name.Contains(p.Name)).Name = p.Name;
-            }
-            else if (standardList.Any(sn => p.Name.Contains(sn.Name)))
-            {
+                var oldPsn = standardList.Find(sn => sn.Name == p.Name);
+                standardList.Remove(oldPsn);
                 
+                psn.MeasureG |= oldPsn.MeasureG;
+                psn.MeasureL |= oldPsn.MeasureL;
+                psn.MeasureStk |= oldPsn.MeasureStk;
+                psn.Organic |= oldPsn.Organic;
             }
-            else
+            else if (standardList.Any(sn => sn.Name.Contains(p.Name + " ")))
             {
-                standardList.Add(psn);
+                var oldPsn = standardList.Find(sn => sn.Name.Contains(p.Name + " "));
+                standardList.Remove(oldPsn);
+                
+                psn.MeasureG |= oldPsn.MeasureG;
+                psn.MeasureL |= oldPsn.MeasureL;
+                psn.MeasureStk |= oldPsn.MeasureStk;
+                psn.Organic |= oldPsn.Organic;
             }
+            else if (standardList.Any(sn => p.Name.Contains(sn.Name + " ")))
+            {
+                var oldPsn = standardList.Find(sn => p.Name.Contains(sn.Name + " "));
+                standardList.Remove(oldPsn);
+
+                psn.Name = oldPsn.Name;
+                psn.MeasureG |= oldPsn.MeasureG;
+                psn.MeasureL |= oldPsn.MeasureL;
+                psn.MeasureStk |= oldPsn.MeasureStk;
+                psn.Organic |= oldPsn.Organic;
+            }
+            
+            standardList.Add(psn);
+            //Comment
         });
         return standardList;
     }
