@@ -24,6 +24,7 @@ public class ProductNameStandardizer
 
         products.ForEach(p =>
         {
+            var oldPsn = new ProductStandardName();
             var psn = new ProductStandardName()
             {
                 Name = p.Name,
@@ -35,38 +36,24 @@ public class ProductNameStandardizer
             };
             if (standardList.Any(sn => sn.Name == p.Name))
             {
-                var oldPsn = standardList.Find(sn => sn.Name == p.Name);
-                standardList.Remove(oldPsn);
-                
-                psn.MeasureG |= oldPsn.MeasureG;
-                psn.MeasureL |= oldPsn.MeasureL;
-                psn.MeasureStk |= oldPsn.MeasureStk;
-                psn.Organic |= oldPsn.Organic;
+                oldPsn = standardList.Find(sn => sn.Name == p.Name);
             }
             else if (standardList.Any(sn => sn.Name.Contains(p.Name + " ")))
             {
-                var oldPsn = standardList.Find(sn => sn.Name.Contains(p.Name + " "));
-                standardList.Remove(oldPsn);
-                
-                psn.MeasureG |= oldPsn.MeasureG;
-                psn.MeasureL |= oldPsn.MeasureL;
-                psn.MeasureStk |= oldPsn.MeasureStk;
-                psn.Organic |= oldPsn.Organic;
+                oldPsn = standardList.Find(sn => sn.Name.Contains(p.Name + " "));
             }
             else if (standardList.Any(sn => p.Name.Contains(sn.Name + " ")))
             {
-                var oldPsn = standardList.Find(sn => p.Name.Contains(sn.Name + " "));
-                standardList.Remove(oldPsn);
-
+                oldPsn = standardList.Find(sn => p.Name.Contains(sn.Name + " "));
                 psn.Name = oldPsn.Name;
-                psn.MeasureG |= oldPsn.MeasureG;
-                psn.MeasureL |= oldPsn.MeasureL;
-                psn.MeasureStk |= oldPsn.MeasureStk;
-                psn.Organic |= oldPsn.Organic;
             }
-            
+            psn.MeasureG |= oldPsn.MeasureG;
+            psn.MeasureL |= oldPsn.MeasureL;
+            psn.MeasureStk |= oldPsn.MeasureStk;
+            psn.Organic |= oldPsn.Organic;
+
+            standardList.Remove(oldPsn);
             standardList.Add(psn);
-            //Comment
         });
         return standardList;
     }
