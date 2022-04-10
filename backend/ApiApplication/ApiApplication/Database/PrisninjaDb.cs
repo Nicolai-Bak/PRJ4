@@ -26,7 +26,7 @@ public class PrisninjaDb : IPrisninjaDB
 
     public List<string> GetAllProductNames()
     {
-        return _context.Products.Select(p => p.Name).ToList();
+        return _context.ProductStandardNames.Select(sn => sn.Name).ToList();
     }
     
     public List<Product> GetAllProducts()
