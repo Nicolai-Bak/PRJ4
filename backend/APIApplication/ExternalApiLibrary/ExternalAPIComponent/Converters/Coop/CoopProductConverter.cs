@@ -51,7 +51,7 @@ public class CoopProductConverter : IConverter
                 Log.Fatal(
                     "Coop product conversion failed " +
                     "- Product spot text contained too many units of measurement: " +
-                    $"SpotText: {spotText}"
+                    $"SpotText: {spotText}, matched units: {string.Join(", ", matchingUnits)}"
                 );
                 return matchingUnits.First();
             default:
