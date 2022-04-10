@@ -31,7 +31,7 @@ public class PrisninjaDbContext : DbContext
     public DbSet<Store> Stores => Set<Store>();
     public DbSet<Product> Products => Set<Product>();
     public DbSet<ProductStore> ProductStores => Set<ProductStore>();
-
+    public DbSet<ProductStandardName> ProductStandardNames => Set<ProductStandardName>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Store>()
@@ -42,6 +42,9 @@ public class PrisninjaDbContext : DbContext
 
         modelBuilder.Entity<ProductStore>()
             .HasKey(ps => new {ps.ProductKey, ps.StoreKey});
+
+        modelBuilder.Entity<ProductStandardName>()
+            .HasKey(psn => psn.Name);
 
         modelBuilder.Entity<ProductStore>()
             .HasOne<Product>(ps => ps.Product)
