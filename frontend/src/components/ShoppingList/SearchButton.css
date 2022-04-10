@@ -1,12 +1,3 @@
-
-
-.searchButton {
-    margin: auto;
-    width: 150px;
-    height:30px;
-    padding-top: 40px;
-}
-
 #search-button {
     max-width: 10em;
 	width: 255px;
@@ -18,6 +9,7 @@
 	border-radius: 1rem;
 	background-color: var(--secondary-color);
 	cursor: pointer;
+    margin-bottom: 1rem;
 }
 
 #search-button:hover {

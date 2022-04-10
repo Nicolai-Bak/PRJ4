@@ -5,7 +5,7 @@
     margin-bottom: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.1rem;
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     text-align: center;
     border-radius: 1rem;
 }
@@ -30,7 +30,7 @@
 }
 
 .products {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color-shadow);
     padding-top: 0.1rem;
     padding-bottom: 0.8rem;
     margin: 1rem;

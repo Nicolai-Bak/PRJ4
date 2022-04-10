@@ -59,3 +59,11 @@
     transition: all 0.2s ease-in-out 0.1s;
     margin-top: 5px;
 }
+
+#cart-total {
+    float:right;
+    font-size: 1.5rem;
+    font-weight: 900;
+    padding-top: 2rem;
+    padding-left: 1rem;
+}

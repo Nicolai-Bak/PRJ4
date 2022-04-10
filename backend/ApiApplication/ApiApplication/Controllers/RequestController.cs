@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using ApiApplication.Database;
+using ApiApplication.Database.Models;
 using ApiApplication.SearchAlgorithm;
 using ApiApplication.SearchAlgorithm.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,12 @@ namespace ApiApplication.Controllers
         {
             return _db.GetAllProductNames();
         }
-
+        
+        [HttpGet("/productinfo/{name}")]
+        public ProductStandardName GetProductInfo(string name)
+        {
+            return _db.GetProductInfo(name);
+        }
 
         [HttpPost("/options")]
         public async Task<ShoppingOptions> GetOptions(ShoppingList shoppingList)
