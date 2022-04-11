@@ -1,9 +1,21 @@
-/* import React from 'react'
+import React from 'react'
 import './NavBar.css';
 import {useNavigate} from "react-router-dom";
+import ShoppingList from '../../ShoppingList/ShoppingList';
+import {useEffect} from "react"
+
+// const calculateTotal = () => {
+//     const total = JSON.parse(localStorage.getItem("shoppingList"));
+//     const cartTotal = total.length;
+//     return cartTotal;
+// }
 
 
 function NavBar() {
+
+    // useEffect(() => {
+    //     calculateTotal();
+    // }, [ShoppingList]);
 
     let navigate = useNavigate();
     return (
@@ -23,4 +35,4 @@ function NavBar() {
     )
 }
 
-export default NavBar */
+export default NavBar

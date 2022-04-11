@@ -1,15 +1,14 @@
-import React from 'react'
-import "./Footer.css"
+// import React from 'react'
+// import "./Footer.css"
 
-function Footer() {
+// function Footer() {
 
-  return (
+//   return (
+//     <div className='footer'>
+//         <h4 id='footerLink__about'>Kontakt os - Hvem er vi? - Betingelser </h4>
+//         <p id='footerText'>&copy;{new Date().getFullYear()} PRIS NINJA INC </p>
+//     </div>
+//   )
+// }
 
-    <div className='footer'>
-        <h4 id='footerLink__about'>Kontakt os - Hvem er vi? - Betingelser </h4>
-        <p id='footerText'>&copy;{new Date().getFullYear()} PRIS NINJA INC </p>
-    </div>
-  )
-}
-
-export default Footer
+// export default Footer

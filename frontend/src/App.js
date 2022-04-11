@@ -1,17 +1,20 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./components/NavBar/NavBar";
+import NavBar from "./components/UI/Organisms/NavBar/NavBar";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import PageNotFound from "./Pages/PageNotFound";
 import SearchResultsPage from "./Pages/SearchResultsPage";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/UI/Organisms/Footer/Footer";
 
 function App() {
+	const links = ["Kontakt os - ", "Hvem er vi? - ", "Betingelser"];
+
 	return (
 		<div className="page__container">
 				<Router>
-					<NavBar />
+					<NavBar 
+					companyName="PRISNINJA"/>
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/about" element={<About />} />
@@ -19,7 +22,10 @@ function App() {
 						<Route path="/searchResults" element={<SearchResultsPage />} />
 					</Routes>
 				</Router>
-			<Footer />
+			<Footer 
+				pageLinks={links}
+				companyName="PRIS NINJA INC"
+			/>
 		</div>
 	);
 }

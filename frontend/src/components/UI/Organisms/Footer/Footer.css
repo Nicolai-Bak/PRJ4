@@ -1,0 +1,19 @@
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%; 
+  background-color: var(--default-black);
+   text-align: center;
+}
+
+.footerLinks {
+   padding-top: 4rem;
+   color: var(--default-white);
+}
+
+.footerText {
+   color: white;
+   font-size: 1rem;
+   margin-top: 0.6rem;
+   padding-bottom: 5rem;
+}
