@@ -35,20 +35,20 @@ const GetShoppingOptions = () => {
 
 	if (options.best !== null) {
 		best = {
-			StoreName: options.best.StoreName,
-			TotalPrice: options.best.TotalPrice,
-			TotalDistance: options.best.TotalDistance,
-			Products: options.best.Products,
+			StoreName: options.best.storeName,
+			TotalPrice: options.best.totalPrice,
+			TotalDistance: options.best.totalDistance,
+			Products: options.best.products,
 		};
 		return;
 	}
 
 	if (options.nearest !== null) {
 		nearest = {
-			StoreName: options.nNearest.StoreName,
-			TotalPrice: options.nearest.TotalPrice,
-			TotalDistance: options.nearest.TotalDistance,
-			Products: options.nearest.Products,
+			StoreName: options.nearest.storeName,
+			TotalPrice: options.nearest.totalPrice,
+			TotalDistance: options.nearest.totalDistance,
+			Products: options.nearest.products,
 		};
 	}
 

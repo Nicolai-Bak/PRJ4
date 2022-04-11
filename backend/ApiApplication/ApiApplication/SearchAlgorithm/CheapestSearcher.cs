@@ -36,7 +36,7 @@ namespace ApiApplication.SearchAlgorithm
                             EAN = temp.EAN,
                             Name = temp.Name,
                             Brand = temp.Brand,
-                            Unit = temp.Unit,
+                            Unit = temp.Units,
                             Measurement = temp.Measurement,
                             Price = temp.ProductStores.Find(ps => ps.StoreKey == storeID).Price
                         };

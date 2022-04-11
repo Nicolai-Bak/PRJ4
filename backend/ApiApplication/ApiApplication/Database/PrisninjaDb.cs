@@ -8,8 +8,12 @@ namespace ApiApplication.Database;
 public interface IPrisninjaDB
 {
     List<string> GetAllProductNames();
-    Task InsertStore(Store store);
-    Task InsertProduct(Product product, int storeId, double price);
+    List<Product> GetAllProducts();
+    ProductStandardName GetProductInfo(string name);
+    void InsertStores(List<Store> stores);
+    void InsertProducts(List<Product> products);
+    void InsertProductStores(List<ProductStore> productStores);
+    void InsertProductStandardNames(List<ProductStandardName> productStandardNames);
 }
 
 public class PrisninjaDb : IPrisninjaDB
@@ -23,7 +27,17 @@ public class PrisninjaDb : IPrisninjaDB
 
     public List<string> GetAllProductNames()
     {
-        return _context.Products.Select(p => p.Name).ToList();
+        return _context.ProductStandardNames.Select(sn => sn.Name).ToList();
+    }
+    
+    public List<Product> GetAllProducts()
+    {
+        return _context.Products.ToList();
+    }
+    
+    public ProductStandardName? GetProductInfo(string name)
+    {
+        return _context.ProductStandardNames.FirstOrDefault(sn => sn.Name == name);
     }
 
     public List<int> GetStoresInRange(double x, double y, int range)
@@ -43,73 +57,46 @@ public class PrisninjaDb : IPrisninjaDB
         return _context.Products
             .Select(p => p)
             .Where(p => p.ProductStores
-                .Select(ps => ps.StoreKey)
-                .Any(psk => storeKeys
-                    .Any(sk => sk == psk))
+                            .Select(ps => ps.StoreKey)
+                            .Any(psk => storeKeys
+                                .Any(sk => sk == psk))
                         && p.Name.Contains(productName))
             .ToList();
     }
 
-    public async Task InsertStore(Store store)
+    public void InsertStores(List<Store> stores)
     {
-        _context.Add(store);
-
-        await _context.Database.OpenConnectionAsync();
-        try
+        _context.Stores.BulkInsert(stores, options =>
         {
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores ON");
-            await _context.SaveChangesAsync();
-            await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Stores OFF");
-        }
-        catch (DbUpdateException ex)
-        {
-        }
-        finally
-        {
-            await _context.Database.CloseConnectionAsync();
-        }
+            options.InsertKeepIdentity = true;
+            options.InsertIfNotExists = true;
+        });
     }
 
-    public async Task InsertProduct(Product product, int storeId, double price)
+    public void InsertProducts(List<Product> products)
     {
-        if (!_context.Products.Contains(product))
+        _context.Products.BulkInsert(products, options =>
         {
-            _context.Add(product);
+            options.InsertKeepIdentity = true;
+            options.InsertIfNotExists = true;
+        });
+    }
 
-            await _context.Database.OpenConnectionAsync();
-            try
-            {
-                await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products ON");
-                await _context.SaveChangesAsync();
-                await _context.Database.ExecuteSqlInterpolatedAsync($"SET IDENTITY_INSERT Products OFF");
-            }
-            catch (DbUpdateException ex)
-            {
-            }
-            finally
-            {
-                await _context.Database.CloseConnectionAsync();
-            }
-        }
-
-        var productStore = new ProductStore() { ProductKey = product.EAN, StoreKey = storeId, Price = price };
-
-        if (!_context.ProductStores.Contains(productStore))
+    public void InsertProductStores(List<ProductStore> productStores)
+    {
+        _context.ProductStores.BulkInsert(productStores, options =>
         {
-            _context.Add(productStore);
+            options.InsertKeepIdentity = true;
+            options.InsertIfNotExists = true;
+        });
+    }
 
-            await _context.Database.OpenConnectionAsync();
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex)
-            {
-            }
-            finally
-            {
-                await _context.Database.CloseConnectionAsync();
-            }
-        }
+    public void InsertProductStandardNames(List<ProductStandardName> productStandardNames)
+    {
+        _context.ProductStandardNames.BulkInsert(productStandardNames, options =>
+        {
+            options.InsertKeepIdentity = true;
+            options.InsertIfNotExists = true;
+        });
     }
 }

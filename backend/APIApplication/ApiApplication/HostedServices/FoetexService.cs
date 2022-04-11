@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices.ComTypes;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices.ComTypes;
 using ApiApplication.Database;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
+using ApiApplication.Database.ProductNameStandardize;
 using ExternalAPIComponent;
 using ExternalAPIComponent.Callers.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
@@ -18,7 +20,6 @@ namespace ApiApplication.HostedServices
 
         public FoetexService(IServiceProvider sp)
         {
-
             _db = sp.CreateScope().ServiceProvider.GetRequiredService<IPrisninjaDB>();
         }
 
@@ -53,9 +54,9 @@ namespace ApiApplication.HostedServices
             SallingProductCaller productCaller = new();
             SallingRequestBuilder builder = new SallingRequestBuilder();
             builder.AddInfos()
-                    .AddUnits()
-                    .AddUnitsOfMeasure()
-                    .AddStoreData();
+                .AddUnits()
+                .AddUnitsOfMeasure()
+                .AddStoreData();
 
             var products = await productCaller.Call(builder.Build());
 
@@ -77,56 +78,71 @@ namespace ApiApplication.HostedServices
             {
                 ConvertedSallingStore sallingStore = (ConvertedSallingStore) store;
                 return sallingStore.Brand == "foetex";
-            });
+            }).ToList();
 
-            ////// Insert stores
-            //foreach (var s in convertedStores )
-            //{
-            //    ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
-            //    Store store = new Store()
-            //    {
-            //        ID = convertedStore.ID,
-            //        Brand = convertedStore.Brand,
-            //        Location_X = convertedStore.Location_X,
-            //        Location_Y = convertedStore.Location_Y,
-            //        Address = convertedStore.Address
-            //    };
-            //    await _db.InsertStore(store);
-            //}
-
-            ///// Insert products
-            foreach (var p in convertedProducts)
+            //// Insert stores
+            Console.WriteLine("Inserting stores - " + DateTime.Now);
+            var storeList = new List<Store>();
+            foetexStores.ForEach(s =>
             {
-                ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
-                var product = new Product()
+                ConvertedSallingStore convertedStore = (ConvertedSallingStore) s;
+                storeList.Add(new Store()
+                {
+                    ID = convertedStore.ID,
+                    Brand = convertedStore.Brand,
+                    Location_X = convertedStore.Location_X,
+                    Location_Y = convertedStore.Location_Y,
+                    Address = convertedStore.Address
+                });
+            });
+            Console.WriteLine("Bulk insert - " + DateTime.Now);
+            _db.InsertStores(storeList);
+            
+            ///// Insert products
+            Console.WriteLine("Inserting Products - " + DateTime.Now);
+            var productList = new List<Product>();
+            convertedProducts.ForEach(p =>
+            {
+                ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct) p;
+                productList.Add(new Product()
                 {
                     EAN = sallingProduct.EAN,
                     Name = sallingProduct.Name,
                     Brand = sallingProduct.Brand,
-                    Unit = sallingProduct.Unit,
-                    Measurement = sallingProduct.Measurement
-                };
-                //foreach (var s in convertedStores)
-                foreach (var s in foetexStores)
+                    Units = sallingProduct.Unit,
+                    Measurement = sallingProduct.Measurement,
+                    Organic = false,
+                    ImageUrl = ""
+                });
+            });
+            Console.WriteLine("Bulk insert - " + DateTime.Now);
+            _db.InsertProducts(productList);
+            
+            ///// Insert productStores
+            Console.WriteLine("Inserting ProductStores - " + DateTime.Now);
+            var productStoreList = new List<ProductStore>();
+            convertedProducts.ForEach(p =>
+            {
+                ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct) p;
+                foetexStores.ForEach(s =>
                 {
-                    ConvertedSallingStore foetexStore = (ConvertedSallingStore)s;
-                    var store = new Store()
+                    ConvertedSallingStore convertedStore = (ConvertedSallingStore) s;
+                    productStoreList.Add(new ProductStore()
                     {
-                        ID = foetexStore.ID,
-                        Brand = foetexStore.Brand,
-                        Location_X = foetexStore.Location_X,
-                        Location_Y = foetexStore.Location_Y,
-                        Address = foetexStore.Address,
-                    };
+                        ProductKey = sallingProduct.EAN,
+                        StoreKey = convertedStore.ID,
+                        Price = sallingProduct.Stores.First().Value.Price
+                    });
+                });
+            });
+            Console.WriteLine("Bulk insert - " + DateTime.Now);
+            _db.InsertProductStores(productStoreList);
+            
+            Console.WriteLine("DONE! - " + DateTime.Now);
 
-                    //if (store.Brand == "foetex")
-                    //{
-                    //    await _db.InsertProduct(product, store.ID, sallingProduct.Stores.First().Value.Price);
-                    //}
-
-                    await _db.InsertProduct(product, store.ID, sallingProduct.Stores.First().Value.Price);
-                }
-            }
+            ProductNameStandardizer pns = new ProductNameStandardizer();
+            var standardizedList = pns.Standardize(_db.GetAllProducts());
+            _db.InsertProductStandardNames(standardizedList);
         }
     }
 }
