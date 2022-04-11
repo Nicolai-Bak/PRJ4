@@ -1,7 +1,6 @@
 ﻿using System.Data.SqlClient;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace ApiApplication.Database;
 
