@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices.ComTypes;
 using ApiApplication.Database;
-using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
 using ApiApplication.Database.ProductNameStandardize;
 using ExternalAPIComponent;
@@ -10,7 +9,10 @@ using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Filters;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
+
 
 namespace ApiApplication.HostedServices
 {
