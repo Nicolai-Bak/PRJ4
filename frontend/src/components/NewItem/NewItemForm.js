@@ -8,6 +8,10 @@ const NewItemForm = (props) => {
 	const [newItem, setNewItem] = useState(null);
 	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
+	// changed validInput
+	const [isSearchFieldValid, SetIsSearchFieldValid] = useState(true);
+	const [isAmountValid, SetIsAmountValid] = useState(true);
+
 	const id = uuid();
 
 	useEffect(() => {
@@ -44,28 +48,36 @@ const NewItemForm = (props) => {
 	};
 
 	const itemChangeHandler = (itemReceived) => {
+		SetIsSearchFieldValid(true);
 		setNewItem(itemReceived);
 	};
 
 	const amountChangeHandler = (event) => {
 		const added = event.target.value;
 		added < 0
-			? console.log(`Item amount too small, was: ${added}`)
+			? SetIsAmountValid(false)
 			: setAmount(added);
+		SetIsAmountValid(true);
 	};
+
 
 	const validInput = (newItem, amount) => {
 		if (newItem === null || !newItem.length > 0) {
+			SetIsSearchFieldValid(false);
 			console.log("No item was detected in the input field");
 			return false;
+		}
+		if (amount === null || !amount.length > 0) {
+			SetIsAmountValid(false);
 		}
 		if (!amount > 0) {
 			console.log("amount too small");
 			return false;
 		}
-
+		SetIsSearchFieldValid(true);
+		SetIsAmountValid(true);
 		return true;
-	};
+	}; 
 
 	const unitChangeHandler = (event) => {
 		setUnit(event);
@@ -76,7 +88,7 @@ const NewItemForm = (props) => {
 	};
 
 	return (
-		<form onSubmit={submitItemHandler} className="add-item-form">
+		<form onSubmit={submitItemHandler} className={`add-item-form ${!isSearchFieldValid ? 'invalid' : ''}`}> 
 			{/* <div className="item-inputs">
 				<input
 					className="item-name"
@@ -86,9 +98,11 @@ const NewItemForm = (props) => {
 					placeholder="Tilføj varer her"
 				></input>
 			</div> */}
-			<SearchField onItemChanged={itemChangeHandler} />
+			{/* {label ? <label className="error-message-empty-search-field">Feltet må ikke være tomt!</label} */}
+			<SearchField 
+						 onItemChanged={itemChangeHandler} />
 			<UnitBox onUnitSelected={unitChangeHandler} />
-			<input
+			<input className={`input-amount-field ${!isAmountValid ? 'invalid' : ''}`}
 				type="number"
 				step="0.01"
 				id="amount"

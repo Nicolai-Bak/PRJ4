@@ -3,6 +3,7 @@ import ShoppingList from "../components/ShoppingList/ShoppingList";
 import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Banner from "../components/Banner/Banner";
 
 
 function Home() {
@@ -153,21 +154,7 @@ function Home() {
 
 	return (
 		<div className="home">
-			<div className="slogan__container">
-				<div className="slogan">
-					<img
-						id="ninja-landing"
-						src="/images/ninja-landing.svg"
-						alt="ninja-landing"
-					/>
-					<i>Find tilbuddene, før din nabo gør det!</i>
-					<img
-						id="ninja-rightside"
-						src="/images/ninja-about.svg"
-						alt="ninja-rightside"
-					/>
-				</div>
-			</div>
+			<Banner/>
 			<NewItemForm onItemAdded={newItemHandler} />
 			<ShoppingList
 				items={shoppingList}
@@ -177,6 +164,8 @@ function Home() {
 			/>
 		</div>
 	);
+
+	
 	async function ValidateItem(name, unit) {
 		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
 
