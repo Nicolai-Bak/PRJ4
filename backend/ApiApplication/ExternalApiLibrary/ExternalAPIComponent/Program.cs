@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using System.Web;
 //using ApiApplication.Database;
 //using ApiApplication.Database.Data;
@@ -8,6 +10,7 @@ using ExternalAPIComponent.Callers.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Filters;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
 using Serilog;
@@ -108,6 +111,10 @@ public static class Program
             Log.CloseAndFlush();
         }
         */
+
+        //PrintSallingProductSample();
+
+        //Console.ReadKey();
     }
 
     private static async void PrintCoopProductSample()
@@ -135,13 +142,24 @@ public static class Program
     
     private static async void PrintSallingProductSample()
     {
-        SallingProductCaller sallingCaller = new();
-        var sallingResult = await sallingCaller.Call(new SallingRequestBuilder().Build());
-            
+	    SallingProductCaller productCaller = new();
+	    SallingRequestBuilder builder = new SallingRequestBuilder();
+	    builder.AddInfos()
+		    .AddUnits()
+		    .AddUnitsOfMeasure()
+		    .AddStoreData()
+		    .AddProperties();
+	    IFilter productFilter = new SallingProductFilter();
+	    IConverter productConverter = new SallingProductConverter();
+
+	    var products = await productCaller.Call(builder.Build());
+	    var filteredProducts = productFilter.Filter(products);
+	    var convertedProducts = productConverter.Convert(filteredProducts);
+	    
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("\n\n ------------ Salling Products ------------ ");
         Console.ResetColor();
-        Console.WriteLine(sallingResult[0].ToString());
+        
         //sallingResult.ForEach(obj => Console.WriteLine(JToken.Parse((string) obj).ToString(Formatting.Indented) + "\n"));
     }
 

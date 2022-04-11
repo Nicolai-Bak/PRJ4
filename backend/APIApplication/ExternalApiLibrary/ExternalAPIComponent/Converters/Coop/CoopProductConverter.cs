@@ -7,6 +7,9 @@ namespace ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
 
 public class CoopProductConverter : IConverter
 {
+	/**
+	 * Convert the list of products from external API products to internal API products
+	 */
     public List<object> Convert(List<object> list)
     {
         var filteredList = list.Cast<List<FilteredCoopProduct>>().ToList();
@@ -24,12 +27,16 @@ public class CoopProductConverter : IConverter
                 Name = product.displayName,
                 Brand = product.brand,
                 Unit = GetUnitFromSpotText(product.spotText, GetMeasurementFromSpotText(product.spotText)),
-                Measurement = GetMeasurementFromSpotText(product.spotText)
+                Measurement = GetMeasurementFromSpotText(product.spotText),
+                Organic = IsProductOrganic(product.labels)
             }));
         
         return new List<object>(convertedProducts);
     }
 
+    /**
+     * Returns the measurement from the spot text.
+     */
     private static string GetMeasurementFromSpotText(string spotText)
     {
         string[] unitsToMatch =  { "kg", " g,", " g ", "stk", "liter" };
@@ -51,7 +58,7 @@ public class CoopProductConverter : IConverter
                 Log.Fatal(
                     "Coop product conversion failed " +
                     "- Product spot text contained too many units of measurement: " +
-                    $"SpotText: {spotText}"
+                    $"SpotText: {spotText}, matched units: {string.Join(", ", matchingUnits)}"
                 );
                 return matchingUnits.First();
             default:
@@ -59,6 +66,9 @@ public class CoopProductConverter : IConverter
         }
     }
 
+    /**
+     * Returns the unit from the spot text.
+     */
     private static double GetUnitFromSpotText(string spotText, string measurement)
     {
         // Extracts the value behind the measurement substring
@@ -76,8 +86,22 @@ public class CoopProductConverter : IConverter
                   $"spotText: {spotText}");
         return 0.0;
     }
+    
+    /**
+     * Checks if the product is organic
+     */
+    private static bool IsProductOrganic(List<Label> labels)
+	{
+		string[] organicLabelIds =  { "o-market", "eu-okologi" };
+
+		return labels.Any(label => organicLabelIds
+			.Any(labelId => labelId == label.id));
+	}
 }
 
+/**
+ * Class to hold the converted product
+ */
 public class ConvertedCoopProduct
 {
     public Int64 EAN { get; set; }
@@ -85,4 +109,5 @@ public class ConvertedCoopProduct
     public string Brand { get; set; }
     public double Unit { get; set; }
     public string Measurement { get; set; }
+    public bool Organic { get; set; }
 }

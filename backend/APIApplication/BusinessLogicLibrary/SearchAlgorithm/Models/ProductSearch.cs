@@ -6,7 +6,7 @@ public class ProductSearch
 {
     public string Name { get; set; }
     public string Brand { get; set; }
-    public double Unit { get; set; }
+    public double Units { get; set; }
     public string Measurement { get; set; }
     public double Price { get; set; }
     public int Amount { get; set; }
@@ -15,7 +15,7 @@ public class ProductSearch
     {
         Name = p.Name;
         Brand = p.Brand;
-        Unit = p.Unit;
+        Units = p.Units;
         Measurement = p.Measurement;
         Price = price;
         Amount = amount;

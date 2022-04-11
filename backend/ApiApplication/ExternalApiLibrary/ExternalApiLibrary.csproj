@@ -40,6 +40,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BusinessLogicLibrary\BusinessLogicLibrary.csproj" />
+      <ProjectReference Include="..\DatabaseLibrary\DatabaseLibrary.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Reference Include="Microsoft.Extensions.Configuration.Json" />
     </ItemGroup>
 

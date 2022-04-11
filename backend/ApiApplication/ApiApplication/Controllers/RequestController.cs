@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using ApiApplication.Database;
+using ApiApplication.Database.Models;
 using ApiApplication.SearchAlgorithm;
 using ApiApplication.SearchAlgorithm.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,12 @@ namespace ApiApplication.Controllers
         {
             return _db.GetAllProductNames();
         }
-
+        
+        [HttpGet("/productinfo/{name}")]
+        public ProductStandardName GetProductInfo(string name)
+        {
+            return _db.GetProductInfo(name);
+        }
 
         [HttpPost("/options")]
         public async Task<ShoppingOptions> GetOptions(ShoppingList shoppingList)
@@ -58,29 +64,4 @@ namespace ApiApplication.Controllers
     //    public double TotalDistance { get; set; }
     //    public List<ProductSearch> Products { get; set; }
     //}
-
-    public class ShoppingOptions
-    {
-        public List<StoreSearch> Best { get; set; }
-        public List<StoreSearch> Cheapest { get; set; } 
-        public List<StoreSearch> Nearest { get; set; }
-    }
-
-    
-
-
-    public class ShoppingList
-    {
-        public List<ShoppingListItem> Products { get; set; }
-        public double X { get; set; }
-        public double Y { get; set; }
-        public int Range { get; set; }
-    }
-    
-    public class ShoppingListItem
-    {
-        public string Name { get; set; }
-        public double Unit { get; set; }
-        public string Measurement { get; set; }
-    }
 }
