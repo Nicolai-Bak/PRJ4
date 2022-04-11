@@ -36,7 +36,7 @@ namespace ApiApplication.SearchAlgorithm
                     int amount = 0;
                     Product temp = productsToAdd
                             .Where(p => p.ProductStores.Select(ps => ps.StoreKey).Any(sk => sk == storeID))
-                            .MinBy(p => p.ProductStores.Select(ps => GetPrice(shoppingList.Products[i].Unit,ps.Product.Unit,ps.Price,ref price,ref amount)));
+                            .MinBy(p => p.ProductStores.Select(ps => GetPrice(shoppingList.Products[i].Unit,ps.Product.Units,ps.Price,ref price,ref amount)));
                             //.MinBy(p => p.ProductStores.Select(ps => ps.Price));
                     if (temp != null)
                     {
