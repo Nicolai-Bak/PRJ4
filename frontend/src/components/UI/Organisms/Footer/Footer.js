@@ -16,7 +16,7 @@ function Footer(props) {
 
   return (
     <div className='footer'>
-        <h4 className='footerLink'>{props.pageLinks}</h4>
+        <h4 className='footerLinks'>{props.pageLinks}</h4>
         <p className='footerText'>&copy;{new Date().getFullYear()} {props.companyName} </p>
     </div>
   )
