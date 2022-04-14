@@ -1,19 +1,25 @@
 .footer {
-  position: relative;
-  bottom: 0;
-  width: 100%; 
-  background-color: var(--default-black);
-   text-align: center;
-}
-
-.footerLinks {
-   padding-top: 4rem;
-   color: var(--default-white);
-}
-
-.footerText {
+	position: relative;
    color: white;
-   font-size: 1rem;
-   margin-top: 0.6rem;
-   padding-bottom: 5rem;
+	bottom: 0;
+	width: 100%;
+	background-color: var(--default-black);
+	text-align: center;
+}
+
+.footer-link {
+	color: white !important;
+	padding-top: 4rem;
+	color: var(--default-white);
+}
+.footer-link a {
+   color: var(--default-white);
+   font-style: normal;
+}
+
+.footer-text {
+	color: white;
+	font-size: 1rem;
+	margin-top: 0.6rem;
+	padding-bottom: 5rem;
 }
