@@ -12,7 +12,7 @@ public interface IPrisninjaDB
 
     List<Store> GetDataFromStores(List<int> topStores);
 
-    List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName);
+    List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName, string measurement);
     ProductStandardName GetProductInfo(string name);
     void InsertStores(List<Store> stores);
     void InsertProducts(List<Product> products);
@@ -64,7 +64,7 @@ public class PrisninjaDb : IPrisninjaDB
             .ToList();
     }
 
-    public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName)
+    public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName, string measurement)
     {
         return _context.Products
             .Select(p => p)
@@ -72,7 +72,8 @@ public class PrisninjaDb : IPrisninjaDB
                             .Select(ps => ps.StoreKey)
                             .Any(psk => storeKeys
                                 .Any(sk => sk == psk))
-                        && p.Name.Contains(productName))
+                        && p.Name.Contains(productName)
+                        && p.Measurement == measurement)
             .ToList();
     }
 
