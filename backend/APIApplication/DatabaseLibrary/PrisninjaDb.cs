@@ -47,7 +47,7 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
             .ToList();
     }
 
-    public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName)
+    public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName, string measurement)
     {
         return _context.Products
             .Select(p => p)
@@ -55,7 +55,8 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
                             .Select(ps => ps.StoreKey)
                             .Any(psk => storeKeys
                                 .Any(sk => sk == psk))
-                        && p.Name.Contains(productName))
+                        && p.Name.Contains(productName)
+                        && p.Measurement == measurement)
             .ToList();
     }
 

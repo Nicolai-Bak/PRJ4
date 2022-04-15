@@ -27,14 +27,17 @@ namespace BusinessLogicLibrary.SearchAlgorithm
             // Tilføj dee billigste products i butikken til hver store - fjern store hvis den ikke har alle varer
             for (int i = 0; i < shoppingList.Products.Count(); i++)
             {
-                List<Product> productsToAdd = _database.GetProductsFromSpecificStores(storeIDs, shoppingList.Products[i].Name);
+                List<Product> productsToAdd = _database.GetProductsFromSpecificStores(storeIDs, shoppingList.Products[i].Name, shoppingList.Products[i].Measurement);
                 foreach (int storeID in storeIDs.ToList())
                 {
                     double price = 0;
                     int amount = 0;
                     Product temp = productsToAdd
-                            .Where(p => p.ProductStores.Select(ps => ps.StoreKey).Any(sk => sk == storeID))
-                            .MinBy(p => p.ProductStores.Select(ps => GetPrice(shoppingList.Products[i].Unit,ps.Product.Units,ps.Price,ref price,ref amount)));
+                            .Where(p => p.ProductStores
+                                .Select(ps => ps.StoreKey)
+                                .Any(sk => sk == storeID))
+                            .MinBy(p => p.ProductStores
+                                .Select(ps => GetPrice(shoppingList.Products[i].Unit,ps.Product.Units,ps.Price,ref price,ref amount)));
                             //.MinBy(p => p.ProductStores.Select(ps => ps.Price));
                     if (temp != null)
                     {
