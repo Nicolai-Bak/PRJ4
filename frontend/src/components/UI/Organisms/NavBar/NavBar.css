@@ -32,11 +32,26 @@
     font-weight: 900;
     padding-top: 2rem;
     padding-right: 3rem;
+
 }
 
-.navbar-links:hover {
+
+.navbar-links .link{
+    flex-direction: row;
+    font-size: 1.25rem;
+    font-weight: 900;
+    padding-top: 2rem;
+    padding-right: 3rem;
+
+}
+
+.navbar-links .link:hover {
     font-style: italic;
     cursor: pointer;
+}
+
+.link a {
+    color: var(--default-black);
 }
 
 #shopping__cart{
@@ -94,14 +109,21 @@
         top: 6.25rem;
         left: 5rem;
     }
-    .navbar-links {
+    .navbar-links{
         padding: 2rem;
         background-color: var(--secondary-color);
         position: relative;
+        display: flex;
+        flex-direction: column;
     }
 
-    .navbar-links:hover {
+    .navbar-links .link:hover {
         background-color: var(--default-black);
+        color: var(--secondary-color);
+        
+    }
+
+    .link a:hover {
         color: var(--secondary-color);
     }
 

@@ -1,6 +1,6 @@
 .footer {
 	position: relative;
-    color: white;
+    color: var(--default-white);
 	bottom: 0;
 	width: 100%;
 	background-color: var(--default-black);
@@ -8,17 +8,18 @@
 }
 
 .footer-links {
-	color: white;
+	color: var(--default-white);
 	padding-top: 4rem;
 	color: var(--default-white);
+	font-style: none;
 }
 .footer-links a {
    color: var(--default-white);
-   font-style: normal;
+   font-style: none;
 }
 
 .footer-text {
-	color: white;
+	color:var(--default-white);
 	font-size: 1rem;
 	margin-top: 0.6rem;
 	padding-bottom: 5rem;

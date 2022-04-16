@@ -15,7 +15,7 @@ function Footer(props) {
 
 	return (
 		<div className="footer">
-			<h4 className="footer-link">{linkRefs()}</h4>
+			<h4 className="footer-links">{linkRefs()}</h4>
 			<p className="footer-text">
 				&copy;{new Date().getFullYear()} {companyName}{" "}
 			</p>

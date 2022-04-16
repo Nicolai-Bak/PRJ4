@@ -17,6 +17,17 @@
   --lg: 992px;
   --xl: 1200px;
   --xxl: 1400px;
+
+}
+
+a {
+  color: var(--default-white);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--default-white);
+  text-decoration: none;
 }
 
 *{
