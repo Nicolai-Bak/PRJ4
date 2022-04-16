@@ -24,7 +24,7 @@ function NavBar(props) {
         <div className='navbar'>
             <div className='left-side__container'>
                 <img id="ninja__logo" src="/images/ninja-desk.svg" />
-                {props.companyName}
+                {companyName}
             </div>
             <div className='right-side__container'>
                 <div className="navbar-menu">

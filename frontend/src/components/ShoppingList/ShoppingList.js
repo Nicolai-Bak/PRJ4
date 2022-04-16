@@ -1,6 +1,7 @@
 import "./ShoppingList.css";
 import SearchButton from "./SearchButton";
 import ListItem from "./ShoppingListItem/ListItem";
+import Card from "../UI/Atoms/Card/Card";
 
 
 const ShoppingList = (props) => {
@@ -26,6 +27,8 @@ const ShoppingList = (props) => {
 			onRemoveItem={removeItemHandler}
 			onDecreaseAmount={decreaseAmountHandler}
 			onIncreaseAmount={increaseAmountHandler}
+			// onDecreaseAmount={() => props.onAmountChanged(item.id, -1)} // this is the same as the one above
+			// onIncreaseAmount={() => props.onAmountHandler(item.id, 1)}
 			id={item.id}
 			name={item.name}
 			amount={item.amount}
@@ -35,10 +38,10 @@ const ShoppingList = (props) => {
 	));
 
 	return (
-		<div className="shopping-list">
+		<Card className="shopping-list">
 			<ul>{itemsList}</ul>
 			<SearchButton onSearch={() => props.onSearch()} />
-		</div>
+		</Card>
 	);
 };
 

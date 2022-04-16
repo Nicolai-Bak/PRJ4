@@ -3,6 +3,8 @@ import UnitBox from "./UnitBox";
 import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import SearchField from "./SearchField";
+import Card from "../UI/Atoms/Card/Card";
+import Button from "../UI/Atoms/Button/Button";
 
 const NewItemForm = (props) => {
 	const [newItem, setNewItem] = useState(null);
@@ -43,7 +45,7 @@ const NewItemForm = (props) => {
 			props.onItemAdded(newItem, amount, unit, id);
 		} else return;
 
-		setNewItem("");
+		// setNewItem(""); <-- doesn't reset the autocomplete field after submit
 		setAmount("");
 	};
 
@@ -88,20 +90,11 @@ const NewItemForm = (props) => {
 	};
 
 	return (
-		<form onSubmit={submitItemHandler} className={`add-item-form ${!isSearchFieldValid ? 'invalid' : ''}`}> 
-			{/* <div className="item-inputs">
-				<input
-					className="item-name"
-					type="text"
-					value={newItem}
-					onChange={itemChangeHandler}
-					placeholder="Tilføj varer her"
-				></input>
-			</div> */}
-			{/* {label ? <label className="error-message-empty-search-field">Feltet må ikke være tomt!</label} */}
+		<Card className="add-item-form">
+		<form onSubmit={submitItemHandler} className={`${!isSearchFieldValid ? 'invalid' : ''}`}>
 			<SearchField 
 						 onItemChanged={itemChangeHandler} />
-			<UnitBox onUnitSelected={unitChangeHandler} />
+			<UnitBox className="form-units" onUnitSelected={unitChangeHandler} />
 			<input className={`input-amount-field ${!isAmountValid ? 'invalid' : ''}`}
 				type="number"
 				step="0.01"
@@ -111,12 +104,12 @@ const NewItemForm = (props) => {
 				value={amount}
 				onChange={amountChangeHandler}
 			></input>
-			<button type="submit" className="add-item-button">
+			<Button type="submit" className="add-item-button">
 				Tilføj Vare
-			</button>
+			</Button>
 			<br></br>
-			{/* ^^lol what: */}
 		</form>
+		</Card>
 	);
 };
 

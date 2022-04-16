@@ -7,9 +7,11 @@ const UnitBox = props => {
 		return props.onUnitSelected(event.target.value);
 	};
 
+	const classes = `unitBox__container ${props.className}`;
+
 	const options = JSON.parse(localStorage.getItem("itemNames"))
 	return (
-		<div className="unitBox__container">
+		<div className={classes}>
 			<input
 				type="radio"
 				name="unit"

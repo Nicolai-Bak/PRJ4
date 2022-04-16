@@ -30,7 +30,7 @@ function Home() {
 				id.toString().slice(0, 5) + "..."
 			}`
 		);
-		// if the item exists in the database
+		// if the item doesn't exists in the database
 		if (!(await ValidateItem(name, unit))) {
 			console.log("item not found in database");
 			alert("Varen kan ikke genkendes");
