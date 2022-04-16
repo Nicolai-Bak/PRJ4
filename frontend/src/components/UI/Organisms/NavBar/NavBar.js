@@ -2,6 +2,7 @@ import React from "react";
 import "./NavBar.css";
 import { IoMenu, IoClose} from "react-icons/io5";
 import { useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function NavBar(props) {
 
@@ -9,6 +10,10 @@ function NavBar(props) {
     
     const toggleMenu = () => setShowMenu(!showMenu);
     
+    console.log(props)
+
+    let navigate = useNavigate();
+
     return (
         <div className='navbar'>
             <div className='left-side__container'>
@@ -17,8 +22,8 @@ function NavBar(props) {
             </div>
             <div className='right-side__container'>
                 <div className="navbar-menu">
-                <div className={`navbar-links ${!showMenu ? 'hide' : ''}`}>Kontakt os</div>
-                <div className={`navbar-links ${!showMenu ? 'hide' : ''}`}>Hvem er vi?</div>
+                <div className={`navbar-links ${!showMenu ? 'hide' : ''}`}>{props.pageLinks[0].text}</div>
+                <div className={`navbar-links ${!showMenu ? 'hide' : ''}`}>{props.pageLinks[1].text} {navigate}</div>
                 </div>
                 <img id="shopping__cart" src="/images/shopping-cart.svg"/>
 
@@ -29,5 +34,5 @@ function NavBar(props) {
     )
 }
 
-export default NavBar
+export default NavBar;
 

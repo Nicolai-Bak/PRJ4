@@ -1,18 +1,18 @@
 .footer {
 	position: relative;
-   color: white;
+    color: white;
 	bottom: 0;
 	width: 100%;
 	background-color: var(--default-black);
 	text-align: center;
 }
 
-.footer-link {
-	color: white !important;
+.footer-links {
+	color: white;
 	padding-top: 4rem;
 	color: var(--default-white);
 }
-.footer-link a {
+.footer-links a {
    color: var(--default-white);
    font-style: normal;
 }

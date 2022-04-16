@@ -2,7 +2,7 @@ import React from "react";
 import "./Footer.css";
 
 function Footer(props) {
-	/* const { pageLinks, companyName } = props;
+	const { pageLinks, companyName } = props;
 
 
 	const linkRefs = () => {
@@ -13,12 +13,12 @@ function Footer(props) {
 		});
 		console.log(links);
 		return links;
-		}; */
+		};
 
 		return (
     	<div className='footer'>
-        	<h4 className='footer-links'>{props.pageLinks}</h4>
-        	<p className='footer-text'>&copy;{new Date().getFullYear()} {props.companyName} </p>
+        	<h4 className='footer-links'>{linkRefs()}</h4>
+        	<p className='footer-text'>&copy;{new Date().getFullYear()} {companyName} </p>
     	</div>
   		)
 }

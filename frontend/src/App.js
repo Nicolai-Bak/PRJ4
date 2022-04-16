@@ -10,12 +10,14 @@ import Footer from "./components/UI/Organisms/Footer/Footer";
 
 function App() {
 	const footerLinks = [{text: "Kontakt os - ", link: "/PageNotFound"}, {text: "Hvem er vi? - ", link: "/About"}, {text: "Betingelser", link: "/PageNotFound"}];
+	const navbarLinks = [{text: "Kontakt os", link: "/PageNotFound"}, {text: "Hvem er vi", link: "/About"}];
 
 	return (
 		<div className="page__container">
 				<Router>
 					<NavBar 
-					companyName="PRISNINJA"/>
+						pageLinks={navbarLinks}
+						companyName="PRISNINJA"/>
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/about" element={<About />} />
