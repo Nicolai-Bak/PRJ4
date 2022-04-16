@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Footer(props) {
 	const { pageLinks, companyName } = props;
@@ -15,8 +15,8 @@ function Footer(props) {
 
 	return (
 		<div className="footer">
-			<h4 className="footerLink">{linkRefs()}</h4>
-			<p className="footerText">
+			<h4 className="footer-link">{linkRefs()}</h4>
+			<p className="footer-text">
 				&copy;{new Date().getFullYear()} {companyName}{" "}
 			</p>
 		</div>

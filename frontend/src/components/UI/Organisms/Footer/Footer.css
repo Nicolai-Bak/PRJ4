@@ -7,17 +7,17 @@
 	text-align: center;
 }
 
-.footerLink {
+.footer-link {
 	color: white !important;
 	padding-top: 4rem;
 	color: var(--default-white);
 }
-.footerLink a {
+.footer-link a {
    color: var(--default-white);
    font-style: normal;
 }
 
-.footerText {
+.footer-text {
 	color: white;
 	font-size: 1rem;
 	margin-top: 0.6rem;

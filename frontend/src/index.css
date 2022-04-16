@@ -10,6 +10,13 @@
   --default-black: rgb(37, 37, 37);
   --red: rgb(170, 0, 0);
   --ninja-skin-color: bisque;
+
+  --xs: 0;
+  --sm: 576px;
+  --md: 768px;
+  --lg: 992px;
+  --xl: 1200px;
+  --xxl: 1400px;
 }
 
 *{
