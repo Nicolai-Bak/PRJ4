@@ -2,6 +2,7 @@ using ApiApplication.Database;
 using ApiApplication.Database.Data;
 using ApiApplication.Database.Models;
 using ApiApplication.HostedServices;
+using ApiApplication.SearchAlgorithm;
 using Microsoft.EntityFrameworkCore;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -15,11 +16,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PrisninjaDbContext>();
-builder.Services.AddScoped<IPrisninjaDB, PrisninjaDb>();
+builder.Services.AddScoped<IDbRequest, PrisninjaDb>();
+builder.Services.AddScoped<IDbSearch, PrisninjaDb>();
+builder.Services.AddScoped<IDbInsert, PrisninjaDb>();
+builder.Services.AddScoped<CheapestSearcher>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddPolicy(MyAllowSpecificOrigins,
         builder =>
         {
             builder.WithOrigins()

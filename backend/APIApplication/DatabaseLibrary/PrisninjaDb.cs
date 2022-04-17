@@ -4,23 +4,7 @@ using ApiApplication.Database.Models;
 
 namespace ApiApplication.Database;
 
-public interface IPrisninjaDB
-{
-    List<string> GetAllProductNames();
-    List<Product> GetAllProducts();
-    List<int> GetStoresInRange(double x, double y, int range);
-
-    List<Store> GetDataFromStores(List<int> topStores);
-
-    List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName);
-    ProductStandardName GetProductInfo(string name);
-    void InsertStores(List<Store> stores);
-    void InsertProducts(List<Product> products);
-    void InsertProductStores(List<ProductStore> productStores);
-    void InsertProductStandardNames(List<ProductStandardName> productStandardNames);
-}
-
-public class PrisninjaDb : IPrisninjaDB
+public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
 {
     private PrisninjaDbContext _context;
 

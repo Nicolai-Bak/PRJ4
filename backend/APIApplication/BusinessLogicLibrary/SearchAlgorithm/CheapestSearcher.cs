@@ -8,9 +8,9 @@ namespace ApiApplication.SearchAlgorithm
 {
     public class CheapestSearcher : ISearcher
     {
-        private IPrisninjaDB _database = new PrisninjaDb(new PrisninjaDbContext());
+        private IDbSearch _database;
 
-        public CheapestSearcher(IPrisninjaDB database)
+        public CheapestSearcher(IDbSearch database)
         {
             _database = database;
         }
