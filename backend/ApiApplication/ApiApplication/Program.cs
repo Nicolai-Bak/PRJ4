@@ -16,10 +16,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PrisninjaDbContext>();
-builder.Services.AddScoped<IDbRequest, PrisninjaDb>();
-builder.Services.AddScoped<IDbSearch, PrisninjaDb>();
-builder.Services.AddScoped<IDbInsert, PrisninjaDb>();
-builder.Services.AddScoped<CheapestSearcher>();
+builder.Services.AddTransient<IDbRequest, PrisninjaDb>();
+builder.Services.AddTransient<IDbSearch, PrisninjaDb>();
+builder.Services.AddTransient<IDbInsert, PrisninjaDb>();
+builder.Services.AddTransient<CheapestSearcher>();
 
 builder.Services.AddCors(options =>
 {
