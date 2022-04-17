@@ -19,8 +19,7 @@ namespace ApiApplication.Controllers
             _db = db;
             _search = search;
         }
-
-
+        
         [HttpGet("/names")]
         public List<string> GetProductNames()
         {
@@ -53,7 +52,6 @@ namespace ApiApplication.Controllers
             };
 
             return options;
-            
         }
     }
 }
