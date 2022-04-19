@@ -1,19 +1,24 @@
-﻿using BusinessLogicLibrary.SearchAlgorithm.Models;
-using DatabaseLibrary;
-using DatabaseLibrary.Models;
+﻿using ApiApplication.Controllers;
+using ApiApplication.Database;
+using ApiApplication.Database.Data;
+using ApiApplication.Database.Models;
+using ApiApplication.SearchAlgorithm.Models;
+using BusinessLogicLibrary.SearchAlgorithm;
 
-namespace BusinessLogicLibrary.SearchAlgorithm
+namespace ApiApplication.SearchAlgorithm
 {
-    public class CheapestSearcher : ISearcher
+    public class SearchControl : ISearchControl
     {
-        private IDbSearch _database;
+        private IPrisninjaDB _database;
+        private List<IStoreSelecter> _storeSelecters;
 
-        public CheapestSearcher(IDbSearch database)
+        public SearchControl(IPrisninjaDB database, List<IStoreSelecter> storeSelecters)
         {
             _database = database;
+            _storeSelecters = storeSelecters;
         }
 
-        public List<StoreSearch> FindStores(ShoppingList shoppingList)
+        public List<List<StoreSearch>> FindStores(ShoppingList shoppingList)
         {
             //1. Create list of StoreSearchs
             List<int> storeIDs = _database.GetStoresInRange(shoppingList.X, shoppingList.Y, shoppingList.Range);
@@ -77,7 +82,14 @@ namespace BusinessLogicLibrary.SearchAlgorithm
             //    }
             //});
             //return sea;
-            return stores.OrderBy(s => s.TotalPrice).Take(5).ToList();
+            List<List<StoreSearch>> result = new List<List<StoreSearch>>();
+
+            foreach (IStoreSelecter storeSelecter in _storeSelecters)
+            {
+                result.Add(storeSelecter.SelectStores(stores));
+            }
+
+            return result;
         }
         
         private double GetPrice(double unitsToGet, double unitsPerPiece, double pricePerPiece, ref double price, ref int amount)
