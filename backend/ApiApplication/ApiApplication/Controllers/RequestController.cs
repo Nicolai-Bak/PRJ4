@@ -3,6 +3,7 @@ using ApiApplication.Database;
 using ApiApplication.Database.Models;
 using ApiApplication.SearchAlgorithm;
 using ApiApplication.SearchAlgorithm.Models;
+using BusinessLogicLibrary.SearchAlgorithm;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiApplication.Controllers
@@ -34,21 +35,24 @@ namespace ApiApplication.Controllers
         [HttpPost("/options")]
         public async Task<ShoppingOptions> GetOptions(ShoppingList shoppingList)
         {
-            CheapestSearcher search = new CheapestSearcher(_db);
-            List<StoreSearch> result = search.FindStores(shoppingList);
-
-            List<StoreSearch> cheapestOptions = new List<StoreSearch>();
-
-            foreach (var storeSearch in result)
+            //Setup
+            List<IStoreSelecter> storeSelecters = new List<IStoreSelecter>
             {
-                cheapestOptions.Add(storeSearch);
-            }
+                new CheapestStoreSelecter(),
+                new ClosestStoreSelecter(),
+                new BestStoreSelecter()
+            };
+            ISearchControl search = new SearchControl(_db, storeSelecters);
+
+
+            List<List<StoreSearch>> result = search.FindStores(shoppingList);
+            
 
             var options = new ShoppingOptions()
             {
-                Cheapest = cheapestOptions,
-                Best = null,
-                Nearest = null
+                Cheapest = result[0],
+                Nearest = result[1],
+                Best = result[2]
             };
 
             return options;
