@@ -5,6 +5,14 @@ namespace ApiApplication.Database.Data;
 
 public class PrisninjaDbContext : DbContext
 {
+    public PrisninjaDbContext(DbContextOptions options) : base(options)
+    {
+    }
+
+    protected PrisninjaDbContext()
+    {
+    }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // optionsBuilder.UseSqlServer("" +
