@@ -12,14 +12,14 @@ namespace ApiApplication.Controllers
     public class RequestController : Controller
     {
         private readonly IDbRequest _db;
-        private readonly CheapestSearcher _search;
+        private readonly ISearcher _search;
 
         public RequestController(IDbRequest db, CheapestSearcher search)
         {
             _db = db;
             _search = search;
         }
-        
+
         [HttpGet("/names")]
         public List<string> GetProductNames()
         {
@@ -52,7 +52,6 @@ namespace ApiApplication.Controllers
             };
 
             return options;
-            
         }
     }
 }
