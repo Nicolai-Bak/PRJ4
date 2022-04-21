@@ -8,7 +8,7 @@ import SearchResultsPage from "./Pages/SearchResultsPage";
 import Footer from "./components/UI/Organisms/Footer/Footer";
 
 function App() {
-	const footerLinks = [{text: "Kontakt os - ", link: "/PageNotFound"}, {text: "Hvem er vi? - ", link: "/About"}, {text: "Betingelser", link: "/PageNotFound"}];
+	const footerLinks = [{text: "Kontakt os - ", link: "/PageNotFound"}, {text: "Hvem er vi? - ", link: "/About"}, {text: "Forsiden", link: "/"}];
 	const navbarLinks = [{text: "Kontakt os", link: "/PageNotFound"}, {text: "Hvem er vi", link: "/About"}];
 
 	return (

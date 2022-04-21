@@ -20,11 +20,13 @@ function NavBar(props) {
 		return links;
 	};
 
+
+
     return (
         <div className='navbar'>
             <div className='left-side__container'>
-                <img id="ninja__logo" src="/images/ninja-desk.svg" />
-                {companyName}
+                <img id="ninja__logo" src="/images/ninja-desk.svg"/>
+{companyName}
             </div>
             <div className='right-side__container'>
                 <div className="navbar-menu">

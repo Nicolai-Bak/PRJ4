@@ -1,22 +1,26 @@
-.banner-container{
-    display: flex;
+.banner{
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
     margin: 0px auto;
-    background-color: var(--tertiary-color);
     height: 26rem;
+    background: var(--tertiary-color);
+    background: linear-gradient(var(--tertiary-color), var(--tertiary-color-light));
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
   }
-  
-  .slogan {
-    display: inline-block;
-    color: var(--default-white);
-    font-size: 2.5rem;
-    font-weight: 700;
-  }
-  
-  .banner-container:hover {
+
+  .banner:hover {
     background-color: var(--tertiary-color-light);
     transition: all 0.2s ease-in-out 0.1s;
+  }
+
+  
+
+  .background-image{
+    width: 100%;
+    opacity: 0.4;
   }
   
   #ninja-landing {
