@@ -1,0 +1,31 @@
+.banner-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto;
+    background-color: var(--tertiary-color);
+    height: 26rem;
+  }
+  
+  .slogan {
+    display: inline-block;
+    color: var(--default-white);
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  .banner-container:hover {
+    background-color: var(--tertiary-color-light);
+    transition: all 0.2s ease-in-out 0.1s;
+  }
+  
+  #ninja-landing {
+    width: 80px;
+    color:var(--ninja-skin-color);
+  }
+  
+  #ninja-rightside {
+    width: 70px;
+    color:var(--ninja-skin-color);
+    padding-left: 0.5rem;
+  }
