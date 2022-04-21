@@ -52,6 +52,7 @@ namespace ApiApplication.Controllers
             };
 
             return options;
+            
         }
     }
 }
