@@ -48,27 +48,26 @@
     padding: 1rem;
 }
 
-.remove-button {
+.button-container.remove-button {
     grid-column: 3;
-    max-height: 50%;
-    max-width: 70%;
     align-self: center;
-    justify-self: end;
-	padding: 0 0.5rem 0.2rem 0.2rem .5rem;
-}
-
-.list-item button {
-	flex-shrink: 1;
-	font-size: 0.75rem;
-	box-shadow: 1px 1px rgba(0, 0, 0, 0.1);
-	max-width: 6em;
-	border-radius: 1rem;
-	font-weight: bold;
+	background-color: var(--default-white);
 	border: 0.1rem solid #0e1614;
-	cursor: pointer;
+	width: 3rem;
+	height: 1.5rem;
 }
-
-.remove-button:hover {
+.button-container.remove-button:hover {
 	transition: all 0.2s ease-in-out 0.1s;
 	background: var(--red);
+}
+
+.button-container.adjust-amount-button {
+	border: 0.1rem solid #0e1614;
+	background-color: var(--default-white);
+	width: 3rem;
+	height: 1.5rem;
+}
+
+.button-container.adjust-amount-button:hover {
+	background-color: var(--all-white);
 }
