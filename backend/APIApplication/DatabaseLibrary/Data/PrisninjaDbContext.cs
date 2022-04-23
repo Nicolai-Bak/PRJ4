@@ -5,13 +5,13 @@ namespace ApiApplication.Database.Data;
 
 public class PrisninjaDbContext : DbContext
 {
-    public PrisninjaDbContext(DbContextOptions options) : base(options)
-    {
-    }
-
-    protected PrisninjaDbContext()
-    {
-    }
+    // public PrisninjaDbContext(DbContextOptions options) : base(options)
+    // {
+    // }
+    //
+    // protected PrisninjaDbContext()
+    // {
+    // }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -20,7 +20,7 @@ public class PrisninjaDbContext : DbContext
                                     "Initial Catalog=PrisninjaWebApiDb;" + 
                                     "Persist Security Info=False;" + 
                                     "User ID=PrisninjaDb;" + 
-                                    "Password={your_password};" + 
+                                    "Password=PRJ4Server;" + 
                                     "MultipleActiveResultSets=False;" + 
                                     "Encrypt=True;" +
                                     "TrustServerCertificate=False;" + 
