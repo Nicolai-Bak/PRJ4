@@ -27,7 +27,7 @@ public interface IApiFactory
     public IConverter CreateConverter();
 }
 
-public class FøtexFactory : IApiFactory
+public class FÃ¸texFactory : IApiFactory
 {
     public ICaller CreateCaller()
     {
