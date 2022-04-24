@@ -9,11 +9,11 @@ using ExternalApiLibrary.ExternalAPIComponent.Factory;
 using Serilog;
 
 namespace ApiApplication.HostedServices;
-public class Service : IHostedService
+public class ExternalApiService : IHostedService
 {
     private readonly IPrisninjaDB _db;
     private PeriodicTimer _timer;
-    public Service(IServiceProvider sp)
+    public ExternalApiService(IServiceProvider sp)
     {
         _db = sp.CreateScope().ServiceProvider.GetRequiredService<IPrisninjaDB>();
     }

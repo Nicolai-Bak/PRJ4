@@ -9,9 +9,9 @@ namespace ExternalApiLibrary.ExternalAPIComponent;
 
 public class ExternalApi
 {
-    public ICaller caller { get; set; }
-    public IFilter filter { get; set; }
-    public IConverter converter { get; set; }
+    public ICaller caller { private get; set; }
+    public IFilter filter { private get; set; }
+    public IConverter converter { private get; set; }
 
     public ExternalApi(IApiFactory factory)
     {
