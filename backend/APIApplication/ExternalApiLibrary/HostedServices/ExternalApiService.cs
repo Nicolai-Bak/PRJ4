@@ -23,6 +23,8 @@ public class ExternalApiService : IHostedService
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
+        Log.Information("External API Service is starting.");
+
         TimeSpan interval = TimeSpan.FromHours(24);
         //calculate time to run the first time & delay to set the timer
         //DateTime.Today gives time of midnight 00.00
@@ -56,10 +58,12 @@ public class ExternalApiService : IHostedService
     }
     public Task StopAsync(CancellationToken cancellationToken)
     {
+        Log.Information("External API Service is stopping.");
         return Task.CompletedTask;
     }
     public async Task DoTask()
     {
+        Log.Information("Calling external API.");
         // Configure logger for start up
         BackendLogger.BuildLogger();
 
