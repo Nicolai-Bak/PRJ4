@@ -81,25 +81,24 @@ public class ExternalApiService : IHostedService
         //}
 
 
-
+        // Products - Føtex
         ExternalApi føtexProductApi = new ExternalApi(new FøtexProductFactory());
-
         SallingRequestBuilder builder = new SallingRequestBuilder();
         builder.AddInfos()
                 .AddUnits()
                 .AddUnitsOfMeasure()
                 .AddStoreData();
-
         var products = await føtexProductApi.Get(builder.Build());
 
-        ///// Stores - Salling
+        // Stores - Salling
         ExternalApi føtexStoreApi = new ExternalApi(new FøtexStoreFactory());
-
         var stores = await føtexStoreApi.Get(null);
 
+        // Extracting Føtex stores
         var foetexStores = stores.Where(store =>
         {
-            ConvertedSallingStore sallingStore = (ConvertedSallingStore)store;
+            //ConvertedSallingStore sallingStore = (ConvertedSallingStore)store;
+            Store sallingStore = (Store)store;
             return sallingStore.Brand == "foetex";
         }).ToList();
 
@@ -108,7 +107,8 @@ public class ExternalApiService : IHostedService
         var storeList = new List<Store>();
         foetexStores.ForEach(s =>
         {
-            ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
+            //ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
+            Store convertedStore = (Store)s;
             storeList.Add(new Store()
             {
                 ID = convertedStore.ID,
@@ -126,13 +126,14 @@ public class ExternalApiService : IHostedService
         var productList = new List<Product>();
         products.ForEach(p =>
         {
-            ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
+            //ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
+            Product sallingProduct = (Product)p;
             productList.Add(new Product()
             {
                 EAN = sallingProduct.EAN,
                 Name = sallingProduct.Name,
                 Brand = sallingProduct.Brand,
-                Units = sallingProduct.Unit,
+                Units = sallingProduct.Units,
                 Measurement = sallingProduct.Measurement,
                 Organic = false,
                 ImageUrl = ""
@@ -146,15 +147,18 @@ public class ExternalApiService : IHostedService
         var productStoreList = new List<ProductStore>();
         products.ForEach(p =>
         {
-            ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
+            //ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
+            Product sallingProduct = (Product)p;
             foetexStores.ForEach(s =>
             {
-                ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
+                //ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
+                Store convertedStore = (Store)s;
                 productStoreList.Add(new ProductStore()
                 {
                     ProductKey = sallingProduct.EAN,
                     StoreKey = convertedStore.ID,
-                    Price = sallingProduct.Stores.First().Value.Price
+                    //Price = sallingProduct.Stores.First().Value.Price
+                    Price = sallingProduct.ProductStores.First().Price
                 });
             });
         });
