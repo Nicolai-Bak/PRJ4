@@ -7,7 +7,7 @@ using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
 
 namespace ExternalApiLibrary.ExternalAPIComponent;
 
-public class ExternalApi
+public class ExternalApi: IExternalApi
 {
     public ICaller caller { private get; set; }
     public IFilter filter { private get; set; }
