@@ -1,15 +1,14 @@
-﻿using ExternalApiLibrary.DTO;
+﻿using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.Models;
+namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Models;
 
-public class FilteredSallingProduct : IFilteredDto
+public class FilteredSallingProduct : IFilteredDTO
 {
     [JsonProperty("_highlightResult")] public HighlightResult? HighlightResults { get; set; }
     [JsonProperty("infos")] public List<Info>? Infos { get; set; }
     [JsonProperty("units")] public float? Units { get; set; }
     [JsonProperty("unitsOfMeasure")] public string? UnitsOfMeasure { get; set; }
-    [JsonProperty("images")] public string Image { get; set; }
     [JsonProperty("storeData")] public Dictionary<int, StoreData>? Stores { get; set; }
     [JsonProperty("properties")] public List<string>? Properties { get; set; }
 

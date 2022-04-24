@@ -1,9 +1,9 @@
-﻿using ExternalApiLibrary.DTO;
+﻿using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.Models;
+namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Models;
 
-public class FilteredSallingStore : IFilteredDto
+public class FilteredSallingStore : IFilteredDTO
 {
     [JsonProperty("sapSiteId")] public int Id { get; set; }
     [JsonProperty("brand")] public string Brand { get; set; }
