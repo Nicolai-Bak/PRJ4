@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+using Newtonsoft.Json;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Models;
 
-public class FilteredSallingProduct
+public class FilteredSallingProduct : IFilteredDTO
 {
     [JsonProperty("_highlightResult")] public HighlightResult? HighlightResults { get; set; }
     [JsonProperty("infos")] public List<Info>? Infos { get; set; }
