@@ -1,6 +1,6 @@
-﻿using ApiApplication.Database.Models;
+﻿using DatabaseLibrary.Models;
 
-namespace ApiApplication.SearchAlgorithm.Models;
+namespace BusinessLogicLibrary.SearchAlgorithm.Models;
 
 public class ProductSearch
 {

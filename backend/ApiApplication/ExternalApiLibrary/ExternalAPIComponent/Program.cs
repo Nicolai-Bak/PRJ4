@@ -13,6 +13,8 @@ using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Filters;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
+using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
 using Serilog;
 
 namespace ExternalApiLibrary.ExternalAPIComponent;

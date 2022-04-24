@@ -1,6 +1,4 @@
-﻿using ApiApplication.SearchAlgorithm.Models;
-
-namespace ApiApplication.Controllers;
+﻿namespace BusinessLogicLibrary.SearchAlgorithm.Models;
 
 public class ShoppingOptions
 {

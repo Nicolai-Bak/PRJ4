@@ -1,8 +1,8 @@
 using System.Runtime.InteropServices;
-using ApiApplication.Database;
-using ApiApplication.Database.Models;
-using ApiApplication.SearchAlgorithm;
-using ApiApplication.SearchAlgorithm.Models;
+using BusinessLogicLibrary.SearchAlgorithm;
+using BusinessLogicLibrary.SearchAlgorithm.Models;
+using DatabaseLibrary;
+using DatabaseLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiApplication.Controllers

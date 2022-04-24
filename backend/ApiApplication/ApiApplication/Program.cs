@@ -1,8 +1,7 @@
-using ApiApplication.Database;
-using ApiApplication.Database.Data;
-using ApiApplication.Database.Models;
-using ApiApplication.HostedServices;
-using ApiApplication.SearchAlgorithm;
+using BusinessLogicLibrary.SearchAlgorithm;
+using DatabaseLibrary;
+using DatabaseLibrary.Data;
+using ExternalApiLibrary.HostedServices;
 using Microsoft.EntityFrameworkCore;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

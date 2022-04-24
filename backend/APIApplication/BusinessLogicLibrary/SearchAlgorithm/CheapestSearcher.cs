@@ -1,10 +1,8 @@
-﻿using ApiApplication.Controllers;
-using ApiApplication.Database;
-using ApiApplication.Database.Data;
-using ApiApplication.Database.Models;
-using ApiApplication.SearchAlgorithm.Models;
+﻿using BusinessLogicLibrary.SearchAlgorithm.Models;
+using DatabaseLibrary;
+using DatabaseLibrary.Models;
 
-namespace ApiApplication.SearchAlgorithm
+namespace BusinessLogicLibrary.SearchAlgorithm
 {
     public class CheapestSearcher : ISearcher
     {

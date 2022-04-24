@@ -1,8 +1,7 @@
-﻿using System.Data.SqlClient;
-using ApiApplication.Database.Data;
-using ApiApplication.Database.Models;
+﻿using DatabaseLibrary.Data;
+using DatabaseLibrary.Models;
 
-namespace ApiApplication.Database;
+namespace DatabaseLibrary;
 
 public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
 {

@@ -1,21 +1,25 @@
-﻿using ApiApplication.Database;
-using ApiApplication.Database.Models;
-using ApiApplication.Database.ProductNameStandardize;
+﻿using BusinessLogicLibrary.ProductNameStandardize;
 using ExternalAPIComponent;
 using ExternalApiLibrary.ExternalAPIComponent;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Factory;
+using Microsoft.Extensions.Hosting;
 using Serilog;
+using DatabaseLibrary.Models;
+using DatabaseLibrary;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ApiApplication.HostedServices;
+namespace ExternalApiLibrary.HostedServices;
+
 public class ExternalApiService : IHostedService
 {
-    private readonly IPrisninjaDB _db;
+    private readonly IDbInsert _db;
     private PeriodicTimer _timer;
     public ExternalApiService(IServiceProvider sp)
     {
-        _db = sp.CreateScope().ServiceProvider.GetRequiredService<IPrisninjaDB>();
+        _db = sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>();
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -71,6 +75,8 @@ public class ExternalApiService : IHostedService
         //{
         //    Log.CloseAndFlush();
         //}
+
+
 
         ExternalApi føtexProductApi = new ExternalApi(new FøtexProductFactory());
 
