@@ -1,10 +1,7 @@
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Factory;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
-
 namespace ExternalApiLibrary.ExternalAPIComponent;
 
 public class ExternalApi: IExternalApi

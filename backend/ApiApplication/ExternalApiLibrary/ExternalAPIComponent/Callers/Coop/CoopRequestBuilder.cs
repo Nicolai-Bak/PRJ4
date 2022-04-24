@@ -1,4 +1,3 @@
-using ExternalAPIComponent.Callers.Coop;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;

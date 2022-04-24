@@ -1,8 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using System.Web;
-using ExternalAPIComponent;
-using ExternalAPIComponent.Callers.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;

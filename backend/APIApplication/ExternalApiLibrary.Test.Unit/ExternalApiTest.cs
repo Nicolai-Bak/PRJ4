@@ -1,5 +1,4 @@
 using ExternalApiLibrary.ExternalAPIComponent;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
 using NUnit.Framework;
 
 namespace ExternalApiLibrary.Test.Unit;
