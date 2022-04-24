@@ -36,7 +36,6 @@
       <Content Include=".idea\.idea.ExtAPIApplication\.idea\shelf\Uncommitted_changes_before_Update_at_23_03_2022_13_49__Changes_.xml" />
       <Content Include=".idea\.idea.ExtAPIApplication\.idea\vcs.xml" />
       <Content Include=".idea\.idea.ExtAPIApplication\.idea\workspace.xml" />
-      <Content Include="ExternalAPIComponent\ExternalAPIComponent.csproj" />
     </ItemGroup>
 
     <ItemGroup>
