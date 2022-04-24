@@ -13,7 +13,7 @@ public class CoopRequest : IRequest
      * Set to 1 to receive 1 product per page
      */
     private readonly int _pageSize;
-    private readonly string _baseUrl;
+    public string BaseUrl { get; set; }
 
     private int PageIndex { get; set; }
     
@@ -23,15 +23,15 @@ public class CoopRequest : IRequest
 
     public CoopRequest(string baseUrl)
     {
-        _baseUrl = baseUrl;
+	    BaseUrl = baseUrl ?? throw new ArgumentNullException();
         _pageSize = 10;
     }
     
     public async Task<object> CallPage()
     {
-        HttpClient client = new HttpClient();
+        var client = new HttpClient();
         
-        var url = _baseUrl + $"?pageSize={_pageSize}&page={PageIndex}";
+        var url = BaseUrl + $"?pageSize={_pageSize}&page={PageIndex}";
         var content = await client.GetStringAsync(url);
 
         return content;
