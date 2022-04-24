@@ -1,7 +1,15 @@
 import "./About.css"
 import React from "react";
+import Button from "../components/UI/Atoms/Button/Button";
+import {IoArrowBack} from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 function About() {
+	let navigate = useNavigate();
+
+	const goBack = () => {
+		navigate("/");
+	};
 
 	return (
 		<div className="about-page">
@@ -24,7 +32,9 @@ function About() {
 					<div className="image__container">
 						<img id="ninja-about" src="/images/ninja-about.svg"></img> 
 					</div>
+
 			</div>
+				<Button className="about-back-button" onClick={goBack}><IoArrowBack/> Til forsiden</Button>
 		</div>
 	);
 }

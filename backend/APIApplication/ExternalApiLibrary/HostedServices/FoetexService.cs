@@ -18,11 +18,11 @@ namespace ApiApplication.HostedServices
 {
     public class FoetexService : IHostedService
     {
-        private readonly IPrisninjaDB _db;
+        private readonly IDbInsert _db;
 
         public FoetexService(IServiceProvider sp)
         {
-            _db = sp.CreateScope().ServiceProvider.GetRequiredService<IPrisninjaDB>();
+            _db = sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>();
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

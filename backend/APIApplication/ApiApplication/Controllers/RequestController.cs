@@ -11,14 +11,15 @@ namespace ApiApplication.Controllers
     [ApiController]
     public class RequestController : Controller
     {
-        private readonly IPrisninjaDB _db;
+        private readonly IDbRequest _db;
+        private readonly CheapestSearcher _search;
 
-        public RequestController(IPrisninjaDB db)
+        public RequestController(IDbRequest db, CheapestSearcher search)
         {
             _db = db;
+            _search = search;
         }
-
-
+        
         [HttpGet("/names")]
         public List<string> GetProductNames()
         {
@@ -34,8 +35,7 @@ namespace ApiApplication.Controllers
         [HttpPost("/options")]
         public async Task<ShoppingOptions> GetOptions(ShoppingList shoppingList)
         {
-            CheapestSearcher search = new CheapestSearcher(_db);
-            List<StoreSearch> result = search.FindStores(shoppingList);
+            List<StoreSearch> result = _search.FindStores(shoppingList);
 
             List<StoreSearch> cheapestOptions = new List<StoreSearch>();
 
@@ -55,13 +55,4 @@ namespace ApiApplication.Controllers
             
         }
     }
-    
-
-    //public class ShoppingOption
-    //{
-    //    public string StoreName { get; set; }
-    //    public double TotalPrice { get; set; }
-    //    public double TotalDistance { get; set; }
-    //    public List<ProductSearch> Products { get; set; }
-    //}
 }

@@ -7,5 +7,4 @@ public class ProductStandardName
     public bool MeasureL { get; set; }
     public bool MeasureStk { get; set; }
     public bool Organic { get; set; }
-    public double StandardUnits { get; set; }
 }
