@@ -1,7 +1,6 @@
-﻿using System.Globalization;
-using ApiApplication.Database.Models;
+﻿using DatabaseLibrary.Models;
 
-namespace ApiApplication.Database.ProductNameStandardize;
+namespace BusinessLogicLibrary.ProductNameStandardize;
 
 public class ProductNameStandardizer
 {

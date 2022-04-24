@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Newtonsoft.Json;
 
+using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+
 namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
 
 public class CoopStoreFilter : IFilter

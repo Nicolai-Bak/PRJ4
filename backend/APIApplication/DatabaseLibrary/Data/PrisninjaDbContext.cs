@@ -1,7 +1,7 @@
-using ApiApplication.Database.Models;
+using DatabaseLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApiApplication.Database.Data;
+namespace DatabaseLibrary.Data;
 
 public class PrisninjaDbContext : DbContext
 {

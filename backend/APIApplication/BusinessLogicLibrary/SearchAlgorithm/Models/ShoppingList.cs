@@ -1,4 +1,4 @@
-﻿namespace ApiApplication.Controllers;
+﻿namespace BusinessLogicLibrary.SearchAlgorithm.Models;
 
 public class ShoppingList
 {

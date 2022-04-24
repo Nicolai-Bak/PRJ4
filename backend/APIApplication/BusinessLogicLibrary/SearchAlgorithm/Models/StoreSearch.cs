@@ -1,4 +1,4 @@
-﻿namespace ApiApplication.SearchAlgorithm.Models
+﻿namespace BusinessLogicLibrary.SearchAlgorithm.Models
 {
     public class StoreSearch
     {

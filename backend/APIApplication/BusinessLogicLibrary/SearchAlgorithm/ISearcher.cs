@@ -1,7 +1,6 @@
-﻿using ApiApplication.Controllers;
-using ApiApplication.SearchAlgorithm.Models;
+﻿using BusinessLogicLibrary.SearchAlgorithm.Models;
 
-namespace ApiApplication.SearchAlgorithm
+namespace BusinessLogicLibrary.SearchAlgorithm
 {
     public interface ISearcher
     {

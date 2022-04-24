@@ -1,4 +1,4 @@
-﻿namespace ApiApplication.Database.Models;
+﻿namespace DatabaseLibrary.Models;
 
 public class ProductStore
 {

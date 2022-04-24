@@ -1,8 +1,7 @@
-using ApiApplication.Database;
-using ApiApplication.Database.Data;
-using ApiApplication.Database.Models;
-using ApiApplication.HostedServices;
-using ApiApplication.SearchAlgorithm;
+using BusinessLogicLibrary.SearchAlgorithm;
+using DatabaseLibrary;
+using DatabaseLibrary.Data;
+using ExternalApiLibrary.HostedServices;
 using Microsoft.EntityFrameworkCore;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -33,7 +32,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddHostedService<FoetexService>();
+builder.Services.AddHostedService<ExternalApiService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

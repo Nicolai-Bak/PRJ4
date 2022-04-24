@@ -1,6 +1,6 @@
-﻿using ApiApplication.Database.Models;
+﻿using DatabaseLibrary.Models;
 
-namespace ApiApplication.Database;
+namespace DatabaseLibrary;
 
 public interface IDbInsert
 {
