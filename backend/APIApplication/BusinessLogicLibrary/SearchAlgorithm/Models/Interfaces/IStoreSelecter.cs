@@ -11,5 +11,5 @@ namespace BusinessLogicLibrary.SearchAlgorithm
     {
         public List<StoreSearch> SelectStores(List<StoreSearch> viableStores);
     }
-    }
+    
 }
