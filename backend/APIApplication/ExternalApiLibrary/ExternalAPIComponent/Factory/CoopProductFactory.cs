@@ -1,7 +1,7 @@
 using ExternalAPIComponent.Callers.Coop;
-using ExternalAPIComponent.Callers.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Converters;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 

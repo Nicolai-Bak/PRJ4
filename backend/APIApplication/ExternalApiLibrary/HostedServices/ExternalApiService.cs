@@ -1,5 +1,4 @@
 ﻿using BusinessLogicLibrary.ProductNameStandardize;
-using ExternalAPIComponent;
 using ExternalApiLibrary.ExternalAPIComponent;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Converters;
@@ -10,6 +9,7 @@ using DatabaseLibrary.Models;
 using DatabaseLibrary;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
 using Microsoft.Extensions.DependencyInjection;
+using ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
 
 namespace ExternalApiLibrary.HostedServices;
 

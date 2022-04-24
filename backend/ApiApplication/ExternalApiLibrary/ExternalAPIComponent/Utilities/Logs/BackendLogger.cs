@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
-namespace ExternalAPIComponent;
+namespace ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
 
 public static class BackendLogger
 {
@@ -11,7 +11,7 @@ public static class BackendLogger
         var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
-        
+
         // Build logger from configuration
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(config)

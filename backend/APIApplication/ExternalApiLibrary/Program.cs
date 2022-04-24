@@ -2,11 +2,11 @@ using System;
 using System.Threading.Tasks;
 using System.Web;
 using ExternalAPIComponent;
-using ExternalAPIComponent.Callers.Coop;
 using ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
 using ExternalApiLibrary.ExternalAPIComponent.Filters;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
@@ -14,7 +14,7 @@ using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
 using Serilog;
 
-namespace ExternalApiLibrary.ExternalAPIComponent;
+namespace ExternalApiLibrary;
 
 public static class Program
 {
@@ -125,10 +125,10 @@ public static class Program
         var coopResult = await coopCaller.Call(new CoopRequestBuilder().Build());
         var filteredProducts = coopFilter.Filter(coopResult);
         var convertedProducts = coopConverter.Convert(filteredProducts);
-        
+
         convertedProducts.ForEach(x =>
         {
-            var y = (ConvertedCoopProduct) x;
+            var y = (ConvertedCoopProduct)x;
             Console.WriteLine(y.EAN + "\n" + y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
             Console.WriteLine();
         });
@@ -138,27 +138,27 @@ public static class Program
         //Console.ResetColor();
         //coopResult.ForEach(obj => Console.WriteLine(JToken.Parse((string) obj).ToString(Formatting.Indented) + "\n"));
     }
-    
+
     private static async void PrintSallingProductSample()
     {
-	    SallingProductCaller productCaller = new();
-	    SallingRequestBuilder builder = new SallingRequestBuilder();
-	    builder.AddInfos()
-		    .AddUnits()
-		    .AddUnitsOfMeasure()
-		    .AddStoreData()
-		    .AddProperties();
-	    IFilter productFilter = new SallingProductFilter();
-	    IConverter productConverter = new SallingProductConverter();
+        SallingProductCaller productCaller = new();
+        SallingRequestBuilder builder = new SallingRequestBuilder();
+        builder.AddInfos()
+            .AddUnits()
+            .AddUnitsOfMeasure()
+            .AddStoreData()
+            .AddProperties();
+        IFilter productFilter = new SallingProductFilter();
+        IConverter productConverter = new SallingProductConverter();
 
-	    var products = await productCaller.Call(builder.Build());
-	    var filteredProducts = productFilter.Filter(products);
-	    var convertedProducts = productConverter.Convert(filteredProducts);
-	    
+        var products = await productCaller.Call(builder.Build());
+        var filteredProducts = productFilter.Filter(products);
+        var convertedProducts = productConverter.Convert(filteredProducts);
+
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("\n\n ------------ Salling Products ------------ ");
         Console.ResetColor();
-        
+
         //sallingResult.ForEach(obj => Console.WriteLine(JToken.Parse((string) obj).ToString(Formatting.Indented) + "\n"));
     }
 
