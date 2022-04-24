@@ -16,7 +16,7 @@ namespace ExternalApiLibrary.HostedServices;
 public class ExternalApiService : IHostedService
 {
     private readonly IDbInsert _db;
-    private PeriodicTimer _timer;
+    private PeriodicTimer? _timer;
     public ExternalApiService(IServiceProvider sp)
     {
         _db = sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>();
@@ -32,7 +32,7 @@ public class ExternalApiService : IHostedService
         var curTime = DateTime.Now;
         var firstInterval = nextRunTime.Subtract(curTime);
 
-        Action action = async () =>
+        Action action = async () => 
         {
             var t1 = Task.Delay(firstInterval);
             t1.Wait();
@@ -82,7 +82,7 @@ public class ExternalApiService : IHostedService
 
 
         // Products - Føtex
-        ExternalApi føtexProductApi = new ExternalApi(new FøtexProductFactory());
+        IExternalApi føtexProductApi = new ExternalApi(new FøtexProductFactory());
         SallingRequestBuilder builder = new SallingRequestBuilder();
         builder.AddInfos()
                 .AddUnits()
@@ -91,7 +91,7 @@ public class ExternalApiService : IHostedService
         var products = await føtexProductApi.Get(builder.Build());
 
         // Stores - Salling
-        ExternalApi føtexStoreApi = new ExternalApi(new FøtexStoreFactory());
+        IExternalApi føtexStoreApi = new ExternalApi(new FøtexStoreFactory());
         var stores = await føtexStoreApi.Get(null);
 
         // Extracting Føtex stores
