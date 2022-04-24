@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using Newtonsoft.Json;
-
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
@@ -22,7 +21,7 @@ public class CoopStoreFilter : IFilter
 }
 
 [DebuggerDisplay("{Name}, {RetailGroupName}, {Address}")]
-public class FilteredCoopStore
+public class FilteredCoopStore : IFilteredDTO
 {
 	public string Name { get; set; }
 	public string Address { get; set; }

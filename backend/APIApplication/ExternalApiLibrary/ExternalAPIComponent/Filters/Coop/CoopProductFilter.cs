@@ -60,7 +60,7 @@ public class SalesPrice
     public string major { get; set; }
 }
 
-public class FilteredCoopProduct
+public class FilteredCoopProduct : IFilteredDTO
 {
     public string id { get; set; }
     public string displayName { get; set; }
