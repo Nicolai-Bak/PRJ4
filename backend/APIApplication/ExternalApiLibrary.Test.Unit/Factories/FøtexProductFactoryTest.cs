@@ -1,11 +1,11 @@
-using ExternalApiLibrary.ExternalAPIComponent.Converters;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
 using NUnit.Framework;
 
-namespace ExternalApiLibrary.Test.Unit;
+namespace ExternalApiLibrary.Test.Unit.Factories;
 
 [TestFixture]
-public class SallingProductConverterTest
+public class FøtexProductFactoryTest
 {
     private IConverter _uut;
 
@@ -14,7 +14,7 @@ public class SallingProductConverterTest
     {
         _uut = new SallingProductConverter();
     }
-    
+
     [Test]
     public void Test1()
     {

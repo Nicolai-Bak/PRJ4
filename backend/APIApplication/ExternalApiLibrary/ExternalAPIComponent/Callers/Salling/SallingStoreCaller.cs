@@ -1,5 +1,5 @@
 using System.Web;
-using ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
 using Newtonsoft.Json;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;

@@ -1,5 +1,5 @@
-using ExternalAPIComponent.Callers.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Converters;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 
 namespace ExternalApiLibrary.ExternalAPIComponent;

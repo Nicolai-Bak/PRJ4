@@ -1,11 +1,12 @@
-using ExternalAPIComponent.Callers.Interfaces;
+using ExternalAPIComponent.Callers.Coop;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
 
-namespace ExternalAPIComponent.Callers.Coop;
+namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
 
 public class CoopRequestBuilder : IRequestBuilder
 {
     private readonly string _baseUrl = "https://mad.coop.dk/api/search/products";
-    
+
     /**
      * Builds a CoopRequest
      * 
