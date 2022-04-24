@@ -33,7 +33,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddHostedService<Service>();
+builder.Services.AddHostedService<ExternalApiService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
