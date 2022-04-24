@@ -1,5 +1,5 @@
 ﻿namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
-public interface IFilter
+
+public interface IFilteredDTO
 {
-    public List<object> Filter(List<object> s);
 }
