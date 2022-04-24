@@ -99,7 +99,7 @@ public class ExternalApiService : IHostedService
         {
             //ConvertedSallingStore sallingStore = (ConvertedSallingStore)store;
             Store sallingStore = (Store)store;
-            return sallingStore.Brand == "foetex";
+            return sallingStore.Brand.ToLower() == "foetex";
         }).ToList();
 
         //// Insert stores
