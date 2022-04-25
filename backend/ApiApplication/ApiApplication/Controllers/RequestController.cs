@@ -44,12 +44,20 @@ namespace ApiApplication.Controllers
                 new ClosestStoreSelecter(),
                 new BestStoreSelecter()
             };
-            IProductAdder productAdder = new ProductAdder();
-            IStoredataAdder storedataAdder = new StoredataAdder();
-            
-            ISearchControl search = new SearchControl(shoppingList, _db, storeSelecters, productAdder, storedataAdder);
+            ISearchControl search = new SearchControl(_db, storeSelecters);
 
-            return new ShoppingOptions(search);
+
+            List<List<StoreSearch>> result = search.FindStores(shoppingList);
+            
+
+            var options = new ShoppingOptions()
+            {
+                Cheapest = result[0],
+                Nearest = result[1],
+                Best = result[2]
+            };
+
+            return options;
             
         }
     }
