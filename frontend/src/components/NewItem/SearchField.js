@@ -19,7 +19,7 @@ const SearchField = (props) => {
 		props.onItemChanged(value);
 		const itemValue = setTimeout(() => {
 			// console.log("NOW we call lost focus with " + value);
-			if (value > 1) handleFocusLoss(value);
+			if (value.length > 1) handleFocusLoss(value);
 		}, 1000);
 
 		return () => {
