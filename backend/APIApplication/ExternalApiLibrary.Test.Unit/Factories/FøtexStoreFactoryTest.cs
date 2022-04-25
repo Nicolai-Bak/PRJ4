@@ -7,14 +7,14 @@ using NUnit.Framework;
 namespace ExternalApiLibrary.Test.Unit.Factories;
 
 [TestFixture]
-public class FøtexStoreFactoryTest
+public class FoetexStoreFactoryTest
 {
     private IApiFactory _uut;
 
     [SetUp]
     public void Setup()
     {
-        _uut = new FøtexStoreFactory();
+        _uut = new FoetexStoreFactory();
     }
 
     [Test]

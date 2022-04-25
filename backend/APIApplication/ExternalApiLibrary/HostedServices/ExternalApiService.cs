@@ -1,30 +1,25 @@
 ﻿using BusinessLogicLibrary.ProductNameStandardize;
+using DatabaseLibrary;
+using DatabaseLibrary.Models;
 using ExternalApiLibrary.ExternalAPIComponent;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Factory;
+using ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using DatabaseLibrary.Models;
-using DatabaseLibrary;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
-using Microsoft.Extensions.DependencyInjection;
-using ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
 
-namespace ExternalApiLibrary.HostedServices;
-
-public class ExternalApiService : IHostedService
+namespace ApiApplication.HostedServices;
+public class Service : IHostedService
 {
     private readonly IDbInsert _db;
-    private PeriodicTimer? _timer;
-    public ExternalApiService(IServiceProvider sp)
+    private PeriodicTimer _timer;
+    public Service(IServiceProvider sp)
     {
         _db = sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>();
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        Log.Information("External API Service is starting.");
-
         TimeSpan interval = TimeSpan.FromHours(24);
         //calculate time to run the first time & delay to set the timer
         //DateTime.Today gives time of midnight 00.00
@@ -32,7 +27,7 @@ public class ExternalApiService : IHostedService
         var curTime = DateTime.Now;
         var firstInterval = nextRunTime.Subtract(curTime);
 
-        Action action = async () => 
+        Action action = async () =>
         {
             var t1 = Task.Delay(firstInterval);
             t1.Wait();
@@ -58,12 +53,10 @@ public class ExternalApiService : IHostedService
     }
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        Log.Information("External API Service is stopping.");
         return Task.CompletedTask;
     }
     public async Task DoTask()
     {
-        Log.Information("Calling external API.");
         // Configure logger for start up
         BackendLogger.BuildLogger();
 
@@ -80,26 +73,25 @@ public class ExternalApiService : IHostedService
         //    Log.CloseAndFlush();
         //}
 
+        ExternalApi føtexProductApi = new ExternalApi(new FoetexProductFactory());
 
-        // Products - Føtex
-        IExternalApi føtexProductApi = new ExternalApi(new FøtexProductFactory());
         SallingRequestBuilder builder = new SallingRequestBuilder();
         builder.AddInfos()
                 .AddUnits()
                 .AddUnitsOfMeasure()
                 .AddStoreData();
+
         var products = await føtexProductApi.Get(builder.Build());
 
-        // Stores - Salling
-        IExternalApi føtexStoreApi = new ExternalApi(new FøtexStoreFactory());
+        ///// Stores - Salling
+        ExternalApi føtexStoreApi = new ExternalApi(new FoetexStoreFactory());
+
         var stores = await føtexStoreApi.Get(null);
 
-        // Extracting Føtex stores
         var foetexStores = stores.Where(store =>
         {
-            //ConvertedSallingStore sallingStore = (ConvertedSallingStore)store;
-            Store sallingStore = (Store)store;
-            return sallingStore.Brand.ToLower() == "foetex";
+	        Store sallingStore = (Store)store;
+            return sallingStore.Brand == "foetex";
         }).ToList();
 
         //// Insert stores
@@ -107,8 +99,7 @@ public class ExternalApiService : IHostedService
         var storeList = new List<Store>();
         foetexStores.ForEach(s =>
         {
-            //ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
-            Store convertedStore = (Store)s;
+	        Store convertedStore = (Store)s;
             storeList.Add(new Store()
             {
                 ID = convertedStore.ID,
@@ -126,8 +117,7 @@ public class ExternalApiService : IHostedService
         var productList = new List<Product>();
         products.ForEach(p =>
         {
-            //ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
-            Product sallingProduct = (Product)p;
+	        Product sallingProduct = (Product)p;
             productList.Add(new Product()
             {
                 EAN = sallingProduct.EAN,
@@ -147,17 +137,14 @@ public class ExternalApiService : IHostedService
         var productStoreList = new List<ProductStore>();
         products.ForEach(p =>
         {
-            //ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
-            Product sallingProduct = (Product)p;
+	        Product sallingProduct = (Product)p;
             foetexStores.ForEach(s =>
             {
-                //ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
-                Store convertedStore = (Store)s;
+	            Store convertedStore = (Store)s;
                 productStoreList.Add(new ProductStore()
                 {
                     ProductKey = sallingProduct.EAN,
                     StoreKey = convertedStore.ID,
-                    //Price = sallingProduct.Stores.First().Value.Price
                     Price = sallingProduct.ProductStores.First().Price
                 });
             });
