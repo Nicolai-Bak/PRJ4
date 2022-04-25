@@ -1,10 +1,9 @@
 ﻿using ApiApplication.Controllers;
-using ApiApplication.Database;
-using ApiApplication.Database.Data;
-using ApiApplication.Database.Models;
-using ApiApplication.SearchAlgorithm.Models;
 using BusinessLogicLibrary.SearchAlgorithm;
+using BusinessLogicLibrary.SearchAlgorithm.Models;
 using BusinessLogicLibrary.SearchAlgorithm.Models.Interfaces;
+using DatabaseLibrary;
+using DatabaseLibrary.Models;
 
 namespace ApiApplication.SearchAlgorithm
 {
@@ -14,10 +13,10 @@ namespace ApiApplication.SearchAlgorithm
         private IProductAdder _productAdder;
         private IStoredataAdder _storedataAdder;
         private ShoppingList _shoppingList;
-        private IPrisninjaDB _database;
+        private IDbSearch _database;
 
         
-        public SearchControl(ShoppingList shoppingList, IPrisninjaDB database, List<IStoreSelecter> storeSelecters, IProductAdder productAdder, IStoredataAdder storedataAdder)
+        public SearchControl(ShoppingList shoppingList, IDbSearch database, List<IStoreSelecter> storeSelecters, IProductAdder productAdder, IStoredataAdder storedataAdder)
         {
             _storeSelecters = storeSelecters;
             _productAdder = productAdder;
