@@ -35,7 +35,7 @@ namespace ApiApplication.Controllers
         }
 
         [HttpPost("/options")]
-        public ShoppingOptions GetOptions(ShoppingList shoppingList)
+        public async Task<ShoppingOptions> GetOptions(ShoppingList shoppingList)
         {
             //Setup
             List<IStoreSelecter> storeSelecters = new List<IStoreSelecter>
@@ -46,10 +46,20 @@ namespace ApiApplication.Controllers
             };
             IProductAdder productAdder = new ProductAdder();
             IStoredataAdder storedataAdder = new StoredataAdder();
-            ISearchControl search = new SearchControl(shoppingList, _db, storeSelecters, productAdder, storedataAdder);
             
+            ISearchControl search = new SearchControl(shoppingList, _db, storeSelecters, productAdder, storedataAdder);
+
             return new ShoppingOptions(search);
+            
         }
     }
     
+
+    //public class ShoppingOption
+    //{
+    //    public string StoreName { get; set; }
+    //    public double TotalPrice { get; set; }
+    //    public double TotalDistance { get; set; }
+    //    public List<ProductSearch> Products { get; set; }
+    //}
 }
