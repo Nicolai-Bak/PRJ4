@@ -1,21 +1,22 @@
-﻿using ApiApplication.Database;
-using ApiApplication.Database.Models;
-using ApiApplication.Database.ProductNameStandardize;
-using ExternalAPIComponent;
+﻿using BusinessLogicLibrary.ProductNameStandardize;
+using DatabaseLibrary;
+using DatabaseLibrary.Models;
 using ExternalApiLibrary.ExternalAPIComponent;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Factory;
+using ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace ApiApplication.HostedServices;
 public class Service : IHostedService
 {
-    private readonly IPrisninjaDB _db;
+    private readonly IDbInsert _db;
     private PeriodicTimer _timer;
     public Service(IServiceProvider sp)
     {
-        _db = sp.CreateScope().ServiceProvider.GetRequiredService<IPrisninjaDB>();
+        _db = sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>();
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -72,7 +73,7 @@ public class Service : IHostedService
         //    Log.CloseAndFlush();
         //}
 
-        ExternalApi føtexProductApi = new ExternalApi(new FøtexProductFactory());
+        ExternalApi føtexProductApi = new ExternalApi(new FoetexProductFactory());
 
         SallingRequestBuilder builder = new SallingRequestBuilder();
         builder.AddInfos()
@@ -89,7 +90,7 @@ public class Service : IHostedService
 
         var foetexStores = stores.Where(store =>
         {
-            ConvertedSallingStore sallingStore = (ConvertedSallingStore)store;
+	        Store sallingStore = (Store)store;
             return sallingStore.Brand == "foetex";
         }).ToList();
 
@@ -98,7 +99,7 @@ public class Service : IHostedService
         var storeList = new List<Store>();
         foetexStores.ForEach(s =>
         {
-            ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
+	        Store convertedStore = (Store)s;
             storeList.Add(new Store()
             {
                 ID = convertedStore.ID,
@@ -116,13 +117,13 @@ public class Service : IHostedService
         var productList = new List<Product>();
         products.ForEach(p =>
         {
-            ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
+	        Product sallingProduct = (Product)p;
             productList.Add(new Product()
             {
                 EAN = sallingProduct.EAN,
                 Name = sallingProduct.Name,
                 Brand = sallingProduct.Brand,
-                Units = sallingProduct.Unit,
+                Units = sallingProduct.Units,
                 Measurement = sallingProduct.Measurement,
                 Organic = false,
                 ImageUrl = ""
@@ -136,15 +137,15 @@ public class Service : IHostedService
         var productStoreList = new List<ProductStore>();
         products.ForEach(p =>
         {
-            ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
+	        Product sallingProduct = (Product)p;
             foetexStores.ForEach(s =>
             {
-                ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
+	            Store convertedStore = (Store)s;
                 productStoreList.Add(new ProductStore()
                 {
                     ProductKey = sallingProduct.EAN,
                     StoreKey = convertedStore.ID,
-                    Price = sallingProduct.Stores.First().Value.Price
+                    Price = sallingProduct.ProductStores.First().Price
                 });
             });
         });
