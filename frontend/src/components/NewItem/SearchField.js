@@ -16,23 +16,33 @@ const SearchField = (props) => {
 	};
 
 	useEffect(() => {
-		console.log(`value changed to ${value}`);
 		props.onItemChanged(value);
+		const itemValue = setTimeout(() => {
+			// console.log("NOW we call lost focus with " + value);
+			if (value > 1) handleFocusLoss(value);
+		}, 1000);
+
+		return () => {
+			// console.log("NOT calling lost focus yet");
+			clearTimeout(itemValue); // <-- clean up function so itemValue is not called all the time
+		};
 	}, [value]);
 
-	const handleFocusLoss = () => {
-		props.onFocusLost(value);
+	const handleFocusLoss = (event) => {
+		console.log("handleFocusLoss was called with " + event);
+		props.onFocusLost(event);
 	};
 
 	return (
 		<Autocomplete
 			openOnFocus={false}
-			autoComplete={true}
-			autoHighlight
-			autoSelect
+			autoSelect={true}
 			disablePortal
 			disableClearable
 			freeSolo
+			// onBlur={(event) => {
+			// 	handleFocusLoss("onBlur called: " + event.target.value);
+			// }}
 			sx={{
 				width: "100%",
 				margin: "0",
@@ -44,7 +54,21 @@ const SearchField = (props) => {
 			renderOption={(props, option) => {
 				if (value === null || value.toString().length < 2) return;
 				return (
-					<li {...props} key={uuid()}>
+					<li
+						{...props}
+						key={uuid()}
+						// onClick={() => {
+						// 	setValue(option);
+						// 	console.log(`value changed to ${option}`);
+						// 	handleFocusLoss(option);
+						// }}
+						// onKeyDown={(event) => {
+						// 	if (event.key === "Enter" || event.key === "Tab") {
+						// 		setValue(option);
+						// 		handleFocusLoss(option);
+						// 	}
+						// }}
+					>
 						<span>{option}</span>
 					</li>
 				);
@@ -52,17 +76,20 @@ const SearchField = (props) => {
 			value={value}
 			onChange={(event, newValue) => {
 				setValue(newValue);
+				console.log("newValue: ", newValue);
 			}}
 			renderInput={(params) => (
 				<TextField
 					{...params}
 					fullWidth
-					focusOff={() => {
-						handleFocusLoss();
-					}}
 					// label="Tilføj Vare Her" //<-- skal IKKE slettes! tror jeg :P
 					placeholder="Tilføj Vare Her"
 					variant="standard"
+					// onKeyDown={(event) => {
+					// 	if (event.key === "Enter" || event.key === "Tab") {
+					// 		handleFocusLoss();
+					// 	}
+					// }}
 					onChange={(event) => {
 						setValue(event.target.value);
 					}}

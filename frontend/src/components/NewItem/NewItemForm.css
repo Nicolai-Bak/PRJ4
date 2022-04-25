@@ -36,9 +36,8 @@
 }
 
 .add-item-button {
-	margin: 1rem 3rem;
+	margin: 1rem 3rem 1rem 3rem;
 	padding: 0;
-
 }
 
 @media screen and (max-width: 1400px) {
@@ -53,17 +52,17 @@
 	}
 }
 
-.error-message-empty-search-field{
+.error-message-empty-search-field {
 	color: var(--red);
 	font-size: rem;
 }
 
-.add-item-form.invalid input{
+.add-item-form.invalid input {
 	border: 2px solid var(--red);
 	background-color: var(--secondary-color-shadow);
 }
 
-.input-amount-field.invalid{
+.input-amount-field.invalid {
 	border: 2px solid var(--red);
 	background-color: var(--secondary-color-shadow);
 }
