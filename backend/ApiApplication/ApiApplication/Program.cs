@@ -18,7 +18,6 @@ builder.Services.AddDbContext<PrisninjaDbContext>();
 builder.Services.AddTransient<IDbRequest, PrisninjaDb>();
 builder.Services.AddTransient<IDbSearch, PrisninjaDb>();
 builder.Services.AddTransient<IDbInsert, PrisninjaDb>();
-builder.Services.AddTransient<CheapestSearcher>();
 
 builder.Services.AddCors(options =>
 {

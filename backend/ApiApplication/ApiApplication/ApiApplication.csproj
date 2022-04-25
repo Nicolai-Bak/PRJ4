@@ -29,4 +29,8 @@
       <ProjectReference Include="..\ExternalApiLibrary\ExternalApiLibrary.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers" />
+    </ItemGroup>
+
 </Project>
