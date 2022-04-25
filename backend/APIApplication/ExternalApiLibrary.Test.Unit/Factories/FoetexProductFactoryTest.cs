@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace ExternalApiLibrary.Test.Unit.Factories;
 
 [TestFixture]
-public class FøtexProductFactoryTest
+public class FoetexProductFactoryTest
 {
     private IApiFactory _uut;
 
