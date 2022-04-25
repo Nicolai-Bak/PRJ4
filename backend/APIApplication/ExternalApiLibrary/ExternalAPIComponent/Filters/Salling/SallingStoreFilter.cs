@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Models;
+using ExternalApiLibrary.Filters.Interfaces;
+using ExternalApiLibrary.Filters.Models;
 using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
+namespace ExternalApiLibrary.Filters.Salling;
 public class SallingStoreFilter : IFilter
 {
     public List<object> Filter(List<object> o)

@@ -1,10 +1,8 @@
 ﻿using DatabaseLibrary.Models;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Filters;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Models;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
+using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.Filters.Models;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
+namespace ExternalApiLibrary.Converters.Salling;
 
 public class SallingProductConverter : IConverter
 {
@@ -14,7 +12,7 @@ public class SallingProductConverter : IConverter
 
         var products = filteredList.Select(product => new Product()
         {
-            EAN = Int64.Parse(product.Infos!.Find(info => info.Code == "product_details")!.Items!.Find(item => item.Title == "EAN")!.Value!),
+            EAN = long.Parse(product.Infos!.Find(info => info.Code == "product_details")!.Items!.Find(item => item.Title == "EAN")!.Value!),
             Name = product.HighlightResults!.ProductName!.Text!,
             Brand = product.HighlightResults!.Brand!.Text!,
             Units = product.Units!.Value,
@@ -29,30 +27,30 @@ public class SallingProductConverter : IConverter
 
         return new List<object>(products);
     }
-    
+
     /**
      * Checks if the product is organic
      */
     private static bool IsProductOrganic(string productName, List<string>? properties)
     {
-	    return DoesPropertiesContainOrganic(properties) || DoesProductNameContainOrganic(productName);
+        return DoesPropertiesContainOrganic(properties) || DoesProductNameContainOrganic(productName);
     }
-    
-    private static bool DoesProductNameContainOrganic(string name)
-	{
-	    string[] organicWords = { "økologisk", "øko" };
 
-	    return organicWords.Any(word => name.ToLower().Contains(word));
-	}
+    private static bool DoesProductNameContainOrganic(string name)
+    {
+        string[] organicWords = { "økologisk", "øko" };
+
+        return organicWords.Any(word => name.ToLower().Contains(word));
+    }
 
     private static bool DoesPropertiesContainOrganic(List<string>? properties)
     {
-	    if (properties == null || properties.Count == 0)
-		    return false;
+        if (properties == null || properties.Count == 0)
+            return false;
 
-	    string[] organicProperties = {"økologisk"};
+        string[] organicProperties = { "økologisk" };
 
-	    return properties.Any(property => organicProperties.Contains(property.ToLower()));
+        return properties.Any(property => organicProperties.Contains(property.ToLower()));
     }
 }
 

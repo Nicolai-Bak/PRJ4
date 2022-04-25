@@ -1,8 +1,8 @@
 ﻿using DatabaseLibrary.Models;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Models;
+using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.Filters.Models;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
+namespace ExternalApiLibrary.Converters.Salling;
 
 public class SallingStoreConverter : IConverter
 {

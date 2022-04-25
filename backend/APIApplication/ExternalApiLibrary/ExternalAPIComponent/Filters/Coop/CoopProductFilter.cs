@@ -1,20 +1,21 @@
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+using ExternalApiLibrary.DTO;
+using ExternalApiLibrary.Filters.Interfaces;
 using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
+namespace ExternalApiLibrary.Filters.Coop;
 
 public class CoopProductFilter : IFilter
 {
     public List<object> Filter(List<object> o)
     {
         var result = new List<object>();
-        
+
         o.ForEach(response =>
         {
-            var deserializedRoot = JsonConvert.DeserializeObject<RootFilteredCoopProduct>((string) response);
+            var deserializedRoot = JsonConvert.DeserializeObject<RootFilteredCoopProduct>((string)response);
             if (deserializedRoot != null) result.Add(deserializedRoot.products);
         });
-        
+
         return result;
     }
 }

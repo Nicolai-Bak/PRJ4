@@ -1,7 +1,8 @@
-﻿using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+﻿using ExternalApiLibrary.DTO;
+using ExternalApiLibrary.Filters.Interfaces;
 using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Models;
+namespace ExternalApiLibrary.Filters.Models;
 
 public class FilteredSallingProduct : IFilteredDto
 {
