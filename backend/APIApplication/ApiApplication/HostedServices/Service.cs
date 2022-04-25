@@ -83,7 +83,7 @@ public class Service : IHostedService
         var products = await føtexProductApi.Get(builder.Build());
 
         ///// Stores - Salling
-        ExternalApi føtexStoreApi = new ExternalApi(new FøtexStoreFactory());
+        ExternalApi føtexStoreApi = new ExternalApi(new FoetexStoreFactory());
 
         var stores = await føtexStoreApi.Get(null);
 

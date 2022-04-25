@@ -6,7 +6,7 @@ using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Factory;
 
-public class FøtexStoreFactory : IApiFactory
+public class FoetexStoreFactory : IApiFactory
 {
     public ICaller CreateCaller()
     {
