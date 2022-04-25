@@ -1,0 +1,35 @@
+.dropdown-toggle {
+    background: var(--secondary-color-light);
+    box-shadow: none;
+    border: 0.05rem solid #0e1614;
+    border-radius: 0.3rem;
+    min-width: 11rem;
+    height: 1.5rem;
+    margin-right: 2rem;
+}
+
+.dropdown-toggle:hover {
+    background: var(--default-white);
+}
+
+.dropdown-menu {
+    border: 0.05rem solid #0e1614;
+    padding-inline-start: 0;
+    width: 85%;
+    height: fit-content;
+    
+}
+
+.dropdown-menu-item {
+    list-style: none;
+    background: var(--secondary-color-light);
+    box-shadow: none;
+    border-radius: 0;
+    min-width: 11rem;
+    height: 1.5rem;
+    margin-right: 2rem;
+}
+
+.dropdown-menu-item:hover {
+    background: var(--default-white);
+}

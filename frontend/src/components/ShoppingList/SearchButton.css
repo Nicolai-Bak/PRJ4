@@ -1,3 +1,7 @@
+.search-button {
+	margin:auto
+}
+
 #search-button {
     max-width: 10em;
 	width: 255px;
@@ -10,9 +14,4 @@
 	background-color: var(--secondary-color);
 	cursor: pointer;
     margin-bottom: 1rem;
-}
-
-#search-button:hover {
-    background-color: var(--secondary-color-shadow);
-    transition: all 0.2s ease-in-out 0.1s;
 }
