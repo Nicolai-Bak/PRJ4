@@ -34,14 +34,12 @@ const NewItemForm = (props) => {
 	const itemChangeHandler = (itemReceived) => {
 		SetIsSearchFieldValid(true);
 		setNewItem(itemReceived);
-
-		return fetchItemInfo(itemReceived);
 	};
 
 	const amountChangeHandler = (event) => {
 		const added = event.target.value;
 		added < 0 ? SetIsAmountValid(false) : setAmount(added);
-		SetIsAmountValid(true);
+		SetIsAmountValid(true); // ?? Det her bliver jo altid kaldt?
 	};
 
 	const validInput = (newItem, amount) => {
@@ -70,9 +68,11 @@ const NewItemForm = (props) => {
 		setAmount("");
 	};
 
-	const focusLost = (event) => {
-		console.log("focus was lost and the current value is " + event);
-		const unit = getSuggestedUnit(event); // IKKE FÆRDIG!!
+	const focusLost = async (event) => {
+			console.log("focus was lost and the current value is " + event);
+			const unit = await getUnitAndOrganic(event); // IKKE FÆRDIG!!
+
+		console.log(unit);
 	};
 
 	return (
@@ -99,7 +99,6 @@ const NewItemForm = (props) => {
 				<Button type="submit" className="add-item-button">
 					Tilføj Vare
 				</Button>
-				<br></br>
 			</form>
 		</Card>
 	);
@@ -135,9 +134,17 @@ const NewItemForm = (props) => {
 		console.log(response);
 	}
 
-	async function getSuggestedUnit(item) {
+	async function getUnitAndOrganic(item) {
+		let unit = null;
 		const info = await fetchItemInfo(item);
-		console.log(info);
+		const organic = info.organic;
+		const unitInfo = Object.keys(info).filter((i) => info[i] === true);
+
+		if (unitInfo.includes("measureG")) unit = "kg";
+		else if (unitInfo.includes("measureL")) unit = "l";
+		else if (unitInfo.includes("measureStk")) unit = "stk";
+
+		return { unit, organic };
 	}
 };
 
