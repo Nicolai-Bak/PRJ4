@@ -1,5 +1,6 @@
 import React from "react";
 import "./ListItem.css";
+import Button from "../../UI/Atoms/Button/Button";
 
 const ListItem = (props) => {
 	const unitAmountHandler = () => {
@@ -18,10 +19,10 @@ const ListItem = (props) => {
 			<span className="list-item__right">
 				<span className="unit-amount">{unitAmountHandler()}</span>
 				<span className="item-buttons">
-					<button onClick={() => props.onDecreaseAmount(props.id)}>-</button>
-					<button onClick={() => props.onIncreaseAmount(props.id)}>+</button>
+					<Button className="adjust-amount-button" onClick={() => props.onDecreaseAmount(props.id)}>-</Button>
+					<Button className="adjust-amount-button" onClick={() => props.onIncreaseAmount(props.id)}>+</Button>
 				</span>
-				<button className="remove-button" onClick={() => props.onRemoveItem(props.id, props.name)}>Slet</button>
+				<Button className="remove-button" onClick={() => props.onRemoveItem(props.id, props.name)}>Slet</Button>
 			</span>
 		</div>
 	);

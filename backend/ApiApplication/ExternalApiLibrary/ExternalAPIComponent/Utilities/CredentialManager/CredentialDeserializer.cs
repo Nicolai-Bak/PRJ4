@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Serilog;
 
-namespace ExternalAPIComponent;
+namespace ExternalApiLibrary.ExternalAPIComponent.Utilities.CredentialManager;
 
 public static class CredentialDeserializer
 {
@@ -36,10 +36,10 @@ public static class CredentialDeserializer
 
             foreach (var api in deserializedJson.Keys)
             {
-                Log.Information("Read key from {Name}: {Key}", 
+                Log.Information("Read key from {Name}: {Key}",
                     api.Name,
                     api.Key);
-                
+
                 Keys.Add(api.Name, api.Key);
             }
 
@@ -51,13 +51,13 @@ public static class CredentialDeserializer
             throw;
         }
     }
-    
+
     public class ApiKeys
     {
         [JsonProperty("ApiKeys")]
         public List<ApiKey> Keys { get; set; } = new();
     }
-    
+
     public class ApiKey
     {
         public string Name { get; set; } = "";

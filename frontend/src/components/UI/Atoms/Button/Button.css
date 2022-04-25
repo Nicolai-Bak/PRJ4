@@ -1,0 +1,21 @@
+.button-container {
+	font-size: 0.75rem;
+	box-shadow: 3px 3px rgba(31, 31, 31, 0.1);
+	max-width: 10em;
+	width: 255px;
+	height: 34px;
+	font-weight: bold;
+	border: none;
+	border-radius: 1rem;
+	background-color: var(--secondary-color);
+	cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.button-container:hover {
+	background-color: var(--secondary-color-shadow);
+	transition: all 0.1s ease-in-out 0.1s;
+}

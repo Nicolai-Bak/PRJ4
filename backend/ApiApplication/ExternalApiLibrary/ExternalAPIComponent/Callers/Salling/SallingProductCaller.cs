@@ -1,4 +1,4 @@
-using ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
 
