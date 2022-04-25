@@ -1,49 +1,119 @@
+import {
+	FormControl,
+	FormControlLabel,
+	Radio,
+	RadioGroup,
+	Switch,
+} from "@mui/material";
+
 import React from "react";
 import "./UnitBox.css";
+import { styled } from "@mui/material/styles";
 
-const UnitBox = props => {
+const UnitBox = (props) => {
 	const unitChangedHandler = (event) => {
 		console.log(event.target.value);
 		return props.onUnitSelected(event.target.value);
 	};
 
-	const classes = `unitBox__container ${props.className}`;
+	const Responsive = styled("Radio")(({ theme }) => ({
+		[theme.breakpoints.up("lg")]: {
+			flexDirection: "row",
+		},
 
-	const options = JSON.parse(localStorage.getItem("itemNames"))
+		[theme.breakpoints.down("md")]: {
+			flexDirection: "column",
+			color: "purple",
+		},
+	}));
+
+	// const classes = `unitBox__container ${props.className}`;
+	const radioStyles = {
+		color: "white",
+		margin: "0",
+		height: "1em",
+		padding: "0",
+		border: "0",
+		borderBottom: "0",
+		"&, &.Mui-checked": {
+			color: "white",
+		},
+	};
+
+	const options = JSON.parse(localStorage.getItem("itemNames"));
+	// return (
+	// 	<div className={classes}>
+	// 		<input
+	// 			type="radio"
+	// 			name="unit"
+	// 			id="kilogram"
+	// 			value="kg"
+	// 			defaultChecked
+	// 			onChange={unitChangedHandler}
+	// 		></input>
+	// 		<label for="kilogram" tabIndex="1">
+	// 			kg
+	// 		</label>
+	// 		<input
+	// 			type="radio"
+	// 			name="unit"
+	// 			id="liter"
+	// 			value="L"
+	// 			onChange={unitChangedHandler}
+	// 		></input>
+	// 		<label for="liter" tabIndex="1">
+	// 			liter
+	// 		</label>
+	// 		<input
+	// 			type="radio"
+	// 			name="unit"
+	// 			id="piece"
+	// 			value="stk"
+	// 			onChange={unitChangedHandler}
+	// 		></input>
+	// 		<label for="piece" tabIndex="1">
+	// 			stk
+	// 		</label>
+	// 	</div>
+	// );
+
 	return (
-		<div className={classes}>
-			<input
-				type="radio"
-				name="unit"
-				id="kilogram"
-				value="kg"
-				defaultChecked
+		<Responsive>
+			<RadioGroup
+				className="radio-buttons"
 				onChange={unitChangedHandler}
-			></input>
-			<label for="kilogram" tabIndex="0">
-				kg
-			</label>
-			<input
-				type="radio"
-				name="unit"
-				id="liter"
-				value="L"
-				onChange={unitChangedHandler}
-			></input>
-			<label for="liter" tabIndex="0">
-				liter
-			</label>
-			<input
-				type="radio"
-				name="unit"
-				id="piece"
-				value="stk"
-				onChange={unitChangedHandler}
-			></input>
-			<label for="piece" tabIndex="0">
-				stk
-			</label>
-		</div>
+				defaultValue="Kg"
+				sx={{
+					marginLeft: ".7rem",
+					padding: "0",
+				}}
+			>
+				<FormControlLabel
+					value="Kg"
+					control={<Radio size="small" sx={radioStyles} />}
+					label="Kg"
+					sx={{
+						color: "white",
+					}}
+				/>
+				<FormControlLabel
+					value="L"
+					control={<Radio size="small" sx={radioStyles} />}
+					label="L"
+					sx={{
+						color: "white",
+					}}
+				/>
+				<FormControlLabel
+					value="Stk"
+					control={<Radio size="small" sx={radioStyles} />}
+					label="Stk"
+					sx={{
+						color: "white",
+					}}
+				/>
+			</RadioGroup>
+		</Responsive>
 	);
 };
 

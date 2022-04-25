@@ -5,14 +5,17 @@ import { v4 as uuid } from "uuid";
 import SearchField from "./SearchField";
 import Card from "../UI/Atoms/Card/Card";
 import Button from "../UI/Atoms/Button/Button";
+import { FormControlLabel, Switch } from "@mui/material";
 
 const NewItemForm = (props) => {
 	const [newItem, setNewItem] = useState(null);
 	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
+	const [isChecked, setIsChecked] = useState(false);
 	// changed validInput
 	const [isSearchFieldValid, SetIsSearchFieldValid] = useState(true);
 	const [isAmountValid, SetIsAmountValid] = useState(true);
+	const [organic, setOrganic] = useState(false);
 	const id = uuid();
 
 	useEffect(() => {
@@ -29,6 +32,14 @@ const NewItemForm = (props) => {
 
 		// setNewItem(""); <-- doesn't reset the autocomplete field after submit
 		setAmount("");
+	};
+
+	const switchStyling = {
+		color: "white",
+		"&:checked": {
+			color: "green",
+		},
+		icon: "../../../public/images/økomærke.png",
 	};
 
 	const itemChangeHandler = (itemReceived) => {
@@ -69,25 +80,43 @@ const NewItemForm = (props) => {
 	};
 
 	const focusLost = async (event) => {
-			console.log("focus was lost and the current value is " + event);
-			const unit = await getUnitAndOrganic(event); // IKKE FÆRDIG!!
+		console.log("focus was lost and the current value is " + event);
+		const unit = await getUnitAndOrganic(event); // IKKE FÆRDIG!!
 
 		console.log(unit);
-	};
 
+		if (unit) {
+			setOrganic(!unit.organic);
+		}
+	};
 	return (
-		<Card className="add-item-form">
+		<Card className="add-item-container">
 			<form
 				onSubmit={submitItemHandler}
-				className={`${!isSearchFieldValid ? "invalid" : ""}`}
+				// className={`${!isSearchFieldValid ? "invalid" : ""}`}
+				className={"add-item-form"}
 			>
 				<SearchField
 					onItemChanged={itemChangeHandler}
 					onFocusLost={focusLost}
 				/>
-				<UnitBox className="form-units" onUnitSelected={unitChangeHandler} />
+				<div className="unit-organic-switch">
+					<UnitBox className="form-units" onUnitSelected={unitChangeHandler} />
+					{organic && (
+						<FormControlLabel
+							control={<Switch sx={switchStyling} />}
+							label="Øko"
+							sx={{
+								color: "white",
+								icon: "../../../public/images/økomærke.png",
+							}}
+						/>
+					)}
+				</div>
 				<input
-					className={`input-amount-field ${!isAmountValid ? "invalid" : ""}`}
+					tabIndex="0"
+					// className={`input-amount-field ${!isAmountValid ? "invalid" : ""}`}
+					className="amount-input"
 					type="number"
 					step="0.01"
 					id="amount"
@@ -105,7 +134,7 @@ const NewItemForm = (props) => {
 
 	async function fetchItemInfo(itemInfo) {
 		const request = await fetch(
-			`https://prisninjawebapi.azurewebsites.net/productinfo/${itemInfo}/`, //<-- er det denne url?
+			`https://prisninjawebapi.azurewebsites.net/productinfo/${itemInfo}/`,
 			{
 				method: "GET",
 				headers: {
