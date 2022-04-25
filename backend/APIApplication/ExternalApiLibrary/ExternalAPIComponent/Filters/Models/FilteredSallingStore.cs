@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Models;
 
-public class FilteredSallingStore : IFilteredDTO
+public class FilteredSallingStore : IFilteredDto
 {
     [JsonProperty("sapSiteId")] public int Id { get; set; }
     [JsonProperty("brand")] public string Brand { get; set; }
