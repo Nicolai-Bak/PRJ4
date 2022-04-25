@@ -20,13 +20,13 @@
 	margin-top: 1rem;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1300px) {
 	.shopping-list {
 		width: 60%;
 	}
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 768px) {
 	.shopping-list {
 		width: 80%;
 	}
