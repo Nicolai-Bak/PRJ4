@@ -2,15 +2,14 @@
 	display: flex;
 	flex-direction: column;
 	margin: 1rem auto;
-	width: 35%;
 	margin-top: 2rem;
-	padding: 0.1rem;
+	width: 35%;
+	padding: 0;
 	padding-top: 2rem;
 	font-size: 1rem;
 	background: var(--primary-color);
-	border-radius: 12px;
 	align-items: center;
-	gap: 0.6rem;
+	border-radius: 12px;
 	box-shadow: 4px 6px rgba(22, 22, 22, 0.26);
 }
 
@@ -27,30 +26,19 @@
 	max-width: 100%;
 }
 
+.form-units {
+	justify-content: center;
+}
+
 .item-amount {
 	width: 3rem;
-
 	margin: 0.2rem 0.4rem 0 0.2rem;
 }
 
 .add-item-button {
-	flex-shrink: 1;
-	font-size: 0.75rem;
-	box-shadow: 6px 6px rgba(31, 31, 31, 0.1);
-	max-width: 10em;
-	width: 255px;
-	height: 34px;
-	border-radius: 6px;
-	font-weight: bold;
-	border: none;
-	border-radius: 1rem;
-	background-color: var(--secondary-color);
-	cursor: pointer;
-}
+	margin: 1rem 3rem;
+	padding: 0;
 
-.add-item-form button:hover {
-	background-color: var(--secondary-color-shadow);
-	transition: all 0.1s ease-in-out 0.1s;
 }
 
 @media screen and (max-width: 1400px) {
@@ -63,4 +51,19 @@
 	.add-item-form {
 		width: 80%;
 	}
+}
+
+.error-message-empty-search-field{
+	color: var(--red);
+	font-size: rem;
+}
+
+.add-item-form.invalid input{
+	border: 2px solid var(--red);
+	background-color: var(--secondary-color-shadow);
+}
+
+.input-amount-field.invalid{
+	border: 2px solid var(--red);
+	background-color: var(--secondary-color-shadow);
 }

@@ -1,0 +1,26 @@
+.footer {
+	position: relative;
+    color: var(--default-white);
+	bottom: 0;
+	width: 100%;
+	background-color: var(--default-black);
+	text-align: center;
+}
+
+.footer-links {
+	color: var(--default-white);
+	padding-top: 4rem;
+	color: var(--default-white);
+	font-style: none;
+}
+.footer-links a {
+   color: var(--default-white);
+   font-style: none;
+}
+
+.footer-text {
+	color:var(--default-white);
+	font-size: 1rem;
+	margin-top: 0.6rem;
+	padding-bottom: 5rem;
+}

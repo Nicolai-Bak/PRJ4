@@ -1,7 +1,6 @@
-﻿using System.Globalization;
-using ApiApplication.Database.Models;
+﻿using DatabaseLibrary.Models;
 
-namespace ApiApplication.Database.ProductNameStandardize;
+namespace BusinessLogicLibrary.ProductNameStandardize;
 
 public class ProductNameStandardizer
 {
@@ -31,8 +30,7 @@ public class ProductNameStandardizer
                 MeasureG = (p.Measurement.ToLower().Contains("g") ? true : false),
                 MeasureL = (p.Measurement.ToLower().Contains("l") ? true : false),
                 MeasureStk = (p.Measurement.ToLower().Contains("stk") ? true : false),
-                Organic = p.Organic,
-                StandardUnits = 0
+                Organic = p.Organic
             };
             if (standardList.Any(sn => sn.Name == p.Name))
             {

@@ -1,7 +1,7 @@
-using ApiApplication.Database;
-using ApiApplication.Database.Data;
-using ApiApplication.Database.Models;
-using ApiApplication.HostedServices;
+using BusinessLogicLibrary.SearchAlgorithm;
+using DatabaseLibrary;
+using DatabaseLibrary.Data;
+using ExternalApiLibrary.HostedServices;
 using Microsoft.EntityFrameworkCore;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -15,11 +15,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PrisninjaDbContext>();
-builder.Services.AddScoped<IPrisninjaDB, PrisninjaDb>();
+builder.Services.AddTransient<IDbRequest, PrisninjaDb>();
+builder.Services.AddTransient<IDbSearch, PrisninjaDb>();
+builder.Services.AddTransient<IDbInsert, PrisninjaDb>();
+builder.Services.AddTransient<CheapestSearcher>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddPolicy(MyAllowSpecificOrigins,
         builder =>
         {
             builder.WithOrigins()
@@ -29,7 +32,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddHostedService<FoetexService>();
+builder.Services.AddHostedService<ExternalApiService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

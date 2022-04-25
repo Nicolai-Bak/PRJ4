@@ -26,13 +26,11 @@ const SearchField = (props) => {
 			autoComplete={true}
 			autoHighlight
 			autoSelect
-			className="auto-complete"
 			disablePortal
-			label="Tilføj Vare Her"
 			disableClearable
 			freeSolo
 			sx={{
-				width: "50%",
+				width: "100%",
 				margin: "0",
 				padding: "0",
 				border: "0",
@@ -56,7 +54,7 @@ const SearchField = (props) => {
 				<TextField
 					{...params}
 					fullWidth
-					label="Tilføj Vare Her"
+					// label="Tilføj Vare Her" //<-- skal IKKE slettes! tror jeg :P
 					placeholder="Tilføj Vare Her"
 					variant="standard"
 					onChange={(event) => {

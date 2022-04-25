@@ -1,10 +1,12 @@
-﻿namespace ApiApplication.SearchAlgorithm.Models
+﻿namespace BusinessLogicLibrary.SearchAlgorithm.Models
 {
     public class StoreSearch
     {
         public int StoreID { get; set; }
-        
-        public float Distance { get; set; }
+        public double TotalPrice { get; set; }
+        public double Distance { get; set; }
+        public string Brand { get; set; }
+        public string Address { get; set; }
         public List<ProductSearch> Products { get; set; }
 
         public StoreSearch(int id)
@@ -12,14 +14,11 @@
             StoreID = id;
         }
 
-        public float GetTotalPrice()
+        public void Add(ProductSearch p)
         {
-            float total = 0;
-            foreach (var product in Products)
-            {
-                total += (float)product.Price;
-            }
-            return total;
+            Products.Add(p);
+            TotalPrice += p.Price * p.Amount;
         }
+        
     }
 }

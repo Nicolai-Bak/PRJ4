@@ -1,8 +1,8 @@
-using ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ExternalAPIComponent.Callers.Coop;
+namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
 
 public class CoopRequest : IRequest
 {
@@ -16,7 +16,7 @@ public class CoopRequest : IRequest
     public string BaseUrl { get; set; }
 
     private int PageIndex { get; set; }
-    
+
     // True = Production Environment
     // False = Development Environment - limits calls to not overload the external API
     public bool RetrieveAll { get; private set; } = false;
@@ -56,26 +56,26 @@ public class CoopRequest : IRequest
         do
         {
             var latestResponse = await CallPage();
-            continueCondition = ResponseContainedProducts((string) latestResponse);
+            continueCondition = ResponseContainedProducts((string)latestResponse);
 
             PageIndex++;
-            
+
             if (continueCondition)
                 responses.Add(latestResponse);
-            
+
             // Limits the amount of calls made to the API
             // Only used in development environment
             if (!RetrieveAll && PageIndex >= 10)
                 continueCondition = false;
-            
+
         } while (continueCondition);
 
         // Clean up for the next request
         PageIndex = 0;
-        
+
         return responses;
     }
-    
+
     /**
      * Swaps requests to production such that all pages are read
      * 
@@ -88,11 +88,11 @@ public class CoopRequest : IRequest
     {
         RetrieveAll = true;
     }
-    
+
     private static bool ResponseContainedProducts(string response)
     {
         dynamic d = JObject.Parse(response);
         return d.products.Count > 0;
     }
-    
+
 }

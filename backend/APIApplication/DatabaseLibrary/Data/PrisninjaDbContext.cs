@@ -1,30 +1,30 @@
-using ApiApplication.Database.Models;
+using DatabaseLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApiApplication.Database.Data;
+namespace DatabaseLibrary.Data;
 
 public class PrisninjaDbContext : DbContext
 {
+    // public PrisninjaDbContext(DbContextOptions options) : base(options)
+    // {
+    // }
+    //
+    // protected PrisninjaDbContext()
+    // {
+    // }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // optionsBuilder.UseSqlServer("" +
-        //                             "Server=tcp:prj4server.database.windows.net,1433;" +
-        //                             "Initial Catalog=PRJ4 Database;" +
-        //                             "Persist Security Info=False;" +
-        //                             "User ID=superadmin;" +
-        //                             "Password=Superpassword1;" +
-        //                             "MultipleActiveResultSets=False;" +
-        //                             "Encrypt=True;" +
-        //                             "TrustServerCertificate=False;" +
-        //                             "Connection Timeout=30;"
-        // );
-
         optionsBuilder.UseSqlServer("" +
-                                    "Data Source=localhost;" +
-                                    "Database=TestDB;" +
-                                    "TrustServerCertificate=true;" +
-                                    "User ID=SA;" +
-                                    "PASSWORD=<Tofirebananer147>"
+                                    "Server=tcp:prisninjadb.database.windows.net,1433;" + 
+                                    "Initial Catalog=PrisninjaWebApiDb;" + 
+                                    "Persist Security Info=False;" + 
+                                    "User ID=PrisninjaDb;" + 
+                                    "Password=PRJ4Server;" + 
+                                    "MultipleActiveResultSets=False;" + 
+                                    "Encrypt=True;" +
+                                    "TrustServerCertificate=False;" + 
+                                    "Connection Timeout=30;"
         );
     }
 
@@ -32,6 +32,7 @@ public class PrisninjaDbContext : DbContext
     public DbSet<Product> Products => Set<Product>();
     public DbSet<ProductStore> ProductStores => Set<ProductStore>();
     public DbSet<ProductStandardName> ProductStandardNames => Set<ProductStandardName>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Store>()

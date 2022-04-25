@@ -1,9 +1,9 @@
-﻿using ApiApplication.SearchAlgorithm.Models;
+﻿using BusinessLogicLibrary.SearchAlgorithm.Models;
 
-namespace ApiApplication.SearchAlgorithm
+namespace BusinessLogicLibrary.SearchAlgorithm
 {
     public interface ISearcher
     {
-        public StoreSearch FindStore(List<string> productNames, double xCoordinate, double yCoordinate, int range);
+        public List<StoreSearch> FindStores(ShoppingList shoppingList);
     }
 }

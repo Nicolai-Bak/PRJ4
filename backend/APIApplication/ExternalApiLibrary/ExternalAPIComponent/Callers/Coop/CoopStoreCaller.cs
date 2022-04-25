@@ -1,6 +1,6 @@
-using ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
 
-namespace ExternalAPIComponent.Callers.Coop;
+namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
 
 public class CoopStoreCaller : ICaller
 {
@@ -24,12 +24,12 @@ public class CoopStoreCaller : ICaller
                 {"pageId", "1501"},
                 {"chainsToShowStoresFrom", store}
             };
-            
+
             var content = new FormUrlEncodedContent(payload);
             var response = client.PostAsync(BaseUrl, content);
-            
-			var responseString = await response.Result.Content.ReadAsStringAsync();
-            
+
+            var responseString = await response.Result.Content.ReadAsStringAsync();
+
             responses.Add(responseString);
         }
 

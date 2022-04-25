@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExternalApiLibrary.ExternalAPIComponent.Filters
+﻿namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+public interface IFilter
 {
-    public interface IFilter
-    {
-        public List<object> Filter(List<object> s);
-    }
+    public List<object> Filter(List<object> s);
 }

@@ -1,21 +1,9 @@
-﻿using System.Data.SqlClient;
-using ApiApplication.Database.Data;
-using ApiApplication.Database.Models;
+﻿using DatabaseLibrary.Data;
+using DatabaseLibrary.Models;
 
-namespace ApiApplication.Database;
+namespace DatabaseLibrary;
 
-public interface IPrisninjaDB
-{
-    List<string> GetAllProductNames();
-    List<Product> GetAllProducts();
-    ProductStandardName GetProductInfo(string name);
-    void InsertStores(List<Store> stores);
-    void InsertProducts(List<Product> products);
-    void InsertProductStores(List<ProductStore> productStores);
-    void InsertProductStandardNames(List<ProductStandardName> productStandardNames);
-}
-
-public class PrisninjaDb : IPrisninjaDB
+public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
 {
     private PrisninjaDbContext _context;
 
@@ -34,7 +22,7 @@ public class PrisninjaDb : IPrisninjaDB
         return _context.Products.ToList();
     }
     
-    public ProductStandardName? GetProductInfo(string name)
+    public ProductStandardName GetProductInfo(string name)
     {
         return _context.ProductStandardNames.FirstOrDefault(sn => sn.Name == name);
     }
@@ -48,6 +36,14 @@ public class PrisninjaDb : IPrisninjaDB
                     Math.Pow(Math.Abs(s.Location_X - x), 2) +
                     Math.Pow(Math.Abs(s.Location_Y - y), 2)) < range))
             .Select(s => s.ID)
+            .ToList();
+    }
+
+    public List<Store> GetDataFromStores(List<int> topStores)
+    {
+        return _context.Stores
+            .Where(s => 
+                topStores.Any(t => t == s.ID))
             .ToList();
     }
 

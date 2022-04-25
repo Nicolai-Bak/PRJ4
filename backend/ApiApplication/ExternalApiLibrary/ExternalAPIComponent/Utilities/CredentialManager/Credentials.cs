@@ -1,4 +1,3 @@
-using ExternalAPIComponent;
 using Serilog;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Utilities.CredentialManager;

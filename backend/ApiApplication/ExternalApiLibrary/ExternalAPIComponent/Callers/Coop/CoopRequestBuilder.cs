@@ -1,6 +1,6 @@
-using ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
 
-namespace ExternalAPIComponent.Callers.Coop;
+namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
 
 public class CoopRequestBuilder : IRequestBuilder
 {
