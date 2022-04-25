@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using ExternalApiLibrary.DTO;
 using Newtonsoft.Json;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 

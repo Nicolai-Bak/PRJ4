@@ -1,18 +1,14 @@
 ﻿using DatabaseLibrary.Models;
 using ExternalApiLibrary.Converters.Interfaces;
-<<<<<<< HEAD
-using ExternalApiLibrary.DTO;
-=======
->>>>>>> ExternalApi namespaces updated
-using ExternalApiLibrary.Models;
+using ExternalApiLibrary.Filters.Models;
 
 namespace ExternalApiLibrary.Converters.Salling;
 
 public class SallingProductConverter : IConverter
 {
-    public List<IDbModelsDto> Convert(List<IFilteredDto> list)
+    public List<object> Convert(List<object> list)
     {
-        var filteredList = list.Cast<FilteredSallingProduct>().ToList();
+        List<FilteredSallingProduct> filteredList = list.Cast<FilteredSallingProduct>().ToList();
 
         var products = filteredList.Select(product => new Product()
         {
@@ -21,15 +17,15 @@ public class SallingProductConverter : IConverter
             Brand = product.HighlightResults!.Brand!.Text!,
             Units = product.Units!.Value,
             Measurement = product.UnitsOfMeasure!,
-            Organic = IsProductOrganic(product.HighlightResults!.ProductName!.Text!, product.Properties),
-            ImageUrl = product.Image,
             ProductStores = new List<ProductStore> {new ProductStore
             {
                 Price = product.Stores!.First().Value.Price
             }},
+            //Stores = product.Stores,
+            Organic = IsProductOrganic(product.HighlightResults!.ProductName!.Text!, product.Properties)
         }).ToList();
 
-        return new List<IDbModelsDto>(products);
+        return new List<object>(products);
     }
 
     /**
@@ -57,3 +53,15 @@ public class SallingProductConverter : IConverter
         return properties.Any(property => organicProperties.Contains(property.ToLower()));
     }
 }
+
+
+//public class ConvertedSallingProduct
+//{
+//    public Int64 EAN { get; set; }
+//    public string Name { get; set; }
+//    public string Brand { get; set; }
+//    public double Unit { get; set; }
+//    public string Measurement { get; set; }
+//    public Dictionary<int, FilteredSallingProduct.StoreData>? Stores { get; set; }
+//    public bool Organic { get; set; }
+//}
