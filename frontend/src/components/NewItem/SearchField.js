@@ -20,6 +20,10 @@ const SearchField = (props) => {
 		props.onItemChanged(value);
 	}, [value]);
 
+	const handleFocusLoss = () => {
+		props.onFocusLost();
+	};
+
 	return (
 		<Autocomplete
 			openOnFocus={false}
@@ -39,12 +43,11 @@ const SearchField = (props) => {
 			{...defaultProps}
 			renderOption={(props, option) => {
 				if (value === null || value.toString().length < 2) return;
-					return (
-						<li {...props} key={uuid()}>
-							<span>{option}</span>
-						</li>
-					);
-				
+				return (
+					<li {...props} key={uuid()}>
+						<span>{option}</span>
+					</li>
+				);
 			}}
 			value={value}
 			onChange={(event, newValue) => {
@@ -59,6 +62,9 @@ const SearchField = (props) => {
 					variant="standard"
 					onChange={(event) => {
 						setValue(event.target.value);
+					}}
+					onClose={(event) => {
+						handleFocusLoss();
 					}}
 				/>
 			)}
