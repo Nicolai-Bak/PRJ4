@@ -1,7 +1,7 @@
 import "./ShoppingList.css";
-import SearchButton from "./SearchButton";
 import ListItem from "./ShoppingListItem/ListItem";
 import Card from "../UI/Atoms/Card/Card";
+import Button from "../UI/Atoms/Button/Button";
 
 const ShoppingList = (props) => {
 	const removeItemHandler = (id, name) => {
@@ -39,7 +39,10 @@ const ShoppingList = (props) => {
 	return (
 		<Card className="shopping-list">
 			<ul>{itemsList}</ul>
-			<SearchButton onSearch={() => props.onSearch()} />
+			{/* <SearchButton onSearch={() => props.onSearch()} /> */}
+			<Button onClick={() => props.onSearch()} className="search-button">
+				Søg efter varer
+			</Button>
 		</Card>
 	);
 };

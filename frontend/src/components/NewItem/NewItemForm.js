@@ -34,7 +34,6 @@ const NewItemForm = (props) => {
 	const itemChangeHandler = (itemReceived) => {
 		SetIsSearchFieldValid(true);
 		setNewItem(itemReceived);
-		console.log(props);
 
 		return fetchItemInfo(itemReceived);
 	};
@@ -71,8 +70,9 @@ const NewItemForm = (props) => {
 		setAmount("");
 	};
 
-	const focusLost = () => {
-		console.log("focus was lost");
+	const focusLost = (event) => {
+		console.log("focus was lost and the current value is " + event);
+		const unit = getSuggestedUnit(event); // IKKE FÆRDIG!!
 	};
 
 	return (
@@ -115,7 +115,6 @@ const NewItemForm = (props) => {
 			}
 		);
 		const response = await request.json();
-		console.log(response);
 		return response;
 	}
 
@@ -134,6 +133,11 @@ const NewItemForm = (props) => {
 
 		const response = await JSON.parse(localStorage.getItem("itemNames"));
 		console.log(response);
+	}
+
+	async function getSuggestedUnit(item) {
+		const info = await fetchItemInfo(item);
+		console.log(info);
 	}
 };
 

@@ -19,7 +19,7 @@ const SearchResults = () => {
 
 const GetShoppingOptions = () => {
 	const options = JSON.parse(localStorage.getItem("SearchResults"));
-	// console.log(options);
+	console.log(options);
 	let cheapest = null;
 	let best = null;
 	let nearest = null;
