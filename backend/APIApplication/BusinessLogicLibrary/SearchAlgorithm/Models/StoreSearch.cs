@@ -14,6 +14,11 @@
             StoreID = id;
         }
 
+        public StoreSearch()
+        {
+            
+        }
+
         public void Add(ProductSearch p)
         {
             Products.Add(p);
