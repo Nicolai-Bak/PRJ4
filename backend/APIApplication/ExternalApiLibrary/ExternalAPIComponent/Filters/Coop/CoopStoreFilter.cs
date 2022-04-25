@@ -21,7 +21,7 @@ public class CoopStoreFilter : IFilter
 }
 
 [DebuggerDisplay("{Name}, {RetailGroupName}, {Address}")]
-public class FilteredCoopStore : IFilteredDTO
+public class FilteredCoopStore : IFilteredDto
 {
 	public string Name { get; set; }
 	public string Address { get; set; }
