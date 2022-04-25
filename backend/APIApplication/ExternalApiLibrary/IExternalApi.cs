@@ -1,12 +1,13 @@
-using DatabaseLibrary.Models;
-using ExternalApiLibrary.Callers.Interfaces;
-using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 
-namespace ExternalApiLibrary;
+namespace ExternalApiLibrary.ExternalAPIComponent;
 
 public interface IExternalApi
 {
     public ICaller caller { set; }
+    public IFilter filter { set; }
     public IConverter converter { set; }
-    public Task<List<IDbModelsDto>> Get();
+    public Task<List<object>> Get(IRequest request);
 }

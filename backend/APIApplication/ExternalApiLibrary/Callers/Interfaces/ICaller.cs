@@ -1,8 +1,6 @@
-using ExternalApiLibrary.DTO;
-
-namespace ExternalApiLibrary.Callers.Interfaces;
+namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
 
 public interface ICaller
 {
-	public Task<List<IFilteredDto>> Call();
+	public Task<List<object>> Call();
 }

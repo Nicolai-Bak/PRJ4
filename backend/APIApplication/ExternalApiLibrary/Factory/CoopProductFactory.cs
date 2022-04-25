@@ -1,26 +1,26 @@
-using ExternalApiLibrary.Callers.Coop;
-using ExternalApiLibrary.Callers.Interfaces;
-using ExternalApiLibrary.Converters.Coop;
-using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
+using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 
-namespace ExternalApiLibrary.Factory;
+namespace ExternalApiLibrary.ExternalAPIComponent.Factory;
 
 public class CoopProductFactory : IApiFactory
 {
-    public ICaller CreateCaller(bool overrideBackStop = false)
+    public ICaller CreateCaller()
     {
-        return new CoopProductCaller(CreateRequest());
+        return new CoopProductCaller();
+    }
+
+    public IFilter CreateFilter()
+    {
+        return new CoopProductFilter();
     }
 
     public IConverter CreateConverter()
     {
         return new CoopProductConverter();
-    }
-    
-    private static IRequest CreateRequest(bool overrideBackStop = false)
-    {
-	    var builder = new CoopRequestBuilder(overrideBackStop);
-	    
-		return builder.Build();
     }
 }

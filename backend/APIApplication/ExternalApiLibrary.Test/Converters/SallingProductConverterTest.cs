@@ -4,17 +4,17 @@ using ExternalApiLibrary.ExternalAPIComponent.Factory;
 using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
 using NUnit.Framework;
 
-namespace ExternalApiLibrary.Test.Unit.Converters;
+namespace ExternalApiLibrary.Test.Unit.Factories;
 
 [TestFixture]
-public class SallingProductConverterTest
+public class FoetexProductFactoryTest
 {
     private IApiFactory _uut;
 
     [SetUp]
     public void Setup()
     {
-        _uut = new FøtexProductFactory();
+        _uut = new FoetexProductFactory();
     }
 
     [Test]

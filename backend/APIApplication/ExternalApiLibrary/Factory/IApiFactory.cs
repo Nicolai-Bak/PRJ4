@@ -1,10 +1,12 @@
-using ExternalApiLibrary.Callers.Interfaces;
-using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
+using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 
-namespace ExternalApiLibrary.Factory;
+namespace ExternalApiLibrary.ExternalAPIComponent.Factory;
 
 public interface IApiFactory
 {
-    public ICaller CreateCaller(bool overrideBackStop = false);
+    public ICaller CreateCaller();
+    public IFilter CreateFilter();
     public IConverter CreateConverter();
 }
