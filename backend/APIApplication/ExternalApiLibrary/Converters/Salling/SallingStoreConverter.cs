@@ -1,6 +1,6 @@
 ﻿using DatabaseLibrary.Models;
 using ExternalApiLibrary.Converters.Interfaces;
-using ExternalApiLibrary.Models;
+using ExternalApiLibrary.Filters.Models;
 
 namespace ExternalApiLibrary.Converters.Salling;
 

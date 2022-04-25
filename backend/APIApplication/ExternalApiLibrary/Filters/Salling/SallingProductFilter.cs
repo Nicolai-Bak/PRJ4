@@ -1,5 +1,5 @@
 ﻿using ExternalApiLibrary.Filters.Interfaces;
-using ExternalApiLibrary.Models;
+using ExternalApiLibrary.Filters.Models;
 using Newtonsoft.Json;
 
 namespace ExternalApiLibrary.Filters.Salling;
