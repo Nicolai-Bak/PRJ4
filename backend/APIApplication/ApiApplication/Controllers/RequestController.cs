@@ -33,7 +33,7 @@ namespace ApiApplication.Controllers
         }
 
         [HttpPost("/options")]
-        public async Task<ShoppingOptions> GetOptions(ShoppingList shoppingList)
+        public async Task<IShoppingOptions> GetOptions(ShoppingList shoppingList)
         {
             //Setup
             List<IStoreSelecter> storeSelecters = new List<IStoreSelecter>
@@ -44,7 +44,7 @@ namespace ApiApplication.Controllers
             };
             ISearchControl search = new SearchControl(shoppingList, (IDbSearch)_db, storeSelecters);
 
-            return new ShoppingOptions(search);
+            return new ShoppingOptionsDummyData();
             
         }
     }

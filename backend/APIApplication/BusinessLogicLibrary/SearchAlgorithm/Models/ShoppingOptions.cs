@@ -1,9 +1,10 @@
 ﻿using ApiApplication.SearchAlgorithm;
 using ApiApplication.SearchAlgorithm.Models;
+using BusinessLogicLibrary.SearchAlgorithm.Models.Interfaces;
 
 namespace ApiApplication.Controllers;
 
-public class ShoppingOptions
+public class ShoppingOptions : IShoppingOptions
 {
     
     public List<StoreSearch> Cheapest { get; set; } 
