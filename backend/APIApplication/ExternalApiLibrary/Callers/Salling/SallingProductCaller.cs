@@ -1,7 +1,4 @@
 using ExternalApiLibrary.Callers.Interfaces;
-using ExternalApiLibrary.DTO;
-using ExternalApiLibrary.Models;
-using Newtonsoft.Json;
 
 namespace ExternalApiLibrary.Callers.Salling;
 
@@ -10,25 +7,9 @@ namespace ExternalApiLibrary.Callers.Salling;
  */
 public class SallingProductCaller : ICaller
 {
-    private IRequest _request;
-
-    public SallingProductCaller(IRequest request)
+    public async Task<List<object>> Call(IRequest request)
     {
-        _request = request;
-    }
-    public async Task<List<IFilteredDto>> Call()
-    {
-        var response = await _request.CallAll() ?? new List<object>();
-
-        List<List<FilteredSallingProduct>> json =
-            JsonConvert.DeserializeObject<List<List<FilteredSallingProduct>>>(JsonConvert.SerializeObject(response));
-
-        var result = new List<IFilteredDto>();
-
-        json.ForEach(j =>
-        {
-            result.AddRange(j);
-        });
+        var result = await request.CallAll();
 
         return result;
     }

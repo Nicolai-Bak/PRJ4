@@ -1,7 +1,7 @@
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
-using ExternalApiLibrary.ExternalAPIComponent.Factory;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
+using ExternalApiLibrary.Callers.Coop;
+using ExternalApiLibrary.Converters.Coop;
+using ExternalApiLibrary.Factory;
+using ExternalApiLibrary.Filters.Coop;
 using NUnit.Framework;
 
 namespace ExternalApiLibrary.Test.Unit.Factories;

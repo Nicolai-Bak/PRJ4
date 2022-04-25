@@ -5,14 +5,14 @@ using NUnit.Framework;
 namespace ExternalApiLibrary.Test.Unit.Converters;
 
 [TestFixture]
-public class SallingStoreConverterTest
+public class SallingProductConverterTest
 {
     private IConverter _uut;
 
     [SetUp]
     public void Setup()
     {
-        _uut = new SallingStoreConverter();
+        _uut = new SallingProductConverter();
     }
 
     [Test]

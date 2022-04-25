@@ -1,11 +1,11 @@
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+using ExternalApiLibrary.Callers.Coop;
+using ExternalApiLibrary.Callers.Interfaces;
+using ExternalApiLibrary.Converters.Coop;
+using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.Filters.Coop;
+using ExternalApiLibrary.Filters.Interfaces;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Factory;
+namespace ExternalApiLibrary.Factory;
 
 public class CoopStoreFactory : IApiFactory
 {

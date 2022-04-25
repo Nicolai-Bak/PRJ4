@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DatabaseLibrary.Models;
 using ExternalApiLibrary.DTO;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces
+namespace ExternalApiLibrary.Converters.Interfaces
 {
     public interface IConverter
     {

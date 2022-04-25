@@ -1,8 +1,8 @@
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.Callers.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
+namespace ExternalApiLibrary.Callers.Coop;
 
 public class CoopRequest : IRequest
 {

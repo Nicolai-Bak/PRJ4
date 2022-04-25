@@ -1,9 +1,14 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
+<<<<<<< HEAD
 using DatabaseLibrary.Models;
 using ExternalApiLibrary.Converters.Interfaces;
 using ExternalApiLibrary.DTO;
 using ExternalApiLibrary.Models;
+=======
+using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.Filters.Coop;
+>>>>>>> ExternalApi namespaces updated
 using Serilog;
 
 namespace ExternalApiLibrary.Converters.Coop;
@@ -15,6 +20,7 @@ public class CoopProductConverter : IConverter
 	 */
     public List<IDbModelsDto> Convert(List<IFilteredDto> list)
     {
+<<<<<<< HEAD
         var filteredList = list.Cast<FilteredCoopProduct>().ToList();
 
         //var flattenedList = (from flatList in filteredList
@@ -43,6 +49,28 @@ public class CoopProductConverter : IConverter
             }));
 
         return Products;
+=======
+        var filteredList = list.Cast<List<FilteredCoopProduct>>().ToList();
+
+        var flattenedList = (from flatList in filteredList
+                             from item in flatList
+                             select item).ToList();
+
+        var convertedProducts = new List<object>();
+
+        flattenedList.ForEach(product =>
+            convertedProducts.Add(new ConvertedCoopProduct
+            {
+                EAN = long.Parse(product.id),
+                Name = product.displayName,
+                Brand = product.brand,
+                Unit = GetUnitFromSpotText(product.spotText, GetMeasurementFromSpotText(product.spotText)),
+                Measurement = GetMeasurementFromSpotText(product.spotText),
+                Organic = IsProductOrganic(product.labels)
+            }));
+
+        return new List<object>(convertedProducts);
+>>>>>>> ExternalApi namespaces updated
     }
 
     /**
@@ -101,7 +129,11 @@ public class CoopProductConverter : IConverter
     /**
      * Checks if the product is organic
      */
+<<<<<<< HEAD
     private static bool IsProductOrganic(List<FilteredCoopProduct.Label> labels)
+=======
+    private static bool IsProductOrganic(List<Label> labels)
+>>>>>>> ExternalApi namespaces updated
     {
         string[] organicLabelIds = { "o-market", "eu-okologi" };
 
@@ -109,3 +141,19 @@ public class CoopProductConverter : IConverter
             .Any(labelId => labelId == label.id));
     }
 }
+<<<<<<< HEAD
+=======
+
+/**
+ * Class to hold the converted product
+ */
+public class ConvertedCoopProduct
+{
+    public long EAN { get; set; }
+    public string Name { get; set; }
+    public string Brand { get; set; }
+    public double Unit { get; set; }
+    public string Measurement { get; set; }
+    public bool Organic { get; set; }
+}
+>>>>>>> ExternalApi namespaces updated

@@ -1,33 +1,23 @@
 using ExternalApiLibrary.Callers.Interfaces;
-using ExternalApiLibrary.DTO;
-using ExternalApiLibrary.Models;
-using Newtonsoft.Json;
 
 namespace ExternalApiLibrary.Callers.Coop;
 
 public class CoopStoreCaller : ICaller
 {
-    public static readonly List<string> StoresToRetrieve = 
-        new() {"Kvickly", "SuperBrugsen", "DagliBrugsen", "Irma", "Fakta", "Coop365"};
-    
+    //private static readonly string[] StoresToRetrieve = { "Kvickly", "SuperBrugsen", "DagliBrugsen", "Irma", "Fakta", "Coop365" };
+    private static readonly List<string> StoresToRetrieveTest =
+        new List<string> { "Kvickly", "SuperBrugsen", "DagliBrugsen", "Irma", "Fakta", "Coop365" };
     private static readonly string BaseUrl = "https://info.coop.dk/umbraco/surface/Chains/GetAllStores";
-    private IRequest _request;
-    
-    public CoopStoreCaller(IRequest request)
-    {
-		_request = request;
-    }
-    
+
     /**
      * Retrieves all stores from the Coop API with a POST request.
      */
-    public async Task<List<IFilteredDto>> Call()
+    public async Task<List<object>> Call(IRequest request)
     {
         var responses = new List<object>();
         var client = new HttpClient();
-        var result = new List<IFilteredDto>();
 
-        foreach (var store in StoresToRetrieve)
+        foreach (var store in StoresToRetrieveTest)
         {
             var payload = new Dictionary<string, string>
             {
@@ -43,16 +33,6 @@ public class CoopStoreCaller : ICaller
             responses.Add(responseString);
         }
 
-        responses.ForEach(r =>
-        {
-            var deserializedRoot = JsonConvert.DeserializeObject<List<FilteredCoopStore>>(r.ToString());
-            if (deserializedRoot != null)
-            {
-                result.AddRange(deserializedRoot);
-            }
-        });
-
-        return result;
-
+        return responses;
     }
 }

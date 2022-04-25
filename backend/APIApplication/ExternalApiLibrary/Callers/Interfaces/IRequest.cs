@@ -1,4 +1,4 @@
-namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+namespace ExternalApiLibrary.Callers.Interfaces;
 
 public interface IRequest
 {

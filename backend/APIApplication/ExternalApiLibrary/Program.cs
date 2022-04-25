@@ -6,6 +6,12 @@ using ExternalApiLibrary.Callers.Salling;
 using ExternalApiLibrary.Converters.Coop;
 using ExternalApiLibrary.Converters.Interfaces;
 using ExternalApiLibrary.Converters.Salling;
+<<<<<<< HEAD
+=======
+using ExternalApiLibrary.Filters.Coop;
+using ExternalApiLibrary.Filters.Interfaces;
+using ExternalApiLibrary.Filters.Salling;
+>>>>>>> ExternalApi namespaces updated
 using Serilog;
 
 namespace ExternalApiLibrary;

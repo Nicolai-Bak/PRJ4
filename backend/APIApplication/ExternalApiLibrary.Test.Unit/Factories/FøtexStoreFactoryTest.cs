@@ -1,13 +1,13 @@
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Factory;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
+using ExternalApiLibrary.Callers.Salling;
+using ExternalApiLibrary.Converters.Salling;
+using ExternalApiLibrary.Factory;
+using ExternalApiLibrary.Filters.Salling;
 using NUnit.Framework;
 
 namespace ExternalApiLibrary.Test.Unit.Factories;
 
 [TestFixture]
-public class FoetexStoreFactoryTest
+public class FøtexStoreFactoryTest
 {
     private IApiFactory _uut;
 

@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Serilog;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Utilities.CredentialManager;
+namespace ExternalApiLibrary.Utilities.CredentialManager;
 
 public static class CredentialDeserializer
 {

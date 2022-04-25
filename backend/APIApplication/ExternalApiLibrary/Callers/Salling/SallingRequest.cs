@@ -29,20 +29,14 @@ public class SallingRequest : IRequest
      * as this value increases the number
      * of calls made to the API.
      */
-    private readonly int _maxPages = 2;
+    private int _maxPages { get; set; } = 2;
     private int _pageIndex { get; set; }
 
     public List<string> Parameters = new();
 
-    private bool _overrideBackStop = false;
-
-    public SallingRequest(SearchIndex index, bool overrideBackStop = false)
+    public SallingRequest(SearchIndex index)
     {
         _index = index;
-        _overrideBackStop = overrideBackStop;
-
-        if (overrideBackStop)
-	        _pageSize = 1000;
     }
 
     public async Task<List<object>> CallPage()
@@ -54,7 +48,8 @@ public class SallingRequest : IRequest
             Page = _pageIndex
         });
 
-        if (_overrideBackStop && response.NbPages != _maxPages) _maxPages = response.NbPages;
+        // Only uncomment the line below if every product needs to be called for
+        // if (response.NbPages != _maxPages) _maxPages = response.NbPages;
 
         return response.Hits;
     }
@@ -71,7 +66,6 @@ public class SallingRequest : IRequest
 
         // Clean up for subsequent calls
         _pageIndex = 0;
-        _maxPages = 2;
 
         return responses;
     }

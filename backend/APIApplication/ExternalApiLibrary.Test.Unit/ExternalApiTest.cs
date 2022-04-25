@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using ExternalApiLibrary.ExternalAPIComponent;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Factory;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+using ExternalApiLibrary.Callers.Interfaces;
+using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.Factory;
+using ExternalApiLibrary.Filters.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 

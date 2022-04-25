@@ -1,6 +1,9 @@
 ﻿using DatabaseLibrary.Models;
 using ExternalApiLibrary.Converters.Interfaces;
+<<<<<<< HEAD
 using ExternalApiLibrary.DTO;
+=======
+>>>>>>> ExternalApi namespaces updated
 using ExternalApiLibrary.Models;
 
 namespace ExternalApiLibrary.Converters.Salling;

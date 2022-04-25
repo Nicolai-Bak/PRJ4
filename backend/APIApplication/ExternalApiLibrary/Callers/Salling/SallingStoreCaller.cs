@@ -1,34 +1,19 @@
 using System.Web;
 using ExternalApiLibrary.Callers.Interfaces;
-using ExternalApiLibrary.DTO;
-using ExternalApiLibrary.Models;
 using Newtonsoft.Json;
 
 namespace ExternalApiLibrary.Callers.Salling;
 
 public class SallingStoreCaller : ICaller
 {
-	private IRequest _request;
-	
-	public SallingStoreCaller(IRequest request)
-	{
-		_request = request;
-	}
-
-    public async Task<List<IFilteredDto>> Call()
+    public async Task<List<object>> Call(IRequest request)
     {
         string _subscriptionKey = "Bearer c38e62ac-bcb3-43a0-8b10-315a8e117cd1";
-        var response = await MakeRequest(_subscriptionKey);
-
-        var result = new List<IFilteredDto>();
-
-            result.AddRange(
-                JsonConvert.DeserializeObject<List<FilteredSallingStore>>(response)!);
-
+        var result = await MakeRequest(_subscriptionKey);
         return result;
     }
 
-    static async Task<string> MakeRequest(string subKey)
+    static async Task<List<object>> MakeRequest(string subKey)
     {
         var client = new HttpClient();
         var queryString = HttpUtility.ParseQueryString(string.Empty);
@@ -45,8 +30,8 @@ public class SallingStoreCaller : ICaller
 
         string responseString = await response.Content.ReadAsStringAsync();
 
-        //List<object> responseList = JsonConvert.DeserializeObject<List<object>>(responseString);
+        List<object> responseList = JsonConvert.DeserializeObject<List<object>>(responseString);
 
-        return responseString;
+        return responseList;
     }
 }

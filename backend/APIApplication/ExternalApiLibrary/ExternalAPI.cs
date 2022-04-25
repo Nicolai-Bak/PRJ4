@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 using DatabaseLibrary.Models;
 using ExternalApiLibrary.Callers.Interfaces;
 using ExternalApiLibrary.Converters.Interfaces;
 using ExternalApiLibrary.Factory;
+=======
+using ExternalApiLibrary.Callers.Interfaces;
+using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.Factory;
+using ExternalApiLibrary.Filters.Interfaces;
+>>>>>>> ExternalApi namespaces updated
 
 namespace ExternalApiLibrary;
 

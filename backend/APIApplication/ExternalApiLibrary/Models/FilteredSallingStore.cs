@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 ﻿using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
 using Newtonsoft.Json;
 
 namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Models;
 
 public class FilteredSallingStore : IFilteredDto
+=======
+﻿using ExternalApiLibrary.Filters.Interfaces;
+using Newtonsoft.Json;
+
+namespace ExternalApiLibrary.Models;
+
+public class FilteredSallingStore : IFilteredDTO
+>>>>>>> ExternalApi namespaces updated
 {
     [JsonProperty("sapSiteId")] public int Id { get; set; }
     [JsonProperty("brand")] public string Brand { get; set; }
