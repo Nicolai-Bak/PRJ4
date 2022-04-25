@@ -1,3 +1,4 @@
+using ExternalApiLibrary.DTO;
 using ExternalApiLibrary.Filters.Interfaces;
 using Newtonsoft.Json;
 
