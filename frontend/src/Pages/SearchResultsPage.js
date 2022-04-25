@@ -21,13 +21,11 @@ function SearchResultsPage() {
 				<Dropdown></Dropdown>
 				</div>
 				<SearchResultsItem 
-					price="417kr" 
+					price="Pris: 417kr" 
 					stores="1 butik" 
 					distance="2km" 
 					results="REMA1000">
 					</SearchResultsItem>
-				<SearchResultsItem></SearchResultsItem>
-				<SearchResultsItem></SearchResultsItem>
 			</Card>
 			<Button className="search-results-page-button" onClick={goBack}><IoArrowBack/> til forsiden</Button>
 			</div>

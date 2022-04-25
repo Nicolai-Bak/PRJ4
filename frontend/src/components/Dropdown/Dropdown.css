@@ -15,9 +15,8 @@
 .dropdown-menu {
     border: 0.05rem solid #0e1614;
     padding-inline-start: 0;
-    width: 85%;
+    width: fit-content;
     height: fit-content;
-    
 }
 
 .dropdown-menu-item {
@@ -25,9 +24,10 @@
     background: var(--secondary-color-light);
     box-shadow: none;
     border-radius: 0;
-    min-width: 11rem;
+    min-width: 10.9rem;
     height: 1.5rem;
-    margin-right: 2rem;
+    padding-left: 0.5rem;
+    margin-right: 0;
 }
 
 .dropdown-menu-item:hover {
