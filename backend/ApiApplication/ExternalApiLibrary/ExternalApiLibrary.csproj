@@ -48,4 +48,8 @@
       <Reference Include="Microsoft.Extensions.Configuration.Json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ExternalAPIComponent\Filters\Interfaces\" />
+    </ItemGroup>
+
 </Project>
