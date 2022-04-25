@@ -1,5 +1,5 @@
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
+using ExternalApiLibrary.Filters.Interfaces;
+using ExternalApiLibrary.Filters.Salling;
 using NUnit.Framework;
 
 namespace ExternalApiLibrary.Test.Unit.Filters;

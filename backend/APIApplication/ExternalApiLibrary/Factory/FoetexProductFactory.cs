@@ -1,26 +1,26 @@
-using ExternalApiLibrary.Callers.Coop;
 using ExternalApiLibrary.Callers.Interfaces;
-using ExternalApiLibrary.Converters.Coop;
+using ExternalApiLibrary.Callers.Salling;
 using ExternalApiLibrary.Converters.Interfaces;
-using ExternalApiLibrary.Filters.Coop;
+using ExternalApiLibrary.Converters.Salling;
 using ExternalApiLibrary.Filters.Interfaces;
+using ExternalApiLibrary.Filters.Salling;
 
 namespace ExternalApiLibrary.Factory;
 
-public class CoopStoreFactory : IApiFactory
+public class FoetexProductFactory : IApiFactory
 {
     public ICaller CreateCaller()
     {
-        return new CoopStoreCaller();
+        return new SallingProductCaller();
     }
 
     public IFilter CreateFilter()
     {
-        return new CoopStoreFilter();
+        return new SallingProductFilter();
     }
 
     public IConverter CreateConverter()
     {
-        return new CoopStoreConverter();
+        return new SallingProductConverter();
     }
 }

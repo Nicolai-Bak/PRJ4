@@ -1,4 +1,4 @@
-﻿namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+﻿namespace ExternalApiLibrary.Filters.Interfaces;
 
 public interface IFilteredDto
 {

@@ -1,8 +1,8 @@
 using System.Web;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.Callers.Interfaces;
 using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
+namespace ExternalApiLibrary.Callers.Salling;
 
 public class SallingStoreCaller : ICaller
 {
