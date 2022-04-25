@@ -21,7 +21,7 @@ const SearchField = (props) => {
 	}, [value]);
 
 	const handleFocusLoss = () => {
-		props.onFocusLost();
+		props.onFocusLost(value);
 	};
 
 	return (
@@ -57,14 +57,14 @@ const SearchField = (props) => {
 				<TextField
 					{...params}
 					fullWidth
+					focusOff={() => {
+						handleFocusLoss();
+					}}
 					// label="Tilføj Vare Her" //<-- skal IKKE slettes! tror jeg :P
 					placeholder="Tilføj Vare Her"
 					variant="standard"
 					onChange={(event) => {
 						setValue(event.target.value);
-					}}
-					onClose={(event) => {
-						handleFocusLoss();
 					}}
 				/>
 			)}
