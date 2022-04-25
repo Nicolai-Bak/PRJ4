@@ -13,27 +13,9 @@ const NewItemForm = (props) => {
 	// changed validInput
 	const [isSearchFieldValid, SetIsSearchFieldValid] = useState(true);
 	const [isAmountValid, SetIsAmountValid] = useState(true);
-
 	const id = uuid();
 
 	useEffect(() => {
-		async function fetchItems() {
-			const request = await fetch(
-				"https://prisninjawebapi.azurewebsites.net/names/",
-				{
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			);
-
-			localStorage.setItem("itemNames", JSON.stringify(await request.json()));
-
-			const response = await JSON.parse(localStorage.getItem("itemNames"));
-			console.log(response);
-		}
-
 		fetchItems();
 	}, []);
 
@@ -52,16 +34,16 @@ const NewItemForm = (props) => {
 	const itemChangeHandler = (itemReceived) => {
 		SetIsSearchFieldValid(true);
 		setNewItem(itemReceived);
+		console.log(props);
+
+		return fetchItemInfo(itemReceived);
 	};
 
 	const amountChangeHandler = (event) => {
 		const added = event.target.value;
-		added < 0
-			? SetIsAmountValid(false)
-			: setAmount(added);
+		added < 0 ? SetIsAmountValid(false) : setAmount(added);
 		SetIsAmountValid(true);
 	};
-
 
 	const validInput = (newItem, amount) => {
 		if (newItem === null || !newItem.length > 0) {
@@ -79,7 +61,7 @@ const NewItemForm = (props) => {
 		SetIsSearchFieldValid(true);
 		SetIsAmountValid(true);
 		return true;
-	}; 
+	};
 
 	const unitChangeHandler = (event) => {
 		setUnit(event);
@@ -89,28 +71,70 @@ const NewItemForm = (props) => {
 		setAmount("");
 	};
 
+	const focusLost = () => {
+		console.log("focus was lost");
+	};
+
 	return (
 		<Card className="add-item-form">
-		<form onSubmit={submitItemHandler} className={`${!isSearchFieldValid ? 'invalid' : ''}`}>
-			<SearchField 
-						 onItemChanged={itemChangeHandler} />
-			<UnitBox className="form-units" onUnitSelected={unitChangeHandler} />
-			<input className={`input-amount-field ${!isAmountValid ? 'invalid' : ''}`}
-				type="number"
-				step="0.01"
-				id="amount"
-				placeholder="antal/mængde"
-				onFocus={clearInput}
-				value={amount}
-				onChange={amountChangeHandler}
-			></input>
-			<Button type="submit" className="add-item-button">
-				Tilføj Vare
-			</Button>
-			<br></br>
-		</form>
+			<form
+				onSubmit={submitItemHandler}
+				className={`${!isSearchFieldValid ? "invalid" : ""}`}
+			>
+				<SearchField
+					onItemChanged={itemChangeHandler}
+					onFocusLost={focusLost}
+				/>
+				<UnitBox className="form-units" onUnitSelected={unitChangeHandler} />
+				<input
+					className={`input-amount-field ${!isAmountValid ? "invalid" : ""}`}
+					type="number"
+					step="0.01"
+					id="amount"
+					placeholder="antal/mængde"
+					onFocus={clearInput}
+					value={amount}
+					onChange={amountChangeHandler}
+				></input>
+				<Button type="submit" className="add-item-button">
+					Tilføj Vare
+				</Button>
+				<br></br>
+			</form>
 		</Card>
 	);
+
+	async function fetchItemInfo(itemInfo) {
+		const request = await fetch(
+			`https://prisninjawebapi.azurewebsites.net/productinfo/${itemInfo}/`, //<-- er det denne url?
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		const response = await request.json();
+		console.log(response);
+		return response;
+	}
+
+	async function fetchItems() {
+		const request = await fetch(
+			"https://prisninjawebapi.azurewebsites.net/names/",
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+
+		localStorage.setItem("itemNames", JSON.stringify(await request.json()));
+
+		const response = await JSON.parse(localStorage.getItem("itemNames"));
+		console.log(response);
+	}
 };
 
 export default NewItemForm;
