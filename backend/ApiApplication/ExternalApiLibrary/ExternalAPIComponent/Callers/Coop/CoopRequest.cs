@@ -13,26 +13,36 @@ public class CoopRequest : IRequest
      * Set to 1 to receive 1 product per page
      */
     private readonly int _pageSize;
-    private readonly string _baseUrl;
+    public string BaseUrl { get; set; }
 
     private int PageIndex { get; set; }
 
     // True = Production Environment
     // False = Development Environment - limits calls to not overload the external API
-    private bool RetrieveAll { get; set; } = false;
+    public bool RetrieveAll { get; private set; } = false;
 
-    public CoopRequest(string baseUrl)
+    public CoopRequest(string baseUrl, int pageSize = 10)
     {
-        _baseUrl = baseUrl;
-        _pageSize = 10;
+	    BaseUrl = baseUrl ?? throw new ArgumentNullException();
+        _pageSize = pageSize;
     }
-
-    public async Task<object> CallPage()
+    
+    private async Task<object> CallPage()
     {
-        HttpClient client = new HttpClient();
-
-        var url = _baseUrl + $"?pageSize={_pageSize}&page={PageIndex}";
-        var content = await client.GetStringAsync(url);
+        var client = new HttpClient();
+        
+        var url = BaseUrl + $"?pageSize={_pageSize}&page={PageIndex}";
+        
+        string content;
+        try
+        {
+	        content = await client.GetStringAsync(url);
+        }
+        catch (Exception e)
+        {
+	        Console.WriteLine(e);
+	        throw;
+        }
 
         return content;
     }
@@ -55,7 +65,7 @@ public class CoopRequest : IRequest
 
             // Limits the amount of calls made to the API
             // Only used in development environment
-            if (!RetrieveAll && PageIndex >= 1)
+            if (!RetrieveAll && PageIndex >= 10)
                 continueCondition = false;
 
         } while (continueCondition);

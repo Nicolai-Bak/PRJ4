@@ -29,7 +29,7 @@ public class SallingRequest : IRequest
      * as this value increases the number
      * of calls made to the API.
      */
-    private int _maxPages { get; set; } = 2;
+    private readonly int _maxPages = 2;
     private int _pageIndex { get; set; }
 
     public List<string> Parameters = new();

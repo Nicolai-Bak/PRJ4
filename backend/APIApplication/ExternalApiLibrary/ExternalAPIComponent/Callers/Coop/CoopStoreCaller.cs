@@ -4,9 +4,9 @@ namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
 
 public class CoopStoreCaller : ICaller
 {
-    //private static readonly string[] StoresToRetrieve = { "Kvickly", "SuperBrugsen", "DagliBrugsen", "Irma", "Fakta", "Coop365" };
-    private static readonly List<string> StoresToRetrieveTest =
-        new List<string> { "Kvickly", "SuperBrugsen", "DagliBrugsen", "Irma", "Fakta", "Coop365" };
+    public static readonly List<string> StoresToRetrieve = 
+        new() {"Kvickly", "SuperBrugsen", "DagliBrugsen", "Irma", "Fakta", "Coop365"};
+    
     private static readonly string BaseUrl = "https://info.coop.dk/umbraco/surface/Chains/GetAllStores";
 
     /**
@@ -17,7 +17,7 @@ public class CoopStoreCaller : ICaller
         var responses = new List<object>();
         var client = new HttpClient();
 
-        foreach (var store in StoresToRetrieveTest)
+        foreach (var store in StoresToRetrieve)
         {
             var payload = new Dictionary<string, string>
             {
