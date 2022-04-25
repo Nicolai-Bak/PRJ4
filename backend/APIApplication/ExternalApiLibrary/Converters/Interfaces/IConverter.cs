@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces
+namespace ExternalApiLibrary.Converters.Interfaces
 {
     public interface IConverter
     {

@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Newtonsoft.Json;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+using ExternalApiLibrary.Filters.Interfaces;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
+namespace ExternalApiLibrary.Filters.Coop;
 
 public class CoopStoreFilter : IFilter
 {
@@ -12,10 +12,10 @@ public class CoopStoreFilter : IFilter
 
         s.ForEach(response =>
         {
-	        var deserializedRoot = JsonConvert.DeserializeObject<List<FilteredCoopStore>>(response.ToString());
+            var deserializedRoot = JsonConvert.DeserializeObject<List<FilteredCoopStore>>(response.ToString());
             if (deserializedRoot != null) result.Add(deserializedRoot);
         });
-        
+
         return result;
     }
 }
@@ -23,11 +23,11 @@ public class CoopStoreFilter : IFilter
 [DebuggerDisplay("{Name}, {RetailGroupName}, {Address}")]
 public class FilteredCoopStore : IFilteredDto
 {
-	public string Name { get; set; }
-	public string Address { get; set; }
-	public int Kardex { get; set; }
-	public int Zipcode { get; set; }
-	public string City { get; set; }
-	public List<double> Location { get; set; }
-	public string RetailGroupName { get; set; }
+    public string Name { get; set; }
+    public string Address { get; set; }
+    public int Kardex { get; set; }
+    public int Zipcode { get; set; }
+    public string City { get; set; }
+    public List<double> Location { get; set; }
+    public string RetailGroupName { get; set; }
 }

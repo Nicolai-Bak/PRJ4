@@ -1,10 +1,11 @@
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Factory;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
-namespace ExternalApiLibrary.ExternalAPIComponent;
+using ExternalApiLibrary.Callers.Interfaces;
+using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.Factory;
+using ExternalApiLibrary.Filters.Interfaces;
 
-public class ExternalApi: IExternalApi
+namespace ExternalApiLibrary;
+
+public class ExternalApi : IExternalApi
 {
     public ICaller caller { private get; set; }
     public IFilter filter { private get; set; }

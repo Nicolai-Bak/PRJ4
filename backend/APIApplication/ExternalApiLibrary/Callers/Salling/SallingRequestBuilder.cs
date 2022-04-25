@@ -1,8 +1,8 @@
 using Algolia.Search.Clients;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Utilities.CredentialManager;
+using ExternalApiLibrary.Callers.Interfaces;
+using ExternalApiLibrary.Utilities.CredentialManager;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
+namespace ExternalApiLibrary.Callers.Salling;
 
 /**
  * Builds a request from a builder pattern of parameters
@@ -30,7 +30,7 @@ public class SallingRequestBuilder : IRequestBuilder
         _newRequest.Parameters = _parameters;
         return _newRequest;
     }
-    
+
     #region Product Images
     /**
      * Images in the form of a full URL
@@ -54,7 +54,7 @@ public class SallingRequestBuilder : IRequestBuilder
         return this;
     }
     #endregion
-    
+
     #region Product Information
     /**
      * Short description of the product
@@ -99,7 +99,7 @@ public class SallingRequestBuilder : IRequestBuilder
         _parameters.Add("description");
         return this;
     }
-    
+
     /**
      * A list of infos - Expanded Description, Nutritional and Product details
      * Type: Array
@@ -158,7 +158,7 @@ public class SallingRequestBuilder : IRequestBuilder
         return this;
     }
     #endregion
-    
+
     #region Product Identifiers
     /**
      * Name of the product
@@ -345,7 +345,7 @@ public class SallingRequestBuilder : IRequestBuilder
         return this;
     }
     #endregion
-    
+
     #region Misc. Product Information
 
     /**

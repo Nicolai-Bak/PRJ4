@@ -1,8 +1,8 @@
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
+using ExternalApiLibrary.Callers.Interfaces;
+using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.Filters.Interfaces;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Factory;
+namespace ExternalApiLibrary.Factory;
 
 public interface IApiFactory
 {

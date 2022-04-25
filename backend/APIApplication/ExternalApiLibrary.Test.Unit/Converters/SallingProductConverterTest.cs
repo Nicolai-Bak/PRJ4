@@ -1,5 +1,5 @@
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
+using ExternalApiLibrary.Converters.Interfaces;
+using ExternalApiLibrary.Converters.Salling;
 using NUnit.Framework;
 
 namespace ExternalApiLibrary.Test.Unit.Converters;

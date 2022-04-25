@@ -1,8 +1,8 @@
 using Algolia.Search.Clients;
 using Algolia.Search.Models.Search;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.Callers.Interfaces;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
+namespace ExternalApiLibrary.Callers.Salling;
 
 /**
  * Handles requesting the API for products with given attributes to retrieve.
@@ -13,7 +13,7 @@ public class SallingRequest : IRequest
      * Used by Algolia to search their APIs
      */
     private readonly SearchIndex _index;
-    
+
     /**
      * Number of products to receive per request
      * 
@@ -21,7 +21,7 @@ public class SallingRequest : IRequest
      * Set to 1 to receive 1 product per page
      */
     private int _pageSize = 60;
-    
+
     /**
      * Limits the amount of pages read
      * 
@@ -38,7 +38,7 @@ public class SallingRequest : IRequest
     {
         _index = index;
     }
-    
+
     public async Task<List<object>> CallPage()
     {
         var response = await _index.SearchAsync<object>(new Query("")
@@ -47,7 +47,7 @@ public class SallingRequest : IRequest
             HitsPerPage = _pageSize,
             Page = _pageIndex
         });
-        
+
         // Only uncomment the line below if every product needs to be called for
         // if (response.NbPages != _maxPages) _maxPages = response.NbPages;
 
@@ -57,13 +57,13 @@ public class SallingRequest : IRequest
     public async Task<List<object>> CallAll()
     {
         List<object> responses = new();
-        
+
         do
         {
             responses.Add(await CallPage());
             _pageIndex++;
         } while (_pageIndex != _maxPages);
-        
+
         // Clean up for subsequent calls
         _pageIndex = 0;
 
