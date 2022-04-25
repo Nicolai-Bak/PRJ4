@@ -1,4 +1,4 @@
-﻿namespace BusinessLogicLibrary.SearchAlgorithm.Models
+﻿namespace ApiApplication.SearchAlgorithm.Models
 {
     public class StoreSearch
     {
@@ -12,6 +12,11 @@
         public StoreSearch(int id)
         {
             StoreID = id;
+        }
+
+        public StoreSearch()
+        {
+            
         }
 
         public void Add(ProductSearch p)
