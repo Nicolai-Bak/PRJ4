@@ -1,8 +1,11 @@
 ﻿using BusinessLogicLibrary.ProductNameStandardize;
+using DatabaseLibrary;
+using DatabaseLibrary.Models;
 using ExternalApiLibrary.ExternalAPIComponent;
 using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Converters;
 using ExternalApiLibrary.ExternalAPIComponent.Factory;
+using ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using DatabaseLibrary.Models;
@@ -97,9 +100,8 @@ public class ExternalApiService : IHostedService
         // Extracting Føtex stores
         var foetexStores = stores.Where(store =>
         {
-            //ConvertedSallingStore sallingStore = (ConvertedSallingStore)store;
-            Store sallingStore = (Store)store;
-            return sallingStore.Brand.ToLower() == "foetex";
+	        Store sallingStore = (Store)store;
+            return sallingStore.Brand == "foetex";
         }).ToList();
 
         //// Insert stores
@@ -107,8 +109,7 @@ public class ExternalApiService : IHostedService
         var storeList = new List<Store>();
         foetexStores.ForEach(s =>
         {
-            //ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
-            Store convertedStore = (Store)s;
+	        Store convertedStore = (Store)s;
             storeList.Add(new Store()
             {
                 ID = convertedStore.ID,
@@ -126,8 +127,7 @@ public class ExternalApiService : IHostedService
         var productList = new List<Product>();
         products.ForEach(p =>
         {
-            //ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
-            Product sallingProduct = (Product)p;
+	        Product sallingProduct = (Product)p;
             productList.Add(new Product()
             {
                 EAN = sallingProduct.EAN,
@@ -147,17 +147,14 @@ public class ExternalApiService : IHostedService
         var productStoreList = new List<ProductStore>();
         products.ForEach(p =>
         {
-            //ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
-            Product sallingProduct = (Product)p;
+	        Product sallingProduct = (Product)p;
             foetexStores.ForEach(s =>
             {
-                //ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
-                Store convertedStore = (Store)s;
+	            Store convertedStore = (Store)s;
                 productStoreList.Add(new ProductStore()
                 {
                     ProductKey = sallingProduct.EAN,
                     StoreKey = convertedStore.ID,
-                    //Price = sallingProduct.Stores.First().Value.Price
                     Price = sallingProduct.ProductStores.First().Price
                 });
             });
