@@ -2,41 +2,31 @@ using ExternalApiLibrary.Callers.Interfaces;
 using ExternalApiLibrary.Callers.Salling;
 using ExternalApiLibrary.Converters.Interfaces;
 using ExternalApiLibrary.Converters.Salling;
-<<<<<<< HEAD
-=======
 using ExternalApiLibrary.Filters.Interfaces;
 using ExternalApiLibrary.Filters.Salling;
 
->>>>>>> ExternalApi namespaces updated
 namespace ExternalApiLibrary.Factory;
 
 public class FoetexProductFactory : IApiFactory
 {
-<<<<<<< HEAD
-    public ICaller CreateCaller(bool overrideBackStop = false)
-    {
-        return new SallingProductCaller(CreateRequest(overrideBackStop));
-=======
     public ICaller CreateCaller()
     {
-        return new SallingProductCaller();
+        return new SallingProductCaller(CreateRequest());
     }
 
     public IFilter CreateFilter()
     {
         return new SallingProductFilter();
->>>>>>> ExternalApi namespaces updated
     }
 
     public IConverter CreateConverter()
     {
         return new SallingProductConverter();
     }
-<<<<<<< HEAD
     
-    private static IRequest CreateRequest(bool overrideBackStop = false)
+    private static IRequest CreateRequest()
 	{
-		var builder = new SallingRequestBuilder(overrideBackStop);
+		var builder = new SallingRequestBuilder();
 		
 		builder.AddInfos()
 			.AddUnits()
@@ -45,6 +35,4 @@ public class FoetexProductFactory : IApiFactory
 		
 		return builder.Build();
 	}
-=======
->>>>>>> ExternalApi namespaces updated
 }

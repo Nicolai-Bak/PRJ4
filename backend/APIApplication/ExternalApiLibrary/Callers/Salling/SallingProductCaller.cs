@@ -7,9 +7,15 @@ namespace ExternalApiLibrary.Callers.Salling;
  */
 public class SallingProductCaller : ICaller
 {
-    public async Task<List<object>> Call(IRequest request)
+	private IRequest _request;
+	
+	public SallingProductCaller(IRequest request)
+	{
+		_request = request;
+	}
+	public async Task<List<object>> Call()
     {
-        var result = await request.CallAll();
+        var result = await _request.CallAll();
 
         return result;
     }

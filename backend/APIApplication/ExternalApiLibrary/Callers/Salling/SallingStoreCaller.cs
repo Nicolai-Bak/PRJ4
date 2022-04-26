@@ -6,7 +6,14 @@ namespace ExternalApiLibrary.Callers.Salling;
 
 public class SallingStoreCaller : ICaller
 {
-    public async Task<List<object>> Call(IRequest request)
+	private IRequest _request;
+	
+	public SallingStoreCaller(IRequest request)
+	{
+		_request = request;
+	}
+
+    public async Task<List<object>> Call()
     {
         string _subscriptionKey = "Bearer c38e62ac-bcb3-43a0-8b10-315a8e117cd1";
         var result = await MakeRequest(_subscriptionKey);
