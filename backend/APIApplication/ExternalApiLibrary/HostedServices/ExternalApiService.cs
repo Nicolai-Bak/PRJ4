@@ -56,40 +56,16 @@ public class ExternalApiService : IHostedService
     }
     public async Task DoTask()
     {
-        // Configure logger for start up
-        //BackendLogger.BuildLogger();
-
-        //try
-        //{
-        //    ///// Products - Salling
-        //}
-        //catch (Exception e)
-        //{
-        //    Log.Fatal(e, "Application failed to start");
-        //}
-        //finally
-        //{
-        //    Log.CloseAndFlush();
-        //}
-
-        ExternalApi føtexProductApi = new ExternalApi(new FoetexProductFactory());
-
-        SallingRequestBuilder builder = new SallingRequestBuilder();
-        builder.AddInfos()
-                .AddUnits()
-                .AddUnitsOfMeasure()
-                .AddStoreData();
-
-        var products = await føtexProductApi.Get(builder.Build());
+	    var foetexProductApi = new ExternalApi(new FoetexProductFactory());
+	    var products = await foetexProductApi.Get();
 
         ///// Stores - Salling
-        ExternalApi føtexStoreApi = new ExternalApi(new FoetexStoreFactory());
-
-        var stores = await føtexStoreApi.Get(null);
+        var foetexStoreApi = new ExternalApi(new FoetexStoreFactory());
+        var stores = await foetexStoreApi.Get();
 
         var foetexStores = stores.Where(store =>
         {
-            Store sallingStore = (Store)store;
+            var sallingStore = (Store)store;
             return sallingStore.Brand == "foetex";
         }).ToList();
 
@@ -98,7 +74,7 @@ public class ExternalApiService : IHostedService
         var storeList = new List<Store>();
         foetexStores.ForEach(s =>
         {
-            Store convertedStore = (Store)s;
+            var convertedStore = (Store)s;
             storeList.Add(new Store()
             {
                 ID = convertedStore.ID,

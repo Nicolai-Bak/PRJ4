@@ -11,7 +11,7 @@ public class CoopStoreFactory : IApiFactory
 {
     public ICaller CreateCaller()
     {
-        return new CoopStoreCaller();
+        return new CoopStoreCaller(null);
     }
 
     public IFilter CreateFilter()
