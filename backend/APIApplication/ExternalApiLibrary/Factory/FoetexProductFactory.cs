@@ -11,7 +11,7 @@ public class FoetexProductFactory : IApiFactory
 {
     public ICaller CreateCaller()
     {
-        return new SallingProductCaller();
+        return new SallingProductCaller(CreateRequest());
     }
 
     public IFilter CreateFilter()
@@ -23,4 +23,16 @@ public class FoetexProductFactory : IApiFactory
     {
         return new SallingProductConverter();
     }
+    
+    private static IRequest CreateRequest()
+	{
+		var builder = new SallingRequestBuilder();
+		
+		builder.AddInfos()
+			.AddUnits()
+			.AddUnitsOfMeasure()
+			.AddStoreData();
+		
+		return builder.Build();
+	}
 }

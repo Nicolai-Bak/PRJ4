@@ -9,5 +9,5 @@ public interface IExternalApi
     public ICaller caller { set; }
     public IFilter filter { set; }
     public IConverter converter { set; }
-    public Task<List<object>> Get(IRequest request);
+    public Task<List<object>> Get();
 }

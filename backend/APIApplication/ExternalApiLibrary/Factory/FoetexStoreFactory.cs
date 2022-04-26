@@ -11,7 +11,7 @@ public class FoetexStoreFactory : IApiFactory
 {
     public ICaller CreateCaller()
     {
-        return new SallingStoreCaller();
+        return new SallingStoreCaller(null);
     }
 
     public IFilter CreateFilter()

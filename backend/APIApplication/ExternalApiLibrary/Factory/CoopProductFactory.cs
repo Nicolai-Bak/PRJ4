@@ -11,7 +11,7 @@ public class CoopProductFactory : IApiFactory
 {
     public ICaller CreateCaller()
     {
-        return new CoopProductCaller();
+        return new CoopProductCaller(CreateRequest());
     }
 
     public IFilter CreateFilter()
@@ -22,5 +22,12 @@ public class CoopProductFactory : IApiFactory
     public IConverter CreateConverter()
     {
         return new CoopProductConverter();
+    }
+    
+    private static IRequest CreateRequest()
+    {
+	    var builder = new CoopRequestBuilder();
+	    
+		return builder.Build();
     }
 }
