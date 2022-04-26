@@ -18,7 +18,6 @@ public class ExternalApiTest
     private IConverter _converter;
     private IRequest _request;
     
-
     [SetUp]
     public void Setup()
     {
@@ -46,11 +45,11 @@ public class ExternalApiTest
     {
         List<object> list = new List<object>();
         List<object> filteredList = new List<object>();
-        _caller.Call(_request).Returns(list);
+        _caller.Call().Returns(list);
         _filter.Filter(list).Returns(filteredList);
 
-        _uut.Get(_request);
-        _caller.Received(1).Call(_request);
+        _uut.Get();
+        _caller.Received(1).Call();
         _filter.Received(1).Filter(list);
         _converter.Received(1).Convert(filteredList);
     }
