@@ -1,10 +1,9 @@
 ﻿using BusinessLogicLibrary.ProductNameStandardize;
 using DatabaseLibrary;
 using DatabaseLibrary.Models;
-using ExternalApiLibrary.ExternalAPIComponent;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Factory;
-using ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
+using ExternalApiLibrary;
+using ExternalApiLibrary.Callers.Salling;
+using ExternalApiLibrary.Factory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -15,11 +14,10 @@ using Microsoft.Extensions.DependencyInjection;
 using ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
 
 namespace ExternalApiLibrary.HostedServices;
-
 public class ExternalApiService : IHostedService
 {
     private readonly IDbInsert _db;
-    private PeriodicTimer? _timer;
+    private PeriodicTimer _timer;
     public ExternalApiService(IServiceProvider sp)
     {
         _db = sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>();
@@ -66,41 +64,17 @@ public class ExternalApiService : IHostedService
     }
     public async Task DoTask()
     {
-        Log.Information("Calling external API.");
-        // Configure logger for start up
-        BackendLogger.BuildLogger();
+	    var foetexProductApi = new ExternalApi(new FoetexProductFactory());
+	    var products = await foetexProductApi.Get();
 
-        //try
-        //{
-        //    ///// Products - Salling
-        //}
-        //catch (Exception e)
-        //{
-        //    Log.Fatal(e, "Application failed to start");
-        //}
-        //finally
-        //{
-        //    Log.CloseAndFlush();
-        //}
-
-
-        // Products - Føtex
-        IExternalApi føtexProductApi = new ExternalApi(new FøtexProductFactory());
-        SallingRequestBuilder builder = new SallingRequestBuilder();
-        builder.AddInfos()
-                .AddUnits()
-                .AddUnitsOfMeasure()
-                .AddStoreData();
-        var products = await føtexProductApi.Get(builder.Build());
-
-        // Stores - Salling
-        IExternalApi føtexStoreApi = new ExternalApi(new FøtexStoreFactory());
-        var stores = await føtexStoreApi.Get(null);
+        ///// Stores - Salling
+        var foetexStoreApi = new ExternalApi(new FoetexStoreFactory());
+        var stores = await foetexStoreApi.Get();
 
         // Extracting Føtex stores
         var foetexStores = stores.Where(store =>
         {
-	        Store sallingStore = (Store)store;
+            var sallingStore = (Store)store;
             return sallingStore.Brand == "foetex";
         }).ToList();
 
@@ -109,7 +83,7 @@ public class ExternalApiService : IHostedService
         var storeList = new List<Store>();
         foetexStores.ForEach(s =>
         {
-	        Store convertedStore = (Store)s;
+            var convertedStore = (Store)s;
             storeList.Add(new Store()
             {
                 ID = convertedStore.ID,
@@ -127,7 +101,7 @@ public class ExternalApiService : IHostedService
         var productList = new List<Product>();
         products.ForEach(p =>
         {
-	        Product sallingProduct = (Product)p;
+            Product sallingProduct = (Product)p;
             productList.Add(new Product()
             {
                 EAN = sallingProduct.EAN,
@@ -147,10 +121,10 @@ public class ExternalApiService : IHostedService
         var productStoreList = new List<ProductStore>();
         products.ForEach(p =>
         {
-	        Product sallingProduct = (Product)p;
+            Product sallingProduct = (Product)p;
             foetexStores.ForEach(s =>
             {
-	            Store convertedStore = (Store)s;
+                Store convertedStore = (Store)s;
                 productStoreList.Add(new ProductStore()
                 {
                     ProductKey = sallingProduct.EAN,

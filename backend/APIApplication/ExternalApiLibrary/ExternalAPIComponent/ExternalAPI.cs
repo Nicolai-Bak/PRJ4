@@ -16,8 +16,8 @@ public class ExternalApi: IExternalApi
         filter = factory.CreateFilter();
         converter = factory.CreateConverter();
     }
-    public async Task<List<object>> Get(IRequest request)
+    public async Task<List<object>> Get()
     {
-        return converter.Convert(filter.Filter(await caller.Call(request)));
+        return converter.Convert(filter.Filter(await caller.Call()));
     }
 }

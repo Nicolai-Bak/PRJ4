@@ -4,9 +4,16 @@ namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
 
 public class CoopProductCaller : ICaller
 {
-    public async Task<List<object>> Call(IRequest request)
+	private IRequest _request;
+	
+	public CoopProductCaller(IRequest request)
+	{
+		_request = request;
+	}
+	
+    public async Task<List<object>> Call()
     {
-        var result = await request.CallAll();
+        var result = await _request.CallAll();
 
         return result;
     }

@@ -8,11 +8,17 @@ public class CoopStoreCaller : ICaller
         new() {"Kvickly", "SuperBrugsen", "DagliBrugsen", "Irma", "Fakta", "Coop365"};
     
     private static readonly string BaseUrl = "https://info.coop.dk/umbraco/surface/Chains/GetAllStores";
-
+    private IRequest _request;
+    
+    public CoopStoreCaller(IRequest request)
+    {
+		_request = request;
+    }
+    
     /**
      * Retrieves all stores from the Coop API with a POST request.
      */
-    public async Task<List<object>> Call(IRequest request)
+    public async Task<List<object>> Call()
     {
         var responses = new List<object>();
         var client = new HttpClient();
