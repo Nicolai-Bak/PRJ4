@@ -134,34 +134,49 @@ function Home() {
 	//GEOLOCATION
 	const [longitude, setLongitude] = useState(null);
 	const [latitude, setLatitude] = useState(null);
-	const [status, setStatus] = useState(null);
 
 	useEffect(() => {
 			if (!navigator.geolocation) {
-					setStatus('Geolokation understøttes ikke af din browser');
+					console.log("Fejl i geolokation");
 				} else {
 					navigator.geolocation.getCurrentPosition((position) => {
-						setStatus(null);
 						setLatitude(position.coords.latitude);
 						setLongitude(position.coords.longitude);
+						console.log(`latitude: ${latitude}, longitude: ${longitude}`);
 					});
 				}
-				console.log(`latitude: ${latitude}, longitude: ${longitude}`);
-	}, []);
+	}, [longitude, latitude]);
 
-
-	
 
 	return (
 		<div className="home">
 			<Banner/>
-			<NewItemForm onItemAdded={newItemHandler} />
-			<ShoppingList
+			<div className="home-shopping-list-wrapper-upper">
+				<div className="instructions-step-one"><div className="instructions-step-one-text">Trin 1: Søg efter din varer her!</div>
+					<br/><img src='/images/arrow.svg' alt="arrow" className="instructions-arrow-one"/>
+				</div>
+			<NewItemForm className="home-new-item-form" onItemAdded={newItemHandler} />
+			<div className="filler"/>
+			</div>
+			<div className="home-shopping-list-wrapper-lower">
+			
+			<div className="instructions-step-three">
+				<div className="instructions-step-three-text">Trin 3: Tryk 'søg' og se<br/> hvor du skal handle!</div><br/>
+				<img src='/images/arrow.svg' alt="arrow" className="instructions-arrow-three"/>
+			</div>
+			
+			<ShoppingList className="home-shopping-list"
 				items={shoppingList}
 				onSearch={searchHandler}
 				onRemoveItem={removeItemHandler}
 				onAmountChanged={changeAmountHandler}
 			/>
+			<div className="instructions-step-two">
+				<div className="instructions-step-two-text">Trin 2: Dine varer tilføjes <br/>herefter til din indkøbsliste</div><br/>
+				<img src='/images/arrow.svg' alt="arrow" className="instructions-arrow-two"/>
+			</div>
+				
+			</div>
 		</div>
 	);
 

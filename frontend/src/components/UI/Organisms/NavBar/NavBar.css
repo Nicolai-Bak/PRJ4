@@ -32,7 +32,6 @@
     font-weight: 900;
     padding-top: 2rem;
     padding-right: 3rem;
-
 }
 
 
@@ -50,9 +49,10 @@
     cursor: pointer;
 }
 
-.link a {
+.link a, .link a:visited {
     color: var(--default-black);
 }
+
 
 #shopping__cart{
     position: relative;

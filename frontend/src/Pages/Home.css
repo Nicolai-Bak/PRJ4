@@ -4,4 +4,61 @@
     height: auto;
     min-height: 120vh;
   }
+
+.home-shopping-list-wrapper-upper, .home-shopping-list-wrapper-lower {
+  display: flex;
+  flex-direction: row;
+}
+
+.home-shopping-list-wrapper-upper > *, .home-shopping-list-wrapper-lower > * {
+  flex: 1;
+}
  
+.instructions-step-one, .instructions-step-two, .instructions-step-three {
+    color: var(--default-white);
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Kalam', cursive;
+    width: 30rem;
+}
+
+
+.instructions-arrow-one, .instructions-arrow-two, .instructions-arrow-three {
+  color: var(--default-white);
+  width: 6rem;
+  transform: rotate(-30deg);
+}
+
+.instructions-step-one {
+  margin-top: 4rem;
+  text-align: right;
+}
+.instructions-step-one-text {
+  margin-right: 2rem;
+}
+
+.instructions-step-two {
+  overflow: hidden;
+}
+
+.instructions-step-two-text {
+  width: 35rem;
+  margin-right: 20rem;
+}
+
+.instructions-arrow-two {
+  transform: scaleX(-1);
+  margin-right: 30rem;
+}
+
+.instructions-step-three {
+  margin-top: 8rem;
+}
+
+.instructions-arrow-three {
+  margin-left: 20rem;
+}
+
+.instructions-step-one-text, .instructions-step-two-text, .instructions-step-three-text {
+  transform: rotate(-5deg);
+}
