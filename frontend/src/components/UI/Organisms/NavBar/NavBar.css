@@ -135,3 +135,9 @@
         display: none
     }
 }
+
+@media screen and (max-width: 576px) {
+    #ninja__logo{
+        padding-right: 1rem;
+    }
+}

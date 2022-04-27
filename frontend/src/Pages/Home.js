@@ -161,8 +161,10 @@ function Home() {
 			<div className="home-shopping-list-wrapper-lower">
 			
 			<div className="instructions-step-three">
-				<div className="instructions-step-three-text">Trin 3: Tryk 'søg' og se<br/> hvor du skal handle!</div><br/>
+				<div className="instructions-step-three-wrapper">
+				<div className="instructions-step-three-text">Trin 3: Tryk 'søg' og <br/>se hvor du skal handle!</div><br/>
 				<img src='/images/arrow.svg' alt="arrow" className="instructions-arrow-three"/>
+				</div>
 			</div>
 			
 			<ShoppingList className="home-shopping-list"
