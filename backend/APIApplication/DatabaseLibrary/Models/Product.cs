@@ -1,6 +1,6 @@
 ﻿namespace DatabaseLibrary.Models;
 
-public class Product
+public class Product : IDbModelsDto
 {
     public Int64 EAN { get; set; }
     public string Name { get; set; }
@@ -12,4 +12,3 @@ public class Product
     public string ImageUrl { get; set; }
     public List<ProductStore> ProductStores { get; set; }
 }
-

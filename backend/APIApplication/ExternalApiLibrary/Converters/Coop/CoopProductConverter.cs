@@ -1,7 +1,9 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
+using DatabaseLibrary.Models;
 using ExternalApiLibrary.Converters.Interfaces;
-using ExternalApiLibrary.Filters.Coop;
+using ExternalApiLibrary.DTO;
+using ExternalApiLibrary.Models;
 using Serilog;
 
 namespace ExternalApiLibrary.Converters.Coop;
@@ -11,28 +13,36 @@ public class CoopProductConverter : IConverter
     /**
 	 * Convert the list of products from external API products to internal API products
 	 */
-    public List<object> Convert(List<object> list)
+    public List<IDbModelsDto> Convert(List<IFilteredDto> list)
     {
-        var filteredList = list.Cast<List<FilteredCoopProduct>>().ToList();
+        var filteredList = list.Cast<FilteredCoopProduct>().ToList();
 
-        var flattenedList = (from flatList in filteredList
-                             from item in flatList
-                             select item).ToList();
+        //var flattenedList = (from flatList in filteredList
+        //                     from item in flatList
+        //                     select item).ToList();
 
-        var convertedProducts = new List<object>();
+        var Products = new List<IDbModelsDto>();
 
-        flattenedList.ForEach(product =>
-            convertedProducts.Add(new ConvertedCoopProduct
+        filteredList.ForEach(p =>
+            Products.Add(new Product
             {
-                EAN = long.Parse(product.id),
-                Name = product.displayName,
-                Brand = product.brand,
-                Unit = GetUnitFromSpotText(product.spotText, GetMeasurementFromSpotText(product.spotText)),
-                Measurement = GetMeasurementFromSpotText(product.spotText),
-                Organic = IsProductOrganic(product.labels)
+                EAN = long.Parse(p.id),
+                Name = p.displayName,
+                Brand = p.brand,
+                Units = double.Parse(p.spotText),
+                Measurement = GetMeasurementFromSpotText(p.spotText),
+                Organic = IsProductOrganic(p.labels),
+                ImageUrl = p.image,
+                ProductStores = new List<ProductStore>
+                {
+                    new ProductStore
+                    {
+                        Price = p.salesPrice.amount,
+                    }
+                }
             }));
 
-        return new List<object>(convertedProducts);
+        return Products;
     }
 
     /**
@@ -91,24 +101,11 @@ public class CoopProductConverter : IConverter
     /**
      * Checks if the product is organic
      */
-    private static bool IsProductOrganic(List<Label> labels)
+    private static bool IsProductOrganic(List<FilteredCoopProduct.Label> labels)
     {
         string[] organicLabelIds = { "o-market", "eu-okologi" };
 
         return labels.Any(label => organicLabelIds
             .Any(labelId => labelId == label.id));
     }
-}
-
-/**
- * Class to hold the converted product
- */
-public class ConvertedCoopProduct
-{
-    public long EAN { get; set; }
-    public string Name { get; set; }
-    public string Brand { get; set; }
-    public double Unit { get; set; }
-    public string Measurement { get; set; }
-    public bool Organic { get; set; }
 }
