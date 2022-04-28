@@ -1,7 +1,6 @@
 using ExternalApiLibrary.Callers.Coop;
 using ExternalApiLibrary.Converters.Coop;
 using ExternalApiLibrary.Factory;
-using ExternalApiLibrary.Filters.Coop;
 using NUnit.Framework;
 
 namespace ExternalApiLibrary.Test.Unit.Factories;
@@ -22,12 +21,6 @@ public class CoopProductFactoryTest
     {
         var returnValue = _uut.CreateCaller();
         Assert.AreEqual( returnValue.GetType(), typeof(CoopProductCaller));
-    }
-    [Test]
-    public void CreateFilterTest()
-    {
-        var returnValue = _uut.CreateFilter();
-        Assert.AreEqual( returnValue.GetType(), typeof(CoopProductFilter));
     }
     [Test]
     public void CreateConverterTest()

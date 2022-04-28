@@ -1,6 +1,6 @@
 ﻿namespace DatabaseLibrary.Models;
 
-public class Store
+public class Store : IDbModelsDto
 {
     public int ID { get; set; }
     public string Brand { get; set; }
