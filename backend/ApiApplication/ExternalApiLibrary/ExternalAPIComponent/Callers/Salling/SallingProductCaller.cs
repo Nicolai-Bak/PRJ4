@@ -1,21 +1,34 @@
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.Callers.Interfaces;
+using ExternalApiLibrary.DTO;
+using ExternalApiLibrary.Models;
+using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
+namespace ExternalApiLibrary.Callers.Salling;
 
 /**
  * Handles calling the API with requests.
  */
 public class SallingProductCaller : ICaller
 {
-	private IRequest _request;
-	
-	public SallingProductCaller(IRequest request)
-	{
-		_request = request;
-	}
-	public async Task<List<object>> Call()
+    private IRequest _request;
+
+    public SallingProductCaller(IRequest request)
     {
-        var result = await _request.CallAll();
+        _request = request;
+    }
+    public async Task<List<IFilteredDto>> Call()
+    {
+        var response = await _request.CallAll();
+
+        List<List<FilteredSallingProduct>> json =
+            JsonConvert.DeserializeObject<List<List<FilteredSallingProduct>>>(JsonConvert.SerializeObject(response));
+
+        var result = new List<IFilteredDto>();
+
+        json.ForEach(j =>
+        {
+            result.AddRange(j);
+        });
 
         return result;
     }
