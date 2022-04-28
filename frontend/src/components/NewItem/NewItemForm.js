@@ -11,11 +11,13 @@ const NewItemForm = (props) => {
 	const [newItem, setNewItem] = useState(null);
 	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
+	const [organic, setOrganic] = useState(false);
 	const [isChecked, setIsChecked] = useState(false);
+	const [organicPossible, setOrganicPossible] = useState(false);
+
 	// changed validInput
 	const [isSearchFieldValid, SetIsSearchFieldValid] = useState(true);
 	const [isAmountValid, SetIsAmountValid] = useState(true);
-	const [organic, setOrganic] = useState(false);
 	const id = uuid();
 
 	useEffect(() => {
@@ -27,7 +29,7 @@ const NewItemForm = (props) => {
 		// console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
 
 		if (validInput(newItem, amount)) {
-			props.onItemAdded(newItem, amount, unit, id);
+			props.onItemAdded(newItem, amount, unit, id, organic);
 		} else return;
 
 		// setNewItem(""); <-- doesn't reset the autocomplete field after submit
@@ -79,14 +81,20 @@ const NewItemForm = (props) => {
 		setAmount("");
 	};
 
+	const organicHandler = (event) => {
+		console.log(event.target.checked);
+		setOrganic(event.target.checked);
+	};
+
 	const focusLost = async (event) => {
 		console.log("focus was lost and the current value is " + event);
 		const unit = await getUnitAndOrganic(event); // IKKE FÆRDIG!!
 
 		console.log(unit);
+		setUnit(unit.unit);
 
 		if (unit) {
-			setOrganic(!unit.organic);
+			setOrganicPossible(!unit.organic);
 		}
 	};
 	return (
@@ -101,10 +109,14 @@ const NewItemForm = (props) => {
 					onFocusLost={focusLost}
 				/>
 				<div className="unit-organic-switch">
-					<UnitBox className="form-units" onUnitSelected={unitChangeHandler} />
-					{organic && (
+					<UnitBox
+						className="form-units"
+						onUnitSelected={unitChangeHandler}
+						unitChosen={unit}
+					/>
+					{organicPossible && (
 						<FormControlLabel
-							control={<Switch sx={switchStyling} />}
+							control={<Switch sx={switchStyling} onChange={organicHandler} />}
 							label="Øko"
 							sx={{
 								color: "white",
