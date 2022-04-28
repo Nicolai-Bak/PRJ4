@@ -1,8 +1,7 @@
 ﻿using ExternalApiLibrary.DTO;
-using ExternalApiLibrary.Filters.Interfaces;
 using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.Filters.Models;
+namespace ExternalApiLibrary.Models;
 
 public class FilteredSallingProduct : IFilteredDto
 {
@@ -10,6 +9,7 @@ public class FilteredSallingProduct : IFilteredDto
     [JsonProperty("infos")] public List<Info>? Infos { get; set; }
     [JsonProperty("units")] public float? Units { get; set; }
     [JsonProperty("unitsOfMeasure")] public string? UnitsOfMeasure { get; set; }
+    [JsonProperty("images")] public string Image { get; set; }
     [JsonProperty("storeData")] public Dictionary<int, StoreData>? Stores { get; set; }
     [JsonProperty("properties")] public List<string>? Properties { get; set; }
 

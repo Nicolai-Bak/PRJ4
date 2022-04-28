@@ -1,37 +1,29 @@
+using DatabaseLibrary.Models;
 using ExternalApiLibrary.Converters.Interfaces;
-using ExternalApiLibrary.Filters.Coop;
+using ExternalApiLibrary.DTO;
+using ExternalApiLibrary.Models;
 
 namespace ExternalApiLibrary.Converters.Coop;
 
 public class CoopStoreConverter : IConverter
 {
-    public List<object> Convert(List<object> list)
+    public List<IDbModelsDto> Convert(List<IFilteredDto> list)
     {
-        var filteredList = list.Cast<List<FilteredCoopStore>>().ToList();
+        var filteredList = list.Cast<FilteredCoopStore>().ToList();
 
-        var flattenedList = (from flatList in filteredList
-                             from item in flatList
-                             select item).ToList();
+        //var flattenedList = (from flatList in filteredList
+        //                     from item in flatList
+        //                     select item).ToList();
 
-        var stores = flattenedList.Select(store => new ConvertedCoopStore
+        var stores = filteredList.Select(store => new Store
         {
             ID = store.Kardex,
             Brand = store.RetailGroupName,
             Location_X = store.Location[0],
             Location_Y = store.Location[1],
             Address = $"{store.Address}, {store.Zipcode} {store.City}"
-        });
+        }).ToList();
 
-        return new List<object>(stores);
+        return new List<IDbModelsDto>(stores);
     }
 }
-
-public class ConvertedCoopStore
-{
-    public int ID { get; set; }
-    public string Brand { get; set; }
-    public double Location_X { get; set; }
-    public double Location_Y { get; set; }
-    public string Address { get; set; }
-}
-
