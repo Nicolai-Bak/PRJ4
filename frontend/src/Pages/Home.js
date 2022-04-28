@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
 
-
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
@@ -24,11 +23,11 @@ function Home() {
 		}
 	}, [shoppingList]);
 
-	const newItemHandler = async (name, amount, unit, id) => {
+	const newItemHandler = async (name, amount, unit, id, organic) => {
 		console.log(
 			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
 				id.toString().slice(0, 5) + "..."
-			}`
+			}, organic: ${organic}`
 		);
 		// if the item doesn't exists in the database
 		if (!(await ValidateItem(name, unit))) {
@@ -46,6 +45,7 @@ function Home() {
 					unit: unit,
 					id: id, //uuid()
 					key: id,
+					organic: organic,
 				},
 			];
 		});
@@ -105,9 +105,23 @@ function Home() {
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
 		);
 
-		const searchList = shoppingList.map((item) => item.name);
-		console.log("searchlist: " + JSON.stringify(searchList));
+		// const searchList = shoppingList.map((item) => item);
+		// console.log("searchlist: " + JSON.stringify(searchList));
+		const searchList = [];
 
+		shoppingList.forEach((item) => {
+			console.log(item);
+			const itemDTO = {
+				name: item.name,
+				amount: item.amount,
+				unit: item.unit,
+				organic: item.organic,
+			};
+			console.log(itemDTO);
+			searchList.push(itemDTO);
+		});
+
+		searchList.forEach((item) => console.log(item));
 		const request = await fetch(
 			"https://prisninjawebapi.azurewebsites.net/options/",
 			{
@@ -116,7 +130,11 @@ function Home() {
 					Accept: "application/json",
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ productNames: searchList, y:latitude, x: longitude }),
+				body: JSON.stringify({
+					products: searchList,
+					y: latitude,
+					x: longitude,
+				}),
 			}
 		);
 
@@ -130,31 +148,27 @@ function Home() {
 		navigate("/SearchResults");
 	};
 
-
 	//GEOLOCATION
 	const [longitude, setLongitude] = useState(null);
 	const [latitude, setLatitude] = useState(null);
 	const [status, setStatus] = useState(null);
 
 	useEffect(() => {
-			if (!navigator.geolocation) {
-					setStatus('Geolokation understøttes ikke af din browser');
-				} else {
-					navigator.geolocation.getCurrentPosition((position) => {
-						setStatus(null);
-						setLatitude(position.coords.latitude);
-						setLongitude(position.coords.longitude);
-					});
-				}
-				console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+		if (!navigator.geolocation) {
+			setStatus("Geolokation understøttes ikke af din browser");
+		} else {
+			navigator.geolocation.getCurrentPosition((position) => {
+				setStatus(null);
+				setLatitude(position.coords.latitude);
+				setLongitude(position.coords.longitude);
+			});
+		}
+		console.log(`latitude: ${latitude}, longitude: ${longitude}`);
 	}, []);
-
-
-	
 
 	return (
 		<div className="home">
-			<Banner/>
+			<Banner />
 			<NewItemForm onItemAdded={newItemHandler} />
 			<ShoppingList
 				items={shoppingList}
@@ -165,11 +179,10 @@ function Home() {
 		</div>
 	);
 
-	
 	async function ValidateItem(name, unit) {
 		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
 
-		console.log("itemNames: " + itemNames)
+		console.log("itemNames: " + itemNames);
 
 		let matchFound = false;
 		let foundItems = [];
