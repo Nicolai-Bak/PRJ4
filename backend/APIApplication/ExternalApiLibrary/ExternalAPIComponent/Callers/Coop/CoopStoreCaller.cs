@@ -1,6 +1,9 @@
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Interfaces;
+using ExternalApiLibrary.Callers.Interfaces;
+using ExternalApiLibrary.DTO;
+using ExternalApiLibrary.Models;
+using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
+namespace ExternalApiLibrary.Callers.Coop;
 
 public class CoopStoreCaller : ICaller
 {
@@ -18,10 +21,11 @@ public class CoopStoreCaller : ICaller
     /**
      * Retrieves all stores from the Coop API with a POST request.
      */
-    public async Task<List<object>> Call()
+    public async Task<List<IFilteredDto>> Call()
     {
         var responses = new List<object>();
         var client = new HttpClient();
+        var result = new List<IFilteredDto>();
 
         foreach (var store in StoresToRetrieve)
         {
@@ -39,6 +43,16 @@ public class CoopStoreCaller : ICaller
             responses.Add(responseString);
         }
 
-        return responses;
+        responses.ForEach(r =>
+        {
+            var deserializedRoot = JsonConvert.DeserializeObject<List<FilteredCoopStore>>(r.ToString());
+            if (deserializedRoot != null)
+            {
+                result.AddRange(deserializedRoot);
+            }
+        });
+
+        return result;
+
     }
 }
