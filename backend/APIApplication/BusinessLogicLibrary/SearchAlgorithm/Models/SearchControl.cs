@@ -11,8 +11,6 @@ namespace ApiApplication.SearchAlgorithm
     public class SearchControl : ISearchControl
     {
         private List<IStoreSelecter> _storeSelecters;
-        private IProductAdder _productAdder  = new ProductAdder();
-        private IStoredataAdder _storedataAdder = new StoredataAdder();
         private ShoppingList _shoppingList;
         private IDbSearch _database;
 
@@ -40,12 +38,12 @@ namespace ApiApplication.SearchAlgorithm
             for (int i = 0; i < _shoppingList.Products.Count(); i++)
             {
                 List<Product> productToAdd = _database.GetProductsFromSpecificStores(storeIDs, _shoppingList.Products[i].Name, _shoppingList.Products[i].Measurement);
-                _productAdder.AddCheapestProductToStores(storeIDs, stores, productToAdd, _shoppingList.Products[i].Unit);
+                AddCheapestProductToStores(storeIDs, stores, productToAdd, _shoppingList.Products[i].Unit);
             }
             
             //Tilføje data om butikkerne
             List<Store> topStoreData = _database.GetDataFromStores(storeIDs);
-            _storedataAdder.AddStoredata(topStoreData, stores, _shoppingList.X, _shoppingList.Y);
+            AddStoredata(topStoreData, stores, _shoppingList.X, _shoppingList.Y);
 
            
             List<List<StoreSearch>> result = new List<List<StoreSearch>>();
@@ -58,9 +56,66 @@ namespace ApiApplication.SearchAlgorithm
 
             return result;
         }
-        
-        
 
+        #region Add product to stores
+        private void AddCheapestProductToStores(List<int> storeIDs, List<StoreSearch> stores, List<Product> productToAdd, double amountToGet)
+        {
+            // Tilføj dee billigste products i butikken til hver store - fjern store hvis den ikke har alle varer
         
+            foreach (int storeID in storeIDs.ToList())
+            {
+                double price = 0;
+                int amount = 0;
+                Product temp = productToAdd
+                    .Where(p => p.ProductStores
+                        .Select(ps => ps.StoreKey)
+                        .Any(sk => sk == storeID))
+                    .MinBy(p => p.ProductStores
+                        .Select(ps => GetPrice(amountToGet,ps.Product.Units,ps.Price,ref price,ref amount)));
+                //.MinBy(p => p.ProductStores.Select(ps => ps.Price));
+                if (temp != null)
+                {
+                    stores.Find(s => s.StoreID == storeID).Add(new ProductSearch(temp, price, amount));
+                }
+                else
+                {
+                    stores.Remove(stores.Find(s => s.StoreID == storeID));
+                    storeIDs.Remove(storeID);
+                }
+            }
+        }
+        
+        private double GetPrice(double unitsToGet, double unitsPerPiece, double pricePerPiece, ref double price, ref int amount)
+        {
+            amount = (int)Math.Ceiling(unitsToGet / unitsPerPiece);
+            price = amount * pricePerPiece;
+            return price;
+        }
+        #endregion
+
+        #region Add Storedata to stores
+        public void AddStoredata(List<Store> storeData, List<StoreSearch> stores, double userLocationX, double userLocationY)
+        {
+            foreach (Store store in storeData)
+            {
+                foreach (var storeSearch in stores)
+                {
+                    if (storeSearch.StoreID == store.ID)
+                    {
+                        storeSearch.Address = store.Address;
+                        storeSearch.Brand = store.Brand;
+                        storeSearch.Distance = GetDistance(store.Location_X, store.Location_Y, userLocationX, userLocationY);
+                    }
+                }
+            }
+        }
+        
+        private double GetDistance(double storeX, double storeY, double customerX, double customerY)
+        {
+            return Math.Sqrt(
+                Math.Pow(Math.Abs(storeX - customerX), 2) +
+                Math.Pow(Math.Abs(storeY - customerY), 2));
+        }
+        #endregion
     }
 }
