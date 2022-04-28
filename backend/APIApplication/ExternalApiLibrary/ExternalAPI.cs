@@ -12,6 +12,7 @@ public class ExternalApi : IExternalApi
 
     public ExternalApi(IApiFactory factory)
     {
+
         caller = factory.CreateCaller();
         converter = factory.CreateConverter();
     }
