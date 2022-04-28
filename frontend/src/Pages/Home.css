@@ -40,6 +40,12 @@
   margin-bottom: -3rem;
 }
 
+.instructions-arrow-one {
+  position: relative;
+  top: -2rem;
+  left: -2rem;
+}
+
 .instructions-step-two {
   overflow: hidden;
 }
@@ -83,13 +89,15 @@
   }
 
   .instructions-step-one-text {
-    width: 15rem;
+    margin-bottom: 0;
+    width: 14rem;
     float: right;
   }
   .instructions-arrow-one {
     position: relative;
-    top: 1rem;
-    left: 15rem;
+    top: 1.5rem;
+    left: 13rem;
+    width: 4.4rem;
   }
 
 	.instructions-step-two-text {
@@ -126,14 +134,14 @@
 
   .instructions-step-one-text {
     font-size: 1.5rem;
-    width: 12rem;
+    width: 10.3rem;
   }
 
   .instructions-arrow-one {
     position: relative;
-    top: 2rem;
-    left: -2rem;
-    width: 4rem;
+    top: 1rem;
+    left: 11rem;
+    width: 3.2rem;
   }
   .instructions-arrow-two {
     width: 4rem;
