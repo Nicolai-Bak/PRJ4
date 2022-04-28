@@ -31,8 +31,9 @@ const ShoppingList = (props) => {
 			id={item.id}
 			name={item.name}
 			amount={item.amount}
-			unit={item.unit}
+			unit={item.unit === "l" ? item.unit.toUpperCase() : item.unit}
 			key={item.id}
+			organic={item.organic}
 		/>
 	));
 

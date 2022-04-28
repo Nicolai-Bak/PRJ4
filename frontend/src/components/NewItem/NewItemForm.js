@@ -34,6 +34,8 @@ const NewItemForm = (props) => {
 
 		// setNewItem(""); <-- doesn't reset the autocomplete field after submit
 		setAmount("");
+		setOrganicPossible(false);
+		setOrganic(false);
 	};
 
 	const switchStyling = {
