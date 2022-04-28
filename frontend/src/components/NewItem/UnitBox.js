@@ -6,7 +6,7 @@ import {
 	Switch,
 } from "@mui/material";
 
-import React from "react";
+import React, { forwardRef, useState } from "react";
 import "./UnitBox.css";
 import { styled } from "@mui/material/styles";
 
@@ -78,42 +78,41 @@ const UnitBox = (props) => {
 	// );
 
 	return (
-		<Responsive>
-			<RadioGroup
-				className="radio-buttons"
-				onChange={unitChangedHandler}
-				defaultValue="Kg"
+		<RadioGroup
+			className="radio-buttons"
+			onChange={unitChangedHandler}
+			row
+			value={props.unitChosen}
+			sx={{
+				marginLeft: ".7rem",
+				padding: "0",
+			}}
+		>
+			<FormControlLabel
+				value="kg"
+				control={<Radio size="small" sx={radioStyles} />}
+				label="Kg"
 				sx={{
-					marginLeft: ".7rem",
-					padding: "0",
+					color: "white",
 				}}
-			>
-				<FormControlLabel
-					value="Kg"
-					control={<Radio size="small" sx={radioStyles} />}
-					label="Kg"
-					sx={{
-						color: "white",
-					}}
-				/>
-				<FormControlLabel
-					value="L"
-					control={<Radio size="small" sx={radioStyles} />}
-					label="L"
-					sx={{
-						color: "white",
-					}}
-				/>
-				<FormControlLabel
-					value="Stk"
-					control={<Radio size="small" sx={radioStyles} />}
-					label="Stk"
-					sx={{
-						color: "white",
-					}}
-				/>
-			</RadioGroup>
-		</Responsive>
+			/>
+			<FormControlLabel
+				value="l"
+				control={<Radio size="small" sx={radioStyles} />}
+				label="L"
+				sx={{
+					color: "white",
+				}}
+			/>
+			<FormControlLabel
+				value="stk"
+				control={<Radio size="small" sx={radioStyles} />}
+				label="Stk"
+				sx={{
+					color: "white",
+				}}
+			/>
+		</RadioGroup>
 	);
 };
 
