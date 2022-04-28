@@ -32,8 +32,8 @@ const NewItemForm = (props) => {
 			props.onItemAdded(newItem, amount, unit, id, organic);
 		} else return;
 
-		// setNewItem(""); <-- doesn't reset the autocomplete field after submit
 		setAmount("");
+		setUnit(`kg`);
 		setOrganicPossible(false);
 		setOrganic(false);
 	};
@@ -90,7 +90,7 @@ const NewItemForm = (props) => {
 
 	const focusLost = async (event) => {
 		console.log("focus was lost and the current value is " + event);
-		const unit = await getUnitAndOrganic(event); // IKKE FÆRDIG!!
+		const unit = await getUnitAndOrganic(event);
 
 		console.log(unit);
 		setUnit(unit.unit);
