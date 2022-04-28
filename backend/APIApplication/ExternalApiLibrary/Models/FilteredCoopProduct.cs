@@ -42,6 +42,7 @@ public class FilteredCoopProduct : IFilteredDto
 
     }
 
+
     public class Label
     {
         public string id { get; set; }
@@ -49,6 +50,7 @@ public class FilteredCoopProduct : IFilteredDto
         public string displayName { get; set; }
         public int priority { get; set; }
     }
+
 
     public class SalesPrice
     {
