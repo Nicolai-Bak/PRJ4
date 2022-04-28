@@ -1,7 +1,6 @@
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Factory;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
+using ExternalApiLibrary.Callers.Salling;
+using ExternalApiLibrary.Converters.Salling;
+using ExternalApiLibrary.Factory;
 using NUnit.Framework;
 
 namespace ExternalApiLibrary.Test.Unit.Factories;
@@ -14,7 +13,7 @@ public class FoetexStoreFactoryTest
     [SetUp]
     public void Setup()
     {
-        _uut = new FøtexStoreFactory();
+        _uut = new FoetexStoreFactory();
     }
 
     [Test]
@@ -22,12 +21,6 @@ public class FoetexStoreFactoryTest
     {
         var returnValue = _uut.CreateCaller();
         Assert.AreEqual( returnValue.GetType(), typeof(SallingStoreCaller));
-    }
-    [Test]
-    public void CreateFilterTest()
-    {
-        var returnValue = _uut.CreateFilter();
-        Assert.AreEqual( returnValue.GetType(), typeof(SallingStoreFilter));
     }
     [Test]
     public void CreateConverterTest()
