@@ -109,7 +109,7 @@ function Home() {
 		console.log("searchlist: " + JSON.stringify(searchList));
 
 		const request = await fetch(
-			"https://prisninjawebapi.azurewebsites.net/options/",
+			"https://localhost/options/",
 			{
 				method: "POST",
 				headers: {

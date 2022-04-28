@@ -6,12 +6,15 @@ namespace ApiApplication.Controllers;
 
 public class ShoppingOptionsDummyData: IShoppingOptions
 {
-    public List<StoreSearch> Cheapest { get; set; } 
+    public List<StoreSearch> Cheapest { get; set; }
     public List<StoreSearch> Nearest { get; set; }
     public List<StoreSearch> Best { get; set; }
 
     public ShoppingOptionsDummyData()
     {
+        Cheapest = new List<StoreSearch>();
+        Nearest = new List<StoreSearch>();
+        Best = new List<StoreSearch>();
         ProductSearch product1 = new ProductSearch(new Product
         {
             Name = "Vindruer", Brand = "Kellogs", Units = 100, Measurement = "g"
@@ -32,11 +35,11 @@ public class ShoppingOptionsDummyData: IShoppingOptions
             Name = "Rosmarin", Brand = "Lego", Units = 15, Measurement = "g"
         }, 31, 1);
 
-        StoreSearch store1 = new StoreSearch {StoreID = 1, Address = "Finlandsgade 2", Distance = 2, Brand = "Aldi"};
-        StoreSearch store2 = new StoreSearch {StoreID = 2, Address = "Katrinebjergvej 2", Distance = 3, Brand = "Meny"};
-        StoreSearch store3 = new StoreSearch {StoreID = 3, Address = "Norgegade 2", Distance = 0.5, Brand = "Aldi"};
-        StoreSearch store4 = new StoreSearch {StoreID = 4, Address = "Congogade 2", Distance = 0.1, Brand = "Fakta"};
-        StoreSearch store5 = new StoreSearch {StoreID = 5, Address = "Nordkoreagade 2", Distance = 4, Brand = "Futex"};
+        StoreSearch store1 = new StoreSearch {StoreID = 1, Address = "Finlandsgade 2", Distance = 2, Brand = "Aldi", Products=new List<ProductSearch>()};
+        StoreSearch store2 = new StoreSearch {StoreID = 2, Address = "Katrinebjergvej 2", Distance = 3, Brand = "Meny", Products = new List<ProductSearch>()};
+        StoreSearch store3 = new StoreSearch {StoreID = 3, Address = "Norgegade 2", Distance = 0.5, Brand = "Aldi", Products = new List<ProductSearch>()};
+        StoreSearch store4 = new StoreSearch {StoreID = 4, Address = "Congogade 2", Distance = 0.1, Brand = "Fakta", Products = new List<ProductSearch>()};
+        StoreSearch store5 = new StoreSearch {StoreID = 5, Address = "Nordkoreagade 2", Distance = 4, Brand = "Futex", Products = new List<ProductSearch>()};
 
         store1.Add(product1);
         store1.Add(product3);
