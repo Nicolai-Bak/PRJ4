@@ -48,8 +48,4 @@
       <Reference Include="Microsoft.Extensions.Configuration.Json" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Filters\Models\" />
-    </ItemGroup>
-
 </Project>
