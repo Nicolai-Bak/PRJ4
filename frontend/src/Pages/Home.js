@@ -116,7 +116,19 @@ function Home() {
 					Accept: "application/json",
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ productNames: searchList, y:latitude, x: longitude }),
+				// body: JSON.stringify({ productNames: searchList, y:latitude, x: longitude }),
+				body: JSON.stringify({
+					"products": [
+					  {
+						"name": "string",
+						"unit": 0,
+						"measurement": "string"
+					  }
+					],
+					"x": 0,
+					"y": 0,
+					"range": 0
+				  }),
 			}
 		);
 
