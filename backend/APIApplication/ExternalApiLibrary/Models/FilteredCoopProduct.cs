@@ -29,6 +29,7 @@ public class FilteredCoopProduct : IFilteredDto
         public string name { get; set; }
         public object usageLimitPerOrder { get; set; }
         public object defaultQuantity { get; set; }
+       
         public class Price
         {
             public string separator { get; set; }
@@ -41,7 +42,6 @@ public class FilteredCoopProduct : IFilteredDto
 
     }
 
-
     public class Label
     {
         public string id { get; set; }
@@ -49,7 +49,6 @@ public class FilteredCoopProduct : IFilteredDto
         public string displayName { get; set; }
         public int priority { get; set; }
     }
-
 
     public class SalesPrice
     {
