@@ -30,14 +30,7 @@ const SearchField = (props) => {
 
 	useEffect(() => {
 		props.onItemChanged(value);
-		const itemValue = setTimeout(() => {
-			// console.log("NOW we call lost focus with " + value);
-			if (value.length > 1) handleFocusLoss(value);
-		}, 1000);
-
-		return () => {
-			clearTimeout(itemValue); // <-- clean up function so itemValue isn't called if the timer doesn't run out
-		};
+		if (value.length > 1 && options.includes(value)) handleFocusLoss(value);
 	}, [value]);
 
 	const handleFocusLoss = (event) => {
