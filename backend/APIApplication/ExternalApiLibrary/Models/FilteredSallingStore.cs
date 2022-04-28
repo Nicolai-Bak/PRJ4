@@ -1,7 +1,7 @@
 ﻿using ExternalApiLibrary.DTO;
 using Newtonsoft.Json;
 
-namespace ExternalApiLibrary.Filters.Models;
+namespace ExternalApiLibrary.Models;
 
 public class FilteredSallingStore : IFilteredDto
 {
