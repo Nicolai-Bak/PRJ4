@@ -17,22 +17,22 @@ public class ShoppingOptionsDummyData: IShoppingOptions
         Best = new List<StoreSearch>();
         ProductSearch product1 = new ProductSearch(new Product
         {
-            Name = "Vindruer", Brand = "Kellogs", Units = 100, Measurement = "g"
+            Name = "Vindruer", Brand = "Kellogs", Units = 100, Measurement = "g", Organic = true, ImageUrl = "https://picsum.photos/200"
         }, 15.50, 2);
 
         ProductSearch product2 = new ProductSearch(new Product
         {
-            Name = "Vindruer", Brand = "Kohberg", Units = 200, Measurement = "g"
+            Name = "Vindruer", Brand = "Kohberg", Units = 200, Measurement = "g", Organic = true, ImageUrl = "https://picsum.photos/200"
         }, 18.50, 1);
 
         ProductSearch product3 = new ProductSearch(new Product
         {
-            Name = "Kalkunpålæg", Brand = "Arla", Units = 100, Measurement = "g"
+            Name = "Kalkunpålæg", Brand = "Arla", Units = 100, Measurement = "g", Organic = false, ImageUrl = "https://picsum.photos/200"
         }, 12.50, 1);
 
         ProductSearch product4 = new ProductSearch(new Product
         {
-            Name = "Rosmarin", Brand = "Lego", Units = 15, Measurement = "g"
+            Name = "Rosmarin", Brand = "Lego", Units = 15, Measurement = "g", Organic = false, ImageUrl = "https://picsum.photos/200"
         }, 31, 1);
 
         StoreSearch store1 = new StoreSearch {StoreID = 1, Address = "Finlandsgade 2", Distance = 2, Brand = "Aldi", Products=new List<ProductSearch>()};

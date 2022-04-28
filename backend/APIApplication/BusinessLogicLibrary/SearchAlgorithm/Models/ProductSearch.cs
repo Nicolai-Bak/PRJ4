@@ -11,6 +11,8 @@ public class ProductSearch
     public string Measurement { get; set; }
     public double Price { get; set; }
     public int Amount { get; set; }
+    public bool Organic { get; set; }
+    public string ImageUrl { get; set; }
 
     public ProductSearch(Product p, double price, int amount)
     {
@@ -20,5 +22,7 @@ public class ProductSearch
         Measurement = p.Measurement;
         Price = price;
         Amount = amount;
+        Organic = p.Organic;
+        ImageUrl = p.ImageUrl;
     }
 }
