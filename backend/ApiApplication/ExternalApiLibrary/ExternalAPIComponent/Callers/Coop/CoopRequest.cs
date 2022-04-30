@@ -19,12 +19,12 @@ public class CoopRequest : IRequest
 
     // True = Production Environment
     // False = Development Environment - limits calls to not overload the external API
-    public bool RetrieveAll { get; private set; } = false;
+    public bool RetrieveAll { get; set; } = false;
 
     public CoopRequest(string baseUrl, int pageSize = 10)
     {
 	    BaseUrl = baseUrl ?? throw new ArgumentNullException();
-        _pageSize = pageSize;
+	    _pageSize = pageSize;
     }
     
     private async Task<object> CallPage()
