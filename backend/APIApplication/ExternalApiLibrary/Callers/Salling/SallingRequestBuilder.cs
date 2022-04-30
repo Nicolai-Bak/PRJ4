@@ -12,7 +12,7 @@ public class SallingRequestBuilder : IRequestBuilder
     private readonly SallingRequest _newRequest;
     private readonly List<string> _parameters = new();
 
-    public SallingRequestBuilder()
+    public SallingRequestBuilder(bool overrideBackStop = false)
     {
         var credentials = Credentials.Instance;
 
@@ -22,7 +22,7 @@ public class SallingRequestBuilder : IRequestBuilder
 
         var index = client.InitIndex(credentials.Keys["Salling-IndexName"]);
 
-        _newRequest = new SallingRequest(index);
+        _newRequest = new SallingRequest(index, overrideBackStop);
     }
 
     public IRequest Build()

@@ -7,7 +7,7 @@ namespace ExternalApiLibrary.Factory;
 
 public class CoopStoreFactory : IApiFactory
 {
-    public ICaller CreateCaller()
+    public ICaller CreateCaller(bool overrideBackStop = false)
     {
         return new CoopStoreCaller(null);
     }

@@ -10,10 +10,9 @@ public class ExternalApi : IExternalApi
     public ICaller caller { private get; set; }
     public IConverter converter { private get; set; }
 
-    public ExternalApi(IApiFactory factory)
+    public ExternalApi(IApiFactory factory, bool overrideBackStop = false)
     {
-
-        caller = factory.CreateCaller();
+	    caller = factory.CreateCaller(overrideBackStop);
         converter = factory.CreateConverter();
     }
     public async Task<List<IDbModelsDto>> Get()

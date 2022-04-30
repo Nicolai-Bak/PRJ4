@@ -5,6 +5,6 @@ namespace ExternalApiLibrary.Factory;
 
 public interface IApiFactory
 {
-    public ICaller CreateCaller();
+    public ICaller CreateCaller(bool overrideBackStop = false);
     public IConverter CreateConverter();
 }
