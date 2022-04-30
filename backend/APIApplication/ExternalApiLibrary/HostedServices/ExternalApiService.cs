@@ -29,7 +29,7 @@ public class ExternalApiService : IHostedService
     {
         TimeSpan interval = TimeSpan.FromHours(24);
         //calculate time to run the first time & delay to set the timer
-        var nextRunTime = DateTime.Today.AddDays(1).AddHours(1);
+        var nextRunTime = DateTime.Today.AddDays(1).AddHours(16).AddMinutes(10);
         var curTime = DateTime.Now;
         var firstInterval = nextRunTime.Subtract(curTime);
 
@@ -60,28 +60,18 @@ public class ExternalApiService : IHostedService
 
         // Products - Foetex
         var foetexProductApi = new ExternalApi(new FoetexProductFactory(), _overrideBackStop);
-        products.AddRange((await foetexProductApi.Get()).Cast<Product>().ToList());
+        var foetexProducts = (await foetexProductApi.Get()).Cast<Product>().ToList();
 
         // Stores - Foetex
         var foetexStoreApi = new ExternalApi(new FoetexStoreFactory(), _overrideBackStop);
-        stores.AddRange((await foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList());
+        var foetexStores = (await foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList();
 
-        // Products - Coop
-        var coopProductApi = new ExternalApi(new CoopProductFactory(), _overrideBackStop);
-        products.AddRange((await coopProductApi.Get()).Cast<Product>().ToList());
+        products.AddRange(foetexProducts);
+        stores.AddRange(foetexStores);
 
-        // Stores - Coop
-        var coopStoreApi = new ExternalApi(new CoopStoreFactory(), _overrideBackStop);
-        stores.AddRange((await coopStoreApi.Get()).Cast<Store>().ToList());
-
-        _db.InsertStores(stores);       // Insert stores
-
-        _db.InsertProducts(products);   // Insert products
-
-        // Insert productStores
-        products.ForEach(p =>
+        foetexProducts.ForEach(p =>
         {
-            stores.ForEach(s =>
+            foetexStores.ForEach(s =>
             {
                 productStores.Add(new ProductStore()
                 {
@@ -91,7 +81,33 @@ public class ExternalApiService : IHostedService
                 });
             });
         });
-        _db.InsertProductStores(productStores);
+
+        // Products - Coop
+        var coopProductApi = new ExternalApi(new CoopProductFactory(), _overrideBackStop);
+        var coopProducts = (await coopProductApi.Get()).Cast<Product>().ToList();
+        // Stores - Coop
+        var coopStoreApi = new ExternalApi(new CoopStoreFactory(), _overrideBackStop);
+        var coopStores = (await coopStoreApi.Get()).Cast<Store>().ToList();
+
+        products.AddRange(coopProducts);
+        stores.AddRange(coopStores);
+
+        coopProducts.ForEach(p =>
+        {
+            coopStores.ForEach(s =>
+            {
+                productStores.Add(new ProductStore()
+                {
+                    ProductKey = p.EAN,
+                    StoreKey = s.ID,
+                    Price = p.ProductStores.First().Price
+                });
+            });
+        });
+
+        _db.InsertStores(stores);               // Insert stores
+        _db.InsertProducts(products);           // Insert products
+        _db.InsertProductStores(productStores); // Insert productStores
 
         ProductNameStandardizer pns = new ProductNameStandardizer();
         var standardizedList = pns.Standardize(_db.GetAllProducts());

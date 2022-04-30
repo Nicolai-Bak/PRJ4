@@ -21,28 +21,28 @@ public class CoopProductConverter : IConverter
         //                     from item in flatList
         //                     select item).ToList();
 
-        var Products = new List<IDbModelsDto>();
 
-        filteredList.ForEach(p =>
-            Products.Add(new Product
+        var products = filteredList.Select(p => new Product()
+        {
+
+            EAN = long.Parse(p.id),
+            Name = p.displayName,
+            Brand = p.brand ?? " ",
+            Units = GetUnitFromSpotText(p.spotText, GetMeasurementFromSpotText(p.spotText)),
+            Measurement = GetMeasurementFromSpotText(p.spotText),
+            Organic = IsProductOrganic(p.labels),
+            ImageUrl = p.image ?? " ",
+            ProductStores = new List<ProductStore>
             {
-                EAN = long.Parse(p.id),
-                Name = p.displayName,
-                Brand = p.brand,
-                Units = double.Parse(p.spotText),
-                Measurement = GetMeasurementFromSpotText(p.spotText),
-                Organic = IsProductOrganic(p.labels),
-                ImageUrl = p.image,
-                ProductStores = new List<ProductStore>
+                new ProductStore
                 {
-                    new ProductStore
-                    {
-                        Price = p.salesPrice.amount,
-                    }
+                    Price = p.salesPrice.amount,
                 }
-            }));
+            }
 
-        return Products;
+        }).ToList();
+
+        return new List<IDbModelsDto>(products);
     }
 
     /**
