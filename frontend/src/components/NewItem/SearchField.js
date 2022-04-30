@@ -1,5 +1,4 @@
-import { Button, TextField, Stack } from "@mui/material";
-import { Autocomplete } from "@mui/material";
+import { TextField, Autocomplete } from "@mui/material";
 import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
 
@@ -8,7 +7,21 @@ const SearchField = (props) => {
 		? JSON.parse(localStorage.getItem("itemNames"))
 		: [];
 
-	const [value, setValue] = useState(null);
+	const inputStyle = {
+		paddingLeft: ".4rem",
+	};
+
+	const autoStyle = {
+		margin: "0",
+		marginBottom: ".4rem",
+		padding: "0",
+		border: "0",
+		borderBottom: "0",
+		width: "102%",
+		height: "2.5rem",
+	};
+
+	const [value, setValue] = useState("");
 
 	const defaultProps = {
 		options: options,
@@ -16,49 +29,75 @@ const SearchField = (props) => {
 	};
 
 	useEffect(() => {
-		console.log(`value changed to ${value}`);
 		props.onItemChanged(value);
+		if (value.length > 1 && options.includes(value)) handleFocusLoss(value);
 	}, [value]);
+
+	const handleFocusLoss = (event) => {
+		console.log("handleFocusLoss was called with " + event);
+		props.onFocusLost(event);
+	};
 
 	return (
 		<Autocomplete
 			openOnFocus={false}
-			autoComplete={true}
-			autoHighlight
-			autoSelect
+			autoSelect={true}
 			disablePortal
 			disableClearable
 			freeSolo
-			sx={{
-				width: "100%",
-				margin: "0",
-				padding: "0",
-				border: "0",
-				borderBottom: "0",
-			}}
+			// onBlur={(event) => {
+			// 	handleFocusLoss("onBlur called: " + event.target.value);
+			// }}
+			sx={autoStyle}
 			{...defaultProps}
 			renderOption={(props, option) => {
 				if (value === null || value.toString().length < 2) return;
-					return (
-						<li {...props} key={uuid()}>
-							<span>{option}</span>
-						</li>
-					);
-				
+				return (
+					<li
+						{...props}
+						key={uuid()}
+						// onClick={() => {
+						// 	setValue(option);
+						// 	console.log(`value changed to ${option}`);
+						// 	handleFocusLoss(option);
+						// }}
+						// onKeyDown={(event) => {
+						// 	if (event.key === "Enter" || event.key === "Tab") {
+						// 		setValue(option);
+						// 		handleFocusLoss(option);
+						// 	}
+						// }}
+					>
+						<span>{option}</span>
+					</li>
+				);
 			}}
 			value={value}
 			onChange={(event, newValue) => {
 				setValue(newValue);
+				console.log("newValue: ", newValue);
 			}}
 			renderInput={(params) => (
 				<TextField
+					sx={{
+						paddingLeft: ".2rem",
+						paddingRight: ".2rem",
+					}}
 					{...params}
-					fullWidth
 					// label="Tilføj Vare Her" //<-- skal IKKE slettes! tror jeg :P
 					placeholder="Tilføj Vare Her"
 					variant="standard"
+					// onKeyDown={(event) => {
+					// 	if (event.key === "Enter" || event.key === "Tab") {
+					// 		handleFocusLoss();
+					// 	}
+					// }}
 					onChange={(event) => {
 						setValue(event.target.value);
+					}}
+					inputProps={{
+						...params.inputProps,
+						style: inputStyle,
 					}}
 				/>
 			)}

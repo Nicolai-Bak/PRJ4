@@ -1,9 +1,10 @@
-.unitBox__container{
-    display: flex;
-    color: white;
+.unitBox__container {
+	display: flex;
+	color: white;
+	margin-right: 1rem;
 }
+
 
 label {
-    margin: 4px;
+	margin: 4px;
 }
-
