@@ -7,7 +7,7 @@ namespace ExternalApiLibrary.Factory;
 
 public class CoopProductFactory : IApiFactory
 {
-    public ICaller CreateCaller()
+    public ICaller CreateCaller(bool overrideBackStop = false)
     {
         return new CoopProductCaller(CreateRequest());
     }
@@ -17,9 +17,9 @@ public class CoopProductFactory : IApiFactory
         return new CoopProductConverter();
     }
     
-    private static IRequest CreateRequest()
+    private static IRequest CreateRequest(bool overrideBackStop = false)
     {
-	    var builder = new CoopRequestBuilder();
+	    var builder = new CoopRequestBuilder(overrideBackStop);
 	    
 		return builder.Build();
     }

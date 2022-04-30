@@ -4,7 +4,13 @@ namespace ExternalApiLibrary.Callers.Coop;
 
 public class CoopRequestBuilder : IRequestBuilder
 {
-	private const string BaseUrl = "https://mad.coop.dk/api/search/products";
+	private const string _baseUrl = "https://mad.coop.dk/api/search/products";
+	private bool _overrideBackStop = false;
+
+	public CoopRequestBuilder(bool overrideBackStop = false)
+	{
+		_overrideBackStop = overrideBackStop;
+	}
 
 	/**
      * Builds a CoopRequest
@@ -13,6 +19,6 @@ public class CoopRequestBuilder : IRequestBuilder
      */
     public IRequest Build()
     {
-        return new CoopRequest(BaseUrl);
+        return new CoopRequest(_baseUrl, _overrideBackStop);
     }
 }

@@ -34,9 +34,15 @@ public class SallingRequest : IRequest
 
     public List<string> Parameters = new();
 
-    public SallingRequest(SearchIndex index)
+    private bool _overrideBackStop = false;
+
+    public SallingRequest(SearchIndex index, bool overrideBackStop = false)
     {
         _index = index;
+        _overrideBackStop = overrideBackStop;
+
+        if (overrideBackStop)
+	        _pageSize = 1000;
     }
 
     public async Task<List<object>> CallPage()
@@ -48,8 +54,7 @@ public class SallingRequest : IRequest
             Page = _pageIndex
         });
 
-        // Only uncomment the line below if every product needs to be called for
-        // if (response.NbPages != _maxPages) _maxPages = response.NbPages;
+        if (_overrideBackStop && response.NbPages != _maxPages) _maxPages = response.NbPages;
 
         return response.Hits;
     }
@@ -66,6 +71,7 @@ public class SallingRequest : IRequest
 
         // Clean up for subsequent calls
         _pageIndex = 0;
+        _maxPages = 2;
 
         return responses;
     }
