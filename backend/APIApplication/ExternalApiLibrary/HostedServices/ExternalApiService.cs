@@ -2,7 +2,6 @@
 using DatabaseLibrary;
 using DatabaseLibrary.Models;
 using ExternalApiLibrary.Factory;
-using ExternalApiLibrary.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -20,7 +19,7 @@ public class ExternalApiService : IHostedService
      * False = API is in test mode. Only a limited number of requests are allowed.
      * Never use production mode when testing, as this will likely cause the API to be blocked.
      */
-    private bool _overrideBackStop = true;
+    private bool _overrideBackStop = false;
     
     public ExternalApiService(IServiceProvider sp)
     {
