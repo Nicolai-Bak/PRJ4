@@ -14,8 +14,8 @@ public class CoopProductCaller : ICaller
     }
     public async Task<List<IFilteredDto>> Call()
     {
-        var response = await _request.CallAll();
-        var result = new List<IFilteredDto>();
+	    var response = await _request.CallAll() ?? new List<object>();
+	    var result = new List<IFilteredDto>();
         response.ForEach(r =>
         {
             var deserializedRoot = JsonConvert.DeserializeObject<RootFilteredCoopProduct>((string)r);

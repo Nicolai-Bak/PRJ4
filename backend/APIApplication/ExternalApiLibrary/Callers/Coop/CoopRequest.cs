@@ -12,39 +12,27 @@ public class CoopRequest : IRequest
      * Maximum products per request is 1000
      * Set to 1 to receive 1 product per page
      */
-    private readonly int _pageSize = 10;
+    private readonly int _pageSize;
     public string BaseUrl { get; set; }
 
     private int PageIndex { get; set; }
 
     // True = Production Environment
     // False = Development Environment - limits calls to not overload the external API
-    private bool _overrideBackStop = false;
+    public bool RetrieveAll { get; set; } = false;
 
-    public CoopRequest(string baseUrl, bool overrideBackStop = false)
+    public CoopRequest(string baseUrl, int pageSize = 10)
     {
 	    BaseUrl = baseUrl ?? throw new ArgumentNullException();
-	    _overrideBackStop = overrideBackStop;
-	    if (overrideBackStop)
-			_pageSize = 1000;
+	    _pageSize = pageSize;
     }
-    
-    private async Task<object> CallPage()
+
+    public async Task<object> CallPage()
     {
-        var client = new HttpClient();
-        
+        HttpClient client = new HttpClient();
+
         var url = BaseUrl + $"?pageSize={_pageSize}&page={PageIndex}";
-        
-        string content;
-        try
-        {
-	        content = await client.GetStringAsync(url);
-        }
-        catch (Exception e)
-        {
-	        Console.WriteLine(e);
-	        throw;
-        }
+        var content = await client.GetStringAsync(url);
 
         return content;
     }
@@ -67,7 +55,7 @@ public class CoopRequest : IRequest
 
             // Limits the amount of calls made to the API
             // Only used in development environment
-            if (!_overrideBackStop && PageIndex >= 1)
+            if (!RetrieveAll && PageIndex >= 1)
                 continueCondition = false;
 
         } while (continueCondition);
@@ -76,6 +64,19 @@ public class CoopRequest : IRequest
         PageIndex = 0;
 
         return responses;
+    }
+
+    /**
+     * Swaps requests to production such that all pages are read
+     * 
+     * Should never be used in development, as this means this
+     * request will retrieve every product
+     *
+     * Default: Development
+     */
+    public void SwapToProduction()
+    {
+        RetrieveAll = true;
     }
 
     private static bool ResponseContainedProducts(string response)

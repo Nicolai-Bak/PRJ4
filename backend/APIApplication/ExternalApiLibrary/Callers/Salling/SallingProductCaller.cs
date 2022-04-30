@@ -18,7 +18,7 @@ public class SallingProductCaller : ICaller
     }
     public async Task<List<IFilteredDto>> Call()
     {
-        var response = await _request.CallAll();
+        var response = await _request.CallAll() ?? new List<object>();
 
         List<List<FilteredSallingProduct>> json =
             JsonConvert.DeserializeObject<List<List<FilteredSallingProduct>>>(JsonConvert.SerializeObject(response));

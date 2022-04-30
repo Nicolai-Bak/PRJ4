@@ -10,7 +10,7 @@ public class CoopRequestTest
 	[SetUp]
 	public void Setup()
 	{
-		_uut = new CoopRequest("https://mad.coop.dk/api/search/products");
+		_uut = new CoopRequest("https://mad.coop.dk/api/search/products", 1);
 	}
 	
 	[Test]
@@ -41,5 +41,12 @@ public class CoopRequestTest
 		_uut = new CoopRequest("https://orjtthyh09rtyh.erhstreh/");
 		
 		Assert.That(() => _uut.CallAll(), Throws.Exception);
+	}
+
+	[Test]
+	public void SwapToProduction_RetrieveAllIsFalse_RetrieveAllIsTrue()
+	{
+		_uut.SwapToProduction();
+		Assert.That(_uut.RetrieveAll, Is.True);
 	}
 }
