@@ -29,7 +29,7 @@ public class SallingRequest : IRequest
      * as this value increases the number
      * of calls made to the API.
      */
-    private int _maxPages { get; set; } = 2;
+    private int _maxPages = 2;
     private int _pageIndex { get; set; }
 
     public List<string> Parameters = new();
@@ -54,7 +54,10 @@ public class SallingRequest : IRequest
             Page = _pageIndex
         });
 
-        if (_overrideBackStop && response.NbPages != _maxPages) _maxPages = response.NbPages;
+        if (_overrideBackStop && response.NbPages != _maxPages)
+        {
+            _maxPages = response.NbPages;
+        }
 
         return response.Hits;
     }
