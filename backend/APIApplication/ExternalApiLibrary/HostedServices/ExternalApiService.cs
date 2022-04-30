@@ -6,11 +6,6 @@ using ExternalApiLibrary.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using DatabaseLibrary.Models;
-using DatabaseLibrary;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
-using Microsoft.Extensions.DependencyInjection;
-using ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
 
 namespace ExternalApiLibrary.HostedServices;
 public class ExternalApiService : IHostedService
@@ -33,15 +28,13 @@ public class ExternalApiService : IHostedService
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        Log.Information("External API Service is starting.");
-
         TimeSpan interval = TimeSpan.FromHours(24);
         //calculate time to run the first time & delay to set the timer
         var nextRunTime = DateTime.Today.AddDays(1).AddHours(1);
         var curTime = DateTime.Now;
         var firstInterval = nextRunTime.Subtract(curTime);
 
-        Action action = async () => 
+        Action action = async () =>
         {
             var t1 = Task.Delay(firstInterval);
             t1.Wait();
@@ -58,7 +51,6 @@ public class ExternalApiService : IHostedService
     }
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        Log.Information("External API Service is stopping.");
         return Task.CompletedTask;
     }
     public async Task DoTask()
