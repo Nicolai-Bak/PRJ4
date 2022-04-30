@@ -12,19 +12,21 @@ public class CoopRequest : IRequest
      * Maximum products per request is 1000
      * Set to 1 to receive 1 product per page
      */
-    private readonly int _pageSize;
+    private readonly int _pageSize = 10;
     public string BaseUrl { get; set; }
 
     private int PageIndex { get; set; }
 
     // True = Production Environment
     // False = Development Environment - limits calls to not overload the external API
-    public bool RetrieveAll { get; set; } = false;
+    private bool _overrideBackStop = false;
 
-    public CoopRequest(string baseUrl, int pageSize = 10)
+    public CoopRequest(string baseUrl, bool overrideBackStop = false)
     {
 	    BaseUrl = baseUrl ?? throw new ArgumentNullException();
-	    _pageSize = pageSize;
+	    _overrideBackStop = overrideBackStop;
+	    if (overrideBackStop)
+			_pageSize = 1000;
     }
     
     private async Task<object> CallPage()
@@ -65,7 +67,7 @@ public class CoopRequest : IRequest
 
             // Limits the amount of calls made to the API
             // Only used in development environment
-            if (!RetrieveAll && PageIndex >= 10)
+            if (!_overrideBackStop && PageIndex >= 1)
                 continueCondition = false;
 
         } while (continueCondition);
@@ -74,19 +76,6 @@ public class CoopRequest : IRequest
         PageIndex = 0;
 
         return responses;
-    }
-
-    /**
-     * Swaps requests to production such that all pages are read
-     * 
-     * Should never be used in development, as this means this
-     * request will retrieve every product
-     *
-     * Default: Development
-     */
-    public void SwapToProduction()
-    {
-        RetrieveAll = true;
     }
 
     private static bool ResponseContainedProducts(string response)
