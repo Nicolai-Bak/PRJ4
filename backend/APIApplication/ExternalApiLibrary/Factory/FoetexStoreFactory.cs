@@ -7,7 +7,7 @@ namespace ExternalApiLibrary.Factory;
 
 public class FoetexStoreFactory : IApiFactory
 {
-    public ICaller CreateCaller()
+    public ICaller CreateCaller(bool overrideBackStop = false)
     {
         return new SallingStoreCaller(null);
     }

@@ -12,6 +12,16 @@ public class ExternalApiService : IHostedService
 {
     private readonly IDbInsert _db;
     private PeriodicTimer _timer;
+
+    /**
+     * The backstop for the external API service. This limits the amount of requests that can be made to the external API.
+     * 
+     * True = API is in production mode. All requests are allowed.
+     * False = API is in test mode. Only a limited number of requests are allowed.
+     * Never use production mode when testing, as this will likely cause the API to be blocked.
+     */
+    private bool _overrideBackStop = true;
+    
     public ExternalApiService(IServiceProvider sp)
     {
         _db = sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>();
@@ -50,19 +60,19 @@ public class ExternalApiService : IHostedService
         var productStores = new List<ProductStore>();
 
         // Products - Foetex
-        var foetexProductApi = new ExternalApi(new FoetexProductFactory());
+        var foetexProductApi = new ExternalApi(new FoetexProductFactory(), _overrideBackStop);
         products.AddRange((await foetexProductApi.Get()).Cast<Product>().ToList());
 
         // Stores - Foetex
-        var foetexStoreApi = new ExternalApi(new FoetexStoreFactory());
+        var foetexStoreApi = new ExternalApi(new FoetexStoreFactory(), _overrideBackStop);
         stores.AddRange((await foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList());
 
         // Products - Coop
-        var coopProductApi = new ExternalApi(new CoopProductFactory());
+        var coopProductApi = new ExternalApi(new CoopProductFactory(), _overrideBackStop);
         products.AddRange((await coopProductApi.Get()).Cast<Product>().ToList());
 
         // Stores - Coop
-        var coopStoreApi = new ExternalApi(new CoopStoreFactory());
+        var coopStoreApi = new ExternalApi(new CoopStoreFactory(), _overrideBackStop);
         stores.AddRange((await coopStoreApi.Get()).Cast<Store>().ToList());
 
         _db.InsertStores(stores);       // Insert stores

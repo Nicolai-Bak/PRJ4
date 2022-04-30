@@ -6,9 +6,9 @@ namespace ExternalApiLibrary.Factory;
 
 public class FoetexProductFactory : IApiFactory
 {
-    public ICaller CreateCaller()
+    public ICaller CreateCaller(bool overrideBackStop = false)
     {
-        return new SallingProductCaller(CreateRequest());
+        return new SallingProductCaller(CreateRequest(overrideBackStop));
     }
 
     public IConverter CreateConverter()
@@ -16,9 +16,9 @@ public class FoetexProductFactory : IApiFactory
         return new SallingProductConverter();
     }
     
-    private static IRequest CreateRequest()
+    private static IRequest CreateRequest(bool overrideBackStop = false)
 	{
-		var builder = new SallingRequestBuilder();
+		var builder = new SallingRequestBuilder(overrideBackStop);
 		
 		builder.AddInfos()
 			.AddUnits()
