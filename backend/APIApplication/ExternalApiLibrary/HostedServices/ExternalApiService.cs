@@ -29,7 +29,7 @@ public class ExternalApiService : IHostedService
     {
         TimeSpan interval = TimeSpan.FromHours(24);
         //calculate time to run the first time & delay to set the timer
-        var nextRunTime = DateTime.Today.AddDays(1).AddHours(16).AddMinutes(10);
+        var nextRunTime = DateTime.Today.AddDays(1).AddHours(1);
         var curTime = DateTime.Now;
         var firstInterval = nextRunTime.Subtract(curTime);
 
