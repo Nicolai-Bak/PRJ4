@@ -8,11 +8,11 @@ namespace ExternalApiLibrary.Callers.Salling;
 
 public class SallingStoreCaller : ICaller
 {
-	private IRequest _request;
+    public IRequest Request { get; set; }
 	
 	public SallingStoreCaller(IRequest request)
 	{
-		_request = request;
+		Request = request;
 	}
 
     public async Task<List<IFilteredDto>> Call()

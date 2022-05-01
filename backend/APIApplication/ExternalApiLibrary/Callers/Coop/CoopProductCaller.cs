@@ -7,14 +7,14 @@ namespace ExternalApiLibrary.Callers.Coop;
 
 public class CoopProductCaller : ICaller
 {
-    private IRequest _request;
+    public IRequest Request { get; set; }
     public CoopProductCaller(IRequest request)
     {
-        _request = request;
+        Request = request;
     }
     public async Task<List<IFilteredDto>> Call()
     {
-	    var response = await _request.CallAll() ?? new List<object>();
+	    var response = await Request.CallAll() ?? new List<object>();
 	    var result = new List<IFilteredDto>();
         response.ForEach(r =>
         {

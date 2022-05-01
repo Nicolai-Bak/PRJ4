@@ -10,11 +10,11 @@ public class CoopStoreCaller : ICaller
     public static readonly List<string> StoresToRetrieve =
         new() { "Kvickly", "SuperBrugsen", "DagliBrugsen", "Irma", "Fakta", "Coop365" };
     private static readonly string BaseUrl = "https://info.coop.dk/umbraco/surface/Chains/GetAllStores";
-    private IRequest _request;
+    public IRequest Request { get; set; }
     
     public CoopStoreCaller(IRequest request)
     {
-		_request = request;
+		Request = request;
     }
     
     /**

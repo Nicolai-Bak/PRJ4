@@ -6,7 +6,7 @@ namespace ExternalApiLibrary;
 
 public interface IExternalApi
 {
-    public ICaller caller { set; }
-    public IConverter converter { set; }
+    public ICaller Caller { set; }
+    public IConverter Converter { set; }
     public Task<List<IDbModelsDto>> Get();
 }
