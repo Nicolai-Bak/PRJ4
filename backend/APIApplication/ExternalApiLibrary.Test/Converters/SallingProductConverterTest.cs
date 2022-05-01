@@ -29,7 +29,7 @@ public class SallingProductConverterTest
 	    
 	    var convertedProduct = _uut.Convert(new List<IFilteredDto> { testProduct });
 	    
-	    Assert.That(convertedProduct.Count, Is.GreaterThan(0));
+	    Assert.That(convertedProduct.Count, Is.EqualTo(1));
 
 	    Assert.That(convertedProduct[0],
 		    Has.Property("EAN").EqualTo(controlProduct.EAN)
