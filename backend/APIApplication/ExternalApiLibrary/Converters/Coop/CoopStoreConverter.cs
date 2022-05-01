@@ -10,11 +10,7 @@ public class CoopStoreConverter : IConverter
     public List<IDbModelsDto> Convert(List<IFilteredDto> list)
     {
         var filteredList = list.Cast<FilteredCoopStore>().ToList();
-
-        //var flattenedList = (from flatList in filteredList
-        //                     from item in flatList
-        //                     select item).ToList();
-
+        
         var stores = filteredList.Select(store => new Store
         {
             ID = store.Kardex,

@@ -17,11 +17,6 @@ public class CoopProductConverter : IConverter
     {
         var filteredList = list.Cast<FilteredCoopProduct>().ToList();
 
-        //var flattenedList = (from flatList in filteredList
-        //                     from item in flatList
-        //                     select item).ToList();
-
-
         var products = filteredList.Select(p => new Product()
         {
 
