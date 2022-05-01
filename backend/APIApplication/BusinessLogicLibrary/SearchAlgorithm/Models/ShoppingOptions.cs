@@ -14,6 +14,9 @@ public class ShoppingOptions : IShoppingOptions
 
     public ShoppingOptions(ISearchControl searchControl)
     {
+        Cheapest = new List<StoreSearch>();
+        Nearest = new List<StoreSearch>();
+        Best = new List<StoreSearch>();
         List<List<StoreSearch>> storeLists = searchControl.FindStores();
         Cheapest = storeLists[0];
         Nearest = storeLists[1];

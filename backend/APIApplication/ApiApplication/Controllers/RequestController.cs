@@ -44,7 +44,7 @@ namespace ApiApplication.Controllers
             };
             ISearchControl search = new SearchControl(shoppingList, (IDbSearch)_db, storeSelecters);
 
-            return new ShoppingOptionsDummyData();
+            return new ShoppingOptions(search);
             
         }
     }

@@ -64,14 +64,24 @@ namespace ApiApplication.SearchAlgorithm
         
             foreach (int storeID in storeIDs.ToList())
             {
-                double price = 0;
-                int amount = 0;
-                Product temp = productToAdd
+                
+                List<Product> tempProducts = productToAdd
                     .Where(p => p.ProductStores
                         .Select(ps => ps.StoreKey)
-                        .Any(sk => sk == storeID))
-                    .MinBy(p => p.ProductStores
-                        .Select(ps => GetPrice(amountToGet,ps.Product.Units,ps.Price,ref price,ref amount)));
+                        .Any(sk => sk == storeID)).ToList();
+                Product temp = null;
+                double price = int.MaxValue;
+                int amount = 0;
+                foreach (var tempProduct in tempProducts)
+                {
+                    (double tempPrice, int tempAmount) res = GetPrice(amountToGet, tempProduct.Units, tempProduct.ProductStores.Find(ps => ps.StoreKey == storeID).Price);
+                    if (res.tempPrice < price)
+                    {
+                        temp = tempProduct;
+                        price = res.tempPrice;
+                        amount = res.tempAmount;
+                    }
+                }
                 //.MinBy(p => p.ProductStores.Select(ps => ps.Price));
                 if (temp != null)
                 {
@@ -85,11 +95,11 @@ namespace ApiApplication.SearchAlgorithm
             }
         }
         
-        private double GetPrice(double unitsToGet, double unitsPerPiece, double pricePerPiece, ref double price, ref int amount)
+        private (double price, int amount) GetPrice(double unitsToGet, double unitsPerPiece, double pricePerPiece)
         {
-            amount = (int)Math.Ceiling(unitsToGet / unitsPerPiece);
-            price = amount * pricePerPiece;
-            return price;
+            int amount = (int)Math.Ceiling(unitsToGet / unitsPerPiece);
+            double price = amount * pricePerPiece;
+            return (price, amount);
         }
         #endregion
 
