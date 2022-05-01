@@ -19,7 +19,7 @@ public class SallingProductConverter : IConverter
             Units = product.Units!.Value,
             Measurement = product.UnitsOfMeasure!,
             Organic = IsProductOrganic(product.HighlightResults!.ProductName!.Text!, product.Properties),
-            ImageUrl = product.Image ?? " ",
+            ImageUrl = product.Image[0] ?? " ",
             ProductStores = new List<ProductStore> {new ProductStore
             {
                 Price = product.Stores!.First().Value.Price
