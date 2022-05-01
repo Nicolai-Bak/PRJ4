@@ -21,13 +21,17 @@ const ShoppingList = (props) => {
 		props.onAmountChanged(id, change);
 	};
 
+	const updatedItem = (id, newAmount) => {
+		// console.log(`updatedItem called with id: ${id} and newAmount: ${newAmount}`);
+		props.onNewUnitOrAmount(id, newAmount);
+	};
+
 	const itemsList = props.items.map((item) => (
 		<ListItem
 			onRemoveItem={removeItemHandler}
 			onDecreaseAmount={decreaseAmountHandler}
 			onIncreaseAmount={increaseAmountHandler}
-			// onDecreaseAmount={() => props.onAmountChanged(item.id, -1)} // this is the same as the one above
-			// onIncreaseAmount={() => props.onAmountHandler(item.id, 1)}
+			newUnitOrAmount={updatedItem}
 			id={item.id}
 			name={item.name}
 			amount={item.amount}

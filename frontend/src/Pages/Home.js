@@ -23,6 +23,10 @@ function Home() {
 		}
 	}, [shoppingList]);
 
+	const handleItemUpdate = (id, value) => {
+		console.log("handleItemUpdate: ", "id: ", id, "value: ", value);
+	};
+
 	const newItemHandler = async (name, amount, unit, id, organic) => {
 		console.log(
 			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
@@ -122,21 +126,18 @@ function Home() {
 		});
 
 		searchList.forEach((item) => console.log(item));
-		const request = await fetch(
-			"https://localhost/options/",
-			{
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					products: searchList,
-					y: latitude,
-					x: longitude,
-				}),
-			}
-		);
+		const request = await fetch("https://localhost/options/", {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				products: searchList,
+				y: latitude,
+				x: longitude,
+			}),
+		});
 
 		console.log("request received: " + request);
 
@@ -175,6 +176,7 @@ function Home() {
 				onSearch={searchHandler}
 				onRemoveItem={removeItemHandler}
 				onAmountChanged={changeAmountHandler}
+				onNewUnitOrAmount={handleItemUpdate}
 			/>
 		</div>
 	);
