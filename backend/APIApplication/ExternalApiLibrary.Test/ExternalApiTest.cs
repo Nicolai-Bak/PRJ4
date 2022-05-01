@@ -12,10 +12,9 @@ namespace ExternalApiLibrary.Test.Unit;
 public class ExternalApiTest
 {
     private IExternalApi _uut;
-    private  IApiFactory _factory;
+    private IApiFactory _factory;
     private ICaller _caller;
     private IConverter _converter;
-    private IRequest _request;
     
     [SetUp]
     public void Setup()
@@ -23,7 +22,6 @@ public class ExternalApiTest
         _factory = Substitute.For<IApiFactory>();
         _caller = Substitute.For<ICaller>();
         _converter = Substitute.For<IConverter>();
-        _request = Substitute.For<IRequest>();
         _factory.CreateCaller().Returns(_caller);
         _factory.CreateConverter().Returns(_converter);
         _uut = new ExternalApi(_factory);
