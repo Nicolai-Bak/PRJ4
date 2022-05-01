@@ -17,7 +17,7 @@ const items = [
     },
 ];
 
-const Dropdown = () => {
+const Dropdown = (props) => {
 
     const [isOpen, setIsOpen] = useState(false);
     
@@ -28,10 +28,12 @@ const Dropdown = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleItemClick = (id) => {
+    const handleItemClick = (value) => {
 
         setIsOpen(!isOpen);
-        setTitle(items[id].content);
+        // setTitle(items[id].content);
+        setTitle(value);
+        props.selectedOption(value);
     }
 
     return ( 
@@ -40,7 +42,7 @@ const Dropdown = () => {
         {isOpen && (
             <ul className="dropdown-menu">
             {items.map(item => (
-                <li className="dropdown-menu-item" onClick={e => handleItemClick(e.target.id)} id={item.id} key={item.id} >
+                <li className="dropdown-menu-item" onClick={e => handleItemClick(e.target.getAttribute('value'))} value={item.content} key={item.id} >
                
                     {item.content}
 

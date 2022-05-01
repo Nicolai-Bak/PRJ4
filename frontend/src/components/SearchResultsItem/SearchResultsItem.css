@@ -3,8 +3,13 @@
     border: 0.1rem solid #0e1614;
     background: var(--secondary-color-light);
     margin: 2rem;
-    padding-left: 1rem;
+    padding-left: 0;
     padding-right: 0;
+    font-weight: 600;
+}
+
+.list-item-price {
+    padding-left: 1rem;
 }
 
 .list-item-wrapper {
@@ -37,10 +42,5 @@
     height: auto;
     max-height: 300px;
     transition: all 0.4s cubic-bezier(1,0,1,0);
-    border: 0.1rem solid #0e1614;
-    border-radius: 0.3rem;
-    padding: 0.5rem;
-    margin-right: 1rem;
-    background: var(--secondary-color-extra-light);
 }
 
