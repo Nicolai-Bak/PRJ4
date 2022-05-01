@@ -21,9 +21,9 @@ const ShoppingList = (props) => {
 		props.onAmountChanged(id, change);
 	};
 
-	const updatedItem = (id, newAmount) => {
+	const updatedItem = (id, newAmount, unit) => {
 		// console.log(`updatedItem called with id: ${id} and newAmount: ${newAmount}`);
-		props.onNewUnitOrAmount(id, newAmount);
+		props.onNewUnitOrAmount(id, newAmount, unit);
 	};
 
 	const itemsList = props.items.map((item) => (

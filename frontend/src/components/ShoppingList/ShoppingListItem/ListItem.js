@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./ListItem.css";
 import Button from "../../UI/Atoms/Button/Button";
+import { alertTitleClasses } from "@mui/material";
 
 const ListItem = (props) => {
 	const [displayAmount, setDisplayAmount] = useState(true);
@@ -15,6 +16,34 @@ const ListItem = (props) => {
 		}
 	};
 
+	const amountChanged = (value) => {
+		const validUnits = ["stk", "kg", "g", "l", "ml"];
+		// Gemmer alle værdier i 'value' som ikke er tal
+		const unit = value.toString().replace(/[0-9]/g, "");
+		// fjerner alle bogstaver - vi har ikke lyst til at fjerne kommaer/punktummer
+		const newAmount = value.toString().toLowerCase().replace(/[a-z]/g, "");
+		const addedUnit = [];
+		validUnits.forEach((x) => {
+			if (x === unit) {
+				addedUnit.push(x);
+			}
+		});
+		if (addedUnit.length > 1) {
+			alert("Mere end en enhed i indtastningsfeltet");
+			return;
+		}
+		if (addedUnit.length < 1) {
+			props.newUnitOrAmount(props.id, newAmount, null);
+			return;
+		}
+
+		if (addedUnit.length === 1) {
+			props.newUnitOrAmount(props.id, newAmount, unit);
+			return;
+		}
+		console.log("This should never be printed :) :| :(");
+	};
+
 	const changeAmountAndUnit = (event) => {
 		if (event.type !== "keydown") {
 			setDisplayAmount(!displayAmount);
@@ -23,14 +52,10 @@ const ListItem = (props) => {
 		console.log(event);
 
 		if (event.key === "Enter") {
-			console.log(event.target.value);
-			props.newUnitOrAmount(props.id, event.target.value);
+			console.log("amountChanged called with : " + event.target.value);
+			amountChanged(event.target.value);
 			setDisplayAmount(!displayAmount);
 		}
-	};
-
-	const amountChanged = () => {
-		// setDisplayAmount(true);
 	};
 
 	const amountAndUnitDisplay = () => {
@@ -48,7 +73,7 @@ const ListItem = (props) => {
 						placeholder={props.amount + props.unit}
 						className="unit-amount-input"
 						type="text"
-						// onInput={amountChanged}
+						onBlur={changeAmountAndUnit}
 						onKeyDown={changeAmountAndUnit}
 					/>
 				</span>

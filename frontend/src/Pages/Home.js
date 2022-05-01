@@ -23,8 +23,35 @@ function Home() {
 		}
 	}, [shoppingList]);
 
-	const handleItemUpdate = (id, value) => {
-		console.log("handleItemUpdate: ", "id: ", id, "value: ", value);
+	const handleItemUpdate = (id, amount, unit) => {
+		console.log(
+			"handleItemUpdate: ",
+			"id: ",
+			id.toString().slice(0, 5),
+			"value: ",
+			amount,
+			"unit :",
+			unit
+		);
+		setShoppingList((prevShoppingList) => {
+			return prevShoppingList.map((item) => {
+				if (item.id !== id || amount < 0) return item;
+
+				if (unit !== null) {
+					console.log("success");
+					return {
+						...item,
+						unit: unit,
+						amount: amount,
+					};
+				} else {
+					return {
+						...item,
+						amount: amount,
+					};
+				}
+			});
+		});
 	};
 
 	const newItemHandler = async (name, amount, unit, id, organic) => {
