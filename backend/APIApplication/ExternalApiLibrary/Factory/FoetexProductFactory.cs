@@ -23,6 +23,7 @@ public class FoetexProductFactory : IApiFactory
 		builder.AddInfos()
 			.AddUnits()
 			.AddUnitsOfMeasure()
+			.AddImages()
 			.AddStoreData();
 		
 		return builder.Build();
