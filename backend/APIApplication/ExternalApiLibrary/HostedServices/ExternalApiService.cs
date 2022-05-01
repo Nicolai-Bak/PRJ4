@@ -20,14 +20,28 @@ public class ExternalApiService : IHostedService
      * Never use production mode when testing, as this will likely cause the API to be blocked.
      */
     private bool _overrideBackStop = false;
-    
+
+    private readonly IExternalApi _foetexProductApi;
+    private readonly IExternalApi _foetexStoreApi;
+    private readonly IExternalApi _coopProductApi;
+    private readonly IExternalApi _coopStoreApi;
+
+    private ProductNameStandardizer _pns;
+
     public ExternalApiService(IServiceProvider sp)
     {
         _db = sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>();
+
+        _foetexProductApi = new ExternalApi(new FoetexProductFactory(), _overrideBackStop);
+        _foetexStoreApi = new ExternalApi(new FoetexStoreFactory(), _overrideBackStop);
+        _coopProductApi = new ExternalApi(new CoopProductFactory(), _overrideBackStop);
+        _coopStoreApi = new ExternalApi(new CoopStoreFactory(), _overrideBackStop);
+
+        _pns = new ProductNameStandardizer();
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        TimeSpan interval = TimeSpan.FromHours(24);
+        TimeSpan interval = TimeSpan.FromDays(7);
         //calculate time to run the first time & delay to set the timer
         var nextRunTime = DateTime.Today.AddDays(1).AddHours(1);
         var curTime = DateTime.Now;
@@ -38,13 +52,13 @@ public class ExternalApiService : IHostedService
             var t1 = Task.Delay(firstInterval);
             t1.Wait();
             //do Task at expected time
-            await DoTask();
+            await UpdateDatabase();
             //now schedule it to be called every 24 hours for future
             _timer = new PeriodicTimer(interval);
 
             while (await _timer.WaitForNextTickAsync())
             {
-                await DoTask();
+                await UpdateDatabase();
             }
         };
     }
@@ -52,19 +66,17 @@ public class ExternalApiService : IHostedService
     {
         return Task.CompletedTask;
     }
-    public async Task DoTask()
+    public async Task UpdateDatabase()
     {
         var products = new List<Product>();
         var stores = new List<Store>();
         var productStores = new List<ProductStore>();
 
         // Products - Foetex
-        var foetexProductApi = new ExternalApi(new FoetexProductFactory(), _overrideBackStop);
-        var foetexProducts = (await foetexProductApi.Get()).Cast<Product>().ToList();
+        var foetexProducts = (await _foetexProductApi.Get()).Cast<Product>().ToList();
 
         // Stores - Foetex
-        var foetexStoreApi = new ExternalApi(new FoetexStoreFactory(), _overrideBackStop);
-        var foetexStores = (await foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList();
+        var foetexStores = (await _foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList();
 
         products.AddRange(foetexProducts);
         stores.AddRange(foetexStores);
@@ -83,11 +95,9 @@ public class ExternalApiService : IHostedService
         });
 
         // Products - Coop
-        var coopProductApi = new ExternalApi(new CoopProductFactory(), _overrideBackStop);
-        var coopProducts = (await coopProductApi.Get()).Cast<Product>().ToList();
+        var coopProducts = (await _coopProductApi.Get()).Cast<Product>().ToList();
         // Stores - Coop
-        var coopStoreApi = new ExternalApi(new CoopStoreFactory(), _overrideBackStop);
-        var coopStores = (await coopStoreApi.Get()).Cast<Store>().ToList();
+        var coopStores = (await _coopStoreApi.Get()).Cast<Store>().ToList();
 
         products.AddRange(coopProducts);
         stores.AddRange(coopStores);
@@ -105,12 +115,12 @@ public class ExternalApiService : IHostedService
             });
         });
 
-        _db.InsertStores(stores);               // Insert stores
-        _db.InsertProducts(products);           // Insert products
-        _db.InsertProductStores(productStores); // Insert productStores
-
-        ProductNameStandardizer pns = new ProductNameStandardizer();
-        var standardizedList = pns.Standardize(_db.GetAllProducts());
-        _db.InsertProductStandardNames(standardizedList);
+        _db.InsertStores(stores);                           // Insert stores
+        _db.InsertProducts(products);                       // Insert products
+        _db.InsertProductStores(productStores);             // Insert productStores
+        
+        // Standard names
+        var standardizedList = _pns.Standardize(_db.GetAllProducts());
+        _db.InsertProductStandardNames(standardizedList);   // Insert product standard names
     }
 }

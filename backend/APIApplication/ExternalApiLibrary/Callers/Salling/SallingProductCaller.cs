@@ -10,15 +10,15 @@ namespace ExternalApiLibrary.Callers.Salling;
  */
 public class SallingProductCaller : ICaller
 {
-    private IRequest _request;
+    public IRequest Request { get; set; }       
 
     public SallingProductCaller(IRequest request)
     {
-        _request = request;
+        Request = request;
     }
     public async Task<List<IFilteredDto>> Call()
     {
-        var response = await _request.CallAll() ?? new List<object>();
+        var response = await Request.CallAll() ?? new List<object>();
 
         List<List<FilteredSallingProduct>> json =
             JsonConvert.DeserializeObject<List<List<FilteredSallingProduct>>>(JsonConvert.SerializeObject(response));
