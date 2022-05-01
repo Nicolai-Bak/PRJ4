@@ -1,4 +1,6 @@
 using ExternalApiLibrary.DTO;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS8618
 
 namespace ExternalApiLibrary.Models;
 
