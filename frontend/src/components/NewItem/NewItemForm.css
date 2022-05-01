@@ -67,6 +67,14 @@
 	}
 }
 
+@media screen and (max-width: 480px) {
+	.add-item-container {
+		margin-top: 0.8rem;
+		margin-bottom: 0.8rem;
+		width: 95%;
+	}
+}
+
 .error-message-empty-search-field {
 	color: var(--red);
 	font-size: rem;

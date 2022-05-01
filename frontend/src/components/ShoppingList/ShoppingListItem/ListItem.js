@@ -1,44 +1,38 @@
 import React, { useState } from "react";
 import "./ListItem.css";
 import Button from "../../UI/Atoms/Button/Button";
-import { alertTitleClasses } from "@mui/material";
 
 const ListItem = (props) => {
 	const [displayAmount, setDisplayAmount] = useState(true);
 
-	const unitAmountHandler = () => {
-		if (props.amount < 1 && props.unit === "kg") {
-			return props.amount * 1000 + "g";
-		} else if (props.amount < 1 && props.unit === "l") {
-			return props.amount * 1000 + "ml";
-		} else {
-			return props.amount + props.unit;
-		}
-	};
-
 	const amountChanged = (value) => {
 		const validUnits = ["stk", "kg", "g", "l", "ml"];
-		// Gemmer alle værdier i 'value' som ikke er tal
-		const unit = value.toString().replace(/[0-9]/g, "");
-		// fjerner alle bogstaver - vi har ikke lyst til at fjerne kommaer/punktummer
+		let numberOfUnits = 0;
+		// Removes all values that are not letters and saves the remaining
+		const unit = value
+			.toString()
+			.toLowerCase()
+			.replace(/[^a-z]/g, "");
+		// Removes all letters and saves the remaining. We don't want to delete commas
 		const newAmount = value.toString().toLowerCase().replace(/[a-z]/g, "");
-		const addedUnit = [];
+
+		// testing to see how many valid units were found
 		validUnits.forEach((x) => {
-			if (x === unit) {
-				addedUnit.push(x);
-			}
+			if (x === unit) numberOfUnits++;
 		});
-		if (addedUnit.length > 1) {
-			alert("Mere end en enhed i indtastningsfeltet");
-			return;
-		}
-		if (addedUnit.length < 1) {
+		// if user writes no unit or an invalid unit
+		if (numberOfUnits < 1) {
 			props.newUnitOrAmount(props.id, newAmount, null);
 			return;
 		}
-
-		if (addedUnit.length === 1) {
+		// if user changes amount and unit
+		if (numberOfUnits === 1) {
 			props.newUnitOrAmount(props.id, newAmount, unit);
+			return;
+		}
+		// edge case - user added multiple valid units
+		if (numberOfUnits > 1) {
+			alert("Mere end en enhed i indtastningsfeltet");
 			return;
 		}
 		console.log("This should never be printed :) :| :(");
@@ -47,9 +41,8 @@ const ListItem = (props) => {
 	const changeAmountAndUnit = (event) => {
 		if (event.type !== "keydown") {
 			setDisplayAmount(!displayAmount);
-			console.log(event.type);
+			// console.log(event.type);
 		}
-		console.log(event);
 
 		if (event.key === "Enter") {
 			console.log("amountChanged called with : " + event.target.value);
@@ -58,6 +51,7 @@ const ListItem = (props) => {
 		}
 	};
 
+	// This decides what is displayed when the user interacts with the span that shows unit and amount
 	const amountAndUnitDisplay = () => {
 		if (displayAmount) {
 			return (
@@ -85,7 +79,7 @@ const ListItem = (props) => {
 		<div className="list-item">
 			<span className="list-item__left">{props.name}</span>
 			<span className="list-item__right">
-				<span className="unit-amount">{amountAndUnitDisplay()}</span>
+				{amountAndUnitDisplay()}
 				<span className="item-buttons">
 					<Button
 						className="adjust-amount-button"
@@ -109,6 +103,20 @@ const ListItem = (props) => {
 			</span>
 		</div>
 	);
+
+	// This function attempts to prevent seeing values like 0.3kg and instead sees 300g to make it more readable
+	function unitAmountHandler() {
+		if (props.amount < 1 && props.unit.toString().toLowerCase() === "kg") {
+			return props.amount * 1000 + "g";
+		} else if (
+			props.amount < 1 &&
+			props.unit.toString().toLowerCase() === "l"
+		) {
+			return props.amount * 1000 + "ml";
+		} else {
+			return props.amount + props.unit;
+		}
+	}
 };
 
 export default ListItem;

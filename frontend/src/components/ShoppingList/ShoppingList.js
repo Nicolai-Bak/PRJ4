@@ -4,25 +4,25 @@ import Card from "../UI/Atoms/Card/Card";
 import Button from "../UI/Atoms/Button/Button";
 
 const ShoppingList = (props) => {
+	//Propdrilling: When the 'slet' is pressed
 	const removeItemHandler = (id, name) => {
-		// console.log(`removeItemHandler called with id: ${id}`);
 		props.onRemoveItem(id, name);
 	};
 
+	//Propdrilling: When the '-' is pressed
 	const decreaseAmountHandler = (id) => {
-		// console.log(`decreaseAmountHandler called with id: ${id}`);
 		const change = -1;
 		props.onAmountChanged(id, change);
 	};
 
+	//Propdrilling: When the '+' is pressed
 	const increaseAmountHandler = (id) => {
-		// console.log(`increaseAmountHandler called with id: ${id}`);
 		const change = 1;
 		props.onAmountChanged(id, change);
 	};
 
+	//Propdrilling: When the user has changed the span element that shows unit and amount
 	const updatedItem = (id, newAmount, unit) => {
-		// console.log(`updatedItem called with id: ${id} and newAmount: ${newAmount}`);
 		props.onNewUnitOrAmount(id, newAmount, unit);
 	};
 
@@ -44,7 +44,6 @@ const ShoppingList = (props) => {
 	return (
 		<Card className="shopping-list">
 			<ul>{itemsList}</ul>
-			{/* <SearchButton onSearch={() => props.onSearch()} /> */}
 			<Button onClick={() => props.onSearch()} className="search-button">
 				Søg efter varer
 			</Button>

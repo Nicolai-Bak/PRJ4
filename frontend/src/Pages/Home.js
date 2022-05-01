@@ -38,7 +38,6 @@ function Home() {
 				if (item.id !== id || amount < 0) return item;
 
 				if (unit !== null) {
-					console.log("success");
 					return {
 						...item,
 						unit: unit,
@@ -148,11 +147,11 @@ function Home() {
 				unit: item.unit,
 				organic: item.organic,
 			};
-			console.log(itemDTO);
+			// console.log(itemDTO);
 			searchList.push(itemDTO);
 		});
 
-		searchList.forEach((item) => console.log(item));
+		// searchList.forEach((item) => console.log(item));
 		const request = await fetch("https://localhost/options/", {
 			method: "POST",
 			headers: {

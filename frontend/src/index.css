@@ -1,51 +1,56 @@
+#root {
+	--primary-color: rgb(44, 46, 51);
+	--secondary-color: #ffd64f;
+	--tertiary-color: #47887a;
+	--tertiary-color-light: #75afa3;
+	--quartenary-color: rgb(30, 83, 53);
+	--default-white: rgb(241, 241, 241);
+	--all-white: #fff;
+	--secondary-color-shadow: rgb(233, 225, 111);
+	--default-black: rgb(37, 37, 37);
+	--red: rgb(192, 48, 48);
+	--ninja-skin-color: bisque;
 
-#root{
-  --primary-color: rgb(44, 46, 51);
-  --secondary-color: #FFD64F;
-  --tertiary-color: #47887a;
-  --tertiary-color-light: #75afa3;
-  --quartenary-color: rgb(30, 83, 53);
-  --default-white: rgb(241, 241, 241);
-  --all-white: #fff;
-  --secondary-color-shadow: rgb(233, 225, 111);
-  --default-black: rgb(37, 37, 37);
-  --red: rgb(192, 48, 48);
-  --ninja-skin-color: bisque;
-
-/*Media query breakpoints*/
-  --xs: 0;
-  --sm: 576px;
-  --md: 768px;
-  --lg: 992px;
-  --xl: 1200px;
-  --xxl: 1400px;
+	/*Media query breakpoints*/
+	--xs: 0;
+	--sm: 576px;
+	--md: 768px;
+	--lg: 992px;
+	--xl: 1200px;
+	--xxl: 1400px;
 }
 
 a {
-  color: var(--default-white);
-  text-decoration: none;
+	color: var(--default-white);
+	text-decoration: none;
 }
 
 a:visited {
-  color: var(--default-white);
-  text-decoration: none;
+	color: var(--default-white);
+	text-decoration: none;
 }
 
-*{
-  box-sizing: border-box;
-  margin: 0;
+* {
+	box-sizing: border-box;
+	margin: 0;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
+
+@media (max-width: 768px) {
+	:root {
+		font-size: 14px;
+	}
+}
+
