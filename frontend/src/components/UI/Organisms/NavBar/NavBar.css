@@ -107,7 +107,8 @@
         flex-direction: column;
         position: relative;
         top: 6.25rem;
-        left: 5rem;
+        left: 6rem;
+        z-index: 1;
     }
     .navbar-links{
         padding: 2rem;
