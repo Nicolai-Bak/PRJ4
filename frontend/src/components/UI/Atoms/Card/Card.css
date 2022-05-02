@@ -1,10 +1,6 @@
-.card-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--primary-color);
-  margin: auto;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 4px 6px rgba(22, 22, 22, 0.26);
+.card-container {
+	margin: auto;
+	padding: 1rem;
+	border-radius: 12px;
+	box-shadow: 4px 6px rgba(22, 22, 22, 0.26);
 }

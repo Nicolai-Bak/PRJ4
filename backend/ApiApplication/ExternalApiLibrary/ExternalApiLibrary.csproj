@@ -10,6 +10,7 @@
     <ItemGroup>
         <PackageReference Include="Algolia.Search" Version="6.12.1" />
         <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.1" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0-preview.2.22152.2" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0-preview.2.22152.2" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0-preview.2.22152.2" />
@@ -36,7 +37,11 @@
       <Content Include=".idea\.idea.ExtAPIApplication\.idea\shelf\Uncommitted_changes_before_Update_at_23_03_2022_13_49__Changes_.xml" />
       <Content Include=".idea\.idea.ExtAPIApplication\.idea\vcs.xml" />
       <Content Include=".idea\.idea.ExtAPIApplication\.idea\workspace.xml" />
-      <Content Include="ExternalAPIComponent\ExternalAPIComponent.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BusinessLogicLibrary\BusinessLogicLibrary.csproj" />
+      <ProjectReference Include="..\DatabaseLibrary\DatabaseLibrary.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
 
-
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
@@ -24,11 +23,41 @@ function Home() {
 		}
 	}, [shoppingList]);
 
-	const newItemHandler = async (name, amount, unit, id) => {
+	const handleItemUpdate = (id, amount, unit) => {
+		console.log(
+			"handleItemUpdate: ",
+			"id: ",
+			id.toString().slice(0, 5),
+			"value: ",
+			amount,
+			"unit :",
+			unit
+		);
+		setShoppingList((prevShoppingList) => {
+			return prevShoppingList.map((item) => {
+				if (item.id !== id || amount < 0) return item;
+
+				if (unit !== null) {
+					return {
+						...item,
+						unit: unit,
+						amount: amount,
+					};
+				} else {
+					return {
+						...item,
+						amount: amount,
+					};
+				}
+			});
+		});
+	};
+
+	const newItemHandler = async (name, amount, unit, id, organic) => {
 		console.log(
 			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
 				id.toString().slice(0, 5) + "..."
-			}`
+			}, organic: ${organic}`
 		);
 		// if the item doesn't exists in the database
 		if (!(await ValidateItem(name, unit))) {
@@ -46,6 +75,7 @@ function Home() {
 					unit: unit,
 					id: id, //uuid()
 					key: id,
+					organic: organic,
 				},
 			];
 		});
@@ -105,20 +135,36 @@ function Home() {
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
 		);
 
-		const searchList = shoppingList.map((item) => item.name);
-		console.log("searchlist: " + JSON.stringify(searchList));
+		// const searchList = shoppingList.map((item) => item);
+		// console.log("searchlist: " + JSON.stringify(searchList));
+		const searchList = [];
 
-		const request = await fetch(
-			"https://prisninjawebapi.azurewebsites.net/options/",
-			{
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ productNames: searchList, y:latitude, x: longitude }),
-			}
-		);
+		shoppingList.forEach((item) => {
+			console.log(item);
+			const itemDTO = {
+				name: item.name,
+				amount: item.amount,
+				unit: item.unit,
+				organic: item.organic,
+			};
+			// console.log(itemDTO);
+			searchList.push(itemDTO);
+		});
+
+		// searchList.forEach((item) => console.log(item));
+		const request = await fetch("https://prisninjawebapi.azurewebsites.net/options/", {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				products: searchList,
+				y: latitude,
+				x: longitude,
+			}),
+		});
+
 
 		console.log("request received: " + request);
 
@@ -129,7 +175,6 @@ function Home() {
 
 		navigate("/SearchResults");
 	};
-
 
 	//GEOLOCATION
 	const [longitude, setLongitude] = useState(null);
@@ -172,6 +217,7 @@ function Home() {
 				onSearch={searchHandler}
 				onRemoveItem={removeItemHandler}
 				onAmountChanged={changeAmountHandler}
+				onNewUnitOrAmount={handleItemUpdate}
 			/>
 			<div className="instructions-step-two">
 				<div className="instructions-step-two-text">Trin 2: Dine varer tilføjes <br/>herefter til din indkøbsliste</div><br/>
@@ -182,11 +228,10 @@ function Home() {
 		</div>
 	);
 
-	
 	async function ValidateItem(name, unit) {
 		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
 
-		console.log("itemNames: " + itemNames)
+		console.log("itemNames: " + itemNames);
 
 		let matchFound = false;
 		let foundItems = [];
