@@ -142,29 +142,31 @@ function Home() {
 		shoppingList.forEach((item) => {
 			console.log(item);
 			const itemDTO = {
-				name: item.name,
-				amount: item.amount,
-				unit: item.unit,
-				organic: item.organic,
+				Name: item.name,
+				Amount: item.amount,
+				Unit: item.unit,
+				Organic: item.organic,
 			};
 			// console.log(itemDTO);
 			searchList.push(itemDTO);
 		});
 
 		// searchList.forEach((item) => console.log(item));
-		const request = await fetch("https://prisninjawebapi.azurewebsites.net/options/", {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				products: searchList,
-				y: latitude,
-				x: longitude,
-			}),
-		});
-
+		const request = await fetch(
+			"https://prisninjawebapi.azurewebsites.net/options/ ",
+			{
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					products: searchList,
+					y: latitude,
+					x: longitude,
+				}),
+			}
+		);
 
 		console.log("request received: " + request);
 
@@ -181,49 +183,74 @@ function Home() {
 	const [latitude, setLatitude] = useState(null);
 
 	useEffect(() => {
-			if (!navigator.geolocation) {
-					console.log("Fejl i geolokation");
-				} else {
-					navigator.geolocation.getCurrentPosition((position) => {
-						setLatitude(position.coords.latitude);
-						setLongitude(position.coords.longitude);
-						console.log(`latitude: ${latitude}, longitude: ${longitude}`);
-					});
-				}
+		if (!navigator.geolocation) {
+			console.log("Fejl i geolokation");
+		} else {
+			navigator.geolocation.getCurrentPosition((position) => {
+				setLatitude(position.coords.latitude);
+				setLongitude(position.coords.longitude);
+				console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+			});
+		}
 	}, [longitude, latitude]);
-
 
 	return (
 		<div className="home">
-			<Banner/>
+			<Banner />
 			<div className="home-shopping-list-wrapper-upper">
-				<div className="instructions-step-one"><div className="instructions-step-one-text">Trin 1: Søg efter din varer her!</div>
-					<br/><img src='/images/arrow.svg' alt="arrow" className="instructions-arrow-one"/>
+				<div className="instructions-step-one">
+					<div className="instructions-step-one-text">
+						Trin 1: Søg efter din varer her!
+					</div>
+					<br />
+					<img
+						src="/images/arrow.svg"
+						alt="arrow"
+						className="instructions-arrow-one"
+					/>
 				</div>
-			<NewItemForm className="home-new-item-form" onItemAdded={newItemHandler} />
-			<div className="filler"/>
+				<NewItemForm
+					className="home-new-item-form"
+					onItemAdded={newItemHandler}
+				/>
+				<div className="filler" />
 			</div>
 			<div className="home-shopping-list-wrapper-lower">
-			
-			<div className="instructions-step-three">
-				<div className="instructions-step-three-wrapper">
-				<div className="instructions-step-three-text">Trin 3: Tryk 'søg' og <br/>se hvor du skal handle!</div><br/>
-				<img src='/images/arrow.svg' alt="arrow" className="instructions-arrow-three"/>
+				<div className="instructions-step-three">
+					<div className="instructions-step-three-wrapper">
+						<div className="instructions-step-three-text">
+							Trin 3: Tryk 'søg' og <br />
+							se hvor du skal handle!
+						</div>
+						<br />
+						<img
+							src="/images/arrow.svg"
+							alt="arrow"
+							className="instructions-arrow-three"
+						/>
+					</div>
 				</div>
-			</div>
-			
-			<ShoppingList className="home-shopping-list"
-				items={shoppingList}
-				onSearch={searchHandler}
-				onRemoveItem={removeItemHandler}
-				onAmountChanged={changeAmountHandler}
-				onNewUnitOrAmount={handleItemUpdate}
-			/>
-			<div className="instructions-step-two">
-				<div className="instructions-step-two-text">Trin 2: Dine varer tilføjes <br/>herefter til din indkøbsliste</div><br/>
-				<img src='/images/arrow.svg' alt="arrow" className="instructions-arrow-two"/>
-			</div>
-				
+
+				<ShoppingList
+					className="home-shopping-list"
+					items={shoppingList}
+					onSearch={searchHandler}
+					onRemoveItem={removeItemHandler}
+					onAmountChanged={changeAmountHandler}
+					onNewUnitOrAmount={handleItemUpdate}
+				/>
+				<div className="instructions-step-two">
+					<div className="instructions-step-two-text">
+						Trin 2: Dine varer tilføjes <br />
+						herefter til din indkøbsliste
+					</div>
+					<br />
+					<img
+						src="/images/arrow.svg"
+						alt="arrow"
+						className="instructions-arrow-two"
+					/>
+				</div>
 			</div>
 		</div>
 	);
