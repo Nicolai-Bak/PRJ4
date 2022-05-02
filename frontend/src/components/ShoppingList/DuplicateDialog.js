@@ -24,16 +24,16 @@ const DuplicateDialog = (props) => {
 	const handleClose = (action) => {};
 
 	return (
-		<Dialog open={props.open} onClose={handleClose}>
+		<Dialog open={props.open} onClose={props.onCancel}>
 			<DialogTitle>Duplikeret vare</DialogTitle>
 			<DialogContent>
 				<DialogContentText>
-					Denne vare er tilsyneladende allerede på indkøbslisten. Vil du tilføje
-					mængden til den eksisterende vare?
+					{props.itemName} er tilsyneladende allerede på indkøbslisten. Vil du tilføje
+					{props.amount} til den eksisterende vare?
 				</DialogContentText>
 				<DialogActions>
-					<Button onClick={handleClose}>Tilføj mængde</Button>
-					<Button onClick={handleClose}>Afbryd</Button>
+					<Button onClick={props.addAmount}>Tilføj mængde</Button>
+					<Button onClick={props.onCancel}>Afbryd</Button>
 				</DialogActions>
 			</DialogContent>
 		</Dialog>

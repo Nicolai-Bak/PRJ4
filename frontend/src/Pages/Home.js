@@ -20,7 +20,10 @@ function Home() {
 		: [];
 
 	let navigate = useNavigate();
+	// DuplicateDialog
 	const [open, setOpen] = useState(false);
+	const [itemToChange, setItemToChange] = useState(null);
+	const [amountToChange, setAmountToChange] = useState(null);
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
 
 	useEffect(() => {
@@ -118,6 +121,8 @@ function Home() {
 			)
 		) {
 			console.log("Item already exists on the shopping list");
+			setItemToChange(name);
+			setAmountToChange(amount);
 			setOpen(true);
 			return;
 		}
@@ -259,6 +264,12 @@ function Home() {
 		}
 	}, [longitude, latitude]);
 
+	const onAddDialog = (event) => {
+		setOpen(false);
+		handleDialogAdd(itemToChange, amountToChange);
+		console.log(event);
+	};
+
 	return (
 		<div className="home">
 			<Banner />
@@ -278,7 +289,11 @@ function Home() {
 					className="home-new-item-form"
 					onItemAdded={newItemHandler}
 				/>
-				<DuplicateDialog open={open}></DuplicateDialog>
+				<DuplicateDialog
+					onCancel={handleClose}
+					addAmount={onAddDialog}
+					open={open}
+				></DuplicateDialog>
 				<div className="filler" />
 			</div>
 			<div className="home-shopping-list-wrapper-lower">
