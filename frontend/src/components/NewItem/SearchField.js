@@ -1,6 +1,8 @@
 import { TextField, Autocomplete } from "@mui/material";
 import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
+import { createTheme } from "@mui/system";
+import { red } from "@mui/material/colors";
 
 const SearchField = (props) => {
 	const options = localStorage.hasOwnProperty("itemNames")
@@ -11,7 +13,18 @@ const SearchField = (props) => {
 		paddingLeft: ".4rem",
 	};
 
-	const autoStyle = {
+	const theme = createTheme({
+		breakpoints: {
+			values: {
+				mobile: 0,
+				tablet: 640,
+				laptop: 1024,
+				desktop: 1200,
+			},
+		},
+	});
+
+	const styles = (theme) => ({
 		margin: "0",
 		marginBottom: ".4rem",
 		padding: "0",
@@ -19,8 +32,11 @@ const SearchField = (props) => {
 		borderBottom: "0",
 		width: "102%",
 		height: "2.5rem",
-	};
 
+		[theme.breakpoints.down("576")]: {
+			width: "122%",
+		},
+	});
 	const [value, setValue] = useState("");
 
 	const defaultProps = {
@@ -45,10 +61,7 @@ const SearchField = (props) => {
 			disablePortal
 			disableClearable
 			freeSolo
-			// onBlur={(event) => {
-			// 	handleFocusLoss("onBlur called: " + event.target.value);
-			// }}
-			sx={autoStyle}
+			sx={styles}
 			{...defaultProps}
 			renderOption={(props, option) => {
 				if (value === null || value.toString().length < 2) return;
