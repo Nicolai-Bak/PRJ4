@@ -35,7 +35,9 @@ public class RangeCalculator : IRangeCalculator
         double r = 6371;
 
         // calculate the result
-        return (c * r);
+
+        double distance = (c * r);
+        return distance;
     }
 
 }
