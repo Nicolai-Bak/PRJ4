@@ -1,15 +1,8 @@
-using System;
-using System.Threading.Tasks;
-using System.Web;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Coop;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Coop;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Filters;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Coop;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Interfaces;
-using ExternalApiLibrary.ExternalAPIComponent.Filters.Salling;
+using BusinessLogicLibrary.ProductNameStandardize;
+using DatabaseLibrary;
+using DatabaseLibrary.Data;
+using DatabaseLibrary.Models;
+using ExternalApiLibrary.Factory;
 using Serilog;
 
 namespace ExternalApiLibrary;
@@ -18,147 +11,66 @@ public static class Program
 {
     public static async Task Main()
     {
-        /*
-        // Configure logger for start up
-        BackendLogger.BuildLogger();
+        IDbInsert _db = new PrisninjaDb(new PrisninjaDbContext());
+        bool _overrideBackStop = false;
 
-        try
+        var products = new List<Product>();
+        var stores = new List<Store>();
+        var productStores = new List<ProductStore>();
+
+        // Products - Foetex
+        var foetexProductApi = new ExternalApi(new FoetexProductFactory(), _overrideBackStop);
+        var foetexProducts = (await foetexProductApi.Get()).Cast<Product>().ToList();
+
+        // Stores - Foetex
+        var foetexStoreApi = new ExternalApi(new FoetexStoreFactory(), _overrideBackStop);
+        var foetexStores = (await foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList();
+
+        products.AddRange(foetexProducts);
+        stores.AddRange(foetexStores);
+
+        foetexProducts.ForEach(p =>
         {
-            ///// Products - Salling
-            SallingProductCaller productCaller = new();
-            SallingRequestBuilder builder = new SallingRequestBuilder();
-            builder.AddInfos()
-                    .AddUnits()
-                    .AddUnitsOfMeasure()
-                    .AddStoreData();
-            IFilter productFilter = new SallingProductFilter();
-            IConverter productConverter = new SallingProductConverter();
-
-            var products = await productCaller.Call(builder.Build());
-            var filteredProducts = productFilter.Filter(products);
-            var convertedProducts = productConverter.Convert(filteredProducts);
-
-            //convertedProducts.ForEach(x =>
-            //{
-            //    ConvertedSallingProduct y = (ConvertedSallingProduct)x;
-            //    Console.WriteLine(y.EAN + "\n" + y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
-            //    foreach (var keyValuePair in y.Stores!)
-            //    {
-            //        Console.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.Price);
-            //    }
-            //    Console.WriteLine();
-            //});
-
-
-            ///// Stores - Salling
-            ICaller storeCaller = new SallingStoreCaller();
-            IFilter storeFilter = new SallingStoreFilter();
-            IConverter storeConverter = new SallingStoreConverter();
-
-            var stores = await storeCaller.Call(null);
-            var filteredStores = storeFilter.Filter(stores);
-            var convertedStores = storeConverter.Convert(filteredStores);
-
-            //convertedStores.ForEach(x =>
-            //{
-            //    Store y = (Store)x;
-            //    Console.WriteLine(y.ID + "\n" + y.Brand + "\n" + y.Address + "\n" + y.Location_X + ", " + y.Location_Y);
-            //    Console.WriteLine();
-            //});
-
-            ////// Insert stores
-            PrisninjaDb db = new PrisninjaDb(new PrisninjaDbContext());
-            convertedStores.ForEach(async store =>
+            foetexStores.ForEach(s =>
             {
-                await db.InsertStore((Store)store);
-            });
-
-            ///// Insert products
-            convertedProducts.ForEach(convertedProduct =>
-            {
-                ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)convertedProduct;
-                var product = new Product()
+                productStores.Add(new ProductStore()
                 {
-                    EAN = sallingProduct.EAN,
-                    Name = sallingProduct.Name,
-                    Brand = sallingProduct.Brand,
-                    Unit = sallingProduct.Unit,
-                    Measurement = sallingProduct.Measurement
-                };
-                convertedStores.ForEach(async convertedStore =>
-                {
-                    Store store = (Store)convertedStore;
-                    if (store.Brand == "foetex")
-                    {
-                        await db.InsertProduct(product, store.ID, price: sallingProduct.Stores[0].Price);
-                    }
+                    ProductKey = p.EAN,
+                    StoreKey = s.ID,
+                    Price = p.ProductStores.First().Price
                 });
             });
-            //PrintSallingProductSample();
-
-            Console.WriteLine("Hit ENTER to exit...");
-            Console.ReadLine();
-        }
-        catch (Exception e)
-        {
-            Log.Fatal(e, "Application failed to start");
-        }
-        finally
-        {
-            Log.CloseAndFlush();
-        }
-        */
-
-        //PrintSallingProductSample();
-
-        //Console.ReadKey();
-    }
-
-    private static async void PrintCoopProductSample()
-    {
-        CoopProductCaller coopCaller = new();
-        CoopProductFilter coopFilter = new();
-        CoopProductConverter coopConverter = new();
-
-        var coopResult = await coopCaller.Call(new CoopRequestBuilder().Build());
-        var filteredProducts = coopFilter.Filter(coopResult);
-        var convertedProducts = coopConverter.Convert(filteredProducts);
-
-        convertedProducts.ForEach(x =>
-        {
-            var y = (ConvertedCoopProduct)x;
-            Console.WriteLine(y.EAN + "\n" + y.Name + "\n" + y.Brand + "\n" + y.Unit + " " + y.Measurement);
-            Console.WriteLine();
         });
 
-        //Console.ForegroundColor = ConsoleColor.Red;
-        //Console.WriteLine("\n\n ------------ Coop Products ------------ ");
-        //Console.ResetColor();
-        //coopResult.ForEach(obj => Console.WriteLine(JToken.Parse((string) obj).ToString(Formatting.Indented) + "\n"));
+        // Products - Coop
+        var coopProductApi = new ExternalApi(new CoopProductFactory(), _overrideBackStop);
+        var coopProducts = (await coopProductApi.Get()).Cast<Product>().ToList();
+        // Stores - Coop
+        var coopStoreApi = new ExternalApi(new CoopStoreFactory(), _overrideBackStop);
+        var coopStores = (await coopStoreApi.Get()).Cast<Store>().ToList();
+
+        products.AddRange(coopProducts);
+        stores.AddRange(coopStores);
+
+        coopProducts.ForEach(p =>
+        {
+            coopStores.ForEach(s =>
+            {
+                productStores.Add(new ProductStore()
+                {
+                    ProductKey = p.EAN,
+                    StoreKey = s.ID,
+                    Price = p.ProductStores.First().Price
+                });
+            });
+        });
+
+        _db.InsertStores(stores);               // Insert stores
+        _db.InsertProducts(products);           // Insert products
+        _db.InsertProductStores(productStores); // Insert productStores
+
+        ProductNameStandardizer pns = new ProductNameStandardizer();
+        var standardizedList = pns.Standardize(_db.GetAllProducts());
+        _db.InsertProductStandardNames(standardizedList);
     }
-
-    private static async void PrintSallingProductSample()
-    {
-        SallingProductCaller productCaller = new();
-        SallingRequestBuilder builder = new SallingRequestBuilder();
-        builder.AddInfos()
-            .AddUnits()
-            .AddUnitsOfMeasure()
-            .AddStoreData()
-            .AddProperties();
-        IFilter productFilter = new SallingProductFilter();
-        IConverter productConverter = new SallingProductConverter();
-
-        var products = await productCaller.Call(builder.Build());
-        var filteredProducts = productFilter.Filter(products);
-        var convertedProducts = productConverter.Convert(filteredProducts);
-
-        Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine("\n\n ------------ Salling Products ------------ ");
-        Console.ResetColor();
-
-        //sallingResult.ForEach(obj => Console.WriteLine(JToken.Parse((string) obj).ToString(Formatting.Indented) + "\n"));
-    }
-
-
 }

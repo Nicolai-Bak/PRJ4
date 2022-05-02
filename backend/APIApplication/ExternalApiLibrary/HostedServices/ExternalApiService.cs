@@ -1,174 +1,126 @@
 ﻿using BusinessLogicLibrary.ProductNameStandardize;
-using ExternalApiLibrary.ExternalAPIComponent;
-using ExternalApiLibrary.ExternalAPIComponent.Callers.Salling;
-using ExternalApiLibrary.ExternalAPIComponent.Converters;
-using ExternalApiLibrary.ExternalAPIComponent.Factory;
+using DatabaseLibrary;
+using DatabaseLibrary.Models;
+using ExternalApiLibrary.Factory;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using DatabaseLibrary.Models;
-using DatabaseLibrary;
-using ExternalApiLibrary.ExternalAPIComponent.Converters.Salling;
-using Microsoft.Extensions.DependencyInjection;
-using ExternalApiLibrary.ExternalAPIComponent.Utilities.Logs;
 
 namespace ExternalApiLibrary.HostedServices;
-
 public class ExternalApiService : IHostedService
 {
     private readonly IDbInsert _db;
-    private PeriodicTimer? _timer;
+    private PeriodicTimer _timer;
+
+    /**
+     * The backstop for the external API service. This limits the amount of requests that can be made to the external API.
+     * 
+     * True = API is in production mode. All requests are allowed.
+     * False = API is in test mode. Only a limited number of requests are allowed.
+     * Never use production mode when testing, as this will likely cause the API to be blocked.
+     */
+    private bool _overrideBackStop = false;
+
+    private readonly IExternalApi _foetexProductApi;
+    private readonly IExternalApi _foetexStoreApi;
+    private readonly IExternalApi _coopProductApi;
+    private readonly IExternalApi _coopStoreApi;
+
+    private ProductNameStandardizer _pns;
+
     public ExternalApiService(IServiceProvider sp)
     {
         _db = sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>();
+
+        _foetexProductApi = new ExternalApi(new FoetexProductFactory(), _overrideBackStop);
+        _foetexStoreApi = new ExternalApi(new FoetexStoreFactory(), _overrideBackStop);
+        _coopProductApi = new ExternalApi(new CoopProductFactory(), _overrideBackStop);
+        _coopStoreApi = new ExternalApi(new CoopStoreFactory(), _overrideBackStop);
+
+        _pns = new ProductNameStandardizer();
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        Log.Information("External API Service is starting.");
-
-        TimeSpan interval = TimeSpan.FromHours(24);
+        TimeSpan interval = TimeSpan.FromDays(7);
         //calculate time to run the first time & delay to set the timer
-        //DateTime.Today gives time of midnight 00.00
         var nextRunTime = DateTime.Today.AddDays(1).AddHours(1);
         var curTime = DateTime.Now;
         var firstInterval = nextRunTime.Subtract(curTime);
 
-        Action action = async () => 
+        Action action = async () =>
         {
             var t1 = Task.Delay(firstInterval);
             t1.Wait();
-            //remove inactive accounts at expected time
-            DoTask();
+            //do Task at expected time
+            await UpdateDatabase();
             //now schedule it to be called every 24 hours for future
-            // timer repeates call to RemoveScheduledAccounts every 24 hours.
             _timer = new PeriodicTimer(interval);
 
             while (await _timer.WaitForNextTickAsync())
             {
-                await DoTask();
+                await UpdateDatabase();
             }
-
-            //_timer = new Timer(
-            //    DoTask,
-            //    null,
-            ///    TimeSpan.Zero,
-            //    interval
-            //);
-
         };
     }
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        Log.Information("External API Service is stopping.");
         return Task.CompletedTask;
     }
-    public async Task DoTask()
+    public async Task UpdateDatabase()
     {
-        Log.Information("Calling external API.");
-        // Configure logger for start up
-        BackendLogger.BuildLogger();
+        var products = new List<Product>();
+        var stores = new List<Store>();
+        var productStores = new List<ProductStore>();
 
-        //try
-        //{
-        //    ///// Products - Salling
-        //}
-        //catch (Exception e)
-        //{
-        //    Log.Fatal(e, "Application failed to start");
-        //}
-        //finally
-        //{
-        //    Log.CloseAndFlush();
-        //}
+        // Products - Foetex
+        var foetexProducts = (await _foetexProductApi.Get()).Cast<Product>().ToList();
 
+        // Stores - Foetex
+        var foetexStores = (await _foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList();
 
-        // Products - Føtex
-        IExternalApi føtexProductApi = new ExternalApi(new FøtexProductFactory());
-        SallingRequestBuilder builder = new SallingRequestBuilder();
-        builder.AddInfos()
-                .AddUnits()
-                .AddUnitsOfMeasure()
-                .AddStoreData();
-        var products = await føtexProductApi.Get(builder.Build());
+        products.AddRange(foetexProducts);
+        stores.AddRange(foetexStores);
 
-        // Stores - Salling
-        IExternalApi føtexStoreApi = new ExternalApi(new FøtexStoreFactory());
-        var stores = await føtexStoreApi.Get(null);
-
-        // Extracting Føtex stores
-        var foetexStores = stores.Where(store =>
+        foetexProducts.ForEach(p =>
         {
-            //ConvertedSallingStore sallingStore = (ConvertedSallingStore)store;
-            Store sallingStore = (Store)store;
-            return sallingStore.Brand.ToLower() == "foetex";
-        }).ToList();
-
-        //// Insert stores
-        Console.WriteLine("Inserting stores - " + DateTime.Now);
-        var storeList = new List<Store>();
-        foetexStores.ForEach(s =>
-        {
-            //ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
-            Store convertedStore = (Store)s;
-            storeList.Add(new Store()
-            {
-                ID = convertedStore.ID,
-                Brand = convertedStore.Brand,
-                Location_X = convertedStore.Location_X,
-                Location_Y = convertedStore.Location_Y,
-                Address = convertedStore.Address
-            });
-        });
-        Console.WriteLine("Bulk insert - " + DateTime.Now);
-        _db.InsertStores(storeList);
-
-        ///// Insert products
-        Console.WriteLine("Inserting Products - " + DateTime.Now);
-        var productList = new List<Product>();
-        products.ForEach(p =>
-        {
-            //ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
-            Product sallingProduct = (Product)p;
-            productList.Add(new Product()
-            {
-                EAN = sallingProduct.EAN,
-                Name = sallingProduct.Name,
-                Brand = sallingProduct.Brand,
-                Units = sallingProduct.Units,
-                Measurement = sallingProduct.Measurement,
-                Organic = false,
-                ImageUrl = ""
-            });
-        });
-        Console.WriteLine("Bulk insert - " + DateTime.Now);
-        _db.InsertProducts(productList);
-
-        ///// Insert productStores
-        Console.WriteLine("Inserting ProductStores - " + DateTime.Now);
-        var productStoreList = new List<ProductStore>();
-        products.ForEach(p =>
-        {
-            //ConvertedSallingProduct sallingProduct = (ConvertedSallingProduct)p;
-            Product sallingProduct = (Product)p;
             foetexStores.ForEach(s =>
             {
-                //ConvertedSallingStore convertedStore = (ConvertedSallingStore)s;
-                Store convertedStore = (Store)s;
-                productStoreList.Add(new ProductStore()
+                productStores.Add(new ProductStore()
                 {
-                    ProductKey = sallingProduct.EAN,
-                    StoreKey = convertedStore.ID,
-                    //Price = sallingProduct.Stores.First().Value.Price
-                    Price = sallingProduct.ProductStores.First().Price
+                    ProductKey = p.EAN,
+                    StoreKey = s.ID,
+                    Price = p.ProductStores.First().Price
                 });
             });
         });
-        Console.WriteLine("Bulk insert - " + DateTime.Now);
-        _db.InsertProductStores(productStoreList);
 
-        Console.WriteLine("DONE! - " + DateTime.Now);
+        // Products - Coop
+        var coopProducts = (await _coopProductApi.Get()).Cast<Product>().ToList();
+        // Stores - Coop
+        var coopStores = (await _coopStoreApi.Get()).Cast<Store>().ToList();
 
-        ProductNameStandardizer pns = new ProductNameStandardizer();
-        var standardizedList = pns.Standardize(_db.GetAllProducts());
-        _db.InsertProductStandardNames(standardizedList);
+        products.AddRange(coopProducts);
+        stores.AddRange(coopStores);
+
+        coopProducts.ForEach(p =>
+        {
+            coopStores.ForEach(s =>
+            {
+                productStores.Add(new ProductStore()
+                {
+                    ProductKey = p.EAN,
+                    StoreKey = s.ID,
+                    Price = p.ProductStores.First().Price
+                });
+            });
+        });
+
+        _db.InsertStores(stores);                           // Insert stores
+        _db.InsertProducts(products);                       // Insert products
+        _db.InsertProductStores(productStores);             // Insert productStores
+        
+        // Standard names
+        var standardizedList = _pns.Standardize(_db.GetAllProducts());
+        _db.InsertProductStandardNames(standardizedList);   // Insert product standard names
     }
 }
