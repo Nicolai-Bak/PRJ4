@@ -139,12 +139,13 @@ function Home() {
 		// console.log("searchlist: " + JSON.stringify(searchList));
 		const searchList = [];
 
+		// Sending the item information that is relevant to the database with the naming scheme that they are working with
 		shoppingList.forEach((item) => {
 			console.log(item);
 			const itemDTO = {
 				Name: item.name,
-				Amount: item.amount,
-				Unit: item.unit,
+				Unit: item.amount,
+				Measurement: item.unit,
 				Organic: item.organic,
 			};
 			// console.log(itemDTO);
@@ -162,6 +163,7 @@ function Home() {
 				},
 				body: JSON.stringify({
 					products: searchList,
+					Range: 50,
 					y: latitude,
 					x: longitude,
 				}),

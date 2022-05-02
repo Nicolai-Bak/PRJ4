@@ -41,7 +41,7 @@ const SearchField = (props) => {
 	return (
 		<Autocomplete
 			openOnFocus={false}
-			autoSelect={true}
+			// autoSelect={true}
 			disablePortal
 			disableClearable
 			freeSolo
