@@ -4,4 +4,175 @@
     height: auto;
     min-height: 120vh;
   }
+
+
+.home-shopping-list-wrapper-upper, .home-shopping-list-wrapper-lower {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.home-shopping-list-wrapper-upper > *, .home-shopping-list-wrapper-lower > * {
+  flex: 1;
+}
  
+.instructions-step-one, .instructions-step-two, .instructions-step-three {
+    color: var(--default-white);
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Kalam', cursive;
+    width: 30rem;
+}
+
+
+.instructions-arrow-one, .instructions-arrow-two, .instructions-arrow-three {
+  color: var(--default-white);
+  width: 6rem;
+  transform: rotate(-30deg);
+}
+
+.instructions-step-one {
+  margin-top: 4rem;
+  text-align: right;
+}
+.instructions-step-one-text {
+  margin-right: 2rem;
+  margin-bottom: -3rem;
+}
+
+.instructions-arrow-one {
+  position: relative;
+  top: -2rem;
+  left: -2rem;
+}
+
+.instructions-step-two {
+  overflow: hidden;
+}
+
+.instructions-step-two-text {
+  width: 30rem;
+  margin-right: 25rem;
+}
+
+.instructions-arrow-two {
+  transform: scaleX(-1);
+  float: left;
+}
+
+.instructions-step-three-text {
+  margin-top: 8rem;
+  margin-bottom: -2.5rem;
+}
+
+.instructions-arrow-three {
+  position: relative;
+  top: -2rem;
+  left: 5rem;
+}
+
+.instructions-step-three-wrapper {
+  float: right;
+}
+
+.instructions-step-one-text, .instructions-step-two-text, .instructions-step-three-text {
+  transform: rotate(-5deg);
+}
+
+@media screen and (max-width: 1400px){
+  .home-new-item-form, .home-shopping-list{
+    flex: 1;
+  }
+
+  .instructions-step-one, .filler, .instructions-step-two, .instructions-step-three {
+    flex:0.6;
+  }
+
+  .instructions-step-one-text {
+    margin-bottom: 0;
+    width: 14rem;
+    float: right;
+  }
+  .instructions-arrow-one {
+    position: relative;
+    top: 1.5rem;
+    left: 13rem;
+    width: 4.4rem;
+  }
+
+	.instructions-step-two-text {
+    font-size: 1.65rem;
+    width: 20rem;
+    margin-right: 25rem;
+  }
+
+  .instructions-arrow-two {
+    position: relative;
+    top: -2rem;
+    left: 1rem;
+  }
+
+  .instructions-step-three-text {
+    font-size: 1.75rem;
+    width: 20rem;
+  }
+  .instructions-arrow-three {
+    position: relative;
+    top: -2rem;
+    left: 6rem;
+  }
+}
+
+@media screen and (max-width: 1200px){
+  .home-new-item-form, .home-shopping-list{
+    flex: 1;
+  }
+
+  .instructions-step-one, .filler, .instructions-step-two, .instructions-step-three {
+    flex:0.5;
+  }
+
+  .instructions-step-one-text {
+    font-size: 1.5rem;
+    width: 10.3rem;
+  }
+
+  .instructions-arrow-one {
+    position: relative;
+    top: 1rem;
+    left: 11rem;
+    width: 3.2rem;
+  }
+  .instructions-arrow-two {
+    width: 4rem;
+  }
+
+	.instructions-step-two-text {
+    font-size: 1.5rem;
+    width: 12rem;
+  }
+  .instructions-step-three-text {
+    font-size: 1.3rem;
+    width: 12rem;
+  }
+  .instructions-arrow-three {
+    position: relative;
+    width: 4rem;
+    top: -2rem;
+    left: 3rem;
+  }
+
+  @media screen and (max-width: 992px){
+    .instructions-step-one, .filler, .instructions-step-two, .instructions-step-three {
+      flex:0.3;
+    }
+    .instructions-step-one, .instructions-step-two, .instructions-step-three, .instructions-arrow-one, .instructions-arrow-two, .instructions-arrow-three {
+      color: var(--default-black);
+      font-size: 0;
+      width: 0;
+    }
+  
+  }
+
+  
+}

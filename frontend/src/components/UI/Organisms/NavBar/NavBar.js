@@ -21,19 +21,20 @@ function NavBar(props) {
 		return links;
 	};
 
-	return (
-		<div className="navbar">
-			<div className="left-side__container">
-				<img id="ninja__logo" src="/images/ninja-desk.svg" />
-				{companyName}
-			</div>
-			<div className="right-side__container">
-				<div className="navbar-menu">
-					<div className={`navbar-links ${!showMenu ? "hide" : ""}`}>
-						{linkRefs()}
-					</div>
-				</div>
-				<img id="shopping__cart" src="/images/shopping-cart.svg" />
+
+
+    return (
+        <div className='navbar'>
+            <div className='left-side__container'>
+                <img id="ninja__logo" src="/images/ninja-desk.svg"/>
+{companyName}
+            </div>
+            <div className='right-side__container'>
+                <div className="navbar-menu">
+                <div className={`navbar-links ${!showMenu ? 'hide' : ''}`}>{linkRefs()}</div>
+                
+                </div>
+                <img id="shopping__cart" src="/images/shopping-cart.svg"/>
 
 				<IoMenu
 					onClick={toggleMenu}
