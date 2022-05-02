@@ -4,14 +4,6 @@ import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
-} from "@mui/material";
 import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
 
 function Home() {
@@ -20,10 +12,17 @@ function Home() {
 		: [];
 
 	let navigate = useNavigate();
-	// DuplicateDialog
+	// DuplicateDialog states
 	const [open, setOpen] = useState(false);
-	const [itemToChange, setItemToChange] = useState(null);
 	const [amountToChange, setAmountToChange] = useState(null);
+	const [existingItem, setExistingItem] = useState({
+		name: "",
+		amount: 0,
+		unit: "",
+		id: "",
+		organic: false,
+	});
+
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
 
 	useEffect(() => {
@@ -74,10 +73,9 @@ function Home() {
 		console.log("handleDialogAdd: ", itemName, amount);
 		//find shoppinglist item with itemName
 		const item = shoppingList.find((item) => item.name === itemName);
-		//if item exists, add amount to item.amount
 		if (item) {
 			console.log("item exists", item);
-			handleItemUpdate(item.id, item.amount + +amount, item.unit, true);
+			handleItemUpdate(item.id, +item.amount + +amount, item.unit, true);
 		}
 		handleClose();
 	};
@@ -114,14 +112,14 @@ function Home() {
 			}, organic: ${organic}`
 		);
 
-		// If an item with the same or similar name exists on the shopping list already
-		if (
-			shoppingList.find(
-				(item) => item.name.toLowerCase() === name.toLowerCase()
-			)
-		) {
-			console.log("Item already exists on the shopping list");
-			setItemToChange(name);
+		// If an item with the same name exists on the shopping list already
+
+		const existingItem = shoppingList.find(
+			(item) => item.name.toLowerCase() === name.toLowerCase()
+		);
+		if (existingItem) {
+			console.log("Item already exists on the shopping list : ", existingItem);
+			setExistingItem(existingItem);
 			setAmountToChange(amount);
 			setOpen(true);
 			return;
@@ -266,7 +264,7 @@ function Home() {
 
 	const onAddDialog = (event) => {
 		setOpen(false);
-		handleDialogAdd(itemToChange, amountToChange);
+		handleDialogAdd(existingItem.name, amountToChange);
 		console.log(event);
 	};
 
@@ -290,10 +288,14 @@ function Home() {
 					onItemAdded={newItemHandler}
 				/>
 				<DuplicateDialog
+					itemName={existingItem.name}
+					amount={amountToChange}
+					unit={existingItem.unit}
+					existingAmount={existingItem.amount}
 					onCancel={handleClose}
 					addAmount={onAddDialog}
 					open={open}
-				></DuplicateDialog>
+				/>
 				<div className="filler" />
 			</div>
 			<div className="home-shopping-list-wrapper-lower">
