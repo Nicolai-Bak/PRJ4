@@ -14,7 +14,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<PrisninjaDbContext>();
+builder.Services.AddDbContext<PrisninjaDbContext>(optionsBuilder =>
+{
+    optionsBuilder.UseSqlServer("" +
+                                "Server=tcp:prisninjadb.database.windows.net,1433;" +
+                                "Initial Catalog=PrisninjaWebApiDb;" +
+                                "Persist Security Info=False;" +
+                                "User ID=PrisninjaDb;" +
+                                "Password=PRJ4Server;" +
+                                "MultipleActiveResultSets=False;" +
+                                "Encrypt=True;" +
+                                "TrustServerCertificate=False;" +
+                                "Connection Timeout=30;"
+    );
+});
 builder.Services.AddTransient<IDbRequest, PrisninjaDb>();
 builder.Services.AddTransient<IDbSearch, PrisninjaDb>();
 builder.Services.AddTransient<IDbInsert, PrisninjaDb>();

@@ -174,7 +174,7 @@ public class PrisninjaDbTest
             Brand = "",
             EAN = 1,
             ImageUrl = "",
-            Measurement = "",
+            Measurement = "g",
             Name = "p1",
             Organic = false,
             Units = 100
@@ -184,7 +184,7 @@ public class PrisninjaDbTest
             Brand = "",
             EAN = 2,
             ImageUrl = "",
-            Measurement = "",
+            Measurement = "g",
             Name = "p2",
             Organic = false,
             Units = 100
@@ -211,8 +211,8 @@ public class PrisninjaDbTest
         context.ProductStores.Add(ps2);
         context.SaveChanges();
 
-        Assert.IsTrue(uut.GetProductsFromSpecificStores(ids, "p1").Contains(p1));
-        Assert.IsFalse(uut.GetProductsFromSpecificStores(ids, "p2").Contains(p2));
+        Assert.IsTrue(uut.GetProductsFromSpecificStores(ids, "p1", "g").Contains(p1));
+        Assert.IsFalse(uut.GetProductsFromSpecificStores(ids, "p2", "g").Contains(p2));
     }
 
     private PrisninjaDbContext GetDbContext()

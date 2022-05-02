@@ -5,27 +5,12 @@ namespace DatabaseLibrary.Data;
 
 public class PrisninjaDbContext : DbContext
 {
-    // public PrisninjaDbContext(DbContextOptions options) : base(options)
-    // {
-    // }
-    //
-    // protected PrisninjaDbContext()
-    // {
-    // }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public PrisninjaDbContext(DbContextOptions options) : base(options)
     {
-        optionsBuilder.UseSqlServer("" +
-                                    "Server=tcp:prisninjadb.database.windows.net,1433;" + 
-                                    "Initial Catalog=PrisninjaWebApiDb;" + 
-                                    "Persist Security Info=False;" + 
-                                    "User ID=PrisninjaDb;" + 
-                                    "Password=PRJ4Server;" + 
-                                    "MultipleActiveResultSets=False;" + 
-                                    "Encrypt=True;" +
-                                    "TrustServerCertificate=False;" + 
-                                    "Connection Timeout=30;"
-        );
+    }
+    
+    protected PrisninjaDbContext()
+    {
     }
 
     public DbSet<Store> Stores => Set<Store>();
