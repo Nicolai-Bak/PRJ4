@@ -12,6 +12,7 @@ import {
 	DialogContentText,
 	DialogTitle,
 } from "@mui/material";
+import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
 
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
@@ -82,26 +83,26 @@ function Home() {
 		setOpen(false);
 	};
 
-	const showDialog = (itemName, amount) => {
-		console.log("showDialog: ", itemName, amount);
-		return (
-			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle>Duplikeret vare</DialogTitle>
-				<DialogContent>
-					<DialogContentText>
-						Denne vare er tilsyneladende allerede på indkøbslisten. Vil du
-						tilføje mængden til den eksisterende vare?
-					</DialogContentText>
-					<DialogActions>
-						<Button onClick={handleDialogAdd(itemName, amount)}>
-							Tilføj mængde
-						</Button>
-						<Button onClick={handleClose()}>Afbryd</Button>
-					</DialogActions>
-				</DialogContent>
-			</Dialog>
-		);
-	};
+	// const showDialog = (itemName, amount) => {
+	// 	console.log("showDialog: ", itemName, amount);
+	// 	return (
+	// 		<Dialog open={open} onClose={handleClose}>
+	// 			<DialogTitle>Duplikeret vare</DialogTitle>
+	// 			<DialogContent>
+	// 				<DialogContentText>
+	// 					Denne vare er tilsyneladende allerede på indkøbslisten. Vil du
+	// 					tilføje mængden til den eksisterende vare?
+	// 				</DialogContentText>
+	// 				<DialogActions>
+	// 					<Button onClick={handleDialogAdd(itemName, amount)}>
+	// 						Tilføj mængde
+	// 					</Button>
+	// 					<Button onClick={handleClose()}>Afbryd</Button>
+	// 				</DialogActions>
+	// 			</DialogContent>
+	// 		</Dialog>
+	// 	);
+	// };
 
 	const newItemHandler = async (name, amount, unit, id, organic) => {
 		console.log(
@@ -118,7 +119,6 @@ function Home() {
 		) {
 			console.log("Item already exists on the shopping list");
 			setOpen(true);
-			showDialog(name, amount);
 			return;
 		}
 
@@ -278,7 +278,7 @@ function Home() {
 					className="home-new-item-form"
 					onItemAdded={newItemHandler}
 				/>
-				{open && showDialog()}
+				<DuplicateDialog open={open}></DuplicateDialog>
 				<div className="filler" />
 			</div>
 			<div className="home-shopping-list-wrapper-lower">
