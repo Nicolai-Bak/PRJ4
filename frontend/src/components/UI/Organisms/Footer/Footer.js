@@ -7,7 +7,11 @@ function Footer(props) {
 
 	const linkRefs = () => {
 		const links = pageLinks.map((link) => {
-			return <Link to={link.link}>{link.text}</Link>;
+			return (
+				<Link key={(Math.random() * 20).toFixed(4)} to={link.link}>
+					{link.text}
+				</Link>
+			);
 		});
 		console.log(pageLinks);
 		return links;

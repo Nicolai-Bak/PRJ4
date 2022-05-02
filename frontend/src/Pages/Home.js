@@ -31,7 +31,6 @@ function Home() {
 				"A change has been made to shoppingList, updating localStorage..."
 			);
 			localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
-			console.log("Open state is: ", open);
 		}
 	}, [shoppingList]);
 
