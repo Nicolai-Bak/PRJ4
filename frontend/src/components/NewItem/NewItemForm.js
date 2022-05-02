@@ -179,7 +179,8 @@ const NewItemForm = (props) => {
 		localStorage.setItem("itemNames", JSON.stringify(await request.json()));
 
 		const response = await JSON.parse(localStorage.getItem("itemNames"));
-		if (response.length > 15) console.log("Response with content received");
+		if (response.length > 15)
+			console.log(`${response.length} item names were fetched`);
 	}
 
 	async function getUnitAndOrganic(item) {

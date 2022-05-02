@@ -27,23 +27,21 @@ function Home() {
 
 	useEffect(() => {
 		if (localStorage.hasOwnProperty("shoppingList")) {
-			console.log(
-				"A change has been made to shoppingList, updating localStorage..."
-			);
+			console.log("updating localStorage...");
 			localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
 		}
 	}, [shoppingList]);
 
 	const handleItemUpdate = (id, amount, unit, adding) => {
-		console.log(
-			"handleItemUpdate: ",
-			"id: ",
-			id.toString().slice(0, 5),
-			"value: ",
-			amount,
-			"unit :",
-			unit
-		);
+		// console.log(
+		// 	"handleItemUpdate: ",
+		// 	"id: ",
+		// 	id.toString().slice(0, 5),
+		// 	"value: ",
+		// 	amount,
+		// 	"unit :",
+		// 	unit
+		// );
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
 				if (item.id !== id || amount < 0) return item;
@@ -69,11 +67,9 @@ function Home() {
 	};
 
 	const handleDialogAdd = (itemName, amount) => {
-		console.log("handleDialogAdd: ", itemName, amount);
 		//find shoppinglist item with itemName
 		const item = shoppingList.find((item) => item.name === itemName);
 		if (item) {
-			console.log("item exists", item);
 			handleItemUpdate(item.id, +item.amount + +amount, item.unit, true);
 		}
 		handleClose();
@@ -105,11 +101,11 @@ function Home() {
 	// };
 
 	const newItemHandler = async (name, amount, unit, id, organic) => {
-		console.log(
-			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
-				id.toString().slice(0, 5) + "..."
-			}, organic: ${organic}`
-		);
+		// console.log(
+		// 	`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
+		// 		id.toString().slice(0, 5) + "..."
+		// 	}, organic: ${organic}`
+		// );
 
 		// If an item with the same name exists on the shopping list already
 
@@ -117,7 +113,7 @@ function Home() {
 			(item) => item.name.toLowerCase() === name.toLowerCase()
 		);
 		if (existingItem) {
-			console.log("Item already exists on the shopping list : ", existingItem);
+			// console.log("Item already exists on the shopping list : ", existingItem);
 			setExistingItem(existingItem);
 			setAmountToChange(amount);
 			setOpen(true);
@@ -152,7 +148,6 @@ function Home() {
 	};
 
 	const removeItemHandler = (id, name) => {
-		console.log(`removeItemHandler called with id: ${id} and name: ${name}`);
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.filter((item) => item.id !== id);
 		});
@@ -256,7 +251,7 @@ function Home() {
 			navigator.geolocation.getCurrentPosition((position) => {
 				setLatitude(position.coords.latitude);
 				setLongitude(position.coords.longitude);
-				console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+				// console.log(`latitude: ${latitude}, longitude: ${longitude}`);
 			});
 		}
 	}, [longitude, latitude]);
@@ -264,7 +259,6 @@ function Home() {
 	const onAddDialog = (event) => {
 		setOpen(false);
 		handleDialogAdd(existingItem.name, amountToChange);
-		console.log(event);
 	};
 
 	return (
