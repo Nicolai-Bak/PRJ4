@@ -4,6 +4,14 @@ import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+} from "@mui/material";
 
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
@@ -11,7 +19,7 @@ function Home() {
 		: [];
 
 	let navigate = useNavigate();
-
+	const [open, setOpen] = useState(false);
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
 
 	useEffect(() => {
@@ -20,10 +28,11 @@ function Home() {
 				"A change has been made to shoppingList, updating localStorage..."
 			);
 			localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+			console.log("Open state is: ", open);
 		}
 	}, [shoppingList]);
 
-	const handleItemUpdate = (id, amount, unit) => {
+	const handleItemUpdate = (id, amount, unit, adding) => {
 		console.log(
 			"handleItemUpdate: ",
 			"id: ",
@@ -36,11 +45,15 @@ function Home() {
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
 				if (item.id !== id || amount < 0) return item;
-
-				if (unit !== null) {
+				if (unit && !adding) {
 					return {
 						...item,
 						unit: unit,
+						amount: amount,
+					};
+				} else if (!adding) {
+					return {
+						...item,
 						amount: amount,
 					};
 				} else {
@@ -53,12 +66,62 @@ function Home() {
 		});
 	};
 
+	const handleDialogAdd = (itemName, amount) => {
+		console.log("handleDialogAdd: ", itemName, amount);
+		//find shoppinglist item with itemName
+		const item = shoppingList.find((item) => item.name === itemName);
+		//if item exists, add amount to item.amount
+		if (item) {
+			console.log("item exists", item);
+			handleItemUpdate(item.id, item.amount + +amount, item.unit, true);
+		}
+		handleClose();
+	};
+
+	const handleClose = (action) => {
+		setOpen(false);
+	};
+
+	const showDialog = (itemName, amount) => {
+		console.log("showDialog: ", itemName, amount);
+		return (
+			<Dialog open={open} onClose={handleClose}>
+				<DialogTitle>Duplikeret vare</DialogTitle>
+				<DialogContent>
+					<DialogContentText>
+						Denne vare er tilsyneladende allerede på indkøbslisten. Vil du
+						tilføje mængden til den eksisterende vare?
+					</DialogContentText>
+					<DialogActions>
+						<Button onClick={handleDialogAdd(itemName, amount)}>
+							Tilføj mængde
+						</Button>
+						<Button onClick={handleClose()}>Afbryd</Button>
+					</DialogActions>
+				</DialogContent>
+			</Dialog>
+		);
+	};
+
 	const newItemHandler = async (name, amount, unit, id, organic) => {
 		console.log(
 			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
 				id.toString().slice(0, 5) + "..."
 			}, organic: ${organic}`
 		);
+
+		// If an item with the same or similar name exists on the shopping list already
+		if (
+			shoppingList.find(
+				(item) => item.name.toLowerCase() === name.toLowerCase()
+			)
+		) {
+			console.log("Item already exists on the shopping list");
+			setOpen(true);
+			showDialog(name, amount);
+			return;
+		}
+
 		// if the item doesn't exists in the database
 		if (!(await ValidateItem(name, unit))) {
 			console.log("item not found in database");
@@ -215,6 +278,7 @@ function Home() {
 					className="home-new-item-form"
 					onItemAdded={newItemHandler}
 				/>
+				{open && showDialog()}
 				<div className="filler" />
 			</div>
 			<div className="home-shopping-list-wrapper-lower">
