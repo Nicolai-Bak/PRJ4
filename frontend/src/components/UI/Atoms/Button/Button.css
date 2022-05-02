@@ -15,6 +15,6 @@
 }
 
 .button-container:hover {
-	background-color: var(--secondary-color-shadow);
+	background-color: var(--secondary-color-light);
 	transition: all 0.1s ease-in-out 0.1s;
 }
