@@ -152,7 +152,7 @@ function Home() {
 		});
 
 		// searchList.forEach((item) => console.log(item));
-		const request = await fetch("https://localhost/options/", {
+		const request = await fetch("https://prisninjawebapi.azurewebsites.net/options/", {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
@@ -164,6 +164,7 @@ function Home() {
 				x: longitude,
 			}),
 		});
+
 
 		console.log("request received: " + request);
 
