@@ -18,7 +18,7 @@ function NavBar(props) {
 				</span>
 			);
 		});
-		console.log(pageLinks);
+		// console.log(pageLinks);
 		return links;
 	};
 

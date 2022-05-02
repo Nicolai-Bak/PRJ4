@@ -122,7 +122,6 @@ const NewItemForm = (props) => {
 							label="Øko"
 							sx={{
 								color: "white",
-								icon: "../../../public/images/økomærke.png",
 							}}
 						/>
 					)}
@@ -174,7 +173,7 @@ const NewItemForm = (props) => {
 		localStorage.setItem("itemNames", JSON.stringify(await request.json()));
 
 		const response = await JSON.parse(localStorage.getItem("itemNames"));
-		console.log(response);
+		if (response.length > 15) console.log("Response with content received");
 	}
 
 	async function getUnitAndOrganic(item) {

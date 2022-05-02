@@ -67,11 +67,18 @@
 	}
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 576px) {
 	.add-item-container {
 		margin-top: 0.8rem;
 		margin-bottom: 0.8rem;
-		width: 95%;
+		width: 97%;
+	}
+
+	.amount-input {
+		height: 2.6rem !important;
+		width: 120%;
+		margin: 0.4rem;
+		padding: 0.4rem;
 	}
 }
 
