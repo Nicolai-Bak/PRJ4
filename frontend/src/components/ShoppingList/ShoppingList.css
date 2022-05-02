@@ -34,6 +34,9 @@
 
 @media screen and (max-width: 480px) {
 	.shopping-list {
-		width: 95%;
+		width: 97%;
+	}
+	.shopping-list ul {
+		padding: 0;
 	}
 }

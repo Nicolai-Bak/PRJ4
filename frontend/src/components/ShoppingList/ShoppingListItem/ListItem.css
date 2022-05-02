@@ -88,38 +88,25 @@
 
 @media (max-width: 480px) {
 	.list-item {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
 		padding: 0 0.15rem;
-		border-radius: 2rem;
-		background: var(--secondary-color);
-		box-shadow: 2px 2px rgba(0, 0, 0, 0.26);
-		font-size: 0.5rem;
-		color: var(--default-black);
-		font-weight: 600;
 		margin: 0.3rem 0;
 	}
 	.button-container.remove-button {
-		grid-column: 3;
-		align-self: center;
-		background-color: var(--default-white);
-		border: 0.1rem solid #0e1614;
 		width: 2.2rem;
 		height: 1.1rem;
 	}
 	.button-container.adjust-amount-button {
-		border: 0.1rem solid #0e1614;
-		background-color: var(--default-white);
 		width: 2.2rem;
 		height: 1.1rem;
 	}
 	.list-item__right {
-		display: grid;
-		grid-template-columns: 1.3fr 0.9fr 0.8fr;
 		padding-right: 0.2rem;
 		justify-items: space-between;
-		grid-column: 2 / span 4;
-		flex-wrap: nowrap;
+		font-size: 1rem;
+	}
+	.unit-amount-input {
+		max-width: 3rem;
+		min-width: 3rem;
 		font-size: 1rem;
 	}
 }

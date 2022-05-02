@@ -48,9 +48,8 @@ code {
 		monospace;
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
 	:root {
-		font-size: 14px;
+		font-size: 15px;
 	}
-} */
-
+}
