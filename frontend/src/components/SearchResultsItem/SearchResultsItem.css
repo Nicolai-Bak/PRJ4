@@ -1,46 +1,45 @@
 .search-results-list-item {
-    box-shadow: none;
-    border: 0.1rem solid #0e1614;
-    background: var(--secondary-color-light);
-    margin: 2rem;
-    padding-left: 0;
-    padding-right: 0;
-    font-weight: 600;
+	box-shadow: none;
+	border: 0.1rem solid #0e1614;
+	background: var(--secondary-color-light);
+	margin: 2rem;
+	padding-left: 0;
+	padding-right: 0;
+	font-weight: 600;
 }
 
 .list-item-price {
-    padding-left: 1rem;
+	padding-left: 1rem;
 }
 
 .list-item-wrapper {
-    display: flex;
-    flex-direction: row;
-    box-shadow: none;
-    background: var(--secondary-color-light);
-    justify-content: space-between;
-    margin-bottom: 0.5rem
+	display: flex;
+	flex-direction: row;
+	box-shadow: none;
+	background: var(--secondary-color-light);
+	justify-content: space-between;
+	margin-bottom: 0.5rem;
 }
 
 .chevron-button {
-    background: var(--secondary-color-light);
-    box-shadow: none;
-    width: 50px;
-    padding-bottom: 0.5rem;
+	background: var(--secondary-color-light);
+	box-shadow: none;
+	width: 50px;
+	padding-bottom: 0.5rem;
 }
 
 .chevron-icon.rotate {
-    transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 
 .search-results-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0,1,0,1);
+	max-height: 0;
+	overflow: hidden;
+	transition: all 0.4s cubic-bezier(0, 1, 0, 1);
 }
 
 .search-results-details.show {
-    height: auto;
-    max-height: 300px;
-    transition: all 0.4s cubic-bezier(1,0,1,0);
+	height: auto;
+	max-height: 300px;
+	transition: all 0.4s cubic-bezier(1, 0, 1, 0);
 }
-
