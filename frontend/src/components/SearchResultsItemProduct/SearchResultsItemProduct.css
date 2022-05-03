@@ -1,10 +1,13 @@
 .search-results-item-product {
-    box-shadow: none;
-    border: 0.1rem solid #0e1614;
-    margin: 0 1rem 0 1rem;
-    padding-left: 1rem;
-    padding-right: 0;
-    border-radius: 0.3rem;
-    background: var(--secondary-color-extra-light);
+	box-shadow: none;
+	border: 0.1rem solid #0e1614;
+	margin: 0 1rem 0 1rem;
+	padding-left: 1rem;
+	padding-right: 0;
+	border-radius: 0.3rem;
+	background: var(--secondary-color-extra-light);
 }
 
+.product-display > * {
+	display: block;
+}

@@ -79,34 +79,7 @@ function Home() {
 		setOpen(false);
 	};
 
-	// const showDialog = (itemName, amount) => {
-	// 	console.log("showDialog: ", itemName, amount);
-	// 	return (
-	// 		<Dialog open={open} onClose={handleClose}>
-	// 			<DialogTitle>Duplikeret vare</DialogTitle>
-	// 			<DialogContent>
-	// 				<DialogContentText>
-	// 					Denne vare er tilsyneladende allerede på indkøbslisten. Vil du
-	// 					tilføje mængden til den eksisterende vare?
-	// 				</DialogContentText>
-	// 				<DialogActions>
-	// 					<Button onClick={handleDialogAdd(itemName, amount)}>
-	// 						Tilføj mængde
-	// 					</Button>
-	// 					<Button onClick={handleClose()}>Afbryd</Button>
-	// 				</DialogActions>
-	// 			</DialogContent>
-	// 		</Dialog>
-	// 	);
-	// };
-
 	const newItemHandler = async (name, amount, unit, id, organic) => {
-		// console.log(
-		// 	`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
-		// 		id.toString().slice(0, 5) + "..."
-		// 	}, organic: ${organic}`
-		// );
-
 		// If an item with the same name exists on the shopping list already
 
 		const existingItem = shoppingList.find(
