@@ -25,6 +25,9 @@ public static class Program
                               "TrustServerCertificate=False;" +
                               "Connection Timeout=30;")
                 .Options));
+
+        _db.ClearDatabase();
+
         bool _overrideBackStop = false;
 
         var products = new List<Product>();
@@ -38,6 +41,13 @@ public static class Program
         // Stores - Foetex
         var foetexStoreApi = new ExternalApi(new FoetexStoreFactory(), _overrideBackStop);
         var foetexStores = (await foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList();
+        foetexStores = foetexStores.Where(s => s.ID != 1305 &&
+                                               s.ID != 1315 &&
+                                               s.ID != 1370 &&
+                                               s.ID != 1326 &&
+                                               s.ID != 1330 &&
+                                               s.ID != 1350)
+            .ToList();
 
         products.AddRange(foetexProducts);
         stores.AddRange(foetexStores);
@@ -61,6 +71,13 @@ public static class Program
         // Stores - Coop
         var coopStoreApi = new ExternalApi(new CoopStoreFactory(), _overrideBackStop);
         var coopStores = (await coopStoreApi.Get()).Cast<Store>().ToList();
+        coopStores = coopStores.Where(s => s.ID != 1305 &&
+                                           s.ID != 1315 &&
+                                           s.ID != 1370 &&
+                                           s.ID != 1326 &&
+                                           s.ID != 1330 &&
+                                           s.ID != 1350)
+            .ToList();
 
         products.AddRange(coopProducts);
         stores.AddRange(coopStores);
@@ -77,6 +94,7 @@ public static class Program
                 });
             });
         });
+
 
         _db.InsertStores(stores); // Insert stores
         _db.InsertProducts(products); // Insert products
