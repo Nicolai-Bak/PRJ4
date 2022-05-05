@@ -146,9 +146,25 @@
 }
 
 @media screen and (max-width: 776px) {
-    
-}
+    .right-side__container {
+        flex: 0 auto;
+        right: 15rem;
+    }
+    .hamburger-menu__icon {
+        right: 4rem;
+    }
+    .hamburger-menu__icon.hide {
+        right: 4rem;
+    }
 
+    .navbar-menu {
+        right: 15rem;
+        left: auto;
+    }
+    .navbar-links .link{
+        width: 50vw;
+    }
+}
 
 @media screen and (max-width: 576px) {
     #ninja__logo{
