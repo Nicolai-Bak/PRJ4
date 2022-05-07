@@ -2,14 +2,17 @@ import Card from "../UI/Atoms/Card/Card";
 import "./SearchResultsItemProduct.css";
 
 const SearchResultsItemProduct = (props) => {
-	console.log("hej - ", props.products);
 
 	const displayProducts = () => {
-		console.log("props1337", props.products);
 		const newProducts = props.products.map((product) => {
 			return (
-				<li>
-					{product.name} - {product.price}kr
+				<li className="product-information">
+					<p className="product-name">{product.name}, {product.brand}
+						{product.organic &&
+						<img className="organic-logo" src="/images/organic-logo.svg" alt={product.name} />}
+						<span className="product-price">{product.price}kr</span></p> 
+					<p className="product-unit">{product.amount} stk af {product.units}{product.measurement}</p> 
+					{/* <img className="product-image" src={product.imageUrl} alt={product.name} /> */}
 				</li>
 			);
 		});

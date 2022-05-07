@@ -63,6 +63,7 @@ function SearchResultsPage() {
 			displayOptions = options[0].map((item) => (
 				<div>
 					<SearchResultsItem
+						products={item.products}
 						price={item.totalPrice}
 						distance={item.distance}
 						storeName={item.brand}
@@ -83,6 +84,7 @@ function SearchResultsPage() {
 		case "nearest":
 			displayOptions = options[2].map((item) => (
 				<SearchResultsItem
+					products={item.products}
 					price={item.totalPrice}
 					distance={item.distance}
 					storeName={item.brand}

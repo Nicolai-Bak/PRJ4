@@ -18,7 +18,6 @@
 	box-shadow: none;
 	background: var(--secondary-color-light);
 	justify-content: space-between;
-	margin-bottom: 0.5rem;
 }
 
 .chevron-button {
@@ -40,6 +39,6 @@
 
 .search-results-details.show {
 	height: auto;
-	max-height: 300px;
+	max-height: 100rem;
 	transition: all 0.4s cubic-bezier(1, 0, 1, 0);
 }

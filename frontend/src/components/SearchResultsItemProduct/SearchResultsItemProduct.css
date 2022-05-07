@@ -1,13 +1,40 @@
 .search-results-item-product {
 	box-shadow: none;
-	border: 0.1rem solid #0e1614;
-	margin: 0 1rem 0 1rem;
-	padding-left: 1rem;
-	padding-right: 0;
-	border-radius: 0.3rem;
-	background: var(--secondary-color-extra-light);
+	padding-bottom: 0;
+}
+
+.product-display {
+	padding-inline-start: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .product-display > * {
 	display: block;
+	border: 0.1rem solid #0e1614;
+	margin-bottom: 1rem;
+	padding-bottom: 1rem;
+	padding-left: 0.75rem;
+	border-radius: 0.3rem;
+	background: var(--secondary-color-extra-light);
+}
+
+.product-information > * {
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.product-price {
+	float: right;
+	padding-right: 0.75rem;
+	font-weight:700;
+}
+
+.organic-logo{
+	width: 3rem;
+}
+
+.product-image {
+	width: 5rem;
 }
