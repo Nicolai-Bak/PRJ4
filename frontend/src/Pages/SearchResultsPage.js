@@ -102,9 +102,10 @@ function SearchResultsPage() {
 				</div>
 				{displayOptions}
 			</Card>
-			<Button className="search-results-page-button" onClick={goBack}>
+			<div className="search-results-page-text-box">Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>, for at gå tilbage og foretage en ny søgning.</div>
+			{/* <Button className="search-results-page-button" onClick={goBack}>
 				<IoArrowBack /> til forsiden
-			</Button>
+			</Button> */}
 		</div>
 	);
 }

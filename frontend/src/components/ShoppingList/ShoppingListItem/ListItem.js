@@ -96,7 +96,7 @@ const ListItem = (props) => {
 						+
 					</Button>
 				</span>
-					<IoTrashBin className="remove-button"
+					<IoTrashBin title="slet" className="remove-button"
 					onClick={() => props.onRemoveItem(props.id, props.name)}/>
 			</span>
 		</div>

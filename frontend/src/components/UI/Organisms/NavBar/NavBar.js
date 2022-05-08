@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 function NavBar(props) {
 	const [showMenu, setShowMenu] = useState(false);
 	const toggleMenu = () => setShowMenu(!showMenu);
+	const [shoppingCart, setShoppingCart] = useState(false);
+	const toggleShoppingCart = () => setShoppingCart(!shoppingCart);
 	const { pageLinks, companyName } = props;
 	let navigate = useNavigate();
 
@@ -47,6 +49,7 @@ function NavBar(props) {
 					id="shopping__cart"
 					src="/images/shopping-cart.svg"
 					alt="indkøbsvogn"
+					onClick={toggleShoppingCart}
 				/>
 				<IoMenu
 					onClick={toggleMenu}
@@ -57,6 +60,9 @@ function NavBar(props) {
 					className={`hamburger-menu__icon ${showMenu ? "" : "hide"}`}
 				/>
 			</div>
+			{shoppingCart && <div className="shopping-cart-toast">
+				Der er tilføjet {localStorage.length} varer på indkøbslisten.
+			</div>}
 		</div>
 	);
 }

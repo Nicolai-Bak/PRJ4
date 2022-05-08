@@ -27,8 +27,14 @@
 	display: inline-block;
 	margin-bottom: 1rem;
 	margin-top: 1rem;
-	background: rgb(100, 175, 212);
+	background: var(--quartenary-color-light);
+	color: var(--default-white);
 }
+
+.shopping-list .search-button:hover {
+	background: var(--quartenary-color-extra-light);
+}
+
 
 @media screen and (max-width: 1300px) {
 	.shopping-list {

@@ -34,7 +34,8 @@
 .product-price {
 	/* float: right;
 	padding-right: 0.75rem; */
-	font-weight:700;
+	/* font-weight:700; */
+	color: var(--green);
 }
 
 .organic-logo{

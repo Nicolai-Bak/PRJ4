@@ -69,7 +69,7 @@
 
 #shopping__cart:hover {
     transition: all 0.2s ease-in-out 0.2s;
-    top:45%;
+    margin-top:0.1rem;
 }
 
 #ninja__logo{
@@ -81,7 +81,7 @@
 
 #ninja__logo:hover {
     transition: all 0.2s ease-in-out 0.1s;
-    margin-top: 5px;
+    margin-top: 0.2rem;
 }
 
 .hamburger-menu__icon {
@@ -97,6 +97,19 @@
 
 .hamburger-menu__icon:hover {
     cursor: pointer;
+}
+
+.shopping-cart-toast {
+    position: absolute;
+    z-index: 100;
+    border-radius: 0.3rem;
+    background-color: var(--primary-color);
+    color: var(--default-white);
+    right: 100px;
+    top: 5.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 992px) {
@@ -146,6 +159,10 @@
     
     .navbar-links.hide {
         display: none
+    }
+
+    .shopping-cart-toast {
+        display: none;
     }
 }
 
