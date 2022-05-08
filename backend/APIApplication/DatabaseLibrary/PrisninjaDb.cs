@@ -98,4 +98,12 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
             options.InsertIfNotExists = true;
         });
     }
+
+    public void ClearDatabase()
+    {
+        _context.ProductStores.BulkDelete(_context.ProductStores.Select(x=>x));
+        _context.Products.BulkDelete(_context.Products);
+        _context.Stores.BulkDelete(_context.Stores);
+        _context.ProductStandardNames.BulkDelete(_context.ProductStandardNames);
+    }
 }
