@@ -1,4 +1,6 @@
 using BusinessLogicLibrary.SearchAlgorithm;
+using BusinessLogicLibrary.SearchAlgorithm.Models;
+using BusinessLogicLibrary.SearchAlgorithm.Models.Interfaces;
 using DatabaseLibrary;
 using DatabaseLibrary.Data;
 using ExternalApiLibrary.HostedServices;
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<PrisninjaDbContext>();
 builder.Services.AddTransient<IDbRequest, PrisninjaDb>();
 builder.Services.AddTransient<IDbSearch, PrisninjaDb>();
 builder.Services.AddTransient<IDbInsert, PrisninjaDb>();
+builder.Services.AddScoped<IRangeCalculator, RangeCalculator>();
 
 builder.Services.AddCors(options =>
 {
