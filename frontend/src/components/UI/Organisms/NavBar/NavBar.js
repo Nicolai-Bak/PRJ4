@@ -22,7 +22,7 @@ function NavBar(props) {
 		return links;
 	};
 
-	const iconClicked = () => {
+	const returnToHomePage = () => {
 		navigate("/");
 	};
 
@@ -32,10 +32,10 @@ function NavBar(props) {
 				<img
 					id="ninja__logo"
 					src="/images/ninja-desk.svg"
-					onClick={iconClicked}
-					alt=""
+					onClick={returnToHomePage}
+					alt={companyName}
 				/>
-				{companyName}
+				<span className="navbar-company-name" onClick={returnToHomePage}>{companyName}</span>
 			</div>
 			<div className="right-side__container">
 				<div className="navbar-menu">

@@ -13,12 +13,20 @@
     font-size: 40px;
     font-style: italic;
     font-weight: 900;
+    position: relative;
+    overflow: visible;
+}
+
+.navbar-company-name {
+    cursor: pointer;
 }
 
 .right-side__container{
     display: flex;
     justify-content: flex-end;
     padding-right: 5%;
+    position: relative;
+    z-index: 50;
 }
 
 .navbar-menu {
@@ -79,7 +87,7 @@
 .hamburger-menu__icon {
     display:none;
     height: 3rem;
-    width: 3rem;
+    min-width: 3rem;
     color: var(--default-black);
     position: relative;
     top: 50%;
@@ -148,21 +156,22 @@
 @media screen and (max-width: 776px) {
     .right-side__container {
         flex: 0 auto;
-        right: 15rem;
+        max-width:10rem
     }
     .hamburger-menu__icon {
-        right: 4rem;
+        right: 2rem;
     }
     .hamburger-menu__icon.hide {
-        right: 4rem;
+        right: 2rem;
     }
 
     .navbar-menu {
-        right: 15rem;
+        
         left: auto;
     }
     .navbar-links .link{
-        width: 50vw;
+        width: 100vw;
+        text-align: center;
     }
 }
 
