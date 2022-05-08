@@ -12,6 +12,7 @@
         public StoreSearch(int id)
         {
             StoreID = id;
+            Products = new List<ProductSearch>();
         }
 
         public StoreSearch()
@@ -22,7 +23,7 @@
         public void Add(ProductSearch p)
         {
             Products.Add(p);
-            TotalPrice += p.Price * p.Amount;
+            TotalPrice += p.Price;
         }
         
     }

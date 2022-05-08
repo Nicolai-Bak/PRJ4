@@ -31,3 +31,12 @@
 		width: 80%;
 	}
 }
+
+@media screen and (max-width: 480px) {
+	.shopping-list {
+		width: 97%;
+	}
+	.shopping-list ul {
+		padding: 0;
+	}
+}

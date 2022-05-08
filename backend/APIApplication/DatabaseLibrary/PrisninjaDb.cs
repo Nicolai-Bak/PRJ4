@@ -1,5 +1,6 @@
 ﻿using DatabaseLibrary.Data;
 using DatabaseLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseLibrary;
 
@@ -29,7 +30,7 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
         return _context.ProductStandardNames.FirstOrDefault(sn => sn.Name == name);
     }
 
-    public List<int> GetStoresInRange(double x, double y, int range)
+    public List<int> GetStoresInRange(double x, double y, double range)
     {
         return _context.Stores
             .Select(s => s)
@@ -57,6 +58,8 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
                                 .Any(sk => sk == psk))
                         && p.Name.Contains(productName)
                         && p.Measurement == measurement)
+            .Include(p => p.ProductStores)
+            .ThenInclude(ps => ps.Store)
             .ToList();
     }
 

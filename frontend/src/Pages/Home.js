@@ -23,6 +23,36 @@ function Home() {
 		}
 	}, [shoppingList]);
 
+	const handleItemUpdate = (id, amount, unit) => {
+		console.log(
+			"handleItemUpdate: ",
+			"id: ",
+			id.toString().slice(0, 5),
+			"value: ",
+			amount,
+			"unit :",
+			unit
+		);
+		setShoppingList((prevShoppingList) => {
+			return prevShoppingList.map((item) => {
+				if (item.id !== id || amount < 0) return item;
+
+				if (unit !== null) {
+					return {
+						...item,
+						unit: unit,
+						amount: amount,
+					};
+				} else {
+					return {
+						...item,
+						amount: amount,
+					};
+				}
+			});
+		});
+	};
+
 	const newItemHandler = async (name, amount, unit, id, organic) => {
 		console.log(
 			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
@@ -117,26 +147,23 @@ function Home() {
 				unit: item.unit,
 				organic: item.organic,
 			};
-			console.log(itemDTO);
+			// console.log(itemDTO);
 			searchList.push(itemDTO);
 		});
 
-		searchList.forEach((item) => console.log(item));
-		const request = await fetch(
-			"https://localhost/options/",
-			{
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					products: searchList,
-					y: latitude,
-					x: longitude,
-				}),
-			}
-		);
+		// searchList.forEach((item) => console.log(item));
+		const request = await fetch("https://localhost/options/", {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				products: searchList,
+				y: latitude,
+				x: longitude,
+			}),
+		});
 
 		console.log("request received: " + request);
 
@@ -175,6 +202,7 @@ function Home() {
 				onSearch={searchHandler}
 				onRemoveItem={removeItemHandler}
 				onAmountChanged={changeAmountHandler}
+				onNewUnitOrAmount={handleItemUpdate}
 			/>
 		</div>
 	);
