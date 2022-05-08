@@ -1,5 +1,5 @@
 .dropdown-toggle {
-    background: var(--secondary-color-light);
+    background: var(--default-white);
     box-shadow: none;
     border: 0.05rem solid #0e1614;
     border-radius: 0.3rem;
@@ -9,7 +9,7 @@
 }
 
 .dropdown-toggle:hover {
-    background: var(--default-white);
+    background: var(--all-white);
 }
 
 .dropdown-menu {
@@ -21,7 +21,7 @@
 
 .dropdown-menu-item {
     list-style: none;
-    background: var(--secondary-color-light);
+    background: var(--default-white);
     box-shadow: none;
     border-radius: 0;
     min-width: 10.9rem;
@@ -32,5 +32,5 @@
 }
 
 .dropdown-menu-item:hover {
-    background: var(--default-white);
+    background: var(--all-white);
 }

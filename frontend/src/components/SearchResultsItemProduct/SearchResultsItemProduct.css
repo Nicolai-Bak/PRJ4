@@ -3,6 +3,7 @@
 	padding-bottom: 0;
 }
 
+
 .product-display {
 	padding-inline-start: 0;
 	display: flex;
@@ -20,14 +21,19 @@
 	background: var(--secondary-color-extra-light);
 }
 
+.product-display > *:hover {
+	background-color: var(--all-white);
+	transform: scale(1.002);
+}
+
 .product-information > * {
 	font-size: 1rem;
 	font-weight: 600;
 }
 
 .product-price {
-	float: right;
-	padding-right: 0.75rem;
+	/* float: right;
+	padding-right: 0.75rem; */
 	font-weight:700;
 }
 
@@ -37,4 +43,13 @@
 
 .product-image {
 	width: 5rem;
+	float:right;
+	padding-right: 0.75rem;
+}
+
+@media screen and (max-width: 768px) {
+    .product-image {
+		width: 4rem;
+	}
+
 }
