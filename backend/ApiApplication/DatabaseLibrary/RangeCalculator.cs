@@ -1,8 +1,5 @@
-﻿using BusinessLogicLibrary.SearchAlgorithm.Models.Interfaces;
-using DatabaseLibrary.Models;
-
-namespace BusinessLogicLibrary.SearchAlgorithm.Models;
-
+﻿
+namespace DatabaseLibrary;
 public class RangeCalculator : IRangeCalculator
 {
     public double ToRadians(double angle)
@@ -35,7 +32,11 @@ public class RangeCalculator : IRangeCalculator
         double r = 6371;
 
         // calculate the result
-        return (c * r);
+
+        double d = (c*r);
+
+        return d;
+
     }
 
 }
