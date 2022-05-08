@@ -15,12 +15,11 @@ public class CoopProductConverter : IConverter
 	 */
     public List<IDbModelsDto> Convert(List<IFilteredDto> list)
     {
-        var filteredList = ValidateProducts(list.Cast<FilteredCoopProduct>().ToList());
+        var filteredList = list.Cast<FilteredCoopProduct>().ToList();
 
         var products = filteredList.Select(p => new Product()
         {
-
-            EAN = long.Parse(p.id),
+	        EAN = long.Parse(p.id),
             Name = p.displayName,
             Brand = p.brand ?? " ",
             Units = GetUnitFromSpotText(p.spotText, GetMeasurementFromSpotText(p.spotText)),
@@ -37,66 +36,7 @@ public class CoopProductConverter : IConverter
 
         }).ToList();
 
-        return new List<IDbModelsDto>(products);
-    }
-
-    private List<FilteredCoopProduct> ValidateProducts(List<FilteredCoopProduct>? products)
-    {
-	    var validProducts = new List<FilteredCoopProduct>();
-	    
-	    products?.ForEach(p =>
-	    {
-		    bool isValid = true;
-		    
-		    if (string.IsNullOrWhiteSpace(p.id) || long.Parse(p.id) == 0)
-		    {
-			    LogInvalidProduct(p, $"Ean was 0");
-			    isValid = false;
-		    }
-		    if (string.IsNullOrEmpty(p.displayName) || string.IsNullOrWhiteSpace(p.displayName))
-		    {
-			    LogInvalidProduct(p, $"Name was empty");
-			    isValid = false;
-		    }
-		    if (string.IsNullOrEmpty(p.brand) || string.IsNullOrWhiteSpace(p.brand))
-		    {
-			    LogInvalidProduct(p, $"Brand was empty");
-			    isValid = false;
-		    }
-		    if (GetUnitFromSpotText(p.spotText, GetMeasurementFromSpotText(p.spotText)) <= 0)
-		    {
-			    LogInvalidProduct(p, $"Units was less than or equal to zero");
-			    isValid = false;
-		    }
-		    if (string.IsNullOrEmpty(GetMeasurementFromSpotText(p.spotText)) 
-		        || string.IsNullOrWhiteSpace(GetMeasurementFromSpotText(p.spotText)))
-		    {
-			    LogInvalidProduct(p, $"Measurement was empty");
-			    isValid = false;
-		    }
-		    if (string.IsNullOrEmpty(p.image) || string.IsNullOrWhiteSpace(p.image))
-		    {
-			    LogInvalidProduct(p, $"ImageUrl was empty");
-			    isValid = false;
-		    }
-		    if (p.salesPrice.amount * 100 <= 0)
-		    {
-			    LogInvalidProduct(p, $"Price was less than or equal to zero");
-			    isValid = false;
-		    }
-
-
-		    if (isValid)
-			    validProducts.Add(p);
-	    });
-
-	    return validProducts;
-    }
-
-    private void LogInvalidProduct(FilteredCoopProduct product, string msg)
-    {
-	    Log.Fatal("[CoopProductConverter] Invalid product conversion error: {@msg}\nProduct: {@product}",
-		    msg, product);
+        return ProductValidator.ValidateProducts(products, ProductGroup.Coop);
     }
 
     /**

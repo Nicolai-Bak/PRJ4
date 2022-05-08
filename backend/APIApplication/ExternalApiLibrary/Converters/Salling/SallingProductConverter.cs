@@ -26,7 +26,7 @@ public class SallingProductConverter : IConverter
             }},
         }).ToList();
 
-        return new List<IDbModelsDto>(products);
+        return ProductValidator.ValidateProducts(products, ProductGroup.Salling);
     }
 
     /**
