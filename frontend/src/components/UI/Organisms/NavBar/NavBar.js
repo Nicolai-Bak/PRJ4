@@ -13,16 +13,16 @@ function NavBar(props) {
 	const linkRefs = () => {
 		const links = pageLinks.map((link) => {
 			return (
-				<span className="link" key={(Math.random() * 20).toFixed(4)}>
+				<div className="link" key={(Math.random() * 20).toFixed(4)}>
 					<Link to={link.link}>{link.text}</Link>
-				</span>
+				</div>
 			);
 		});
 		// console.log(pageLinks);
 		return links;
 	};
 
-	const iconClicked = () => {
+	const returnToHomePage = () => {
 		navigate("/");
 	};
 
@@ -32,10 +32,10 @@ function NavBar(props) {
 				<img
 					id="ninja__logo"
 					src="/images/ninja-desk.svg"
-					onClick={iconClicked}
-					alt=""
+					onClick={returnToHomePage}
+					alt={companyName}
 				/>
-				{companyName}
+				<span className="navbar-company-name" onClick={returnToHomePage}>{companyName}</span>
 			</div>
 			<div className="right-side__container">
 				<div className="navbar-menu">
@@ -48,7 +48,6 @@ function NavBar(props) {
 					src="/images/shopping-cart.svg"
 					alt="indkøbsvogn"
 				/>
-
 				<IoMenu
 					onClick={toggleMenu}
 					className={`hamburger-menu__icon ${showMenu ? "hide" : ""}`}

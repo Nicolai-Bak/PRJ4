@@ -41,3 +41,26 @@
     left: 5rem;
 }
 
+@media screen and (max-width: 768px) {
+    .about-page__container{
+        padding-right: 0;
+    }
+
+    .image__container{
+        width: 500px;
+        height: 200px;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+    .about-page__container{
+        padding-right: 5rem;
+    }
+
+    .image__container{
+        width: 0; 
+        height: 0;
+    }
+
+}
