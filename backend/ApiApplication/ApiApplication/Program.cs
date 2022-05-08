@@ -1,10 +1,13 @@
+using BusinessLogicLibrary.ProductNameStandardize;
 using BusinessLogicLibrary.SearchAlgorithm;
 using DatabaseLibrary;
 using DatabaseLibrary.Data;
+using ExternalApiLibrary;
+using ExternalApiLibrary.Factory;
 using ExternalApiLibrary.HostedServices;
 using Microsoft.EntityFrameworkCore;
 
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +46,26 @@ builder.Services.AddCors(options =>
                 .AllowAnyOrigin();
         });
 });
+builder.Services.AddHostedService(sp =>
+{
+    return new ExternalApiService(sp.GetRequiredService<IDbInsert>(),
+        new List<IApiFactory[]>()
+        {
+            new IApiFactory[2]
+            {
+                new FoetexProductFactory(),
+                new FoetexStoreFactory()
 
+            },
+            new IApiFactory[2]
+            {
+                new CoopProductFactory(),
+                new CoopStoreFactory()
+            },
+        },
+        new ProductNameStandardizer(),
+        false);
+});
 builder.Services.AddHostedService<ExternalApiService>();
 var app = builder.Build();
 

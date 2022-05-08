@@ -23,6 +23,8 @@ public class SallingStoreConverter : IConverter
                       store.AddressField.Country,
         }).ToList();
 
+        stores = stores.Where(s=>s.Brand== "foetex").ToList();
+
         return new List<IDbModelsDto>(stores);
     }
 }
