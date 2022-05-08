@@ -14,7 +14,7 @@ const SearchResultsItemProduct = (props) => {
 					<p className="product-name">{product.name}, {product.brand}
 						{product.organic &&
 						<img className="organic-logo" src="/images/organic-logo.svg" alt={product.name} />}
-						<span className="product-price">{product.price}kr</span>
+						<span className="product-price"> {product.price}kr</span>
 						<img className="product-image" src={product.imageUrl} alt={product.name} onClick={displayImage()}/></p> 
 					<p className="product-unit">{product.amount} stk af {product.units}{product.measurement}
 					</p> 
