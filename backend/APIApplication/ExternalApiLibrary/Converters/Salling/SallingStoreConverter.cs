@@ -20,9 +20,9 @@ public class SallingStoreConverter : IConverter
             Address = store.AddressField.Street + ", " +
                       store.AddressField.Zip + " " +
                       store.AddressField.City + ", " +
-                      store.AddressField.Country,
+                      store.AddressField.Country
         }).ToList();
 
-        return new List<IDbModelsDto>(stores);
+        return StoreValidator.ValidateStores(stores, StoreGroup.Salling);
     }
 }
