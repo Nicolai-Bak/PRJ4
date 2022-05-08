@@ -72,55 +72,109 @@ public class ExternalApiService : IHostedService
         var stores = new List<Store>();
         var productStores = new List<ProductStore>();
 
+        var foetexProducts = new List<Product>();
+        var foetexStores = new List<Store>();
+
+        var foetexError = false;
+
         // Products - Foetex
-        var foetexProducts = (await _foetexProductApi.Get()).Cast<Product>().ToList();
+        try
+        {
+	        foetexProducts = (await _foetexProductApi.Get()).Cast<Product>().ToList();
+        }
+        catch (Exception e)
+        {
+	        Log.Fatal(e, "[ExtAPI Service] Failed to update database - Uncaught exception fetching Føtex products");
+	        foetexError = true;
+        }
 
         // Stores - Foetex
-        var foetexStores = (await _foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList();
-
-        products.AddRange(foetexProducts);
-        stores.AddRange(foetexStores);
-
-        foetexProducts.ForEach(p =>
+        try
         {
-            foetexStores.ForEach(s =>
-            {
-                productStores.Add(new ProductStore()
-                {
-                    ProductKey = p.EAN,
-                    StoreKey = s.ID,
-                    Price = p.ProductStores.First().Price
-                });
-            });
-        });
+	        foetexStores = (await _foetexStoreApi.Get()).Cast<Store>().Where(s => s.Brand == "foetex").ToList();
+        }
+        catch (Exception e)
+        {
+	        Log.Fatal(e, "[ExtAPI Service] Failed to update database - Uncaught exception fetching Føtex stores");
+	        foetexError = true;
+        }
+
+        if (!foetexError)
+        {
+	        products.AddRange(foetexProducts); 
+	        stores.AddRange(foetexStores);
+
+	        foetexProducts.ForEach(p =>
+	        {
+	            foetexStores.ForEach(s =>
+	            {
+	                productStores.Add(new ProductStore()
+	                {
+	                    ProductKey = p.EAN,
+	                    StoreKey = s.ID,
+	                    Price = p.ProductStores.First().Price
+	                });
+	            });
+	        });
+        }
+        
+        var coopProducts = new List<Product>();
+        var coopStores = new List<Store>();
+        
+        var coopError = false;
+
 
         // Products - Coop
-        var coopProducts = (await _coopProductApi.Get()).Cast<Product>().ToList();
-        // Stores - Coop
-        var coopStores = (await _coopStoreApi.Get()).Cast<Store>().ToList();
-
-        products.AddRange(coopProducts);
-        stores.AddRange(coopStores);
-
-        coopProducts.ForEach(p =>
+        try
         {
-            coopStores.ForEach(s =>
-            {
-                productStores.Add(new ProductStore()
-                {
-                    ProductKey = p.EAN,
-                    StoreKey = s.ID,
-                    Price = p.ProductStores.First().Price
-                });
-            });
-        });
-
-        _db.InsertStores(stores);                           // Insert stores
-        _db.InsertProducts(products);                       // Insert products
-        _db.InsertProductStores(productStores);             // Insert productStores
+	        coopProducts = (await _coopProductApi.Get()).Cast<Product>().ToList();
+        }
+        catch (Exception e)
+        {
+	        Log.Fatal(e, "[ExtAPI Service] Failed to update database - Uncaught exception fetching Coop products");
+	        coopError = true;
+        }
         
-        // Standard names
-        var standardizedList = _pns.Standardize(_db.GetAllProducts());
-        _db.InsertProductStandardNames(standardizedList);   // Insert product standard names
+        // Stores - Coop
+        try
+        {
+	        coopStores = (await _coopStoreApi.Get()).Cast<Store>().ToList();
+        }
+        catch (Exception e)
+        {
+	        Log.Fatal(e, "[ExtAPI Service] Failed to update database - Uncaught exception fetching Coop Stores");
+	        coopError = true;
+        }
+
+        if (!coopError)
+        {
+	        products.AddRange(coopProducts);
+			stores.AddRange(coopStores);
+
+			coopProducts.ForEach(p =>
+	        {
+	            coopStores.ForEach(s =>
+	            {
+	                productStores.Add(new ProductStore()
+	                {
+	                    ProductKey = p.EAN,
+	                    StoreKey = s.ID,
+	                    Price = p.ProductStores.First().Price
+	                });
+	            });
+	        });
+        }
+
+        if (!coopError && !foetexError)
+        {
+	        _db.InsertStores(stores);                           // Insert stores
+	        _db.InsertProducts(products);                       // Insert products
+	        _db.InsertProductStores(productStores);             // Insert productStores
+	        
+	        // Standard names
+	        var standardizedList = _pns.Standardize(_db.GetAllProducts());
+	        _db.InsertProductStandardNames(standardizedList);   // Insert product standard names
+        }
+
     }
 }
