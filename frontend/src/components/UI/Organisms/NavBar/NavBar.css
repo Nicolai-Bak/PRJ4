@@ -136,11 +136,7 @@
     }
 
     .navbar-links .link:hover{
-        background-color: var(--default-black);
-        color: var(--secondary-color);
-    }
-
-    .navbar-links:hover > .link a {
+        background-color: var(--secondary-color-light);
         color: var(--secondary-color);
     }
 
@@ -178,5 +174,8 @@
 @media screen and (max-width: 576px) {
     #ninja__logo{
         padding-right: 1rem;
+    }
+    .right-side__container {
+        max-width: 5rem;
     }
 }

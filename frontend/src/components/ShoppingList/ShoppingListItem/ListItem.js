@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./ListItem.css";
 import Button from "../../UI/Atoms/Button/Button";
+import { IoTrashBin } from "react-icons/io5";
+
 
 const ListItem = (props) => {
 	const [displayAmount, setDisplayAmount] = useState(true);
@@ -79,14 +81,14 @@ const ListItem = (props) => {
 		<div className="list-item">
 			<span className="list-item__left">{props.name}</span>
 			<span className="list-item__right">
-				{amountAndUnitDisplay()}
 				<span className="item-buttons">
 					<Button
 						className="adjust-amount-button"
 						onClick={() => props.onDecreaseAmount(props.id)}
-					>
+						>
 						-
 					</Button>
+						{amountAndUnitDisplay()}
 					<Button
 						className="adjust-amount-button"
 						onClick={() => props.onIncreaseAmount(props.id)}
@@ -94,12 +96,8 @@ const ListItem = (props) => {
 						+
 					</Button>
 				</span>
-				<Button
-					className="remove-button"
-					onClick={() => props.onRemoveItem(props.id, props.name)}
-				>
-					Slet
-				</Button>
+					<IoTrashBin className="remove-button"
+					onClick={() => props.onRemoveItem(props.id, props.name)}/>
 			</span>
 		</div>
 	);

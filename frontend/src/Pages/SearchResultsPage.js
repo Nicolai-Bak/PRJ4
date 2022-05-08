@@ -7,7 +7,6 @@ import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown/Dropdown";
 import { useState } from "react";
-import SearchResultsItemProduct from "../components/SearchResultsItemProduct/SearchResultsItemProduct";
 
 function SearchResultsPage() {
 	let navigate = useNavigate();

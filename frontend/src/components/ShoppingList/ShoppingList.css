@@ -14,10 +14,20 @@
 	padding: 0.4rem 0.4rem;
 }
 
+.shopping-list ul > * {
+	transition: transform .2s;
+}
+
+.shopping-list ul > *:hover {
+    transform: scale(1.025);
+}
+
+
 .shopping-list .search-button {
 	display: inline-block;
 	margin-bottom: 1rem;
 	margin-top: 1rem;
+	background: rgb(100, 175, 212);
 }
 
 @media screen and (max-width: 1300px) {

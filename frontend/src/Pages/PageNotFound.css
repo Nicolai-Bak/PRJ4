@@ -33,3 +33,38 @@ p {
     margin-top: 3%;
     font-weight: 200;
 }
+
+@media screen and (max-width: 1400px) {
+    .page-not-found > * {
+        /* Center vertically and horizontally */
+        position: absolute;
+        top: 45%;
+        left: 47%;
+        transform: translate(-50%, -50%);
+        font-size: 4rem;
+        font-weight: 700;
+      }
+
+    #ninja {
+        width: 250px;
+        left: 110%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .page-not-found > * {
+        /* Center vertically and horizontally */
+        position: absolute;
+        top: 30%;
+        left: 47%;
+        transform: translate(-50%, -50%);
+        font-size: 4rem;
+        font-weight: 700;
+      }
+
+    #ninja {
+        width: 250px;
+        left: 10rem;
+        top: 30rem;
+    }
+}
