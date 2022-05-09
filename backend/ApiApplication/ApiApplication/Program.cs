@@ -69,7 +69,6 @@ builder.Services.AddHostedService(sp =>
         new ProductNameStandardizer(),
         false);
 });
-builder.Services.AddHostedService<ExternalApiService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
