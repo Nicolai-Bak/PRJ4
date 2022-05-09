@@ -47,7 +47,7 @@ public class ExternalApiService : IHostedService
     {
         TimeSpan interval = TimeSpan.FromDays(7);
         //calculate time to run the first time & delay to set the timer
-        var nextRunTime = DateTime.Today.AddDays(1).AddHours(1);
+        var nextRunTime = DateTime.Today.AddHours(9).AddMinutes(12);   //.AddDays(1).AddHours(1);
         var curTime = DateTime.Now;
         var firstInterval = nextRunTime.Subtract(curTime);
 
@@ -133,6 +133,8 @@ public class ExternalApiService : IHostedService
                 });
             }
         }
+
+        products = products.GroupBy(x => x.EAN).Select(y => y.First()).ToList();
 
         _db.ClearDatabase();                                // Clear database before inserting new data
         _db.InsertStores(stores);                           // Insert stores

@@ -43,7 +43,7 @@ public static class Program
                 },
             },
             new ProductNameStandardizer(),
-            false);
+            true);
 
         await externalApiService.UpdateDatabase();
     }
