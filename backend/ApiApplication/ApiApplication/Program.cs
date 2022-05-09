@@ -1,10 +1,15 @@
+using BusinessLogicLibrary.ProductNameStandardize;
 using BusinessLogicLibrary.SearchAlgorithm;
+using BusinessLogicLibrary.SearchAlgorithm.Models;
+using BusinessLogicLibrary.SearchAlgorithm.Models.Interfaces;
 using DatabaseLibrary;
 using DatabaseLibrary.Data;
+using ExternalApiLibrary;
+using ExternalApiLibrary.Factory;
 using ExternalApiLibrary.HostedServices;
 using Microsoft.EntityFrameworkCore;
 
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +36,7 @@ builder.Services.AddDbContext<PrisninjaDbContext>(optionsBuilder =>
 builder.Services.AddTransient<IDbRequest, PrisninjaDb>();
 builder.Services.AddTransient<IDbSearch, PrisninjaDb>();
 builder.Services.AddTransient<IDbInsert, PrisninjaDb>();
+builder.Services.AddScoped<IRangeCalculator, RangeCalculator>();
 
 builder.Services.AddCors(options =>
 {
@@ -43,7 +49,26 @@ builder.Services.AddCors(options =>
                 .AllowAnyOrigin();
         });
 });
+builder.Services.AddHostedService(sp =>
+{
+    return new ExternalApiService(sp.GetRequiredService<IDbInsert>(),
+        new List<IApiFactory[]>()
+        {
+            new IApiFactory[2]
+            {
+                new FoetexProductFactory(),
+                new FoetexStoreFactory()
 
+            },
+            new IApiFactory[2]
+            {
+                new CoopProductFactory(),
+                new CoopStoreFactory()
+            },
+        },
+        new ProductNameStandardizer(),
+        false);
+});
 builder.Services.AddHostedService<ExternalApiService>();
 var app = builder.Build();
 

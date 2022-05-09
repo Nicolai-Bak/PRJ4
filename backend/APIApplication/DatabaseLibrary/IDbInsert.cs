@@ -9,4 +9,5 @@ public interface IDbInsert
     void InsertProducts(List<Product> products);
     void InsertProductStores(List<ProductStore> productStores);
     void InsertProductStandardNames(List<ProductStandardName> productStandardNames);
+    void ClearDatabase();
 }

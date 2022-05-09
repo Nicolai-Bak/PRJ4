@@ -45,7 +45,7 @@ public class SallingStoreConverterTest
 	    return new FilteredSallingStore
 	    {
 		    Id = 1652,
-		    Brand = "bilka",
+		    Brand = "foetex",
 		    Coordinates = new List<double> { 9.876099d, 57.004687d },
 		    AddressField = new FilteredSallingStore.Address
 		    {
@@ -62,7 +62,7 @@ public class SallingStoreConverterTest
 	    return new Store
 	    {
 			Address = "Hobrovej 450, 9200 Aalborg Sv, DK",
-			Brand = "bilka",
+			Brand = "foetex",
 			ID = 1652,
 			Location_X = 9.876099d,
 			Location_Y = 57.004687d
