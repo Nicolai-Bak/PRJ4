@@ -22,15 +22,16 @@ public class SearchControlTest
     public void Setup()
     {
         PrisninjaDbContext context = GetDbContext();
-        _dbInsert = new PrisninjaDb(context);
-        _dbSearch = new PrisninjaDb(context);
+        IRangeCalculator rangeCalculator = new RangeCalculator();
+        _dbInsert = new PrisninjaDb(context, rangeCalculator);
+        _dbSearch = new PrisninjaDb(context, rangeCalculator);
         _uut = new SearchControl(CreateTestShoppingList(), _dbSearch,
             new List<IStoreSelecter>()
             {
                 new CheapestStoreSelecter(),
                 new ClosestStoreSelecter(),
                 new BestStoreSelecter()
-            });
+            }, rangeCalculator);
     }
 
     [Test]
