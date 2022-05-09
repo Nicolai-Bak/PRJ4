@@ -49,7 +49,8 @@ function NavBar(props) {
 					id="shopping__cart"
 					src="/images/shopping-cart.svg"
 					alt="indkøbsvogn"
-					onClick={toggleShoppingCart}
+					onMouseEnter={toggleShoppingCart}
+					onMouseLeave={toggleShoppingCart}
 				/>
 				<IoMenu
 					onClick={toggleMenu}
@@ -61,7 +62,7 @@ function NavBar(props) {
 				/>
 			</div>
 			{shoppingCart && <div className="shopping-cart-toast">
-				Der er tilføjet {localStorage.length} varer på indkøbslisten.
+				Der er tilføjet {JSON.parse(localStorage.getItem("shoppingList")).length} varer på indkøbslisten.
 			</div>}
 		</div>
 	);

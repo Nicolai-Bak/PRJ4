@@ -68,8 +68,8 @@
 }
 
 #shopping__cart:hover {
-    transition: all 0.2s ease-in-out 0.2s;
-    margin-top:0.1rem;
+    transition: 0.2s;
+    margin-top:0.2rem;
 }
 
 #ninja__logo{
