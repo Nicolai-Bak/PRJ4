@@ -1,4 +1,4 @@
-﻿using BusinessLogicLibrary.ProductNameStandardize;
+﻿﻿using BusinessLogicLibrary.ProductNameStandardize;
 using DatabaseLibrary;
 using DatabaseLibrary.Models;
 using ExternalApiLibrary.Factory;
@@ -78,30 +78,60 @@ public class ExternalApiService : IHostedService
 
         foreach (var api in _externalApis)
         {
-            var p = (await api[0].Get()).Cast<Product>().ToList();
-            var s = (await api[1].Get()).Cast<Store>().ToList();
-            s = s.Where(s => s.ID != 1305 &&
-                             s.ID != 1315 &&
-                             s.ID != 1370 &&
-                             s.ID != 1326 &&
-                             s.ID != 1330 &&
-                             s.ID != 1350).ToList();
-
-            products.AddRange(p);
-            stores.AddRange(s);
-
-            p.ForEach(p =>
+	        var p = new List<Product>();
+	        var s = new List<Store>();
+	        
+            var productError = false;
+            var storeError = false;
+            
+            try
             {
-                s.ForEach(s =>
+                p = (await api[0].Get()).Cast<Product>().ToList();
+            }
+            catch(Exception e)
+            {
+                Log.Fatal(e, $"[ExtAPI Service] Failed to update database - Uncaught exception fetching {nameof(p)}");
+                productError = true;
+            }
+            
+            try
+            {
+                s = (await api[1].Get()).Cast<Store>().ToList();
+            }
+            catch(Exception e)
+            {
+                Log.Fatal(e, $"[ExtAPI Service] Failed to update database - Uncaught exception fetching {nameof(s)}");
+                storeError = true;
+            }
+            
+            if (!storeError)
+            {
+                s = s.Where(s => s.ID != 1305 &&
+                                 s.ID != 1315 &&
+                                 s.ID != 1370 &&
+                                 s.ID != 1326 &&
+                                 s.ID != 1330 &&
+                                 s.ID != 1350).ToList();
+            }
+
+            if (!productError) products.AddRange(p);
+            if (!storeError) stores.AddRange(s);
+
+            if (!productError && !storeError)
+            {
+                p.ForEach(p =>
                 {
-                    productStores.Add(new ProductStore()
+                    s.ForEach(s =>
                     {
-                        ProductKey = p.EAN,
-                        StoreKey = s.ID,
-                        Price = p.ProductStores.First().Price
+                        productStores.Add(new ProductStore()
+                        {
+                            ProductKey = p.EAN,
+                            StoreKey = s.ID,
+                            Price = p.ProductStores.First().Price
+                        });
                     });
                 });
-            });
+            }
         }
 
         _db.ClearDatabase();                                // Clear database before inserting new data

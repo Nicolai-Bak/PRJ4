@@ -19,8 +19,7 @@ public class CoopProductConverter : IConverter
 
         var products = filteredList.Select(p => new Product()
         {
-
-            EAN = long.Parse(p.id),
+	        EAN = long.Parse(p.id),
             Name = p.displayName,
             Brand = p.brand ?? " ",
             Units = GetUnitFromSpotText(p.spotText, GetMeasurementFromSpotText(p.spotText)),
@@ -37,7 +36,7 @@ public class CoopProductConverter : IConverter
 
         }).ToList();
 
-        return new List<IDbModelsDto>(products);
+        return ProductValidator.ValidateProducts(products, ProductGroup.Coop);
     }
 
     /**
