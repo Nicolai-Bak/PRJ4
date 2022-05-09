@@ -25,6 +25,7 @@
     position: relative;
     z-index: 1;
     overflow: visible;
+    padding-right: 2rem;
 }
 
 .search-results-page .search-results-item{
@@ -87,5 +88,17 @@
 @media screen and (max-width: 768px) {
     .results-container {
 		width: 90%;
+	}
+}
+
+@media screen and (max-width: 576px) {
+    .dropdown-menu-container {
+		padding-right: 0;
+	}
+}
+
+@media screen and (max-width: 406px) {
+    .results-container {
+		width: 95%;
 	}
 }
