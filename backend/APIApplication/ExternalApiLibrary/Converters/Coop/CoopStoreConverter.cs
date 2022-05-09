@@ -2,6 +2,7 @@ using DatabaseLibrary.Models;
 using ExternalApiLibrary.Converters.Interfaces;
 using ExternalApiLibrary.DTO;
 using ExternalApiLibrary.Models;
+using Serilog;
 
 namespace ExternalApiLibrary.Converters.Coop;
 
@@ -20,6 +21,7 @@ public class CoopStoreConverter : IConverter
             Address = $"{store.Address}, {store.Zipcode} {store.City}"
         }).ToList();
 
-        return new List<IDbModelsDto>(stores);
+        return StoreValidator.ValidateStores(stores, StoreGroup.Coop);
     }
+
 }
