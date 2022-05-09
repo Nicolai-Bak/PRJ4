@@ -26,7 +26,7 @@ const SearchField = (props) => {
 	});
 	const [value, setValue] = useState("");
 	const [open, setOpen] = useState(false);
-	const [searchValues, setSearchValues] = useState([]);
+	const [searchValues, setSearchValues] = useState([itemsReceived]);
 
 	// const defaultProps = {
 	// 	options: itemsReceived,
@@ -35,12 +35,13 @@ const SearchField = (props) => {
 
 	useEffect(() => {
 		props.onItemChanged(value);
-		if (value.length > 1 && itemsReceived.includes(value))
-			handleFocusLoss(value);
+		// if (value.length > 1 && itemsReceived.includes(value))
+		// 	handleFocusLoss(value);
 	}, [value]);
 
 	const handleFocusLoss = (event) => {
-		console.log("handleFocusLoss was called with " + event);
+		setOpen(false);
+		console.log("handleFocusLoss was called with ", event);
 		props.onFocusLost(event);
 	};
 
@@ -48,7 +49,10 @@ const SearchField = (props) => {
 		const input = event.target.value;
 		setValue(input);
 
-		setSearchValues(itemsReceived.filter((item) => item.includes(input)));
+		// this should prevent slow rendering issues with very little negative effect
+		setSearchValues(
+			itemsReceived.filter((item) => item.includes(input)).splice(0, 100)
+		);
 		if (input.length < 2) {
 			setOpen(false);
 		} else setOpen(true);
@@ -57,24 +61,21 @@ const SearchField = (props) => {
 	return (
 		<Autocomplete
 			open={open}
-			openOnFocus={false}
 			options={searchValues}
 			disablePortal
+			blurOnSelect={false}
 			freeSolo
 			disableClearable
+			includeInputInList
+			clearOnBlur
 			onBlur={handleFocusLoss}
 			sx={styles}
 			renderOption={(props, options) => {
-				const number = 0;
-				for (let i = 0; i < 5; i++) {
-					return (
-						<React.Fragment>
-							<li {...props} key={uuid()}>
-								<span>{options}</span>
-							</li>
-						</React.Fragment>
-					);
-				}
+				return (
+					<li {...props} key={uuid()}>
+						<span>{options}</span>
+					</li>
+				);
 			}}
 			value={value}
 			onChange={(event, newValue) => {
