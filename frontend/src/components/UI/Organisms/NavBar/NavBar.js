@@ -62,7 +62,7 @@ function NavBar(props) {
 				/>
 			</div>
 			{shoppingCart && <div className="shopping-cart-toast">
-				Der er tilføjet {JSON.parse(localStorage.getItem("shoppingList")).length} varer på indkøbslisten.
+				Der er tilføjet {JSON.parse(localStorage.getItem("shoppingList")).length} varer til indkøbslisten.
 			</div>}
 		</div>
 	);

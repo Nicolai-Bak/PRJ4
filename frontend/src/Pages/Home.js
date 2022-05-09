@@ -186,22 +186,28 @@ function Home() {
 		});
 
 		// searchList.forEach((item) => console.log(item));
-		const request = await fetch(
-			"https://prisninjawebapi.azurewebsites.net/options/ ",
-			{
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					products: searchList,
-					Range: 50,
-					y: latitude,
-					x: longitude,
-				}),
-			}
-		);
+		let request = false;
+		try {
+			request = await fetch(
+				"https://prisninjawebapi.azurewebsites.net/options/ ",
+				{
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						products: searchList,
+						Range: 50,
+						y: latitude,
+						x: longitude,
+					}),
+				}
+			);
+		} catch (error) {
+			console.log(error);
+			return;
+		}
 
 		console.log("request received: " + request);
 

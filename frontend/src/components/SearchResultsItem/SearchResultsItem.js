@@ -16,7 +16,7 @@ const SearchResultsItem = (props) => {
 		<div className="search-results-item">
 			<Card className="search-results-list-item">
 				<div className="list-item-wrapper">
-					<div className="list-item-price">Pris: <span className="total-price">{props.price}kr</span></div>
+					<div className="list-item-price">Pris: <span className="total-price">{props.price/100}kr</span></div>
 					<div className="list-item-store-name">{props.storeName}</div>
 					<div className="list-item-distance">Afstand: {props.distance}km</div>
 					<Button className="chevron-button" onClick={toggleDetails}>

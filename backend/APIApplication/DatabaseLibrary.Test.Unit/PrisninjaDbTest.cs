@@ -16,7 +16,7 @@ public class PrisninjaDbTest
     public void Setup()
     {
         context = GetDbContext();
-        uut = new PrisninjaDb(context);
+        uut = new PrisninjaDb(context, new RangeCalculator());
     }
 
     [Test]

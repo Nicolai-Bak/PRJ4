@@ -98,7 +98,7 @@ function SearchResultsPage() {
 		<div className="search-results-page">
 			<Card className="results-container">
 				<div className="dropdown-menu-container">
-					<Dropdown selectedOption={selectedOptionHandler}></Dropdown>
+					<Dropdown className="results-page-dropdown" selectedOption={selectedOptionHandler}></Dropdown>
 				</div>
 				{displayOptions}
 			</Card>

@@ -33,7 +33,7 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
     public List<int> GetStoresInRange(double x, double y, double range)
     {
         return _context.Stores
-            .Select(s => s)
+            .AsEnumerable()
             .Where(s =>
                 (_rangeCalculator.Distance(x,s.Location_X,y,s.Location_Y) < range))
             .Select(s => s.ID)
@@ -51,7 +51,6 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
     public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName, string measurement)
     {
         return _context.Products
-            .Select(p => p)
             .Where(p => p.ProductStores
                             .Select(ps => ps.StoreKey)
                             .Any(psk => storeKeys

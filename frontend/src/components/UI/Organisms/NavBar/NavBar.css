@@ -196,3 +196,12 @@
         max-width: 5rem;
     }
 }
+
+@media screen and (max-width: 406px) {
+    .hamburger-menu__icon {
+        right: 1rem;
+    }
+    .hamburger-menu__icon.hide {
+        right: 1rem;
+    }
+}
