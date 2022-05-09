@@ -13,8 +13,12 @@ const ListItem = (props) => {
 			.toString()
 			.toLowerCase()
 			.replace(/[^a-z]/g, "");
-		// Removes all letters and saves the remaining. We don't want to delete commas
-		const newAmount = value.toString().toLowerCase().replace(/[a-z]/g, "");
+		// Removes everything except numbers, dots and commas
+		// Needs to be improved since only one comma or dot should be allowed
+		let newAmount = value
+			.toString()
+			.toLowerCase()
+			.replace(/[^0-9.,]+$/, "");
 
 		// testing to see how many valid units were found
 		validUnits.forEach((x) => {
@@ -38,19 +42,21 @@ const ListItem = (props) => {
 		console.log("This should never be printed :) :| :(");
 	};
 
+	// Function that handles the rendering of the input field where the user can change amount and unit and 'amountChanged' with the new info
 	const changeAmountAndUnit = (event) => {
-		if (event.type !== "keydown") {
+		// This renders the input field where the user can change the amount and unit
+		if (event.type === "click") {
 			setDisplayAmount(!displayAmount);
-			// console.log(event.type);
+			console.log(event.type);
 		}
 
-		if (event.key === "Enter") {
+		// If there is something written in the amount field, we want to change the amount and maybe unit
+		if (event.key === "Enter" || event.type === "blur") {
 			console.log("amountChanged called with : " + event.target.value);
 			amountChanged(event.target.value);
 			setDisplayAmount(!displayAmount);
 		}
 	};
-
 	// This decides what is displayed when the user interacts with the span that shows unit and amount
 	const amountAndUnitDisplay = () => {
 		if (displayAmount) {
