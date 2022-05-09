@@ -19,7 +19,6 @@ public class CoopProductConverter : IConverter
 
         var products = filteredList.Select(p => new Product()
         {
-
             EAN = long.Parse(p.id),
             Name = p.displayName,
             Brand = p.brand ?? " ",
@@ -31,13 +30,14 @@ public class CoopProductConverter : IConverter
             {
                 new ProductStore
                 {
-                    Price = p.salesPrice.amount,
+	                // Sales Price is in kr. - Change to øre
+                    Price = p.salesPrice.amount * 100,
                 }
             }
 
         }).ToList();
 
-        return new List<IDbModelsDto>(products);
+        return ProductValidator.ValidateProducts(products, ProductGroup.Coop);
     }
 
     /**

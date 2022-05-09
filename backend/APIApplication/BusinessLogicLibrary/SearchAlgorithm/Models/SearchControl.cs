@@ -6,6 +6,8 @@ using BusinessLogicLibrary.SearchAlgorithm.Models.Interfaces;
 using DatabaseLibrary;
 using DatabaseLibrary.Models;
 
+
+
 namespace ApiApplication.SearchAlgorithm
 {
     public class SearchControl : ISearchControl
@@ -124,7 +126,6 @@ namespace ApiApplication.SearchAlgorithm
         
         private double GetDistance(double storeX, double storeY, double customerX, double customerY)
         {
-           
             return _rangeCalculator.Distance(storeX, customerX, storeY, customerY);
         }
         #endregion
