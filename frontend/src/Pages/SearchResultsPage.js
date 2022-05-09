@@ -7,11 +7,10 @@ import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown/Dropdown";
 import { useState } from "react";
-import SearchResultsItemProduct from "../components/SearchResultsItemProduct/SearchResultsItemProduct";
 
 function SearchResultsPage() {
 	let navigate = useNavigate();
-	const [selectedOptionState, setSelectedOptionState] = useState('best');
+	const [selectedOptionState, setSelectedOptionState] = useState("best");
 
 	const goBack = () => {
 		navigate("/");
@@ -37,86 +36,78 @@ function SearchResultsPage() {
 		return allOptions;
 	};
 	const options = GetShoppingOptions();
-	console.log(options[0]);
+	console.log("options0: ", options[0]);
 
 	const selectedOptionHandler = (value) => {
 		switch (value) {
-		case "billigste":
-			setSelectedOptionState('cheapest');
-			break;
-		case "vores anbefaling":
-			setSelectedOptionState('best');
-			break;
-		case "nærmeste":
-			setSelectedOptionState('nearest');
-			break;
-		
-		default:
-			console.log('selectedOptionHandler error');
-	}
-	};
-	
+			case "billigste":
+				setSelectedOptionState("cheapest");
+				break;
+			case "vores anbefaling":
+				setSelectedOptionState("best");
+				break;
+			case "nærmeste":
+				setSelectedOptionState("nearest");
+				break;
 
+			default:
+				console.log("selectedOptionHandler error");
+		}
+	};
 
 	let displayOptions = null;
 
 	switch (selectedOptionState) {
-		case 'cheapest':
+		case "cheapest":
 			displayOptions = options[0].map((item) => (
 				<div>
-				<SearchResultsItem
-				price={item.totalPrice}
-				distance={item.distance}
-				storeName={item.brand}
-				>
-				</SearchResultsItem>
-					{/* {item.products((product) => 
-						<SearchResultsItemProduct product={product.name} />
-					)
-					} */}
-
+					<SearchResultsItem
+						products={item.products}
+						price={item.totalPrice}
+						distance={item.distance}
+						storeName={item.brand}
+					></SearchResultsItem>
 				</div>
 			));
 			break;
-		case 'best':
+		case "best":
 			displayOptions = options[1].map((item) => (
 				<SearchResultsItem
+					products={item.products}
 					price={item.totalPrice}
 					distance={item.distance}
 					storeName={item.brand}
-				>
-				</SearchResultsItem>
+				></SearchResultsItem>
 			));
 			break;
-		case 'nearest':
+		case "nearest":
 			displayOptions = options[2].map((item) => (
 				<SearchResultsItem
+					products={item.products}
 					price={item.totalPrice}
 					distance={item.distance}
 					storeName={item.brand}
-				>
-				</SearchResultsItem>
+				></SearchResultsItem>
 			));
 			break;
 		default:
-			console.log('default');
+			console.log("default");
 	}
 
 	return (
 		<div className="search-results-page">
 			<Card className="results-container">
 				<div className="dropdown-menu-container">
-					<Dropdown
-						selectedOption={selectedOptionHandler}
-					></Dropdown>
+					<Dropdown className="results-page-dropdown" selectedOption={selectedOptionHandler}></Dropdown>
 				</div>
-				{displayOptions} 
-
+				{displayOptions}
 			</Card>
-			<Button className="search-results-page-button" onClick={goBack}><IoArrowBack /> til forsiden</Button>
+			<div className="search-results-page-text-box">Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>, for at gå tilbage og foretage en ny søgning.</div>
+			{/* <Button className="search-results-page-button" onClick={goBack}>
+				<IoArrowBack /> til forsiden
+			</Button> */}
 		</div>
 	);
-
 }
 
 export default SearchResultsPage;

@@ -11,7 +11,7 @@ const SearchField = (props) => {
 		paddingLeft: ".4rem",
 	};
 
-	const autoStyle = {
+	const styles = (theme) => ({
 		margin: "0",
 		marginBottom: ".4rem",
 		padding: "0",
@@ -19,8 +19,11 @@ const SearchField = (props) => {
 		borderBottom: "0",
 		width: "102%",
 		height: "2.5rem",
-	};
 
+		[theme.breakpoints.down("576")]: {
+			width: "122%",
+		},
+	});
 	const [value, setValue] = useState("");
 
 	const defaultProps = {
@@ -34,6 +37,9 @@ const SearchField = (props) => {
 	}, [value]);
 
 	const handleFocusLoss = (event) => {
+		if (event.type) {
+			event = event.target.value;
+		}
 		console.log("handleFocusLoss was called with " + event);
 		props.onFocusLost(event);
 	};
@@ -41,33 +47,16 @@ const SearchField = (props) => {
 	return (
 		<Autocomplete
 			openOnFocus={false}
-			// autoSelect={true}
 			disablePortal
 			disableClearable
 			freeSolo
-			// onBlur={(event) => {
-			// 	handleFocusLoss("onBlur called: " + event.target.value);
-			// }}
-			sx={autoStyle}
+			onBlur={handleFocusLoss}
+			sx={styles}
 			{...defaultProps}
 			renderOption={(props, option) => {
 				if (value === null || value.toString().length < 2) return;
 				return (
-					<li
-						{...props}
-						key={uuid()}
-						// onClick={() => {
-						// 	setValue(option);
-						// 	console.log(`value changed to ${option}`);
-						// 	handleFocusLoss(option);
-						// }}
-						// onKeyDown={(event) => {
-						// 	if (event.key === "Enter" || event.key === "Tab") {
-						// 		setValue(option);
-						// 		handleFocusLoss(option);
-						// 	}
-						// }}
-					>
+					<li {...props} key={uuid()}>
 						<span>{option}</span>
 					</li>
 				);
@@ -84,14 +73,8 @@ const SearchField = (props) => {
 						paddingRight: ".2rem",
 					}}
 					{...params}
-					// label="Tilføj Vare Her" //<-- skal IKKE slettes! tror jeg :P
 					placeholder="Tilføj Vare Her"
 					variant="standard"
-					// onKeyDown={(event) => {
-					// 	if (event.key === "Enter" || event.key === "Tab") {
-					// 		handleFocusLoss();
-					// 	}
-					// }}
 					onChange={(event) => {
 						setValue(event.target.value);
 					}}

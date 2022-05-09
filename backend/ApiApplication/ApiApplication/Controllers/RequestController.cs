@@ -14,10 +14,12 @@ namespace ApiApplication.Controllers
     public class RequestController : Controller
     {
         private readonly IDbRequest _db;
+        private readonly IRangeCalculator _rangeCalculator;
 
-        public RequestController(IDbRequest db)
+        public RequestController(IDbRequest db, IRangeCalculator rangeCalculator)
         {
             _db = db;
+            _rangeCalculator = rangeCalculator;
         }
         
         [HttpGet("/names")]
@@ -42,7 +44,7 @@ namespace ApiApplication.Controllers
                 new ClosestStoreSelecter(),
                 new BestStoreSelecter()
             };
-            ISearchControl search = new SearchControl(shoppingList, (IDbSearch)_db, storeSelecters);
+            ISearchControl search = new SearchControl(shoppingList, (IDbSearch)_db, storeSelecters, _rangeCalculator);
 
             return new ShoppingOptions(search);
             

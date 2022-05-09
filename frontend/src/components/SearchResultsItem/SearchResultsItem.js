@@ -2,37 +2,38 @@ import Card from "../UI/Atoms/Card/Card";
 import "./SearchResultsItem.css";
 import { IoChevronDownSharp } from "react-icons/io5";
 import Button from "../UI/Atoms/Button/Button";
-import {useState} from "react";
+import { useState } from "react";
 import SearchResultsItemProduct from "../SearchResultsItemProduct/SearchResultsItemProduct";
 
-const SearchResultsItem = (props, products=[]) => {
-    const [activeState, setActiveState] = useState(true);
+const SearchResultsItem = (props) => {
+	const [activeState, setActiveState] = useState(true);
 
-    const toggleDetails = () => {
-        setActiveState(!activeState);
-    }
+	const toggleDetails = () => {
+		setActiveState(!activeState);
+	};
 
-    return (
-        <div className="search-results-item">
-            <Card className="search-results-list-item">
-            <div className="list-item-wrapper">
-             <div className="list-item-price">Pris: {props.price}kr</div>
-             <div className="list-item-store-name">{props.storeName}</div>
-             <div className="list-item-distance">Afstand: {props.distance}km</div>
-             <Button className="chevron-button" onClick={toggleDetails}>
-                <IoChevronDownSharp className={`chevron-icon ${!activeState ? "rotate" : ""}`}/>
-            </Button>
-            </div>
-            <div className={`search-results-details ${!activeState ? "show" : ""}`}>
-            {/* {products.map(product => (
+	return (
+		<div className="search-results-item">
+			<Card className="search-results-list-item">
+				<div className="list-item-wrapper">
+					<div className="list-item-price">Pris: <span className="total-price">{props.price/100}kr</span></div>
+					<div className="list-item-store-name">{props.storeName}</div>
+					<div className="list-item-distance">Afstand: {props.distance.toFixed(2)}km</div>
+					<Button className="chevron-button" onClick={toggleDetails}>
+						<IoChevronDownSharp
+							className={`chevron-icon ${!activeState ? "rotate" : ""}`}
+						/>
+					</Button>
+				</div>
+				<div className={`search-results-details ${!activeState ? "show" : ""}`}>
+					{/* {products.map(product => (
                     <SearchResultsItemProduct results={product.name}/>
             ))} */}
-                <SearchResultsItemProduct results={props.results}/>
-</div>
-            </Card>
-        </div>
-    );
-
+					<SearchResultsItemProduct  products={props.products} />
+				</div>
+			</Card>
+		</div>
+	);
 };
 
 export default SearchResultsItem;

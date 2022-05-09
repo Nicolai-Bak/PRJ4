@@ -4,6 +4,7 @@ import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
+import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
 
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
@@ -11,36 +12,48 @@ function Home() {
 		: [];
 
 	let navigate = useNavigate();
+	// DuplicateDialog states
+	const [open, setOpen] = useState(false);
+	const [amountToChange, setAmountToChange] = useState(null);
+	const [existingItem, setExistingItem] = useState({
+		name: "",
+		amount: 0,
+		unit: "",
+		id: "",
+		organic: false,
+	});
 
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
 
 	useEffect(() => {
 		if (localStorage.hasOwnProperty("shoppingList")) {
-			console.log(
-				"A change has been made to shoppingList, updating localStorage..."
-			);
+			console.log("updating localStorage...");
 			localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
 		}
 	}, [shoppingList]);
 
-	const handleItemUpdate = (id, amount, unit) => {
-		console.log(
-			"handleItemUpdate: ",
-			"id: ",
-			id.toString().slice(0, 5),
-			"value: ",
-			amount,
-			"unit :",
-			unit
-		);
+	const handleItemUpdate = (id, amount, unit, adding) => {
+		// console.log(
+		// 	"handleItemUpdate: ",
+		// 	"id: ",
+		// 	id.toString().slice(0, 5),
+		// 	"value: ",
+		// 	amount,
+		// 	"unit :",
+		// 	unit
+		// );
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
 				if (item.id !== id || amount < 0) return item;
-
-				if (unit !== null) {
+				if (unit && !adding) {
 					return {
 						...item,
 						unit: unit,
+						amount: amount,
+					};
+				} else if (!adding) {
+					return {
+						...item,
 						amount: amount,
 					};
 				} else {
@@ -53,12 +66,33 @@ function Home() {
 		});
 	};
 
+	const handleDialogAdd = (itemName, amount) => {
+		//find shoppinglist item with itemName
+		const item = shoppingList.find((item) => item.name === itemName);
+		if (item) {
+			handleItemUpdate(item.id, +item.amount + +amount, item.unit, true);
+		}
+		handleClose();
+	};
+
+	const handleClose = (action) => {
+		setOpen(false);
+	};
+
 	const newItemHandler = async (name, amount, unit, id, organic) => {
-		console.log(
-			`newItemHandler called with item: ${name}, amount: ${amount}, unit: ${unit}, id: ${
-				id.toString().slice(0, 5) + "..."
-			}, organic: ${organic}`
+		// If an item with the same name exists on the shopping list already
+
+		const existingItem = shoppingList.find(
+			(item) => item.name.toLowerCase() === name.toLowerCase()
 		);
+		if (existingItem) {
+			// console.log("Item already exists on the shopping list : ", existingItem);
+			setExistingItem(existingItem);
+			setAmountToChange(amount);
+			setOpen(true);
+			return;
+		}
+
 		// if the item doesn't exists in the database
 		if (!(await ValidateItem(name, unit))) {
 			console.log("item not found in database");
@@ -87,7 +121,6 @@ function Home() {
 	};
 
 	const removeItemHandler = (id, name) => {
-		console.log(`removeItemHandler called with id: ${id} and name: ${name}`);
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.filter((item) => item.id !== id);
 		});
@@ -153,22 +186,28 @@ function Home() {
 		});
 
 		// searchList.forEach((item) => console.log(item));
-		const request = await fetch(
-			"https://prisninjawebapi.azurewebsites.net/options/ ",
-			{
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					products: searchList,
-					Range: 50,
-					y: latitude,
-					x: longitude,
-				}),
-			}
-		);
+		let request = false;
+		try {
+			request = await fetch(
+				"https://prisninjawebapi.azurewebsites.net/options/ ",
+				{
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						products: searchList,
+						Range: 50,
+						y: latitude,
+						x: longitude,
+					}),
+				}
+			);
+		} catch (error) {
+			console.log(error);
+			return;
+		}
 
 		console.log("request received: " + request);
 
@@ -191,10 +230,15 @@ function Home() {
 			navigator.geolocation.getCurrentPosition((position) => {
 				setLatitude(position.coords.latitude);
 				setLongitude(position.coords.longitude);
-				console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+				// console.log(`latitude: ${latitude}, longitude: ${longitude}`);
 			});
 		}
 	}, [longitude, latitude]);
+
+	const onAddDialog = (event) => {
+		setOpen(false);
+		handleDialogAdd(existingItem.name, amountToChange);
+	};
 
 	return (
 		<div className="home">
@@ -214,6 +258,15 @@ function Home() {
 				<NewItemForm
 					className="home-new-item-form"
 					onItemAdded={newItemHandler}
+				/>
+				<DuplicateDialog
+					itemName={existingItem.name}
+					amount={amountToChange}
+					unit={existingItem.unit}
+					existingAmount={existingItem.amount}
+					onCancel={handleClose}
+					addAmount={onAddDialog}
+					open={open}
 				/>
 				<div className="filler" />
 			</div>

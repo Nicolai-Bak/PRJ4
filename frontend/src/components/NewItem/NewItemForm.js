@@ -12,7 +12,7 @@ const NewItemForm = (props) => {
 	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
 	const [organic, setOrganic] = useState(false);
-	const [isChecked, setIsChecked] = useState(false);
+	const [itemName, setItemName] = useState("");
 	const [organicPossible, setOrganicPossible] = useState(false);
 
 	// changed validInput
@@ -33,6 +33,7 @@ const NewItemForm = (props) => {
 		} else return;
 
 		setAmount("");
+		setNewItem("");
 		setUnit(`kg`);
 		setOrganicPossible(false);
 		setOrganic(false);
@@ -47,16 +48,18 @@ const NewItemForm = (props) => {
 	};
 
 	const itemChangeHandler = (itemReceived) => {
-		SetIsSearchFieldValid(true);
+		// SetIsSearchFieldValid(true);
 		setNewItem(itemReceived);
 	};
 
+	// When a user inputs an amount in the form, this updates the state
 	const amountChangeHandler = (event) => {
 		const added = event.target.value;
 		added < 0 ? SetIsAmountValid(false) : setAmount(added);
 		SetIsAmountValid(true); // ?? Det her bliver jo altid kaldt?
 	};
 
+	// When a user submits an item, this checks whether the input format is correct
 	const validInput = (newItem, amount) => {
 		if (newItem === null || !newItem.length > 0) {
 			SetIsSearchFieldValid(false);
@@ -88,17 +91,19 @@ const NewItemForm = (props) => {
 		setOrganic(event.target.checked);
 	};
 
+	// When a user no longer has focus on the item name input field, this checks the database for the unit this item normally has and whether there are organic variants and then rerenders based on the info received
 	const focusLost = async (event) => {
-		console.log("focus was lost and the current value is " + event);
+		console.log("focus was lost and the current value is ", event);
 		const unit = await getUnitAndOrganic(event);
 
 		console.log(unit);
 		setUnit(unit.unit);
 
 		if (unit) {
-			setOrganicPossible(!unit.organic);
+			setOrganicPossible(unit.organic);
 		}
 	};
+
 	return (
 		<Card className="add-item-container">
 			<form
@@ -109,6 +114,7 @@ const NewItemForm = (props) => {
 				<SearchField
 					onItemChanged={itemChangeHandler}
 					onFocusLost={focusLost}
+					input={newItem}
 				/>
 				<div className="unit-organic-switch">
 					<UnitBox
@@ -122,7 +128,6 @@ const NewItemForm = (props) => {
 							label="Øko"
 							sx={{
 								color: "white",
-								icon: "../../../public/images/økomærke.png",
 							}}
 						/>
 					)}
@@ -174,7 +179,8 @@ const NewItemForm = (props) => {
 		localStorage.setItem("itemNames", JSON.stringify(await request.json()));
 
 		const response = await JSON.parse(localStorage.getItem("itemNames"));
-		console.log(response);
+		if (response.length > 15)
+			console.log(`${response.length} item names were fetched`);
 	}
 
 	async function getUnitAndOrganic(item) {

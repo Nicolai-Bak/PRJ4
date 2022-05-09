@@ -9,7 +9,7 @@ public class CoopProductFactory : IApiFactory
 {
     public ICaller CreateCaller(bool overrideBackStop = false)
     {
-        return new CoopProductCaller(CreateRequest());
+        return new CoopProductCaller(CreateRequest(overrideBackStop));
     }
 
     public IConverter CreateConverter()

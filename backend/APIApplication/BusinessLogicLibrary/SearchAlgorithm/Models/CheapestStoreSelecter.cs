@@ -15,7 +15,7 @@ namespace BusinessLogicLibrary.SearchAlgorithm
          */
         public List<StoreSearch> SelectStores(List<StoreSearch> viableStores)
         {
-            var res = viableStores.OrderBy(s => s.TotalPrice).Take(5).ToList();
+            var res = viableStores.OrderBy(s => s.TotalPrice).ThenBy(s=>s.Distance).Take(5).ToList();
 
             return res;
         }

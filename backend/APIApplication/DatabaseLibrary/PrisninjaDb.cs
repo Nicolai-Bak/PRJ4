@@ -7,10 +7,12 @@ namespace DatabaseLibrary;
 public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
 {
     private PrisninjaDbContext _context;
+    private readonly IRangeCalculator _rangeCalculator;
 
-    public PrisninjaDb(PrisninjaDbContext context)
+    public PrisninjaDb(PrisninjaDbContext context, IRangeCalculator rangeCalculator)
     {
         _context = context;
+        _rangeCalculator = rangeCalculator;
     }
 
     public List<string> GetAllProductNames()
@@ -31,11 +33,9 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
     public List<int> GetStoresInRange(double x, double y, double range)
     {
         return _context.Stores
-            .Select(s => s)
+            .AsEnumerable()
             .Where(s =>
-                (Math.Sqrt(
-                    Math.Pow(Math.Abs(s.Location_X - x), 2) +
-                    Math.Pow(Math.Abs(s.Location_Y - y), 2)) < range))
+                (_rangeCalculator.Distance(x,s.Location_X,y,s.Location_Y) < range))
             .Select(s => s.ID)
             .ToList();
     }
@@ -51,7 +51,6 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
     public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName, string measurement)
     {
         return _context.Products
-            .Select(p => p)
             .Where(p => p.ProductStores
                             .Select(ps => ps.StoreKey)
                             .Any(psk => storeKeys
@@ -97,5 +96,13 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
             options.InsertKeepIdentity = true;
             options.InsertIfNotExists = true;
         });
+    }
+
+    public void ClearDatabase()
+    {
+        _context.ProductStores.BulkDelete(_context.ProductStores.Select(x=>x));
+        _context.Products.BulkDelete(_context.Products);
+        _context.Stores.BulkDelete(_context.Stores);
+        _context.ProductStandardNames.BulkDelete(_context.ProductStandardNames);
     }
 }

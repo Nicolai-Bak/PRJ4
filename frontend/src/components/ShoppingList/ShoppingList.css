@@ -14,11 +14,27 @@
 	padding: 0.4rem 0.4rem;
 }
 
+.shopping-list ul > * {
+	transition: transform .2s;
+}
+
+.shopping-list ul > *:hover {
+    transform: scale(1.025);
+}
+
+
 .shopping-list .search-button {
 	display: inline-block;
 	margin-bottom: 1rem;
 	margin-top: 1rem;
+	background: var(--quartenary-color-light);
+	color: var(--default-white);
 }
+
+.shopping-list .search-button:hover {
+	background: var(--quartenary-color-extra-light);
+}
+
 
 @media screen and (max-width: 1300px) {
 	.shopping-list {

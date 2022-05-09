@@ -13,12 +13,20 @@
     font-size: 40px;
     font-style: italic;
     font-weight: 900;
+    position: relative;
+    overflow: visible;
+}
+
+.navbar-company-name {
+    cursor: pointer;
 }
 
 .right-side__container{
     display: flex;
     justify-content: flex-end;
     padding-right: 5%;
+    position: relative;
+    z-index: 50;
 }
 
 .navbar-menu {
@@ -27,21 +35,17 @@
 }
 
 .navbar-links {
-    flex-direction: row;
-    font-size: 1.25rem;
-    font-weight: 900;
-    padding-top: 2rem;
-    padding-right: 3rem;
+    display: flex;
 }
 
 
 .navbar-links .link{
     flex-direction: row;
+    justify-content: center;
+    align-self: center;
     font-size: 1.25rem;
     font-weight: 900;
-    padding-top: 2rem;
-    padding-right: 3rem;
-
+    padding: 0 1.5rem 0 1.5rem;
 }
 
 .navbar-links .link:hover {
@@ -60,12 +64,12 @@
     transform: translateY(-50%);
     height: 50px;
     cursor: pointer;
-    padding-right: 3rem;
+    padding: 0 2rem 0 2rem;
 }
 
 #shopping__cart:hover {
-    transition: all 0.2s ease-in-out 0.2s;
-    top:45%;
+    transition: 0.2s;
+    margin-top:0.2rem;
 }
 
 #ninja__logo{
@@ -77,13 +81,13 @@
 
 #ninja__logo:hover {
     transition: all 0.2s ease-in-out 0.1s;
-    margin-top: 5px;
+    margin-top: 0.2rem;
 }
 
 .hamburger-menu__icon {
     display:none;
     height: 3rem;
-    width: 3rem;
+    min-width: 3rem;
     color: var(--default-black);
     position: relative;
     top: 50%;
@@ -95,36 +99,57 @@
     cursor: pointer;
 }
 
+.shopping-cart-toast {
+    position: absolute;
+    z-index: 100;
+    border-radius: 0.3rem;
+    background-color: var(--primary-color);
+    color: var(--default-white);
+    right: 100px;
+    top: 5.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 @media screen and (max-width: 992px) {
     #shopping__cart{
         display: none;
     }
+
+    .right-side__container{
+        padding-right: 0;
+    }
+
     .hamburger-menu__icon {
         display: block;
+        position: relative;
+        right: 2rem;
     }
+    
     .navbar-menu {
         display: flex;
         flex-direction: column;
         position: relative;
         top: 6.25rem;
-        left: 6rem;
+        right: -3rem;
         z-index: 1;
     }
     .navbar-links{
-        padding: 2rem;
         background-color: var(--secondary-color);
-        position: relative;
         display: flex;
         flex-direction: column;
     }
 
-    .navbar-links .link:hover {
-        background-color: var(--default-black);
-        color: var(--secondary-color);
-        
+    .navbar-links .link{
+        /* padding-top: 2rem;
+        padding-bottom: 2rem;  */
+        padding: 2rem 6rem 2rem 6rem;
+        font-size: 1.5rem;
     }
 
-    .link a:hover {
+    .navbar-links .link:hover{
+        background-color: var(--secondary-color-light);
         color: var(--secondary-color);
     }
 
@@ -135,10 +160,48 @@
     .navbar-links.hide {
         display: none
     }
+
+    .shopping-cart-toast {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 776px) {
+    .right-side__container {
+        flex: 0 auto;
+        max-width:10rem
+    }
+    .hamburger-menu__icon {
+        right: 2rem;
+    }
+    .hamburger-menu__icon.hide {
+        right: 2rem;
+    }
+
+    .navbar-menu {
+        
+        left: auto;
+    }
+    .navbar-links .link{
+        width: 100vw;
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 576px) {
     #ninja__logo{
         padding-right: 1rem;
+    }
+    .right-side__container {
+        max-width: 5rem;
+    }
+}
+
+@media screen and (max-width: 406px) {
+    .hamburger-menu__icon {
+        right: 1rem;
+    }
+    .hamburger-menu__icon.hide {
+        right: 1rem;
     }
 }

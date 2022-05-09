@@ -62,14 +62,20 @@
 	padding: 1rem;
 }
 
-.button-container.remove-button {
+.remove-button {
 	grid-column: 3;
 	align-self: center;
-	background-color: var(--default-white);
-	border: 0.1rem solid #0e1614;
-	width: 3rem;
-	height: 1.5rem;
+	width: 2.5rem;
+	height: 2rem;
+	padding-right: 1rem;
+	cursor: pointer;
+	transition: 0.2s;
 }
+
+.remove-button:hover {
+	color: var(--red);
+}
+
 .button-container.remove-button:hover {
 	transition: all 0.1s ease-in-out 0.1s;
 	background: var(--red);
@@ -77,8 +83,9 @@
 
 .button-container.adjust-amount-button {
 	border: 0.1rem solid #0e1614;
+	border-radius: 0.25rem;
 	background-color: var(--default-white);
-	width: 3rem;
+	width: 1.5rem;
 	height: 1.5rem;
 }
 
@@ -98,6 +105,10 @@
 	.button-container.adjust-amount-button {
 		width: 2.2rem;
 		height: 1.1rem;
+	}
+	.list-item__left {
+		padding-left: 0.5rem;
+
 	}
 	.list-item__right {
 		padding-right: 0.2rem;
