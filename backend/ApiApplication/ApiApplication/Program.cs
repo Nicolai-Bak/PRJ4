@@ -33,10 +33,10 @@ builder.Services.AddDbContext<PrisninjaDbContext>(optionsBuilder =>
                                 "Connection Timeout=30;"
     );
 });
-builder.Services.AddTransient<IDbRequest, PrisninjaDb>();
-builder.Services.AddTransient<IDbSearch, PrisninjaDb>();
-builder.Services.AddTransient<IDbInsert, PrisninjaDb>();
 builder.Services.AddScoped<IRangeCalculator, RangeCalculator>();
+builder.Services.AddScoped<IDbRequest, PrisninjaDb>();
+builder.Services.AddScoped<IDbSearch, PrisninjaDb>();
+builder.Services.AddScoped<IDbInsert, PrisninjaDb>();
 
 builder.Services.AddCors(options =>
 {
@@ -51,7 +51,7 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddHostedService(sp =>
 {
-    return new ExternalApiService(sp.GetRequiredService<IDbInsert>(),
+    return new ExternalApiService(sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>(),
         new List<IApiFactory[]>()
         {
             new IApiFactory[2]
@@ -69,6 +69,7 @@ builder.Services.AddHostedService(sp =>
         new ProductNameStandardizer(),
         false);
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
