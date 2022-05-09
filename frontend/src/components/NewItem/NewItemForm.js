@@ -95,7 +95,7 @@ const NewItemForm = (props) => {
 	const focusLost = async (event) => {
 		console.log("focus was lost and the current value is ", event);
 		const unit = await getUnitAndOrganic(event);
-
+		if (!unit) return;
 		console.log(unit);
 		setUnit(unit.unit);
 
@@ -152,16 +152,22 @@ const NewItemForm = (props) => {
 	);
 
 	async function fetchItemInfo(itemInfo) {
-		const request = await fetch(
-			`https://prisninjawebapi.azurewebsites.net/productinfo/${itemInfo}/`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
-		const response = await request.json();
+		let response;
+		try {
+			const request = await fetch(
+				`https://prisninjawebapi.azurewebsites.net/productinfo/${itemInfo}/`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			response = await request.json();
+		} catch (error) {
+			console.log("API call error : ", error);
+			response = false;
+		}
 		return response;
 	}
 
@@ -186,6 +192,7 @@ const NewItemForm = (props) => {
 	async function getUnitAndOrganic(item) {
 		let unit = null;
 		const info = await fetchItemInfo(item);
+		if (!info) return;
 		const organic = info.organic;
 		const unitInfo = Object.keys(info).filter((i) => info[i] === true);
 
