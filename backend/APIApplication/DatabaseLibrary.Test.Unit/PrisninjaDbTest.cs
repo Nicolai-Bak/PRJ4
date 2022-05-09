@@ -80,7 +80,7 @@ public class PrisninjaDbTest
             ID = 1,
             Brand = "",
             Address = "",
-            Location_X = 10,
+            Location_X = 5,
             Location_Y = 5
         };
         Store s2 = new Store()
@@ -218,7 +218,7 @@ public class PrisninjaDbTest
     private PrisninjaDbContext GetDbContext()
     {
         var options = new DbContextOptionsBuilder<PrisninjaDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
         var context = new PrisninjaDbContext(options);
         context.Database.EnsureDeleted();
