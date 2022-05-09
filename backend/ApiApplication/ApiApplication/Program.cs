@@ -67,7 +67,7 @@ builder.Services.AddHostedService(sp =>
             },
         },
         new ProductNameStandardizer(),
-        false);
+        true);
 });
 
 var app = builder.Build();
