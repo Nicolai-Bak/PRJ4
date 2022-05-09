@@ -9,10 +9,10 @@ using Serilog;
 namespace ExternalApiLibrary.HostedServices;
 public class ExternalApiService : IHostedService
 {
-    private readonly IDbInsert _db;
+    public IDbInsert _db { get; }
     private PeriodicTimer _timer;
-    private readonly List<IExternalApi[]> _externalApis;
-    private readonly ProductNameStandardizer _pns;
+    public List<IExternalApi[]> _externalApis { get; }
+    public IProductNameStandardizer _pns { get; }
 
     /**
      * The backstop for the external API service. This limits the amount of requests that can be made to the external API.
@@ -23,7 +23,10 @@ public class ExternalApiService : IHostedService
      */
     private bool _overrideBackStop;
 
-    public ExternalApiService(IDbInsert db, List<IApiFactory[]> apiFactories, ProductNameStandardizer pns, bool overrideBackStop = false)
+    public ExternalApiService(IDbInsert db,
+        List<IApiFactory[]> apiFactories,
+        IProductNameStandardizer pns,
+        bool overrideBackStop = false)
     {
         _db = db;
         _pns = pns;
@@ -71,7 +74,7 @@ public class ExternalApiService : IHostedService
     {
         var products = new List<Product>();
         var stores = new List<Store>();
-        var productStores = new List<ProductStore>();
+        var productStores = new List<ProductStore>(); ;
 
         foreach (var api in _externalApis)
         {
@@ -82,7 +85,7 @@ public class ExternalApiService : IHostedService
                              s.ID != 1370 &&
                              s.ID != 1326 &&
                              s.ID != 1330 &&
-                             s.ID != 1350).ToList();    
+                             s.ID != 1350).ToList();
 
             products.AddRange(p);
             stores.AddRange(s);
@@ -105,9 +108,6 @@ public class ExternalApiService : IHostedService
         _db.InsertStores(stores);                           // Insert stores
         _db.InsertProducts(products);                       // Insert products
         _db.InsertProductStores(productStores);             // Insert productStores
-
-        // Standard names
-        var standardizedList = _pns.Standardize(_db.GetAllProducts());
-        _db.InsertProductStandardNames(standardizedList);   // Insert product standard names
+        _db.InsertProductStandardNames(_pns.Standardize(_db.GetAllProducts()));   // Insert product standard names
     }
 }
