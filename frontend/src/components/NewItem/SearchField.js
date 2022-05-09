@@ -1,9 +1,9 @@
 import { TextField, Autocomplete } from "@mui/material";
 import { v4 as uuid } from "uuid";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const SearchField = (props) => {
-	const options = localStorage.hasOwnProperty("itemNames")
+	const itemsReceived = localStorage.hasOwnProperty("itemNames")
 		? JSON.parse(localStorage.getItem("itemNames"))
 		: [];
 
@@ -28,46 +28,51 @@ const SearchField = (props) => {
 	const [open, setOpen] = useState(false);
 	const [searchValues, setSearchValues] = useState([]);
 
-	const defaultProps = {
-		options: options,
-		getOptionLabel: (option) => option,
-	};
+	// const defaultProps = {
+	// 	options: itemsReceived,
+	// 	getOptionLabel: (option) => option,
+	// };
 
 	useEffect(() => {
 		props.onItemChanged(value);
-		if (value.length > 1 && options.includes(value)) handleFocusLoss(value);
+		if (value.length > 1 && itemsReceived.includes(value))
+			handleFocusLoss(value);
 	}, [value]);
 
 	const handleFocusLoss = (event) => {
-		if (event.type) {
-			event = event.target.value;
-		}
-		setOpen(false);
 		console.log("handleFocusLoss was called with " + event);
 		props.onFocusLost(event);
 	};
 
 	const inputEventHandler = (event) => {
-		setValue(event.target.value);
+		const input = event.target.value;
+		setValue(input);
+
+		setSearchValues(itemsReceived.filter((item) => item.includes(input)));
+		if (input.length < 2) {
+			setOpen(false);
+		} else setOpen(true);
 	};
 
 	return (
 		<Autocomplete
 			open={open}
 			openOnFocus={false}
+			options={searchValues}
 			disablePortal
-			disableClearable
-			blurOnSelect
 			freeSolo
+			disableClearable
 			onBlur={handleFocusLoss}
 			sx={styles}
-			{...defaultProps}
-			renderOption={(props, option) => {
-				for (let i = 0; i < options.length; i++) {
+			renderOption={(props, options) => {
+				const number = 0;
+				for (let i = 0; i < 5; i++) {
 					return (
-						<li {...props} key={uuid()}>
-							<span>{option}</span>
-						</li>
+						<React.Fragment>
+							<li {...props} key={uuid()}>
+								<span>{options}</span>
+							</li>
+						</React.Fragment>
 					);
 				}
 			}}
@@ -85,10 +90,10 @@ const SearchField = (props) => {
 					{...params}
 					placeholder="Tilføj Vare Her"
 					variant="standard"
-					onKeyDown={(event) => {
-						if (value.length < 2) setOpen(false);
-						else setOpen(true);
-					}}
+					// onKeyDown={(event) => {
+					// 	if (value.length < 2) setOpen(false);
+					// 	else setOpen(true);
+					// }}
 					onInput={inputEventHandler}
 					inputProps={{
 						...params.inputProps,
