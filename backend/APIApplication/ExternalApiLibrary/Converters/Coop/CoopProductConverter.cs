@@ -37,7 +37,7 @@ public class CoopProductConverter : IConverter
 
         }).ToList();
 
-        return new List<IDbModelsDto>(products);
+        return ProductValidator.ValidateProducts(products, ProductGroup.Coop);
     }
 
     /**

@@ -1,17 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
 
 #root{
-  --primary-color: rgb(44, 46, 51);
+  --primary-color: #2c2e33;
   --secondary-color: #FFD64F;
   --secondary-color-light: #ffe89e; 
   --secondary-color-extra-light: #f7edcc;
   --tertiary-color: #47887a;
   --tertiary-color-light: #75afa3;
-  --quartenary-color: rgb(30, 83, 53);
+  --quartenary-color: #324ca2;
+  --quartenary-color-light: #4f78ff;
+  --quartenary-color-extra-light: #7fb8ff;
   --default-white: rgb(241, 241, 241);
   --all-white: #fff;
   --default-black: rgb(37, 37, 37);
   --red: rgb(192, 48, 48);
+  --green: rgb(30, 155, 30);
+  --green-light: rgb(0, 255, 0);
   --ninja-skin-color: bisque;
 
 /*Media query breakpoints*/

@@ -7,7 +7,6 @@ import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown/Dropdown";
 import { useState } from "react";
-import SearchResultsItemProduct from "../components/SearchResultsItemProduct/SearchResultsItemProduct";
 
 function SearchResultsPage() {
 	let navigate = useNavigate();
@@ -63,6 +62,7 @@ function SearchResultsPage() {
 			displayOptions = options[0].map((item) => (
 				<div>
 					<SearchResultsItem
+						products={item.products}
 						price={item.totalPrice}
 						distance={item.distance}
 						storeName={item.brand}
@@ -83,6 +83,7 @@ function SearchResultsPage() {
 		case "nearest":
 			displayOptions = options[2].map((item) => (
 				<SearchResultsItem
+					products={item.products}
 					price={item.totalPrice}
 					distance={item.distance}
 					storeName={item.brand}
@@ -101,9 +102,10 @@ function SearchResultsPage() {
 				</div>
 				{displayOptions}
 			</Card>
-			<Button className="search-results-page-button" onClick={goBack}>
+			<div className="search-results-page-text-box">Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>, for at gå tilbage og foretage en ny søgning.</div>
+			{/* <Button className="search-results-page-button" onClick={goBack}>
 				<IoArrowBack /> til forsiden
-			</Button>
+			</Button> */}
 		</div>
 	);
 }

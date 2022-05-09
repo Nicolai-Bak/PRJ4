@@ -1,34 +1,29 @@
 .page-not-found {
-    margin-bottom: 4rem;
-    height: 20vh;
-}
-
-.page-not-found__container {
+    height: auto;
+	min-height: 100vh;
     /**centering**/
     position: relative;
     text-align: center;
-    margin-top: 15%;
 }
 
-
-.page-not-found__container > * {
+.page-not-found > * {
   /* Center vertically and horizontally */
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 4rem;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 #ninja {
-    width: 200px;
+    width: 300px;
     position: absolute;
     left: 120%;
 }
 
 #error-number {
-    font-size: 7rem;
+    font-size: 9rem;
     font-weight: 700;
 }
 
@@ -37,4 +32,39 @@ p {
     color: rgb(56, 56, 56);
     margin-top: 3%;
     font-weight: 200;
+}
+
+@media screen and (max-width: 1400px) {
+    .page-not-found > * {
+        /* Center vertically and horizontally */
+        position: absolute;
+        top: 45%;
+        left: 47%;
+        transform: translate(-50%, -50%);
+        font-size: 4rem;
+        font-weight: 700;
+      }
+
+    #ninja {
+        width: 250px;
+        left: 110%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .page-not-found > * {
+        /* Center vertically and horizontally */
+        position: absolute;
+        top: 30%;
+        left: 47%;
+        transform: translate(-50%, -50%);
+        font-size: 4rem;
+        font-weight: 700;
+      }
+
+    #ninja {
+        width: 250px;
+        left: 10rem;
+        top: 30rem;
+    }
 }

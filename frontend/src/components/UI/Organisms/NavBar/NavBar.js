@@ -7,22 +7,24 @@ import { Link, useNavigate } from "react-router-dom";
 function NavBar(props) {
 	const [showMenu, setShowMenu] = useState(false);
 	const toggleMenu = () => setShowMenu(!showMenu);
+	const [shoppingCart, setShoppingCart] = useState(false);
+	const toggleShoppingCart = () => setShoppingCart(!shoppingCart);
 	const { pageLinks, companyName } = props;
 	let navigate = useNavigate();
 
 	const linkRefs = () => {
 		const links = pageLinks.map((link) => {
 			return (
-				<span className="link" key={(Math.random() * 20).toFixed(4)}>
+				<div className="link" key={(Math.random() * 20).toFixed(4)}>
 					<Link to={link.link}>{link.text}</Link>
-				</span>
+				</div>
 			);
 		});
 		// console.log(pageLinks);
 		return links;
 	};
 
-	const iconClicked = () => {
+	const returnToHomePage = () => {
 		navigate("/");
 	};
 
@@ -32,10 +34,10 @@ function NavBar(props) {
 				<img
 					id="ninja__logo"
 					src="/images/ninja-desk.svg"
-					onClick={iconClicked}
-					alt=""
+					onClick={returnToHomePage}
+					alt={companyName}
 				/>
-				{companyName}
+				<span className="navbar-company-name" onClick={returnToHomePage}>{companyName}</span>
 			</div>
 			<div className="right-side__container">
 				<div className="navbar-menu">
@@ -47,8 +49,8 @@ function NavBar(props) {
 					id="shopping__cart"
 					src="/images/shopping-cart.svg"
 					alt="indkøbsvogn"
+					onClick={toggleShoppingCart}
 				/>
-
 				<IoMenu
 					onClick={toggleMenu}
 					className={`hamburger-menu__icon ${showMenu ? "hide" : ""}`}
@@ -58,6 +60,9 @@ function NavBar(props) {
 					className={`hamburger-menu__icon ${showMenu ? "" : "hide"}`}
 				/>
 			</div>
+			{shoppingCart && <div className="shopping-cart-toast">
+				Der er tilføjet {localStorage.length} varer på indkøbslisten.
+			</div>}
 		</div>
 	);
 }

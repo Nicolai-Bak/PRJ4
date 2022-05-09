@@ -7,7 +7,6 @@ import SearchResultsItemProduct from "../SearchResultsItemProduct/SearchResultsI
 
 const SearchResultsItem = (props) => {
 	const [activeState, setActiveState] = useState(true);
-	console.log("SearchResultsItem props: ", props);
 
 	const toggleDetails = () => {
 		setActiveState(!activeState);
@@ -17,7 +16,7 @@ const SearchResultsItem = (props) => {
 		<div className="search-results-item">
 			<Card className="search-results-list-item">
 				<div className="list-item-wrapper">
-					<div className="list-item-price">Pris: {props.price}kr</div>
+					<div className="list-item-price">Pris: <span className="total-price">{props.price}kr</span></div>
 					<div className="list-item-store-name">{props.storeName}</div>
 					<div className="list-item-distance">Afstand: {props.distance}km</div>
 					<Button className="chevron-button" onClick={toggleDetails}>
@@ -30,7 +29,7 @@ const SearchResultsItem = (props) => {
 					{/* {products.map(product => (
                     <SearchResultsItemProduct results={product.name}/>
             ))} */}
-					<SearchResultsItemProduct products={props.products} />
+					<SearchResultsItemProduct  products={props.products} />
 				</div>
 			</Card>
 		</div>

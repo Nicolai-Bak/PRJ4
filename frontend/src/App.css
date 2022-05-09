@@ -1,7 +1,16 @@
-
+html, body {
+    height: 100%;
+  }
 
 .page__container {
     display: flex;
     flex-direction: column;
-    height: auto;
 }
+
+.content__wrapper {
+    flex: 1 0 auto;
+  }
+
+  .footer {
+    flex-shrink: 0;
+  }

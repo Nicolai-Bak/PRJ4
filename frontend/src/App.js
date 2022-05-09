@@ -13,6 +13,7 @@ function App() {
 
 	return (
 		<div className="page__container">
+			<div className="content__wrapper">
 				<Router>
 					<NavBar 
 						pageLinks={navbarLinks}
@@ -24,11 +25,12 @@ function App() {
 						<Route path="/searchResults" element={<SearchResultsPage />} />
 					</Routes>
 			<Footer 
+			className="footer"
 				pageLinks={footerLinks}
 				companyName="PRIS NINJA INC"
 				/>
 			</Router>
-
+			</div>
 		</div>
 	);
 }

@@ -8,8 +8,21 @@
 	font-weight: 600;
 }
 
+.list-item-store-name {
+	background-color: var(--quartenary-color);
+	border-radius: 0.3rem;
+	padding: 0 0.5rem 0.3rem 0.5rem;
+	height: 1.5rem;
+	font-size: 0.9rem;
+	color: var(--all-white);
+}
+
 .list-item-price {
 	padding-left: 1rem;
+}
+
+.list-item-price .total-price {	
+	color: var(--green);
 }
 
 .list-item-wrapper {
@@ -18,7 +31,6 @@
 	box-shadow: none;
 	background: var(--secondary-color-light);
 	justify-content: space-between;
-	margin-bottom: 0.5rem;
 }
 
 .chevron-button {
@@ -40,6 +52,6 @@
 
 .search-results-details.show {
 	height: auto;
-	max-height: 300px;
+	max-height: 100rem;
 	transition: all 0.4s cubic-bezier(1, 0, 1, 0);
 }

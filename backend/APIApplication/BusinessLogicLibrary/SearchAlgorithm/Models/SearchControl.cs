@@ -6,6 +6,8 @@ using BusinessLogicLibrary.SearchAlgorithm.Models.Interfaces;
 using DatabaseLibrary;
 using DatabaseLibrary.Models;
 
+
+
 namespace ApiApplication.SearchAlgorithm
 {
     public class SearchControl : ISearchControl
@@ -13,13 +15,15 @@ namespace ApiApplication.SearchAlgorithm
         private List<IStoreSelecter> _storeSelecters;
         private ShoppingList _shoppingList;
         private IDbSearch _database;
+        private readonly IRangeCalculator _rangeCalculator;
 
         
-        public SearchControl(ShoppingList shoppingList, IDbSearch database, List<IStoreSelecter> storeSelecters)
+        public SearchControl(ShoppingList shoppingList, IDbSearch database, List<IStoreSelecter> storeSelecters, IRangeCalculator rangeCalculator)
         {
             _storeSelecters = storeSelecters;
             _shoppingList = shoppingList;
             _database = database;
+            _rangeCalculator = rangeCalculator;
         }
 
         public List<List<StoreSearch>> FindStores()
@@ -122,9 +126,7 @@ namespace ApiApplication.SearchAlgorithm
         
         private double GetDistance(double storeX, double storeY, double customerX, double customerY)
         {
-            return Math.Sqrt(
-                Math.Pow(Math.Abs(storeX - customerX), 2) +
-                Math.Pow(Math.Abs(storeY - customerY), 2));
+            return _rangeCalculator.Distance(storeX, customerX, storeY, customerY);
         }
         #endregion
     }

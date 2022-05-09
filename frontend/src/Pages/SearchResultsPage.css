@@ -1,11 +1,12 @@
 .search-results-page {
   background-color: var(--primary-color);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  min-height: 80vh;
 }
 
 .results-container{
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    width: 35%;
+    width: 40%;
     min-height: 50vh;
     background-color: var(--secondary-color);
 }
@@ -13,7 +14,6 @@
 .search-results-page-button {
     margin: auto;
     margin-top: 2rem;
-    margin-bottom: 2rem;
 }
 
 .dropdown-menu-container {
@@ -27,14 +27,65 @@
     overflow: visible;
 }
 
+.search-results-page .search-results-item{
+    transition: transform .2s;
+}
+
+
+.search-results-page .search-results-item:hover {
+    transform: scale(1.01);
+}
+
+.search-results-page-text-box {
+    margin: auto;
+    width: 41%;
+    padding: 1rem;
+    color: var(--all-white);
+}
+
+.search-results-page-text-box a {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1700px) {
+	.results-container {
+		width: 50%;
+	}
+    .search-results-page-text-box {
+        width: 51%;
+    }
+}
+
 @media screen and (max-width: 1400px) {
 	.results-container {
 		width: 60%;
 	}
+    .search-results-page-text-box {
+        width: 61%;
+    }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
 	.results-container {
-		width: 80%;
+		width: 70%;
+	}
+    .search-results-page-text-box {
+        width: 71%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+	.results-container {
+		width: 85%;
+	}
+    .search-results-page-text-box {
+        width: 86%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .results-container {
+		width: 90%;
 	}
 }

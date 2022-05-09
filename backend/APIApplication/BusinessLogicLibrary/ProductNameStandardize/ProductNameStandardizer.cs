@@ -15,9 +15,9 @@ public class ProductNameStandardizer : IProductNameStandardizer
             var psn = new ProductStandardName
             {
                 Name = p.Name,
-                MeasureG = (p.Measurement.ToLower().Contains("g") ? true : false),
-                MeasureL = (p.Measurement.ToLower().Contains("l") ? true : false),
-                MeasureStk = (p.Measurement.ToLower().Contains("stk") ? true : false),
+                MeasureG = p.Measurement.ToLower().Contains("g"),
+                MeasureL = p.Measurement.ToLower().Contains("l"),
+                MeasureStk = p.Measurement.ToLower().Contains("stk"),
                 Organic = p.Organic
             };
             psn.MeasureG |= oldPsn.MeasureG;
@@ -55,19 +55,16 @@ public class ProductNameStandardizer : IProductNameStandardizer
         {
             return standardList.Find(sn => sn.Name == p.Name);
         }
-        else if (standardList.Any(sn => (" " + sn.Name + " ").Contains(" " + p.Name + " ")))
+        if (standardList.Any(sn => (" " + sn.Name + " ").Contains(" " + p.Name + " ")))
         {
             return standardList.Find(sn => (" " + sn.Name + " ").Contains(" " + p.Name + " "));
         }
-        else if (standardList.Any(sn => (" " + p.Name + " ").Contains(" " + sn.Name + " ")))
+        if (standardList.Any(sn => (" " + p.Name + " ").Contains(" " + sn.Name + " ")))
         {
             var oldPsn = standardList.Find(sn => (" " + p.Name + " ").Contains(" " + sn.Name + " "));
             p.Name = oldPsn.Name;
             return oldPsn;
         }
-        else
-        {
-            return new ProductStandardName();
-        }
+        return new ProductStandardName();
     }
 }

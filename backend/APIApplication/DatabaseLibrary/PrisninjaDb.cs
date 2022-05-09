@@ -7,10 +7,12 @@ namespace DatabaseLibrary;
 public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
 {
     private PrisninjaDbContext _context;
+    private readonly IRangeCalculator _rangeCalculator;
 
-    public PrisninjaDb(PrisninjaDbContext context)
+    public PrisninjaDb(PrisninjaDbContext context, IRangeCalculator rangeCalculator)
     {
         _context = context;
+        _rangeCalculator = rangeCalculator;
     }
 
     public List<string> GetAllProductNames()
@@ -33,9 +35,7 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
         return _context.Stores
             .Select(s => s)
             .Where(s =>
-                (Math.Sqrt(
-                    Math.Pow(Math.Abs(s.Location_X - x), 2) +
-                    Math.Pow(Math.Abs(s.Location_Y - y), 2)) < range))
+                (_rangeCalculator.Distance(x,s.Location_X,y,s.Location_Y) < range))
             .Select(s => s.ID)
             .ToList();
     }
@@ -97,5 +97,13 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
             options.InsertKeepIdentity = true;
             options.InsertIfNotExists = true;
         });
+    }
+
+    public void ClearDatabase()
+    {
+        _context.ProductStores.BulkDelete(_context.ProductStores.Select(x=>x));
+        _context.Products.BulkDelete(_context.Products);
+        _context.Stores.BulkDelete(_context.Stores);
+        _context.ProductStandardNames.BulkDelete(_context.ProductStandardNames);
     }
 }

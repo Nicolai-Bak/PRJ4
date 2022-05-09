@@ -9,7 +9,7 @@ public class PrisninjaDbContext : DbContext
     {
     }
     
-    protected PrisninjaDbContext()
+    public PrisninjaDbContext()
     {
     }
 

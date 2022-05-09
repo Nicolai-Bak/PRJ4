@@ -53,7 +53,13 @@
 .add-item-button {
 	margin: 1rem 3rem 1rem 3rem;
 	padding: 0;
+	background-color: var(--quartenary-color-light);
+	color: var(--default-white);
 }
+
+.add-item-button:hover {
+	background-color: var(--quartenary-color-extra-light);
+} 
 
 @media screen and (max-width: 1300px) {
 	.add-item-container {
