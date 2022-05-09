@@ -25,7 +25,7 @@ public static class Program
                               "Encrypt=True;" +
                               "TrustServerCertificate=False;" +
                               "Connection Timeout=30;")
-                .Options));
+                .Options), new RangeCalculator());
 
         ExternalApiService externalApiService = new ExternalApiService(db,
             new List<IApiFactory[]>()
