@@ -9,9 +9,9 @@ using Serilog;
 namespace ExternalApiLibrary.HostedServices;
 public class ExternalApiService : IHostedService
 {
-    public IDbInsert _db { get; }
+    public IDbInsert Db { get; }
     private PeriodicTimer _timer;
-    public List<IExternalApi[]> _externalApis { get; }
+    public Dictionary<IExternalApi,IExternalApi> ExternalApis { get; }
     public IProductNameStandardizer _pns { get; }
 
     /**
@@ -24,24 +24,22 @@ public class ExternalApiService : IHostedService
     private bool _overrideBackStop;
 
     public ExternalApiService(IDbInsert db,
-        List<IApiFactory[]> apiFactories,
+        Dictionary<IApiFactory,IApiFactory> apiFactories,
         IProductNameStandardizer pns,
         bool overrideBackStop = false)
     {
-        _db = db;
+        Db = db;
         _pns = pns;
         _overrideBackStop = overrideBackStop;
 
-        _externalApis = new List<IExternalApi[]>();
-        apiFactories.ForEach(apiFactory =>
+        ExternalApis = new Dictionary<IExternalApi, IExternalApi>();
+        foreach (var keyValuePair in apiFactories)
         {
-            _externalApis.Add(new ExternalApi[2]
-            {
-                new ExternalApi(apiFactory[0], _overrideBackStop),
-                new ExternalApi(apiFactory[1], _overrideBackStop)
+            ExternalApis.Add(new ExternalApi(keyValuePair.Key, _overrideBackStop),
+                            new ExternalApi(keyValuePair.Value, _overrideBackStop));
+        }
 
-            });
-        });
+
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -53,14 +51,14 @@ public class ExternalApiService : IHostedService
 
         Action action = async () =>
         {
-            var t1 = Task.Delay(firstInterval);
-            t1.Wait();
+            var t1 = Task.Delay(firstInterval,cancellationToken);
+            t1.Wait(cancellationToken);
             //do Task at expected time
             await UpdateDatabase();
             //now schedule it to be called every 24 hours for future
             _timer = new PeriodicTimer(interval);
 
-            while (await _timer.WaitForNextTickAsync())
+            while (await _timer.WaitForNextTickAsync(cancellationToken))
             {
                 await UpdateDatabase();
             }
@@ -76,7 +74,7 @@ public class ExternalApiService : IHostedService
         var stores = new List<Store>();
         var productStores = new List<ProductStore>(); ;
 
-        foreach (var api in _externalApis)
+        foreach (var api in ExternalApis)
         {
 	        var p = new List<Product>();
 	        var s = new List<Store>();
@@ -86,7 +84,7 @@ public class ExternalApiService : IHostedService
             
             try
             {
-                p = (await api[0].Get()).Cast<Product>().ToList();
+                p = (await api.Key.Get()).Cast<Product>().ToList();
             }
             catch(Exception e)
             {
@@ -96,7 +94,7 @@ public class ExternalApiService : IHostedService
             
             try
             {
-                s = (await api[1].Get()).Cast<Store>().ToList();
+                s = (await api.Value.Get()).Cast<Store>().ToList();
             }
             catch(Exception e)
             {
@@ -136,10 +134,10 @@ public class ExternalApiService : IHostedService
 
         products = products.GroupBy(x => x.EAN).Select(y => y.First()).ToList();
 
-        _db.ClearDatabase();                                // Clear database before inserting new data
-        _db.InsertStores(stores);                           // Insert stores
-        _db.InsertProducts(products);                       // Insert products
-        _db.InsertProductStores(productStores);             // Insert productStores
-        _db.InsertProductStandardNames(_pns.Standardize(_db.GetAllProducts()));   // Insert product standard names
+        Db.ClearDatabase();                                // Clear database before inserting new data
+        Db.InsertStores(stores);                           // Insert stores
+        Db.InsertProducts(products);                       // Insert products
+        Db.InsertProductStores(productStores);             // Insert productStores
+        Db.InsertProductStandardNames(_pns.Standardize(Db.GetAllProducts()));   // Insert product standard names
     }
 }

@@ -28,19 +28,14 @@ public static class Program
                 .Options), new RangeCalculator());
 
         ExternalApiService externalApiService = new ExternalApiService(db,
-            new List<IApiFactory[]>()
+            new Dictionary<IApiFactory, IApiFactory>()
             {
-                new IApiFactory[2]
                 {
-                    new FoetexProductFactory(),
-                    new FoetexStoreFactory()
-
+                    new FoetexProductFactory(), new FoetexStoreFactory()
                 },
-                new IApiFactory[2]
                 {
-                    new CoopProductFactory(),
-                    new CoopStoreFactory()
-                },
+                    new CoopProductFactory(), new CoopStoreFactory()
+                }
             },
             new ProductNameStandardizer(),
             true);

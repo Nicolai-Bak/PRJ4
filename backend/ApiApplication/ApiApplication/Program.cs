@@ -52,19 +52,14 @@ builder.Services.AddCors(options =>
 builder.Services.AddHostedService(sp =>
 {
     return new ExternalApiService(sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>(),
-        new List<IApiFactory[]>()
+        new Dictionary<IApiFactory, IApiFactory>()
         {
-            new IApiFactory[2]
             {
-                new FoetexProductFactory(),
-                new FoetexStoreFactory()
-
+                new FoetexProductFactory(), new FoetexStoreFactory()
             },
-            new IApiFactory[2]
             {
-                new CoopProductFactory(),
-                new CoopStoreFactory()
-            },
+                new CoopProductFactory(), new CoopStoreFactory()
+            }
         },
         new ProductNameStandardizer(),
         true);
