@@ -6,6 +6,6 @@ public class ProductStore
     public Int64 ProductKey { get; set; }
     public Store Store { get; set; }
     public int StoreKey { get; set; }
-    public double Price { get; set; }
+    public long Price { get; set; }
 }
 

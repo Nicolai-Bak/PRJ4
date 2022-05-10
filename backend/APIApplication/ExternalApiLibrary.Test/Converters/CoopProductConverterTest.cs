@@ -102,7 +102,7 @@ public class CoopProductConverterTest
 			{
 				new()
 				{
-					Price = 16d
+					Price = (long) 16d
 				}
 			}
 		};
