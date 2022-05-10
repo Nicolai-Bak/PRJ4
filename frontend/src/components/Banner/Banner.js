@@ -5,7 +5,7 @@ function Banner() {
   return (
     <div className='banner'>
 		<div className='banner-filler'></div>
-					<img className='background-image' src="/images/banner-pic.png" alt="banner" />
+					<img className='background-image' src="https://i.imgur.com/Fqulzmp.jpeg" alt="banner" />
 					<section className='hero-header-text'>
 					</section>
 					<div className='banner-title'><img
