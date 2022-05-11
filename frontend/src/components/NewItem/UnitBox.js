@@ -16,17 +16,6 @@ const UnitBox = (props) => {
 		return props.onUnitSelected(event.target.value);
 	};
 
-	const Responsive = styled("Radio")(({ theme }) => ({
-		[theme.breakpoints.up("lg")]: {
-			flexDirection: "row",
-		},
-
-		[theme.breakpoints.down("md")]: {
-			flexDirection: "column",
-			color: "purple",
-		},
-	}));
-
 	// const classes = `unitBox__container ${props.className}`;
 	const radioStyles = {
 		color: "white",

@@ -40,9 +40,10 @@ const SearchField = (props) => {
 	}, [value]);
 
 	const handleFocusLoss = (event) => {
+		const input = event.target.value;
 		setOpen(false);
-		console.log("handleFocusLoss was called with ", event);
-		props.onFocusLost(event);
+		console.log("handleFocusLoss was called with ", input);
+		props.onFocusLost(input);
 	};
 
 	const inputEventHandler = (event) => {
@@ -66,7 +67,6 @@ const SearchField = (props) => {
 			blurOnSelect={false}
 			freeSolo
 			disableClearable
-			includeInputInList
 			clearOnBlur
 			onBlur={handleFocusLoss}
 			sx={styles}
@@ -80,6 +80,7 @@ const SearchField = (props) => {
 			value={value}
 			onChange={(event, newValue) => {
 				setValue(newValue);
+				setOpen(false);
 				// console.log("newValue: ", newValue);
 			}}
 			renderInput={(params) => (
