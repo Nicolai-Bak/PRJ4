@@ -1,4 +1,4 @@
-﻿﻿using BusinessLogicLibrary.ProductNameStandardize;
+﻿using BusinessLogicLibrary.ProductNameStandardize;
 using DatabaseLibrary;
 using DatabaseLibrary.Models;
 using ExternalApiLibrary.Factory;
@@ -11,7 +11,7 @@ public class ExternalApiService : IHostedService
 {
     public IDbInsert Db { get; }
     private PeriodicTimer _timer;
-    public Dictionary<IExternalApi,IExternalApi> ExternalApis { get; }
+    public Dictionary<IExternalApi, IExternalApi> ExternalApis { get; }
     public IProductNameStandardizer _pns { get; }
 
     /**
@@ -24,7 +24,7 @@ public class ExternalApiService : IHostedService
     private bool _overrideBackStop;
 
     public ExternalApiService(IDbInsert db,
-        Dictionary<IApiFactory,IApiFactory> apiFactories,
+        Dictionary<IApiFactory, IApiFactory> apiFactories,
         IProductNameStandardizer pns,
         bool overrideBackStop = false)
     {
@@ -43,26 +43,25 @@ public class ExternalApiService : IHostedService
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        TimeSpan interval = TimeSpan.FromDays(7);
+        TimeSpan interval = TimeSpan.FromDays(1);
         //calculate time to run the first time & delay to set the timer
-        var nextRunTime = DateTime.Today.AddHours(9).AddMinutes(12);   //.AddDays(1).AddHours(1);
+        var nextRunTime = DateTime.Today.AddHours(25);   //.AddDays(1).AddHours(1);
         var curTime = DateTime.Now;
         var firstInterval = nextRunTime.Subtract(curTime);
 
-        Action action = async () =>
-        {
-            var t1 = Task.Delay(firstInterval,cancellationToken);
-            t1.Wait(cancellationToken);
-            //do Task at expected time
-            await UpdateDatabase();
-            //now schedule it to be called every 24 hours for future
-            _timer = new PeriodicTimer(interval);
+        var t1 = Task.Delay(firstInterval, cancellationToken);
+        t1.Wait(cancellationToken);
 
-            while (await _timer.WaitForNextTickAsync(cancellationToken))
-            {
-                await UpdateDatabase();
-            }
-        };
+        //do Task at expected time
+        UpdateDatabase();
+        //now schedule it to be called every 24 hours for future
+        _timer = new PeriodicTimer(interval);
+
+        while (await _timer.WaitForNextTickAsync(cancellationToken))
+        {
+            UpdateDatabase();
+        }
+
     }
     public Task StopAsync(CancellationToken cancellationToken)
     {
@@ -76,32 +75,32 @@ public class ExternalApiService : IHostedService
 
         foreach (var api in ExternalApis)
         {
-	        var p = new List<Product>();
-	        var s = new List<Store>();
-	        
+            var p = new List<Product>();
+            var s = new List<Store>();
+
             var productError = false;
             var storeError = false;
-            
+
             try
             {
                 p = (await api.Key.Get()).Cast<Product>().ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Fatal(e, $"[ExtAPI Service] Failed to update database - Uncaught exception fetching {nameof(p)}");
                 productError = true;
             }
-            
+
             try
             {
                 s = (await api.Value.Get()).Cast<Store>().ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Fatal(e, $"[ExtAPI Service] Failed to update database - Uncaught exception fetching {nameof(s)}");
                 storeError = true;
             }
-            
+
             if (!storeError)
             {
                 s = s.Where(s => s.ID != 1305 &&
