@@ -25,7 +25,7 @@ public class CoopProductConverter : IConverter
             Units = GetUnitFromSpotText(p.spotText, GetMeasurementFromSpotText(p.spotText)),
             Measurement = GetMeasurementFromSpotText(p.spotText),
             Organic = IsProductOrganic(p.labels),
-            ImageUrl = p.image ?? " ",
+            ImageUrl = p.image + "&format=jpg" ?? " ",
             ProductStores = new List<ProductStore>
             {
                 new ProductStore
