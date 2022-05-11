@@ -174,17 +174,23 @@ const NewItemForm = (props) => {
 	}
 
 	async function fetchItems() {
-		const request = await fetch(
-			"https://prisninjawebapi.azurewebsites.net/names/",
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
+		let request = false;
+		try {
+			request = await fetch(
+				"https://prisninjawebapi.azurewebsites.net/names/",
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+		} catch (error) {
+			console.log("itemName API call error : ", error);
+		}
 
-		localStorage.setItem("itemNames", JSON.stringify(await request.json()));
+		if (request)
+			localStorage.setItem("itemNames", JSON.stringify(await request.json()));
 
 		const response = await JSON.parse(localStorage.getItem("itemNames"));
 		if (response.length > 15)
@@ -199,6 +205,7 @@ const NewItemForm = (props) => {
 		const organic = info.organic;
 		const unitInfo = Object.keys(info).filter((i) => info[i] === true);
 
+		// saves all units that are available for the item
 		if (unitInfo.includes("measureG")) units.push("kg");
 		if (unitInfo.includes("measureL")) units.push("l");
 		if (unitInfo.includes("measureStk")) units.push("stk");

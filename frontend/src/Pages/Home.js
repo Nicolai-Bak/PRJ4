@@ -313,8 +313,6 @@ function Home() {
 	async function ValidateItem(name, unit) {
 		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
 
-		console.log("itemNames: " + itemNames);
-
 		let matchFound = false;
 		let foundItems = [];
 		if (itemNames.length < 1) {
@@ -335,7 +333,6 @@ function Home() {
 			}
 		});
 		if (foundItems.length > 0) {
-			console.log("items found: " + foundItems);
 			matchFound = true;
 		}
 		return matchFound;
