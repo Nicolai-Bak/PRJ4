@@ -52,14 +52,15 @@ public class ExternalApiService : IHostedService
         var t1 = Task.Delay(firstInterval, cancellationToken);
         t1.Wait(cancellationToken);
 
-        //do Task at expected time
-        UpdateDatabase();
         //now schedule it to be called every 24 hours for future
         _timer = new PeriodicTimer(interval);
+        
+        //do Task at expected time
+        await UpdateDatabase();
 
         while (await _timer.WaitForNextTickAsync(cancellationToken))
         {
-            UpdateDatabase();
+            await UpdateDatabase();
         }
 
     }
