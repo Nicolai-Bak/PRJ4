@@ -54,7 +54,7 @@ public class ExternalApiService : IHostedService
 
         //now schedule it to be called every 24 hours for future
         _timer = new PeriodicTimer(interval);
-        
+
         //do Task at expected time
         await UpdateDatabase();
 
@@ -102,15 +102,10 @@ public class ExternalApiService : IHostedService
                 storeError = true;
             }
 
-            if (!storeError)
-            {
-                s = s.Where(s => s.ID != 1305 &&
-                                 s.ID != 1315 &&
-                                 s.ID != 1370 &&
-                                 s.ID != 1326 &&
-                                 s.ID != 1330 &&
-                                 s.ID != 1350).ToList();
-            }
+            //if (!storeError)
+            //{
+            //    s = s.GroupBy(s => s.ID).Select(s => s.First()).ToList();
+            //}
 
             if (!productError) products.AddRange(p);
             if (!storeError) stores.AddRange(s);
