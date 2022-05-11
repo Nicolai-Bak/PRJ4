@@ -39,11 +39,12 @@ const SearchField = (props) => {
 		// 	handleFocusLoss(value);
 	}, [value]);
 
-	const handleFocusLoss = (event) => {
-		const input = event.target.value;
+	const handleFocusLoss = (newValue) => {
 		setOpen(false);
-		console.log("handleFocusLoss was called with ", input);
-		props.onFocusLost(input);
+		// console.log("handleFocusLoss was called with ", newValue);
+		if (itemsReceived.includes(newValue)) {
+			props.onFocusLost(newValue);
+		}
 	};
 
 	const inputEventHandler = (event) => {
@@ -59,16 +60,23 @@ const SearchField = (props) => {
 		} else setOpen(true);
 	};
 
+	const blurHandler = (event) => {
+		setOpen(false);
+		handleFocusLoss(event.target.value);
+	};
+
 	return (
 		<Autocomplete
 			open={open}
 			options={searchValues}
 			disablePortal
-			blurOnSelect={false}
-			freeSolo
-			disableClearable
+			clearOnEscape
 			clearOnBlur
-			onBlur={handleFocusLoss}
+			freeSolo
+			blurOnSelect
+			disableClearable
+			disableCloseOnSelect={false}
+			onBlur={blurHandler}
 			sx={styles}
 			renderOption={(props, options) => {
 				return (
@@ -81,7 +89,7 @@ const SearchField = (props) => {
 			onChange={(event, newValue) => {
 				setValue(newValue);
 				setOpen(false);
-				// console.log("newValue: ", newValue);
+				handleFocusLoss(newValue);
 			}}
 			renderInput={(params) => (
 				<TextField
