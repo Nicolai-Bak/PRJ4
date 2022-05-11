@@ -98,7 +98,7 @@
 
 @media (max-width: 480px) {
 	.list-item {
-		grid-template-columns: 0.8fr 1fr;
+		grid-template-columns: 1fr;
 		padding: 0 0.15rem;
 		margin: 0.3rem 0;
 	}
@@ -117,8 +117,9 @@
 	.item-buttons {
 		display: flex;
 		gap: 0.2rem;
+		place-self: end;
+		align-self: center;
 		align-items: center;
-		justify-self: center;
 		padding: 0.8rem 0;
 	}
 	.list-item__left {
@@ -132,6 +133,8 @@
 		padding-right: 0.2rem;
 		justify-items: space-between;
 		font-size: 1rem;
+		place-self: end;
+		align-self: center;
 	}
 	.unit-amount-input {
 		max-width: 3rem;
@@ -142,7 +145,7 @@
 
 @media (max-width: 820px) {
 	.list-item {
-		grid-template-columns: 0.8fr 1fr;
+		grid-template-columns: 3fr 1fr;
 		padding: 0 0.15rem;
 		margin: 0.3rem 0;
 	}
@@ -156,6 +159,8 @@
 	.list-item__right {
 		display: grid;
 		grid-template-columns: 1fr;
+		place-self: end;
+		align-self: center;
 		padding-right: 0;
 		font-size: 1rem;
 	}
