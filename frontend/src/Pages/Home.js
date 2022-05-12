@@ -7,6 +7,7 @@ import Banner from "../components/Banner/Banner";
 import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
 import NinjaDialog from "../components/UI/Organisms/NinjaDialog";
 
+
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
@@ -171,6 +172,9 @@ function Home() {
 		});
 	};
 
+	// use state for post request
+	const [post, setPost] = useState(true);
+
 	const searchHandler = async () => {
 		console.log(
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
@@ -192,10 +196,11 @@ function Home() {
 			// console.log(itemDTO);
 			searchList.push(itemDTO);
 		});
-
+		
 		// searchList.forEach((item) => console.log(item));
 		let request = false;
 		try {
+			setPost(request)
 			request = await fetch(
 				"https://prisninjawebapi.azurewebsites.net/options/ ",
 				{
@@ -211,7 +216,7 @@ function Home() {
 						x: longitude,
 					}),
 				}
-			);
+				);
 		} catch (error) {
 			console.log(error);
 			return;
@@ -247,6 +252,7 @@ function Home() {
 		setOpen(false);
 		handleDialogAdd(existingItem.name, amountToChange);
 	};
+
 
 	return (
 		<div className="home">
@@ -300,6 +306,7 @@ function Home() {
 					onRemoveItem={removeItemHandler}
 					onAmountChanged={changeAmountHandler}
 					onNewUnitOrAmount={handleItemUpdate}
+					post={post}
 				/>
 				<div className="instructions-step-two">
 					<div className="instructions-step-two-text">

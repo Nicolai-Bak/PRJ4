@@ -35,6 +35,11 @@
 	background: var(--quartenary-color-extra-light);
 }
 
+.loader-spinner {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
 
 @media screen and (max-width: 1300px) {
 	.shopping-list {

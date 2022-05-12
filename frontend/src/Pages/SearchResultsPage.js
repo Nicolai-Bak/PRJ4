@@ -96,16 +96,24 @@ function SearchResultsPage() {
 
 	return (
 		<div className="search-results-page">
-			<Card className="results-container">
+			{!options[0] && <Card className="results-container">
 				<div className="dropdown-menu-container">
 					<Dropdown className="results-page-dropdown" selectedOption={selectedOptionHandler}></Dropdown>
 				</div>
 				{displayOptions}
-			</Card>
-			<div className="search-results-page-text-box">Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>, for at gå tilbage og foretage en ny søgning.</div>
-			{/* <Button className="search-results-page-button" onClick={goBack}>
-				<IoArrowBack /> til forsiden
-			</Button> */}
+			</Card>}
+			{!options[0] &&
+				<div className="search-results-page-text-box">Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>, for at gå tilbage og foretage en ny søgning.</div>
+			}
+			{options[0] && <div className="search-results-not-found">
+				<div className="image-wrapper"><img src="https://svgshare.com/i/h6r.svg" alt="ninja holding an apple"></img></div>
+				<div className="text-wrapper">
+					<h1>Hovsa!</h1>
+					<h2>Noget gik galt ved din søgning.</h2>
+					<h3>Dette kan skyldes, at du har søgt efter nogle varer, som ikke kan findes i samme butik.
+						Vi arbejder på en løsning!
+						I mellemtiden kan du <a onClick={goBack}>gå tilbage her</a> og prøve igen.</h3></div>
+			</div>}
 		</div>
 	);
 }
