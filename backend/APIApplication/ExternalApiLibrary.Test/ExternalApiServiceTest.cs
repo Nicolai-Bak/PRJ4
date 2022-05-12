@@ -17,25 +17,23 @@ public class ExternalApiServiceTest
 {
     private ExternalApiService _uut;
     private IDbInsert _dbInsert;
-    private List<IApiFactory[]> _factories;
+    private Dictionary<IApiFactory,IApiFactory> _factories;
     private IProductNameStandardizer _standardizer;
 
     [SetUp]
     public void Setup()
     {
         _dbInsert = Substitute.For<IDbInsert>();
-        _factories = new List<IApiFactory[]>()
+        _factories = new Dictionary<IApiFactory,IApiFactory>()
         {
-            new IApiFactory[2]
             {
                 Substitute.For<IApiFactory>(),
-                Substitute.For<IApiFactory>(),
+                Substitute.For<IApiFactory>()
             },
-            new IApiFactory[2]
             {
                 Substitute.For<IApiFactory>(),
-                Substitute.For<IApiFactory>(),
-            },
+                Substitute.For<IApiFactory>()
+            }
         };
         _standardizer = Substitute.For<IProductNameStandardizer>();
 
@@ -46,25 +44,27 @@ public class ExternalApiServiceTest
     }
 
     [Test]
-    public async Task UpdateDasebaseTest()
+    public async Task UpdateDatabaseTest()
     {
-        List<IDbModelsDto> products0 = new List<IDbModelsDto>();
-        List<IDbModelsDto> stores0 = new List<IDbModelsDto>();
-        List<IDbModelsDto> products1 = new List<IDbModelsDto>();
-        List<IDbModelsDto> stores1 = new List<IDbModelsDto>();
+        List<IDbModelsDto> products0 = new List<IDbModelsDto>(){Substitute.For<IDbModelsDto>()};
+        List<IDbModelsDto> stores0 = new List<IDbModelsDto>(){new Store()};
+        List<IDbModelsDto> products1 = new List<IDbModelsDto>(){new Product()};
+        List<IDbModelsDto> stores1 = new List<IDbModelsDto>(){new Store()};
         List<ProductStore> productsStore = new List<ProductStore>();
         List<ProductStandardName> productsStandardName = new List<ProductStandardName>();
 
-        _uut._externalApis[0][0].Get().Returns(products0);
-        _uut._externalApis[0][1].Get().Returns(stores0);
-        _uut._externalApis[1][0].Get().Returns(products1);
-        _uut._externalApis[1][1].Get().Returns(stores1);
+        _uut.ExternalApis.Keys.ElementAt(0).Get().Returns(Task.FromResult(products0));
+        _uut.ExternalApis.Values.ElementAt(0).Get().Returns(stores0);
+        _uut.ExternalApis.Keys.ElementAt(1).Get().Returns(products1);
+        _uut.ExternalApis.Values.ElementAt(1).Get().Returns(stores1);
         
         products0.AddRange(products1);
         stores0.AddRange(stores1);
 
-        _dbInsert.GetAllProducts().Returns(products0.Cast<Product>().ToList());
-        _standardizer.Standardize(products0.Cast<Product>().ToList()).Returns(productsStandardName);
+        List<Product> returnProducts = products0.Cast<Product>().ToList();
+
+        _dbInsert.GetAllProducts().Returns(returnProducts);
+        _standardizer.Standardize(returnProducts).ReturnsForAnyArgs(productsStandardName);
         
         
         await _uut.UpdateDatabase();

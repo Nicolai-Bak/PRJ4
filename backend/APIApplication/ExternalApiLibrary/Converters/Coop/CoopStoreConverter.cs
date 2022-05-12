@@ -11,10 +11,11 @@ public class CoopStoreConverter : IConverter
     public List<IDbModelsDto> Convert(List<IFilteredDto> list)
     {
         var filteredList = list.Cast<FilteredCoopStore>().ToList();
-        
+
+        int id = 1;
         var stores = filteredList.Select(store => new Store
         {
-            ID = store.Kardex,
+            ID = id++, // store.Kardex,
             Brand = store.RetailGroupName,
             Location_X = store.Location[0],
             Location_Y = store.Location[1],

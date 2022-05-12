@@ -31,7 +31,7 @@ public class CoopProductConverter : IConverter
                 new ProductStore
                 {
 	                // Sales Price is in kr. - Change to øre
-                    Price = p.salesPrice.amount * 100,
+                    Price = (long) p.salesPrice.amount * 100,
                 }
             }
 
