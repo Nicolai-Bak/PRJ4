@@ -1,9 +1,9 @@
 import { TextField, Autocomplete } from "@mui/material";
 import { v4 as uuid } from "uuid";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const SearchField = (props) => {
-	const options = localStorage.hasOwnProperty("itemNames")
+	const itemsReceived = localStorage.hasOwnProperty("itemNames")
 		? JSON.parse(localStorage.getItem("itemNames"))
 		: [];
 
@@ -25,46 +25,71 @@ const SearchField = (props) => {
 		},
 	});
 	const [value, setValue] = useState("");
+	const [open, setOpen] = useState(false);
+	const [searchValues, setSearchValues] = useState([itemsReceived]);
 
-	const defaultProps = {
-		options: options,
-		getOptionLabel: (option) => option,
-	};
+	// const defaultProps = {
+	// 	options: itemsReceived,
+	// 	getOptionLabel: (option) => option,
+	// };
 
 	useEffect(() => {
 		props.onItemChanged(value);
-		if (value.length > 1 && options.includes(value)) handleFocusLoss(value);
+		// if (value.length > 1 && itemsReceived.includes(value))
+		// 	handleFocusLoss(value);
 	}, [value]);
 
-	const handleFocusLoss = (event) => {
-		if (event.type) {
-			event = event.target.value;
+	const handleFocusLoss = (newValue) => {
+		setOpen(false);
+		// console.log("handleFocusLoss was called with ", newValue);
+		if (itemsReceived.includes(newValue)) {
+			props.onFocusLost(newValue);
 		}
-		console.log("handleFocusLoss was called with " + event);
-		props.onFocusLost(event);
+	};
+
+	const inputEventHandler = (event) => {
+		const input = event.target.value;
+		setValue(input);
+
+		// this should prevent slow rendering issues with very little negative effect
+		setSearchValues(
+			itemsReceived.filter((item) => item.includes(input)).splice(0, 100)
+		);
+		if (input.length < 2) {
+			setOpen(false);
+		} else setOpen(true);
+	};
+
+	const blurHandler = (event) => {
+		setOpen(false);
+		handleFocusLoss(event.target.value);
 	};
 
 	return (
 		<Autocomplete
-			openOnFocus={false}
+			open={open}
+			options={searchValues}
 			disablePortal
-			disableClearable
+			clearOnEscape
+			clearOnBlur
 			freeSolo
-			onBlur={handleFocusLoss}
+			blurOnSelect
+			disableClearable
+			disableCloseOnSelect={false}
+			onBlur={blurHandler}
 			sx={styles}
-			{...defaultProps}
-			renderOption={(props, option) => {
-				if (value === null || value.toString().length < 2) return;
+			renderOption={(props, options) => {
 				return (
 					<li {...props} key={uuid()}>
-						<span>{option}</span>
+						<span>{options}</span>
 					</li>
 				);
 			}}
 			value={value}
 			onChange={(event, newValue) => {
 				setValue(newValue);
-				console.log("newValue: ", newValue);
+				setOpen(false);
+				handleFocusLoss(newValue);
 			}}
 			renderInput={(params) => (
 				<TextField
@@ -75,9 +100,11 @@ const SearchField = (props) => {
 					{...params}
 					placeholder="Tilføj Vare Her"
 					variant="standard"
-					onChange={(event) => {
-						setValue(event.target.value);
-					}}
+					// onKeyDown={(event) => {
+					// 	if (value.length < 2) setOpen(false);
+					// 	else setOpen(true);
+					// }}
+					onInput={inputEventHandler}
 					inputProps={{
 						...params.inputProps,
 						style: inputStyle,

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./ListItem.css";
 import Button from "../../UI/Atoms/Button/Button";
 import { IoTrashBin } from "react-icons/io5";
+import { Tooltip } from "@mui/material";
 
 const ListItem = (props) => {
 	const [displayAmount, setDisplayAmount] = useState(true);
@@ -71,9 +72,16 @@ const ListItem = (props) => {
 	const amountAndUnitDisplay = () => {
 		if (displayAmount) {
 			return (
-				<span className="unit-amount" onClick={changeAmountAndUnit}>
-					{unitAmountHandler()}
-				</span>
+				<Tooltip
+					enterDelay={600}
+					leaveDelay={200}
+					placement="top"
+					title="Ændr på mængde eller enhed"
+				>
+					<span className="unit-amount" onClick={changeAmountAndUnit}>
+						{unitAmountHandler()}
+					</span>
+				</Tooltip>
 			);
 		} else {
 			return (

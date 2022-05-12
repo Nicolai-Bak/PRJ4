@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
 import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
+import NinjaDialog from "../components/UI/Organisms/NinjaDialog";
 
 function Home() {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
@@ -24,6 +25,13 @@ function Home() {
 	});
 
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
+	const duplicateDialogButtons = [
+		{ text: "Tilføj Mængde", onClick: "addAmount" },
+		{ text: "Afbryd", onClick: "onCancel" },
+	];
+	const duplicateDialogText = `Du har tilsyneladende allerede ${existingItem.amount}
+	${existingItem.unit} ${existingItem.name} på din indkøbsliste. Vil du tilføje
+	yderligere ${amountToChange}?`;
 
 	useEffect(() => {
 		if (localStorage.hasOwnProperty("shoppingList")) {
@@ -259,11 +267,10 @@ function Home() {
 					className="home-new-item-form"
 					onItemAdded={newItemHandler}
 				/>
-				<DuplicateDialog
-					itemName={existingItem.name}
-					amount={amountToChange}
-					unit={existingItem.unit}
-					existingAmount={existingItem.amount}
+				<NinjaDialog
+					title="Duplikeret vare"
+					bodyText={duplicateDialogText}
+					buttons={duplicateDialogButtons}
 					onCancel={handleClose}
 					addAmount={onAddDialog}
 					open={open}
@@ -313,8 +320,6 @@ function Home() {
 	async function ValidateItem(name, unit) {
 		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
 
-		console.log("itemNames: " + itemNames);
-
 		let matchFound = false;
 		let foundItems = [];
 		if (itemNames.length < 1) {
@@ -335,7 +340,6 @@ function Home() {
 			}
 		});
 		if (foundItems.length > 0) {
-			console.log("items found: " + foundItems);
 			matchFound = true;
 		}
 		return matchFound;
