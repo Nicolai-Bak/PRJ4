@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown/Dropdown";
 import { useState } from "react";
 
-function SearchResultsPage() {
+function SearchResultsPage(props) {
 	let navigate = useNavigate();
 	const [selectedOptionState, setSelectedOptionState] = useState("best");
 
@@ -62,10 +62,13 @@ function SearchResultsPage() {
 			displayOptions = options[0].map((item) => (
 				<div>
 					<SearchResultsItem
+						latitude={props.latitude}
+						longitude={props.longitude}
 						products={item.products}
 						price={item.totalPrice}
 						distance={item.distance}
 						storeName={item.brand}
+						address={item.address}
 					></SearchResultsItem>
 				</div>
 			));
@@ -73,27 +76,32 @@ function SearchResultsPage() {
 		case "best":
 			displayOptions = options[1].map((item) => (
 				<SearchResultsItem
+					latitude={props.latitude}
+					longitude={props.longitude}
 					products={item.products}
 					price={item.totalPrice}
 					distance={item.distance}
 					storeName={item.brand}
+					address={item.address}
 				></SearchResultsItem>
 			));
 			break;
 		case "nearest":
 			displayOptions = options[2].map((item) => (
 				<SearchResultsItem
+					latitude={props.latitude}
+					longitude={props.longitude}
 					products={item.products}
 					price={item.totalPrice}
 					distance={item.distance}
 					storeName={item.brand}
+					address={item.address}
 				></SearchResultsItem>
 			));
 			break;
 		default:
 			console.log("default");
 	}
-
 	return (
 		<div className="search-results-page">
 			{options[0].length && <Card className="results-container">

@@ -8,14 +8,15 @@ import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
 import NinjaDialog from "../components/UI/Organisms/NinjaDialog";
 
 
-function Home() {
+function Home(props) {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
 		: [];
 
 	let navigate = useNavigate();
 	// DuplicateDialog states
-	const [open, setOpen] = useState(false);
+	const [duplicateItemOpen, setDuplicateItemOpen] = useState(false);
+	const [emptyListOpen, setEmptyListOpen] = useState(false);
 	const [amountToChange, setAmountToChange] = useState(null);
 	const [existingItem, setExistingItem] = useState({
 		name: "",
@@ -33,6 +34,11 @@ function Home() {
 	const duplicateDialogText = `Du har tilsyneladende allerede ${existingItem.amount}
 	${existingItem.unit} ${existingItem.name} på din indkøbsliste. Vil du tilføje
 	yderligere ${amountToChange}?`;
+
+	const emptyListDialogButtons = [
+		{ text: "OK", onClick: "onCancel" },
+	];
+	const emptyListDialogText = `Der er ingen varer på din indkøbsliste.`;
 
 	useEffect(() => {
 		if (localStorage.hasOwnProperty("shoppingList")) {
@@ -85,7 +91,8 @@ function Home() {
 	};
 
 	const handleClose = (action) => {
-		setOpen(false);
+		setDuplicateItemOpen(false);
+		setEmptyListOpen(false);
 	};
 
 	const newItemHandler = async (name, amount, unit, id, organic) => {
@@ -98,7 +105,7 @@ function Home() {
 			// console.log("Item already exists on the shopping list : ", existingItem);
 			setExistingItem(existingItem);
 			setAmountToChange(amount);
-			setOpen(true);
+			setDuplicateItemOpen(true);
 			return;
 		}
 
@@ -171,6 +178,27 @@ function Home() {
 			});
 		});
 	};
+	
+	//GEOLOCATION
+	const [latitude, setLatitude] = useState(null);
+	const [longitude, setLongitude] = useState(null);
+
+	useEffect(() => {
+		if (!navigator.geolocation) {
+			console.log("Fejl i geolokation");
+		} else {
+			navigator.geolocation.getCurrentPosition((position) => {
+				setLatitude(position.coords.latitude);
+				setLongitude(position.coords.longitude);
+				// console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+			});
+		}
+	}, [longitude, latitude]);
+
+	//handler function to be passed to app.js
+	function geolocationHandler(){
+		props.onSendLocation(latitude, longitude);
+	}
 
 	// use state for post request
 	const [post, setPost] = useState(true);
@@ -179,7 +207,11 @@ function Home() {
 		console.log(
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
 		);
+		if(shoppingList.length < 1) {
+			setEmptyListOpen(true);
 
+			return;
+		}
 		// const searchList = shoppingList.map((item) => item);
 		// console.log("searchlist: " + JSON.stringify(searchList));
 		const searchList = [];
@@ -196,7 +228,9 @@ function Home() {
 			// console.log(itemDTO);
 			searchList.push(itemDTO);
 		});
-		
+		//send coordinates to- 'searchresultspage in order to get google maps directions
+		geolocationHandler();
+
 		// searchList.forEach((item) => console.log(item));
 		let request = false;
 		try {
@@ -232,24 +266,10 @@ function Home() {
 		navigate("/SearchResults");
 	};
 
-	//GEOLOCATION
-	const [longitude, setLongitude] = useState(null);
-	const [latitude, setLatitude] = useState(null);
 
-	useEffect(() => {
-		if (!navigator.geolocation) {
-			console.log("Fejl i geolokation");
-		} else {
-			navigator.geolocation.getCurrentPosition((position) => {
-				setLatitude(position.coords.latitude);
-				setLongitude(position.coords.longitude);
-				// console.log(`latitude: ${latitude}, longitude: ${longitude}`);
-			});
-		}
-	}, [longitude, latitude]);
 
 	const onAddDialog = (event) => {
-		setOpen(false);
+		setDuplicateItemOpen(false);
 		handleDialogAdd(existingItem.name, amountToChange);
 	};
 
@@ -279,7 +299,15 @@ function Home() {
 					buttons={duplicateDialogButtons}
 					onCancel={handleClose}
 					addAmount={onAddDialog}
-					open={open}
+					open={duplicateItemOpen}
+				/>
+				<NinjaDialog
+					title="Tom indkøbsliste"
+					bodyText={emptyListDialogText}
+					buttons={emptyListDialogButtons}
+					onCancel={handleClose}
+					addAmount={onAddDialog}
+					open={emptyListOpen}
 				/>
 				<div className="filler" />
 			</div>
