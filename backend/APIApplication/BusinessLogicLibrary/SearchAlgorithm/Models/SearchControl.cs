@@ -41,7 +41,7 @@ namespace ApiApplication.SearchAlgorithm
             // Tilføj dee billigste products i butikken til hver store - fjern store hvis den ikke har alle varer
             for (int i = 0; i < _shoppingList.Products.Count(); i++)
             {
-                List<Product> productToAdd = _database.GetProductsFromSpecificStores(storeIDs, _shoppingList.Products[i].Name, _shoppingList.Products[i].Measurement);
+                List<Product> productToAdd = _database.GetProductsFromSpecificStores(storeIDs, _shoppingList.Products[i].Name, _shoppingList.Products[i].Measurement, _shoppingList.Products[i].Organic);
                 ConvertMeasurements(productToAdd, _shoppingList.Products[i].Measurement);
                 AddCheapestProductToStores(storeIDs, stores, productToAdd, _shoppingList.Products[i].Unit);
             }

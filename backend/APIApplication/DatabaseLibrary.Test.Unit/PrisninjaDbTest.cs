@@ -211,8 +211,8 @@ public class PrisninjaDbTest
         context.ProductStores.Add(ps2);
         context.SaveChanges();
 
-        Assert.IsTrue(uut.GetProductsFromSpecificStores(ids, "p1", "g").Contains(p1));
-        Assert.IsFalse(uut.GetProductsFromSpecificStores(ids, "p2", "g").Contains(p2));
+        Assert.IsTrue(uut.GetProductsFromSpecificStores(ids, "p1", "g", false).Contains(p1));
+        Assert.IsFalse(uut.GetProductsFromSpecificStores(ids, "p2", "g",false).Contains(p2));
     }
 
     private PrisninjaDbContext GetDbContext()
