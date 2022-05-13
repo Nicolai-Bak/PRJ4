@@ -17,6 +17,7 @@ function Home(props) {
 	// DuplicateDialog states
 	const [duplicateItemOpen, setDuplicateItemOpen] = useState(false);
 	const [emptyListOpen, setEmptyListOpen] = useState(false);
+	const [noItemFoundOpen, setNoItemFoundOpen] = useState(false);
 	const [amountToChange, setAmountToChange] = useState(null);
 	const [existingItem, setExistingItem] = useState({
 		name: "",
@@ -39,6 +40,11 @@ function Home(props) {
 		{ text: "OK", onClick: "onCancel" },
 	];
 	const emptyListDialogText = `Der er ingen varer på din indkøbsliste.`;
+
+	const noItemFoundDialogButtons = [
+		{ text: "OK", onClick: "onCancel" },
+	];
+	const noItemFoundDialogText = `Der er ingen varer på din indkøbsliste.`;
 
 	useEffect(() => {
 		if (localStorage.hasOwnProperty("shoppingList")) {
@@ -93,6 +99,7 @@ function Home(props) {
 	const handleClose = (action) => {
 		setDuplicateItemOpen(false);
 		setEmptyListOpen(false);
+		setNoItemFoundOpen(false);
 	};
 
 	const newItemHandler = async (name, amount, unit, id, organic) => {
@@ -112,7 +119,7 @@ function Home(props) {
 		// if the item doesn't exists in the database
 		if (!(await ValidateItem(name, unit))) {
 			console.log("item not found in database");
-			alert("Varen kan ikke genkendes");
+			setNoItemFoundOpen(true);
 			return;
 		}
 
@@ -209,7 +216,6 @@ function Home(props) {
 		);
 		if(shoppingList.length < 1) {
 			setEmptyListOpen(true);
-
 			return;
 		}
 		// const searchList = shoppingList.map((item) => item);
@@ -308,6 +314,14 @@ function Home(props) {
 					onCancel={handleClose}
 					addAmount={onAddDialog}
 					open={emptyListOpen}
+				/>
+				<NinjaDialog
+					title="Varen kan ikke findes"
+					bodyText={noItemFoundDialogText}
+					buttons={noItemFoundDialogButtons}
+					onCancel={handleClose}
+					addAmount={onAddDialog}
+					open={noItemFoundOpen}
 				/>
 				<div className="filler" />
 			</div>
