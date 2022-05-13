@@ -96,16 +96,16 @@ function SearchResultsPage() {
 
 	return (
 		<div className="search-results-page">
-			{!options[0] && <Card className="results-container">
+			{options[0].length && <Card className="results-container">
 				<div className="dropdown-menu-container">
 					<Dropdown className="results-page-dropdown" selectedOption={selectedOptionHandler}></Dropdown>
 				</div>
 				{displayOptions}
 			</Card>}
-			{!options[0] &&
+			{options[0].length &&
 				<div className="search-results-page-text-box">Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>, for at gå tilbage og foretage en ny søgning.</div>
 			}
-			{options[0] && <div className="search-results-not-found">
+			{!options[0].length && <div className="search-results-not-found">
 				<div className="image-wrapper"><img src="https://svgshare.com/i/h6r.svg" alt="ninja holding an apple"></img></div>
 				<div className="text-wrapper">
 					<h1>Hovsa!</h1>
