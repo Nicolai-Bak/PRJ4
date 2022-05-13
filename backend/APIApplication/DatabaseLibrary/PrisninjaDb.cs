@@ -19,12 +19,12 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
     {
         return _context.ProductStandardNames.Select(sn => sn.Name).ToList();
     }
-    
+
     public List<Product> GetAllProducts()
     {
         return _context.Products.ToList();
     }
-    
+
     public ProductStandardName GetProductInfo(string name)
     {
         return _context.ProductStandardNames.FirstOrDefault(sn => sn.Name == name);
@@ -35,7 +35,7 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
         return _context.Stores
             .AsEnumerable()
             .Where(s =>
-                (_rangeCalculator.Distance(x,s.Location_X,y,s.Location_Y) < range))
+                (_rangeCalculator.Distance(x, s.Location_X, y, s.Location_Y) < range))
             .Select(s => s.ID)
             .ToList();
     }
@@ -43,23 +43,24 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
     public List<Store> GetDataFromStores(List<int> topStores)
     {
         return _context.Stores
-            .Where(s => 
+            .Where(s =>
                 topStores.Any(t => t == s.ID))
             .ToList();
     }
 
-    public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName, string measurement, bool organic)
+    public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName, string measurement,
+        bool organic)
     {
         return _context.Products
             .Where(p => p.ProductStores
-                            .Select(ps => ps.StoreKey)
-                            .Any(psk => storeKeys
-                                .Any(sk => sk == psk))
-                        && p.Name.Contains(productName)
-                        && (p.Measurement == measurement ||
-                            p.Measurement.ToLower().Contains('g') && measurement.ToLower().Contains('g') ||
-                            p.Measurement.ToLower().Contains('l') && measurement.ToLower().Contains('l')) 
-                        &&  (!organic || p.Organic)) 
+                .Select(ps => ps.StoreKey)
+                .Any(psk => storeKeys
+                    .Any(sk => sk == psk)))
+            .Where(p => p.Name.Contains(productName))
+            .Where(p => (p.Measurement.ToLower().Contains("s") && (measurement.ToLower().Contains("s"))
+                         || (p.Measurement.ToLower().Contains("g") && measurement.ToLower().Contains("g"))
+                         || (p.Measurement.ToLower().Contains("l") && measurement.ToLower().Contains("l"))))
+            .Where(p => (!organic || p.Organic))
             .Include(p => p.ProductStores)
             .ThenInclude(ps => ps.Store)
             .ToList();
@@ -103,7 +104,7 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
 
     public void ClearDatabase()
     {
-        _context.ProductStores.BulkDelete(_context.ProductStores.Select(x=>x));
+        _context.ProductStores.BulkDelete(_context.ProductStores.Select(x => x));
         _context.Products.BulkDelete(_context.Products);
         _context.Stores.BulkDelete(_context.Stores);
         _context.ProductStandardNames.BulkDelete(_context.ProductStandardNames);
