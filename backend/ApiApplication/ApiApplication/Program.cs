@@ -14,9 +14,16 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(MyAllowSpecificOrigins,
+        builder =>
+        {
+            builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+        });
+});
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PrisninjaDbContext>(optionsBuilder =>
@@ -38,32 +45,21 @@ builder.Services.AddScoped<IDbRequest, PrisninjaDb>();
 builder.Services.AddScoped<IDbSearch, PrisninjaDb>();
 builder.Services.AddScoped<IDbInsert, PrisninjaDb>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(MyAllowSpecificOrigins,
-        builder =>
-        {
-            builder.WithOrigins()
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowAnyOrigin();
-        });
-});
-builder.Services.AddHostedService(sp =>
-{
-    return new ExternalApiService(sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>(),
-        new Dictionary<IApiFactory, IApiFactory>()
-        {
-            {
-                new FoetexProductFactory(), new FoetexStoreFactory()
-            },
-            {
-                new CoopProductFactory(), new CoopStoreFactory()
-            }
-        },
-        new ProductNameStandardizer(),
-        true);
-});
+// builder.Services.AddHostedService(sp =>
+// {
+//     return new ExternalApiService(sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>(),
+//         new Dictionary<IApiFactory, IApiFactory>()
+//         {
+//             {
+//                 new FoetexProductFactory(), new FoetexStoreFactory()
+//             },
+//             {
+//                 new CoopProductFactory(), new CoopStoreFactory()
+//             }
+//         },
+//         new ProductNameStandardizer(),
+//         true);
+// });
 
 var app = builder.Build();
 
@@ -72,8 +68,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-
+}   
 
 app.UseHttpsRedirection();
 
