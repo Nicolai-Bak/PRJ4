@@ -17,6 +17,12 @@
 	color: var(--all-white);
 	margin-right: 1rem;
 }
+.store-name-red {
+	background-color: var(--red);
+}
+.store-name-green {
+	background-color: var(--green);
+}
 
 .list-item-price {
 	padding-left: 1rem;

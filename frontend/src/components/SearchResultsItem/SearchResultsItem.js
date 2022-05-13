@@ -4,6 +4,7 @@ import { IoChevronDownSharp } from "react-icons/io5";
 import Button from "../UI/Atoms/Button/Button";
 import { useState } from "react";
 import SearchResultsItemProduct from "../SearchResultsItemProduct/SearchResultsItemProduct";
+import { display } from "@mui/system";
 
 const SearchResultsItem = (props) => {
 	const [activeState, setActiveState] = useState(true);
@@ -18,6 +19,30 @@ const SearchResultsItem = (props) => {
 	let addressStringforMaps = addressString.replace(/ /g,"+");;
 	console.log("eller måske her?:", addressStringforMaps);
 
+	let displayStoreName = null;
+
+	switch(props.storeName) {
+		case "foetex":
+			displayStoreName = 
+				<div className="list-item-store-name">føtex</div>
+			break;
+		case "Fakta":
+		case "Dagli'Brugsen":
+		case "SuperBrugsen":
+		case "Kvickly":
+			displayStoreName = 
+				<div className="list-item-store-name store-name-red">{props.storeName}</div>
+			break;
+		case "Coop365":
+			displayStoreName = 
+				<div className="list-item-store-name store-name-green">{props.storeName}</div>
+			break;
+		default:
+			displayStoreName = 
+				<div className="list-item-store-name">{props.storeName}</div>
+			break;
+	}
+
 
 	let GoogleMapsDirections = `https://www.google.com/maps/dir/${props.latitude},${props.longitude}/${addressStringforMaps}`;
 
@@ -28,7 +53,7 @@ const SearchResultsItem = (props) => {
 			<Card className="search-results-list-item">
 				<div className="list-item-wrapper">
 					<div className="list-item-price">Pris: <span className="total-price">{props.price/100}kr</span></div>
-					<div className="list-item-store-name">{props.storeName} </div>
+					{displayStoreName}
 					<div className="list-item-address" title="vis rutevejledning"><a href={GoogleMapsDirections} target="_blank">{addressString} ({props.distance.toFixed(2)}km)</a></div>
 					<Button className="chevron-button" onClick={toggleDetails}>
 						<IoChevronDownSharp
