@@ -1,6 +1,6 @@
 import Card from "../UI/Atoms/Card/Card";
 import "./SearchResultsItem.css";
-import { IoChevronDownSharp } from "react-icons/io5";
+import { IoChevronDownSharp, IoLocation } from "react-icons/io5";
 import Button from "../UI/Atoms/Button/Button";
 import { useState } from "react";
 import SearchResultsItemProduct from "../SearchResultsItemProduct/SearchResultsItemProduct";
@@ -54,7 +54,8 @@ const SearchResultsItem = (props) => {
 				<div className="list-item-wrapper">
 					<div className="list-item-price">Pris: <span className="total-price">{props.price/100}kr</span></div>
 					{displayStoreName}
-					<div className="list-item-address" title="vis rutevejledning"><a href={GoogleMapsDirections} target="_blank">{addressString} ({props.distance.toFixed(2)}km)</a></div>
+					<div className="list-item-address" title="vis rutevejledning"><a href={GoogleMapsDirections} target="_blank">
+						<IoLocation/>{addressString} ({props.distance.toFixed(2)}km)</a></div>
 					<Button className="chevron-button" onClick={toggleDetails}>
 						<IoChevronDownSharp
 							className={`chevron-icon ${!activeState ? "rotate" : ""}`}

@@ -15,7 +15,7 @@
 	height: 1.5rem;
 	font-size: 0.9rem;
 	color: var(--all-white);
-	margin-right: 1rem;
+	margin-right: 0.25rem;
 }
 .store-name-red {
 	background-color: var(--red);
