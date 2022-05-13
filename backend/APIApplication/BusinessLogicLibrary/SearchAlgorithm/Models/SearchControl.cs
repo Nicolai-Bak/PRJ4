@@ -41,7 +41,8 @@ namespace ApiApplication.SearchAlgorithm
             // Tilføj dee billigste products i butikken til hver store - fjern store hvis den ikke har alle varer
             for (int i = 0; i < _shoppingList.Products.Count(); i++)
             {
-                List<Product> productToAdd = _database.GetProductsFromSpecificStores(storeIDs, _shoppingList.Products[i].Name, _shoppingList.Products[i].Measurement);
+                List<Product> productToAdd = _database.GetProductsFromSpecificStores(storeIDs, _shoppingList.Products[i].Name, _shoppingList.Products[i].Measurement, _shoppingList.Products[i].Organic);
+                ConvertMeasurements(productToAdd, _shoppingList.Products[i].Measurement);
                 AddCheapestProductToStores(storeIDs, stores, productToAdd, _shoppingList.Products[i].Unit);
             }
             
@@ -59,6 +60,18 @@ namespace ApiApplication.SearchAlgorithm
             }
 
             return result;
+        }
+
+        private void ConvertMeasurements(List<Product> products, string returnMeasurement)
+        {
+            products.ForEach(p =>
+            {
+                if (returnMeasurement.ToLower() == "l" && p.Measurement == "ml") p.Units /= 1000;
+                if (returnMeasurement.ToLower() == "ml" && p.Measurement == "l") p.Units *= 1000;
+                if (returnMeasurement.ToLower() == "kg" && p.Measurement == "g") p.Units /= 1000;
+                if (returnMeasurement.ToLower() == "g" && p.Measurement == "kg") p.Units *= 1000;
+                p.Measurement = returnMeasurement;
+            });
         }
 
         #region Add product to stores

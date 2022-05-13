@@ -48,7 +48,7 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
             .ToList();
     }
 
-    public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName, string measurement)
+    public List<Product> GetProductsFromSpecificStores(List<int> storeKeys, string productName, string measurement, bool organic)
     {
         return _context.Products
             .Where(p => p.ProductStores
@@ -56,7 +56,10 @@ public class PrisninjaDb : IDbRequest, IDbSearch, IDbInsert
                             .Any(psk => storeKeys
                                 .Any(sk => sk == psk))
                         && p.Name.Contains(productName)
-                        && p.Measurement == measurement)
+                        && (p.Measurement == measurement ||
+                            p.Measurement.ToLower().Contains('g') && measurement.ToLower().Contains('g') ||
+                            p.Measurement.ToLower().Contains('l') && measurement.ToLower().Contains('l')) 
+                        &&  (!organic || p.Organic)) 
             .Include(p => p.ProductStores)
             .ThenInclude(ps => ps.Store)
             .ToList();
