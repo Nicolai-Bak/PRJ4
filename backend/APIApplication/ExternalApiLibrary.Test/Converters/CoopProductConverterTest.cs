@@ -40,6 +40,17 @@ public class CoopProductConverterTest
 			& Has.Property("ImageUrl").EqualTo(controlProduct.ImageUrl));
 	}
 
+	[Test]
+	public void GetMeasurementFromSpotText_NoUnitsOfMeasurement_ProductFilteredOut()
+	{
+		var testProduct = CreateCoopTestProduct(true);
+		testProduct.spotText = "Nothing";
+		
+		var convertedProduct = _uut.Convert(new List<IFilteredDto> { testProduct });
+		
+		Assert.That(convertedProduct.Count, Is.EqualTo(0));
+	}
+
 	private static FilteredCoopProduct CreateCoopTestProduct(bool isOrganic)
 	{
 		return new FilteredCoopProduct

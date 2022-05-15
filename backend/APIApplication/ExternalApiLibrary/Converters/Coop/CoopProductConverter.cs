@@ -60,14 +60,12 @@ public class CoopProductConverter : IConverter
                     $"SpotText: {spotText}"
                 );
                 return "";
-            case > 1:
+            default: // Greater than 1
                 Log.Fatal(
                     "Coop product conversion failed " +
                     "- Product spot text contained too many units of measurement: " +
                     $"SpotText: {spotText}, matched units: {string.Join(", ", matchingUnits)}"
                 );
-                return matchingUnits.First();
-            default:
                 return matchingUnits.First();
         }
     }
