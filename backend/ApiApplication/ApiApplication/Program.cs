@@ -49,21 +49,21 @@ builder.Services.AddCors(options =>
                 .AllowAnyOrigin();
         });
 });
-// builder.Services.AddHostedService(sp =>
-// {
-//     return new ExternalApiService(sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>(),
-//         new Dictionary<IApiFactory, IApiFactory>()
-//         {
-//             {
-//                 new FoetexProductFactory(), new FoetexStoreFactory()
-//             },
-//             {
-//                 new CoopProductFactory(), new CoopStoreFactory()
-//             }
-//         },
-//         new ProductNameStandardizer(),
-//         true);
-// });
+builder.Services.AddHostedService(sp =>
+{
+    return new ExternalApiService(sp.CreateScope().ServiceProvider.GetRequiredService<IDbInsert>(),
+        new Dictionary<IApiFactory, IApiFactory>()
+        {
+            {
+                new FoetexProductFactory(), new FoetexStoreFactory()
+            },
+            {
+                new CoopProductFactory(), new CoopStoreFactory()
+            }
+        },
+        new ProductNameStandardizer(),
+        true);
+});
 
 var app = builder.Build();
 
