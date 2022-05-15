@@ -63,7 +63,7 @@ public class SallingStoreConverterTest
 	    {
 			Address = "Hobrovej 450, 9200 Aalborg Sv, DK",
 			Brand = "foetex",
-			ID = 1652,
+			ID = 50000,
 			Location_X = 9.876099d,
 			Location_Y = 57.004687d
 	    };
