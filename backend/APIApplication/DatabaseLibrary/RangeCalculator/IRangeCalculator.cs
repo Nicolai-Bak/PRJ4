@@ -8,6 +8,5 @@ namespace DatabaseLibrary;
 
     public interface IRangeCalculator
     {
-        public double ToRadians(double angleIn10thofaDegree);
         public double Distance(double lat1, double lat2, double lon1, double lon2);
     }
