@@ -19,7 +19,7 @@ public class CoopProductCaller : ICaller
         response.ForEach(r =>
         {
             var deserializedRoot = JsonConvert.DeserializeObject<RootFilteredCoopProduct>((string)r);
-            if (deserializedRoot != null)
+            if (deserializedRoot is {products: { }}) 
             {
                 result.AddRange(deserializedRoot.products);
             }
