@@ -57,7 +57,7 @@ public class CoopStoreConverterTest
 		{
 			Address = "Englandsvej 28, 2300 København S",
 			Brand = "Kvickly",
-			ID = 1110,
+			ID = 1,
 			Location_X = 12.6040707d,
 			Location_Y = 55.6567268d
 		};
