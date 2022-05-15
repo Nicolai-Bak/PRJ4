@@ -7,7 +7,6 @@ import Banner from "../components/Banner/Banner";
 import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
 import NinjaDialog from "../components/UI/Organisms/NinjaDialog";
 
-
 function Home(props) {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
@@ -36,21 +35,15 @@ function Home(props) {
 	${existingItem.unit} ${existingItem.name} på din indkøbsliste. Vil du tilføje
 	yderligere ${amountToChange}?`;
 
-	const emptyListDialogButtons = [
-		{ text: "OK", onClick: "onCancel" },
-	];
+	const emptyListDialogButtons = [{ text: "OK", onClick: "onCancel" }];
 	const emptyListDialogText = `Der er ingen varer på din indkøbsliste.`;
 
-	const noItemFoundDialogButtons = [
-		{ text: "OK", onClick: "onCancel" },
-	];
+	const noItemFoundDialogButtons = [{ text: "OK", onClick: "onCancel" }];
 	const noItemFoundDialogText = `Der er ingen varer på din indkøbsliste.`;
 
 	useEffect(() => {
-		if (localStorage.hasOwnProperty("shoppingList")) {
-			console.log("updating localStorage...");
-			localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
-		}
+		console.log("updating localStorage...");
+		localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
 	}, [shoppingList]);
 
 	const handleItemUpdate = (id, amount, unit, adding) => {
@@ -136,11 +129,6 @@ function Home(props) {
 				},
 			];
 		});
-
-		localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
-		// console.log(
-		// 	"Local Storage now contains: " + localStorage.getItem("shoppingList")
-		// );
 	};
 
 	const removeItemHandler = (id, name) => {
@@ -185,7 +173,7 @@ function Home(props) {
 			});
 		});
 	};
-	
+
 	//GEOLOCATION
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
@@ -203,7 +191,7 @@ function Home(props) {
 	}, [longitude, latitude]);
 
 	//handler function to be passed to app.js
-	function geolocationHandler(){
+	function geolocationHandler() {
 		props.onSendLocation(latitude, longitude);
 	}
 
@@ -214,7 +202,7 @@ function Home(props) {
 		console.log(
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
 		);
-		if(shoppingList.length < 1) {
+		if (shoppingList.length < 1) {
 			setEmptyListOpen(true);
 			return;
 		}
@@ -240,7 +228,7 @@ function Home(props) {
 		// searchList.forEach((item) => console.log(item));
 		let request = false;
 		try {
-			setPost(request)
+			setPost(request);
 			request = await fetch(
 				"https://prisninjawebapi.azurewebsites.net/options/ ",
 				{
@@ -256,7 +244,7 @@ function Home(props) {
 						x: longitude,
 					}),
 				}
-				);
+			);
 		} catch (error) {
 			console.log(error);
 			return;
@@ -272,13 +260,10 @@ function Home(props) {
 		navigate("/SearchResults");
 	};
 
-
-
 	const onAddDialog = (event) => {
 		setDuplicateItemOpen(false);
 		handleDialogAdd(existingItem.name, amountToChange);
 	};
-
 
 	return (
 		<div className="home">
