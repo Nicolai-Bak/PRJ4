@@ -1,4 +1,3 @@
-/* import SearchResults from "../components/SearchResults/SearchResults"; */
 import Card from "../components/UI/Atoms/Card/Card";
 import "./SearchResultsPage.css";
 import Button from "../components/UI/Atoms/Button/Button";
@@ -8,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown/Dropdown";
 import { useState } from "react";
 
-function SearchResultsPage() {
+function SearchResultsPage(props) {
 	let navigate = useNavigate();
 	const [selectedOptionState, setSelectedOptionState] = useState("best");
 
@@ -24,7 +23,7 @@ function SearchResultsPage() {
 
 		if (options.cheapest !== null) {
 			cheapest = Array.from(options.cheapest);
-		}
+		} 
 		if (options.best !== null) {
 			best = Array.from(options.best);
 		}
@@ -62,10 +61,13 @@ function SearchResultsPage() {
 			displayOptions = options[0].map((item) => (
 				<div>
 					<SearchResultsItem
+						latitude={props.latitude}
+						longitude={props.longitude}
 						products={item.products}
 						price={item.totalPrice}
 						distance={item.distance}
 						storeName={item.brand}
+						address={item.address}
 					></SearchResultsItem>
 				</div>
 			));
@@ -73,39 +75,47 @@ function SearchResultsPage() {
 		case "best":
 			displayOptions = options[1].map((item) => (
 				<SearchResultsItem
+					latitude={props.latitude}
+					longitude={props.longitude}
 					products={item.products}
 					price={item.totalPrice}
 					distance={item.distance}
 					storeName={item.brand}
+					address={item.address}
 				></SearchResultsItem>
 			));
 			break;
 		case "nearest":
 			displayOptions = options[2].map((item) => (
 				<SearchResultsItem
+					latitude={props.latitude}
+					longitude={props.longitude}
 					products={item.products}
 					price={item.totalPrice}
 					distance={item.distance}
 					storeName={item.brand}
+					address={item.address}
 				></SearchResultsItem>
 			));
 			break;
 		default:
 			console.log("default");
 	}
+	const [showError, setShowError] = useState(options[0].length < 1 ? true : false);
 
 	return (
 		<div className="search-results-page">
-			{options[0].length && <Card className="results-container">
+			{!showError && <Card className="results-container">
 				<div className="dropdown-menu-container">
 					<Dropdown className="results-page-dropdown" selectedOption={selectedOptionHandler}></Dropdown>
 				</div>
 				{displayOptions}
 			</Card>}
-			{options[0].length &&
-				<div className="search-results-page-text-box">Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>, for at gå tilbage og foretage en ny søgning.</div>
+			{!showError &&
+				<div className="search-results-page-text-box">Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>
+				, for at gå tilbage og foretage en ny søgning.</div>
 			}
-			{!options[0].length && <div className="search-results-not-found">
+			{showError && <div className="search-results-not-found">
 				<div className="image-wrapper"><img src="https://svgshare.com/i/h6r.svg" alt="ninja holding an apple"></img></div>
 				<div className="text-wrapper">
 					<h1>Hovsa!</h1>
