@@ -40,16 +40,47 @@ public class SallingRequestBuilderTest
 	}
 	
 	[Test]
-	public void Build_MultipleParameters_ReturnMultiParameterRequest()
+	public void Build_AllParameters_ReturnAllParameterRequest()
 	{
-		_uut.AddName();
-		_uut.AddImages();
-		
+		_uut.AddImages()
+			.AddImageGuids()
+			.AddProductType()
+			.AddArticle()
+			.AddAttributes()
+			.AddBrand()
+			.AddCategories()
+			.AddDescription()
+			.AddInfos()
+			.AddName()
+			.AddPant()
+			.AddProperties()
+			.AddUnits()
+			.AddCpDiscount()
+			.AddCpOffer()
+			.AddObjectId()
+			.AddProductName()
+			.AddSearchHierarchy()
+			.AddStoreData()
+			.AddSubBrand()
+			.AddConsumerFacingHierarchy()
+			.AddCountryOfOrigin()
+			.AddCpOfferAmount()
+			.AddCpOfferId()
+			.AddCpOfferPrice()
+			.AddCpOfferTitle()
+			.AddCpOriginalPrice()
+			.AddCpPercentDiscount()
+			.AddDeepestCategoryPath()
+			.AddInStockStore()
+			.AddIsInOffer()
+			.AddOutStockStore()
+			.AddUnitsOfMeasure()
+			.AddCpOfferFromDate()
+			.AddCpOfferToDate();
+
 		var request = (SallingRequest) _uut.Build();
 		
 		Assert.That(request, Is.Not.Null);
-		Assert.That(request.Parameters.Count, Is.EqualTo(2));
-		Assert.That(request.Parameters[0], Is.EqualTo("name"));
-		Assert.That(request.Parameters[1], Is.EqualTo("images"));
+		Assert.That(request.Parameters.Count, Is.EqualTo(35));
 	}
 }
