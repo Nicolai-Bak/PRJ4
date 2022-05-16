@@ -30,7 +30,7 @@ public class SallingStoreConverterTest
 	    Assert.That(convertedStore.Count, Is.EqualTo(1));
 
 	    Assert.That(convertedStore[0],
-		    Has.Property("ID").EqualTo(controlStore.ID)
+		    Has.Property("ID").EqualTo(50000)
 		    & Has.Property("Address").EqualTo(controlStore.Address)
 		    & Has.Property("Brand").EqualTo(controlStore.Brand)
 		    & Has.Property("Location_X").EqualTo(controlStore.Location_X)
@@ -63,7 +63,7 @@ public class SallingStoreConverterTest
 	    {
 			Address = "Hobrovej 450, 9200 Aalborg Sv, DK",
 			Brand = "foetex",
-			ID = 1652,
+			ID = 50000,
 			Location_X = 9.876099d,
 			Location_Y = 57.004687d
 	    };

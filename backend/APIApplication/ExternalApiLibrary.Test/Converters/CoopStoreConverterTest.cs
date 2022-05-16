@@ -30,7 +30,7 @@ public class CoopStoreConverterTest
 		Assert.That(convertedStore.Count, Is.EqualTo(1));
 
 		Assert.That(convertedStore[0],
-			Has.Property("ID").EqualTo(controlStore.ID)
+			Has.Property("ID").EqualTo(1)
 			& Has.Property("Address").EqualTo(controlStore.Address)
 			& Has.Property("Brand").EqualTo(controlStore.Brand)
 			& Has.Property("Location_X").EqualTo(controlStore.Location_X)
@@ -57,7 +57,7 @@ public class CoopStoreConverterTest
 		{
 			Address = "Englandsvej 28, 2300 København S",
 			Brand = "Kvickly",
-			ID = 1110,
+			ID = 1,
 			Location_X = 12.6040707d,
 			Location_Y = 55.6567268d
 		};

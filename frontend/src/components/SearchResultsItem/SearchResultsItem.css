@@ -15,6 +15,13 @@
 	height: 1.5rem;
 	font-size: 0.9rem;
 	color: var(--all-white);
+	margin-right: 0.25rem;
+}
+.store-name-red {
+	background-color: var(--red);
+}
+.store-name-green {
+	background-color: var(--green);
 }
 
 .list-item-price {
@@ -23,6 +30,10 @@
 
 .list-item-price .total-price {	
 	color: var(--green);
+}
+
+.list-item-address a {
+	color: var(--default-black);
 }
 
 .list-item-wrapper {

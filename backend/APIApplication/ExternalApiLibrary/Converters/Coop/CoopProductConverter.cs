@@ -25,13 +25,13 @@ public class CoopProductConverter : IConverter
             Units = GetUnitFromSpotText(p.spotText, GetMeasurementFromSpotText(p.spotText)),
             Measurement = GetMeasurementFromSpotText(p.spotText),
             Organic = IsProductOrganic(p.labels),
-            ImageUrl = p.image ?? " ",
+            ImageUrl = p.image + "&format=jpg" ?? " ",
             ProductStores = new List<ProductStore>
             {
                 new ProductStore
                 {
 	                // Sales Price is in kr. - Change to øre
-                    Price = p.salesPrice.amount * 100,
+                    Price = (long) p.salesPrice.amount * 100,
                 }
             }
 
@@ -60,14 +60,12 @@ public class CoopProductConverter : IConverter
                     $"SpotText: {spotText}"
                 );
                 return "";
-            case > 1:
+            default: // Greater than 1
                 Log.Fatal(
                     "Coop product conversion failed " +
                     "- Product spot text contained too many units of measurement: " +
                     $"SpotText: {spotText}, matched units: {string.Join(", ", matchingUnits)}"
                 );
-                return matchingUnits.First();
-            default:
                 return matchingUnits.First();
         }
     }

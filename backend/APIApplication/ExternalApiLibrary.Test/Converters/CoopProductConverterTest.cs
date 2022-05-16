@@ -40,6 +40,17 @@ public class CoopProductConverterTest
 			& Has.Property("ImageUrl").EqualTo(controlProduct.ImageUrl));
 	}
 
+	[Test]
+	public void GetMeasurementFromSpotText_NoUnitsOfMeasurement_ProductFilteredOut()
+	{
+		var testProduct = CreateCoopTestProduct(true);
+		testProduct.spotText = "Nothing";
+		
+		var convertedProduct = _uut.Convert(new List<IFilteredDto> { testProduct });
+		
+		Assert.That(convertedProduct.Count, Is.EqualTo(0));
+	}
+
 	private static FilteredCoopProduct CreateCoopTestProduct(bool isOrganic)
 	{
 		return new FilteredCoopProduct
@@ -97,12 +108,12 @@ public class CoopProductConverterTest
 			Units = 0.65,
 			Measurement = "kg",
 			Organic = isOrganic,
-			ImageUrl = "https://coopmad-website-prod-endpoint.azureedge.net/products/5700382823611.png?e=0x8D621EE56382034",
+			ImageUrl = "https://coopmad-website-prod-endpoint.azureedge.net/products/5700382823611.png?e=0x8D621EE56382034&format=jpg",
 			ProductStores = new List<ProductStore>
 			{
 				new()
 				{
-					Price = 16d
+					Price = (long) 16d
 				}
 			}
 		};

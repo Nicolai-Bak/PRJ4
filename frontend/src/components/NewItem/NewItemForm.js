@@ -11,6 +11,7 @@ const NewItemForm = (props) => {
 	const [newItem, setNewItem] = useState(null);
 	const [amount, setAmount] = useState("");
 	const [unit, setUnit] = useState("kg");
+	const [unitsAvailable, setUnitsAvailable] = useState(["kg", "l", "stk"]);
 	const [organic, setOrganic] = useState(false);
 	const [itemName, setItemName] = useState("");
 	const [organicPossible, setOrganicPossible] = useState(false);
@@ -26,7 +27,6 @@ const NewItemForm = (props) => {
 
 	const submitItemHandler = (event) => {
 		event.preventDefault();
-		// console.log(`You just tried to add ${amount} ${unit} ${newItem}'s`);
 
 		if (validInput(newItem, amount)) {
 			props.onItemAdded(newItem, amount, unit, id, organic);
@@ -93,14 +93,15 @@ const NewItemForm = (props) => {
 
 	// When a user no longer has focus on the item name input field, this checks the database for the unit this item normally has and whether there are organic variants and then rerenders based on the info received
 	const focusLost = async (event) => {
-		console.log("focus was lost and the current value is ", event);
-		const unit = await getUnitAndOrganic(event);
+		const item = await getUnitAndOrganic(event);
+		if (!item) return;
+		// appelsiner i liter??
+		console.log("These units are available: ", item.units);
+		setUnitsAvailable(item.units);
+		setUnit(item.units[0]);
 
-		console.log(unit);
-		setUnit(unit.unit);
-
-		if (unit) {
-			setOrganicPossible(unit.organic);
+		if (item) {
+			setOrganicPossible(item.organic);
 		}
 	};
 
@@ -121,6 +122,7 @@ const NewItemForm = (props) => {
 						className="form-units"
 						onUnitSelected={unitChangeHandler}
 						unitChosen={unit}
+						unitsAvailable={unitsAvailable}
 					/>
 					{organicPossible && (
 						<FormControlLabel
@@ -152,31 +154,43 @@ const NewItemForm = (props) => {
 	);
 
 	async function fetchItemInfo(itemInfo) {
-		const request = await fetch(
-			`https://prisninjawebapi.azurewebsites.net/productinfo/${itemInfo}/`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
-		const response = await request.json();
+		let response;
+		try {
+			const request = await fetch(
+				`https://prisninjawebapi.azurewebsites.net/productinfo/${itemInfo}/`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			response = await request.json();
+		} catch (error) {
+			console.log("API call error : ", error);
+			response = false;
+		}
 		return response;
 	}
 
 	async function fetchItems() {
-		const request = await fetch(
-			"https://prisninjawebapi.azurewebsites.net/names/",
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
+		let request = false;
+		try {
+			request = await fetch(
+				"https://prisninjawebapi.azurewebsites.net/names/",
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+		} catch (error) {
+			console.log("itemName API call error : ", error);
+		}
 
-		localStorage.setItem("itemNames", JSON.stringify(await request.json()));
+		if (request)
+			localStorage.setItem("itemNames", JSON.stringify(await request.json()));
 
 		const response = await JSON.parse(localStorage.getItem("itemNames"));
 		if (response.length > 15)
@@ -184,16 +198,19 @@ const NewItemForm = (props) => {
 	}
 
 	async function getUnitAndOrganic(item) {
-		let unit = null;
+		const units = [];
 		const info = await fetchItemInfo(item);
+		console.log("Item info: ", info);
+		if (!info) return;
 		const organic = info.organic;
 		const unitInfo = Object.keys(info).filter((i) => info[i] === true);
 
-		if (unitInfo.includes("measureG")) unit = "kg";
-		else if (unitInfo.includes("measureL")) unit = "l";
-		else if (unitInfo.includes("measureStk")) unit = "stk";
+		// saves all units that are available for the item
+		if (unitInfo.includes("measureG")) units.push("kg");
+		if (unitInfo.includes("measureL")) units.push("l");
+		if (unitInfo.includes("measureStk")) units.push("stk");
 
-		return { unit, organic };
+		return { units, organic };
 	}
 };
 

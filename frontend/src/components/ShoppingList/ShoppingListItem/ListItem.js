@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./ListItem.css";
 import Button from "../../UI/Atoms/Button/Button";
 import { IoTrashBin } from "react-icons/io5";
-
+import { Tooltip } from "@mui/material";
 
 const ListItem = (props) => {
 	const [displayAmount, setDisplayAmount] = useState(true);
@@ -49,11 +49,20 @@ const ListItem = (props) => {
 		// This renders the input field where the user can change the amount and unit
 		if (event.type === "click") {
 			setDisplayAmount(!displayAmount);
-			console.log(event.type);
+			return;
 		}
 
-		// If there is something written in the amount field, we want to change the amount and maybe unit
-		if (event.key === "Enter" || event.type === "blur") {
+		// If there is something written in the amount field, we want to change the amount and unit if a unit has been input
+		if (
+			event.key === "Enter" ||
+			event.type === "blur" ||
+			event.key === "Escape"
+		) {
+			if (event.target.value.length < 1) {
+				setDisplayAmount(true);
+				return;
+			}
+
 			console.log("amountChanged called with : " + event.target.value);
 			amountChanged(event.target.value);
 			setDisplayAmount(!displayAmount);
@@ -63,9 +72,16 @@ const ListItem = (props) => {
 	const amountAndUnitDisplay = () => {
 		if (displayAmount) {
 			return (
-				<span className="unit-amount" onClick={changeAmountAndUnit}>
-					{unitAmountHandler()}
-				</span>
+				<Tooltip
+					enterDelay={600}
+					leaveDelay={200}
+					placement="top"
+					title="Ændr på mængde eller enhed"
+				>
+					<span className="unit-amount" onClick={changeAmountAndUnit}>
+						{unitAmountHandler()}
+					</span>
+				</Tooltip>
 			);
 		} else {
 			return (
@@ -91,10 +107,10 @@ const ListItem = (props) => {
 					<Button
 						className="adjust-amount-button"
 						onClick={() => props.onDecreaseAmount(props.id)}
-						>
+					>
 						-
 					</Button>
-						{amountAndUnitDisplay()}
+					{amountAndUnitDisplay()}
 					<Button
 						className="adjust-amount-button"
 						onClick={() => props.onIncreaseAmount(props.id)}
@@ -102,8 +118,11 @@ const ListItem = (props) => {
 						+
 					</Button>
 				</span>
-					<IoTrashBin title="slet" className="remove-button"
-					onClick={() => props.onRemoveItem(props.id, props.name)}/>
+				<IoTrashBin
+					title="slet"
+					className="remove-button"
+					onClick={() => props.onRemoveItem(props.id, props.name)}
+				/>
 			</span>
 		</div>
 	);

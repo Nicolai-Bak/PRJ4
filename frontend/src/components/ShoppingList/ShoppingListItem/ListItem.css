@@ -29,15 +29,16 @@
 
 .list-item__right {
 	display: grid;
-	grid-template-columns: 1fr 1fr 0.1fr;
+	grid-template-columns: 1fr 0.1fr;
 	justify-items: space-between;
-	grid-column: 2 / span 4;
+	grid-column: 2;
 	flex-wrap: nowrap;
 	font-size: 1rem;
 }
 
 .unit-amount {
 	place-self: center;
+	min-width: 4rem;
 }
 .unit-amount:hover {
 	cursor: pointer;
@@ -56,15 +57,17 @@
 
 .item-buttons {
 	display: flex;
+	place-self: end;
 	gap: 0.2rem;
-	align-items: center;
-	justify-self: center;
+
 	padding: 1rem;
 }
 
 .remove-button {
+	display: flex;
 	grid-column: 3;
 	align-self: center;
+	justify-self: flex-end;
 	width: 2.5rem;
 	height: 2rem;
 	padding-right: 1rem;
@@ -95,6 +98,7 @@
 
 @media (max-width: 480px) {
 	.list-item {
+		grid-template-columns: 1fr;
 		padding: 0 0.15rem;
 		margin: 0.3rem 0;
 	}
@@ -102,18 +106,83 @@
 		width: 2.2rem;
 		height: 1.1rem;
 	}
+	.unit-amount {
+		place-self: center;
+		min-width: 3.4rem;
+	}
 	.button-container.adjust-amount-button {
-		width: 2.2rem;
-		height: 1.1rem;
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+	.item-buttons {
+		display: flex;
+		gap: 0.2rem;
+		place-self: end;
+		align-self: center;
+		align-items: center;
+		padding: 0.8rem 0;
 	}
 	.list-item__left {
-		padding-left: 0.5rem;
-
+		padding: 0;
+		padding-top: 0.2rem;
+		padding-bottom: 0.2rem;
+		place-self: center;
 	}
+
 	.list-item__right {
 		padding-right: 0.2rem;
 		justify-items: space-between;
 		font-size: 1rem;
+		place-self: end;
+		align-self: center;
+	}
+	.unit-amount-input {
+		max-width: 3rem;
+		min-width: 3rem;
+		font-size: 1rem;
+	}
+}
+
+@media (max-width: 820px) {
+	.list-item {
+		grid-template-columns: 3fr 1fr;
+		padding: 0 0.15rem;
+		margin: 0.3rem 0;
+	}
+	.list-item__left {
+		padding: 0;
+		padding-top: 0.2rem;
+		padding-bottom: 0.2rem;
+		place-self: center;
+	}
+
+	.list-item__right {
+		display: grid;
+		grid-template-columns: 1fr;
+		place-self: end;
+		align-self: center;
+		padding-right: 0;
+		font-size: 1rem;
+	}
+	.button-container.remove-button {
+		width: 2.2rem;
+		height: 1.1rem;
+	}
+	.unit-amount {
+		place-self: center;
+		min-width: 3.4rem;
+	}
+	.button-container.adjust-amount-button {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+	.item-buttons {
+		display: flex;
+		gap: 0.2rem;
+		place-self: end;
+		align-self: center;
+		padding: 0.8rem 0;
+		padding-right: 1.2rem;
 	}
 	.unit-amount-input {
 		max-width: 3rem;

@@ -3,9 +3,6 @@ import "./SearchResultsItemProduct.css";
 
 const SearchResultsItemProduct = (props) => {
 
-	function displayImage() {
-		
-	}
 
 	const displayProducts = () => {
 		const newProducts = props.products.map((product) => {
@@ -15,7 +12,7 @@ const SearchResultsItemProduct = (props) => {
 						{product.organic &&
 						<img className="organic-logo" src="/images/organic-logo.svg" alt={product.name} />}
 						<span className="product-price"> {product.price/100}kr</span>
-						<img className="product-image" src={product.imageUrl} alt={product.name} onClick={displayImage()}/></p> 
+						<img className="product-image" src={product.imageUrl} alt={product.name}/></p> 
 					<p className="product-unit">{product.amount} stk af {product.units}{product.measurement}
 					</p> 
 					

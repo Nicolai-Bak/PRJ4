@@ -11,9 +11,10 @@ public class SallingStoreConverter : IConverter
     {
         var filteredList = list.Cast<FilteredSallingStore>().ToList();
 
+        int id = 50000;
         var stores = filteredList.Select(store => new Store
         {
-            ID = store.Id,
+            ID = id++, // store.Id,
             Brand = store.Brand,
             Location_X = store.Coordinates[0],
             Location_Y = store.Coordinates[1],

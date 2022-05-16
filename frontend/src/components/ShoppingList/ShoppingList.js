@@ -2,6 +2,8 @@ import "./ShoppingList.css";
 import ListItem from "./ShoppingListItem/ListItem";
 import Card from "../UI/Atoms/Card/Card";
 import Button from "../UI/Atoms/Button/Button";
+import { TailSpin } from "react-loader-spinner"
+
 
 const ShoppingList = (props) => {
 	//Propdrilling: When the 'slet' is pressed
@@ -40,13 +42,19 @@ const ShoppingList = (props) => {
 			organic={item.organic}
 		/>
 	));
-
+	
 	return (
 		<Card className="shopping-list">
 			<ul>{itemsList}</ul>
 			<Button onClick={() => props.onSearch()} className="search-button">
 				Søg efter varer
 			</Button>
+			<div className="loader-spinner">
+				{!props.post && <TailSpin color="blue"
+					height="2rem"
+					width="2rem"
+					ariaLabel="loading-indicator" />}
+			</div>
 		</Card>
 	);
 };

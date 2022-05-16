@@ -5,15 +5,18 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
 import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
+import NinjaDialog from "../components/UI/Organisms/NinjaDialog";
 
-function Home() {
+function Home(props) {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
 		: [];
 
 	let navigate = useNavigate();
 	// DuplicateDialog states
-	const [open, setOpen] = useState(false);
+	const [duplicateItemOpen, setDuplicateItemOpen] = useState(false);
+	const [emptyListOpen, setEmptyListOpen] = useState(false);
+	const [noItemFoundOpen, setNoItemFoundOpen] = useState(false);
 	const [amountToChange, setAmountToChange] = useState(null);
 	const [existingItem, setExistingItem] = useState({
 		name: "",
@@ -24,12 +27,23 @@ function Home() {
 	});
 
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
+	const duplicateDialogButtons = [
+		{ text: "Tilføj Mængde", onClick: "addAmount" },
+		{ text: "Afbryd", onClick: "onCancel" },
+	];
+	const duplicateDialogText = `Du har tilsyneladende allerede ${existingItem.amount}
+	${existingItem.unit} ${existingItem.name} på din indkøbsliste. Vil du tilføje
+	yderligere ${amountToChange}?`;
+
+	const emptyListDialogButtons = [{ text: "OK", onClick: "onCancel" }];
+	const emptyListDialogText = `Der er ingen varer på din indkøbsliste.`;
+
+	const noItemFoundDialogButtons = [{ text: "OK", onClick: "onCancel" }];
+	const noItemFoundDialogText = `Varen kan ikke findes i vores database`;
 
 	useEffect(() => {
-		if (localStorage.hasOwnProperty("shoppingList")) {
-			console.log("updating localStorage...");
-			localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
-		}
+		console.log("updating localStorage...");
+		localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
 	}, [shoppingList]);
 
 	const handleItemUpdate = (id, amount, unit, adding) => {
@@ -76,7 +90,9 @@ function Home() {
 	};
 
 	const handleClose = (action) => {
-		setOpen(false);
+		setDuplicateItemOpen(false);
+		setEmptyListOpen(false);
+		setNoItemFoundOpen(false);
 	};
 
 	const newItemHandler = async (name, amount, unit, id, organic) => {
@@ -89,14 +105,14 @@ function Home() {
 			// console.log("Item already exists on the shopping list : ", existingItem);
 			setExistingItem(existingItem);
 			setAmountToChange(amount);
-			setOpen(true);
+			setDuplicateItemOpen(true);
 			return;
 		}
 
 		// if the item doesn't exists in the database
 		if (!(await ValidateItem(name, unit))) {
 			console.log("item not found in database");
-			alert("Varen kan ikke genkendes");
+			setNoItemFoundOpen(true);
 			return;
 		}
 
@@ -113,11 +129,6 @@ function Home() {
 				},
 			];
 		});
-
-		localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
-		// console.log(
-		// 	"Local Storage now contains: " + localStorage.getItem("shoppingList")
-		// );
 	};
 
 	const removeItemHandler = (id, name) => {
@@ -163,11 +174,38 @@ function Home() {
 		});
 	};
 
+	//GEOLOCATION
+	const [latitude, setLatitude] = useState(null);
+	const [longitude, setLongitude] = useState(null);
+
+	useEffect(() => {
+		if (!navigator.geolocation) {
+			console.log("Fejl i geolokation");
+		} else {
+			navigator.geolocation.getCurrentPosition((position) => {
+				setLatitude(position.coords.latitude);
+				setLongitude(position.coords.longitude);
+				// console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+			});
+		}
+	}, [longitude, latitude]);
+
+	//handler function to be passed to app.js
+	function geolocationHandler() {
+		props.onSendLocation(latitude, longitude);
+	}
+
+	// use state for post request
+	const [post, setPost] = useState(true);
+
 	const searchHandler = async () => {
 		console.log(
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
 		);
-
+		if (shoppingList.length < 1) {
+			setEmptyListOpen(true);
+			return;
+		}
 		// const searchList = shoppingList.map((item) => item);
 		// console.log("searchlist: " + JSON.stringify(searchList));
 		const searchList = [];
@@ -184,10 +222,13 @@ function Home() {
 			// console.log(itemDTO);
 			searchList.push(itemDTO);
 		});
+		//send coordinates to- 'searchresultspage in order to get google maps directions
+		geolocationHandler();
 
 		// searchList.forEach((item) => console.log(item));
 		let request = false;
 		try {
+			setPost(request);
 			request = await fetch(
 				"https://prisninjawebapi.azurewebsites.net/options/ ",
 				{
@@ -219,24 +260,8 @@ function Home() {
 		navigate("/SearchResults");
 	};
 
-	//GEOLOCATION
-	const [longitude, setLongitude] = useState(null);
-	const [latitude, setLatitude] = useState(null);
-
-	useEffect(() => {
-		if (!navigator.geolocation) {
-			console.log("Fejl i geolokation");
-		} else {
-			navigator.geolocation.getCurrentPosition((position) => {
-				setLatitude(position.coords.latitude);
-				setLongitude(position.coords.longitude);
-				// console.log(`latitude: ${latitude}, longitude: ${longitude}`);
-			});
-		}
-	}, [longitude, latitude]);
-
 	const onAddDialog = (event) => {
-		setOpen(false);
+		setDuplicateItemOpen(false);
 		handleDialogAdd(existingItem.name, amountToChange);
 	};
 
@@ -259,14 +284,29 @@ function Home() {
 					className="home-new-item-form"
 					onItemAdded={newItemHandler}
 				/>
-				<DuplicateDialog
-					itemName={existingItem.name}
-					amount={amountToChange}
-					unit={existingItem.unit}
-					existingAmount={existingItem.amount}
+				<NinjaDialog
+					title="Duplikeret vare"
+					bodyText={duplicateDialogText}
+					buttons={duplicateDialogButtons}
 					onCancel={handleClose}
 					addAmount={onAddDialog}
-					open={open}
+					open={duplicateItemOpen}
+				/>
+				<NinjaDialog
+					title="Tom indkøbsliste"
+					bodyText={emptyListDialogText}
+					buttons={emptyListDialogButtons}
+					onCancel={handleClose}
+					addAmount={onAddDialog}
+					open={emptyListOpen}
+				/>
+				<NinjaDialog
+					title="Varen kan ikke findes"
+					bodyText={noItemFoundDialogText}
+					buttons={noItemFoundDialogButtons}
+					onCancel={handleClose}
+					addAmount={onAddDialog}
+					open={noItemFoundOpen}
 				/>
 				<div className="filler" />
 			</div>
@@ -293,6 +333,7 @@ function Home() {
 					onRemoveItem={removeItemHandler}
 					onAmountChanged={changeAmountHandler}
 					onNewUnitOrAmount={handleItemUpdate}
+					post={post}
 				/>
 				<div className="instructions-step-two">
 					<div className="instructions-step-two-text">
@@ -312,8 +353,6 @@ function Home() {
 
 	async function ValidateItem(name, unit) {
 		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
-
-		console.log("itemNames: " + itemNames);
 
 		let matchFound = false;
 		let foundItems = [];
@@ -335,7 +374,6 @@ function Home() {
 			}
 		});
 		if (foundItems.length > 0) {
-			console.log("items found: " + foundItems);
 			matchFound = true;
 		}
 		return matchFound;
