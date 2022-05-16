@@ -43,7 +43,7 @@
 }
 
 .product-image {
-	width: 5rem;
+	max-width: 5rem;
 	height: 5rem;
 	float:right;
 	padding-right: 0.75rem;
