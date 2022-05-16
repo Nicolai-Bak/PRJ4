@@ -215,6 +215,16 @@ public class PrisninjaDbTest
         Assert.IsFalse(uut.GetProductsFromSpecificStores(ids, "p2", "g",false).Contains(p2));
     }
 
+    [Test]
+    public void GetDistance_CorrectDistanceReturned()
+    {
+        var rangecalc = new RangeCalculator();
+
+        var result = rangecalc.Distance(38.8976, 39.9496, -77.0366, -75.1503);
+        Assert.That(result,Is.EqualTo(200).Within(1));
+
+    }
+
     private PrisninjaDbContext GetDbContext()
     {
         var options = new DbContextOptionsBuilder<PrisninjaDbContext>()
