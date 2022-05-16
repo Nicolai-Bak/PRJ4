@@ -43,6 +43,14 @@ public class ExternalApiService : IHostedService
     }
     public async Task StartAsync(CancellationToken cancellationToken)
     {
+	    Log.Logger = new LoggerConfiguration()
+		    .MinimumLevel.Information()
+		    .WriteTo.Console()
+		    .WriteTo.File("log.txt",
+			    rollingInterval: RollingInterval.Day,
+			    rollOnFileSizeLimit: true)
+		    .CreateLogger();
+	    
         TimeSpan interval = TimeSpan.FromDays(1);
         //calculate time to run the first time & delay to set the timer
         var nextRunTime = DateTime.Today.AddHours(25);   //.AddDays(1).AddHours(1);
@@ -66,6 +74,7 @@ public class ExternalApiService : IHostedService
     }
     public Task StopAsync(CancellationToken cancellationToken)
     {
+	    Log.CloseAndFlush();
         return Task.CompletedTask;
     }
     public async Task UpdateDatabase()

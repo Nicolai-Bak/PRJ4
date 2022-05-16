@@ -25,7 +25,7 @@ public class CoopProductConverter : IConverter
             Units = GetUnitFromSpotText(p.spotText, GetMeasurementFromSpotText(p.spotText)),
             Measurement = GetMeasurementFromSpotText(p.spotText),
             Organic = IsProductOrganic(p.labels),
-            ImageUrl = p.image ?? " ",
+            ImageUrl = p.image + "&format=jpg" ?? " ",
             ProductStores = new List<ProductStore>
             {
                 new ProductStore
@@ -60,14 +60,12 @@ public class CoopProductConverter : IConverter
                     $"SpotText: {spotText}"
                 );
                 return "";
-            case > 1:
+            default: // Greater than 1
                 Log.Fatal(
                     "Coop product conversion failed " +
                     "- Product spot text contained too many units of measurement: " +
                     $"SpotText: {spotText}, matched units: {string.Join(", ", matchingUnits)}"
                 );
-                return matchingUnits.First();
-            default:
                 return matchingUnits.First();
         }
     }

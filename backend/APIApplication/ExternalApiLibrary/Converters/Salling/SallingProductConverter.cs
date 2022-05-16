@@ -16,7 +16,7 @@ public class SallingProductConverter : IConverter
             EAN = long.Parse(product.Infos!.Find(info => info.Code == "product_details")!.Items!.Find(item => item.Title == "EAN")!.Value!),
             Name = product.HighlightResults!.ProductName!.Text!,
             Brand = product.HighlightResults!.Brand!.Text ?? " ",
-            Units = product.Units!.Value,
+            Units = Math.Round(product.Units!.Value, 4),
             Measurement = product.UnitsOfMeasure!,
             Organic = IsProductOrganic(product.HighlightResults!.ProductName!.Text!, product.Properties),
             ImageUrl = product.Image[0] ?? " ",

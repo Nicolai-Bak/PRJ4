@@ -25,4 +25,15 @@ public class CoopStoreCallerTest
 		
 		Assert.That(responses.Result.Count, Is.GreaterThan(1));
 	}
+	
+	[Test]
+	public void GetSetRequest_ValidRequest_ReturnsValidRequest()
+	{
+		_fakeRequest = Substitute.For<IRequest>();
+		
+		_uut.Request = _fakeRequest;
+		var request = _uut.Request;
+		
+		Assert.That(request, Is.EqualTo(_fakeRequest));
+	}
 }
