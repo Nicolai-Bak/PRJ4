@@ -1,4 +1,6 @@
+using ExternalApiLibrary.Callers.Interfaces;
 using ExternalApiLibrary.Callers.Salling;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace ExternalApiLibrary.Test.Unit.Callers.Salling;
@@ -6,7 +8,8 @@ namespace ExternalApiLibrary.Test.Unit.Callers.Salling;
 public class SallingStoreCallerTest
 {
 	private SallingStoreCaller _uut;
-	
+	private IRequest _fakeRequest;
+
 	[SetUp]
 	public void Setup()
 	{
@@ -20,5 +23,16 @@ public class SallingStoreCallerTest
 		
 		Assert.That(responses, Is.Not.Null);
 		Assert.That(responses.Count, Is.GreaterThan(0));
+	}
+	
+	[Test]
+	public void GetSetRequest_ValidRequest_ReturnsValidRequest()
+	{
+		_fakeRequest = Substitute.For<IRequest>();
+		
+		_uut.Request = _fakeRequest;
+		var request = _uut.Request;
+		
+		Assert.That(request, Is.EqualTo(_fakeRequest));
 	}
 }
