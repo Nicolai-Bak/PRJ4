@@ -46,34 +46,13 @@ public class ExternalApiServiceTest
     [Test]
     public async Task UpdateDatabaseTest()
     {
-        List<IDbModelsDto> products0 = new List<IDbModelsDto>(){Substitute.For<IDbModelsDto>()};
-        List<IDbModelsDto> stores0 = new List<IDbModelsDto>(){new Store()};
-        List<IDbModelsDto> products1 = new List<IDbModelsDto>(){new Product()};
-        List<IDbModelsDto> stores1 = new List<IDbModelsDto>(){new Store()};
-        List<ProductStore> productsStore = new List<ProductStore>();
-        List<ProductStandardName> productsStandardName = new List<ProductStandardName>();
-
-        _uut.ExternalApis.Keys.ElementAt(0).Get().Returns(Task.FromResult(products0));
-        _uut.ExternalApis.Values.ElementAt(0).Get().Returns(stores0);
-        _uut.ExternalApis.Keys.ElementAt(1).Get().Returns(products1);
-        _uut.ExternalApis.Values.ElementAt(1).Get().Returns(stores1);
-        
-        products0.AddRange(products1);
-        stores0.AddRange(stores1);
-
-        List<Product> returnProducts = products0.Cast<Product>().ToList();
-
-        _dbInsert.GetAllProducts().Returns(returnProducts);
-        _standardizer.Standardize(returnProducts).ReturnsForAnyArgs(productsStandardName);
-        
-        
         await _uut.UpdateDatabase();
 
         _dbInsert.Received(1).ClearDatabase();
-        _dbInsert.Received(1).InsertProducts(products0.Cast<Product>().ToList());
-        _dbInsert.Received(1).InsertStores(stores0.Cast<Store>().ToList());
-        _dbInsert.Received(1).InsertProductStores(productsStore);
-        _standardizer.Received(1).Standardize(products0.Cast<Product>().ToList());
-        _dbInsert.Received(1).InsertProductStandardNames(productsStandardName);
+        _dbInsert.Received(1).InsertProducts(Arg.Any<List<Product>>());
+        _dbInsert.Received(1).InsertStores(Arg.Any<List<Store>>());
+        _dbInsert.Received(1).InsertProductStores(Arg.Any<List<ProductStore>>());
+        _standardizer.Received(1).Standardize(Arg.Any<List<Product>>());
+        _dbInsert.Received(1).InsertProductStandardNames(Arg.Any<List<ProductStandardName>>());
     }
 }

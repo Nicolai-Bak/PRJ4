@@ -2,7 +2,7 @@
 namespace DatabaseLibrary;
 public class RangeCalculator : IRangeCalculator
 {
-    public double ToRadians(double angle)
+    private double ToRadians(double angle)
     {
         // Angle in 10th
         // of a degree

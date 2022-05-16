@@ -30,7 +30,7 @@ public class SallingStoreConverterTest
 	    Assert.That(convertedStore.Count, Is.EqualTo(1));
 
 	    Assert.That(convertedStore[0],
-		    Has.Property("ID").EqualTo(controlStore.ID)
+		    Has.Property("ID").EqualTo(50000)
 		    & Has.Property("Address").EqualTo(controlStore.Address)
 		    & Has.Property("Brand").EqualTo(controlStore.Brand)
 		    & Has.Property("Location_X").EqualTo(controlStore.Location_X)
