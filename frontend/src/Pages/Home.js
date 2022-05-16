@@ -39,7 +39,7 @@ function Home(props) {
 	const emptyListDialogText = `Der er ingen varer på din indkøbsliste.`;
 
 	const noItemFoundDialogButtons = [{ text: "OK", onClick: "onCancel" }];
-	const noItemFoundDialogText = `Der er ingen varer på din indkøbsliste.`;
+	const noItemFoundDialogText = `Varen kan ikke findes i vores database`;
 
 	useEffect(() => {
 		console.log("updating localStorage...");
