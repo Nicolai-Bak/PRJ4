@@ -1,12 +1,4 @@
-import {
-	FormControl,
-	FormControlLabel,
-	Radio,
-	RadioGroup,
-	Switch,
-} from "@mui/material";
-
-import "./UnitBox.css";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 
 const UnitBox = (props) => {
 	const unitChangedHandler = (event) => {

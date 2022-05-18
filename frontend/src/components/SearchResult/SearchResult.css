@@ -1,4 +1,4 @@
-.search-results-list-item {
+.search-result-list-item {
 	box-shadow: none;
 	border: 0.1rem solid #0e1614;
 	background: var(--secondary-color-light);
@@ -28,7 +28,7 @@
 	padding-left: 1rem;
 }
 
-.list-item-price .total-price {	
+.list-item-price .total-price {
 	color: var(--green);
 }
 
@@ -55,20 +55,20 @@
 	transform: rotate(180deg);
 }
 
-.search-results-details {
+.search-result-details {
 	max-height: 0;
 	overflow: hidden;
 	transition: all 0.4s cubic-bezier(0, 1, 0, 1);
 }
 
-.search-results-details.show {
+.search-result-details.show {
 	height: auto;
 	max-height: 100rem;
 	transition: all 0.4s cubic-bezier(1, 0, 1, 0);
 }
 
 @media screen and (max-width: 576px) {
-    .search-results-list-item {
+	.search-result-list-item {
 		margin: 0;
 		margin-top: 1.5rem;
 	}

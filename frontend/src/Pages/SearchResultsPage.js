@@ -1,7 +1,7 @@
 import Card from "../components/UI/Atoms/Card/Card";
 import "./SearchResultsPage.css";
 import Button from "../components/UI/Atoms/Button/Button";
-import SearchResultsItem from "../components/SearchResultsItem/SearchResultsItem";
+import SearchResult from "../components/SearchResult/SearchResult";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown/Dropdown";
@@ -23,7 +23,7 @@ function SearchResultsPage(props) {
 
 		if (options.cheapest !== null) {
 			cheapest = Array.from(options.cheapest);
-		} 
+		}
 		if (options.best !== null) {
 			best = Array.from(options.best);
 		}
@@ -60,7 +60,7 @@ function SearchResultsPage(props) {
 		case "cheapest":
 			displayOptions = options[0].map((item) => (
 				<div>
-					<SearchResultsItem
+					<SearchResult
 						latitude={props.latitude}
 						longitude={props.longitude}
 						products={item.products}
@@ -68,13 +68,13 @@ function SearchResultsPage(props) {
 						distance={item.distance}
 						storeName={item.brand}
 						address={item.address}
-					></SearchResultsItem>
+					></SearchResult>
 				</div>
 			));
 			break;
 		case "best":
 			displayOptions = options[1].map((item) => (
-				<SearchResultsItem
+				<SearchResult
 					latitude={props.latitude}
 					longitude={props.longitude}
 					products={item.products}
@@ -82,12 +82,12 @@ function SearchResultsPage(props) {
 					distance={item.distance}
 					storeName={item.brand}
 					address={item.address}
-				></SearchResultsItem>
+				></SearchResult>
 			));
 			break;
 		case "nearest":
 			displayOptions = options[2].map((item) => (
-				<SearchResultsItem
+				<SearchResult
 					latitude={props.latitude}
 					longitude={props.longitude}
 					products={item.products}
@@ -95,35 +95,54 @@ function SearchResultsPage(props) {
 					distance={item.distance}
 					storeName={item.brand}
 					address={item.address}
-				></SearchResultsItem>
+				></SearchResult>
 			));
 			break;
 		default:
 			console.log("default");
 	}
-	const [showError, setShowError] = useState(options[0].length < 1 ? true : false);
+	const [showError, setShowError] = useState(
+		options[0].length < 1 ? true : false
+	);
 
 	return (
 		<div className="search-results-page">
-			{!showError && <Card className="results-container">
-				<div className="dropdown-menu-container">
-					<Dropdown className="results-page-dropdown" selectedOption={selectedOptionHandler}></Dropdown>
+			{!showError && (
+				<Card className="results-container">
+					<div className="dropdown-menu-container">
+						<Dropdown
+							className="results-page-dropdown"
+							selectedOption={selectedOptionHandler}
+						></Dropdown>
+					</div>
+					{displayOptions}
+				</Card>
+			)}
+			{!showError && (
+				<div className="search-results-page-text-box">
+					Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>, for at
+					gå tilbage og foretage en ny søgning.
 				</div>
-				{displayOptions}
-			</Card>}
-			{!showError &&
-				<div className="search-results-page-text-box">Fandt du ikke det, du søgte? <a onClick={goBack}>Klik her</a>
-				, for at gå tilbage og foretage en ny søgning.</div>
-			}
-			{showError && <div className="search-results-not-found">
-				<div className="image-wrapper"><img src="https://svgshare.com/i/h6r.svg" alt="ninja holding an apple"></img></div>
-				<div className="text-wrapper">
-					<h1>Hovsa!</h1>
-					<h2>Noget gik galt ved din søgning.</h2>
-					<h3>Dette kan skyldes, at du har søgt efter nogle varer, som ikke kan findes i samme butik.
-						Vi arbejder på en løsning!
-						I mellemtiden kan du <a onClick={goBack}>gå tilbage her</a> og prøve igen.</h3></div>
-			</div>}
+			)}
+			{showError && (
+				<div className="search-results-not-found">
+					<div className="image-wrapper">
+						<img
+							src="https://svgshare.com/i/h6r.svg"
+							alt="ninja holding an apple"
+						></img>
+					</div>
+					<div className="text-wrapper">
+						<h1>Hovsa!</h1>
+						<h2>Noget gik galt ved din søgning.</h2>
+						<h3>
+							Dette kan skyldes, at du har søgt efter nogle varer, som ikke kan
+							findes i samme butik. Vi arbejder på en løsning! I mellemtiden kan
+							du <a onClick={goBack}>gå tilbage her</a> og prøve igen.
+						</h3>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

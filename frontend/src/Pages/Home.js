@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
 import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
-import NinjaDialog from "../components/UI/Organisms/NinjaDialog";
+import NinjaDialog from "../components/UI/Molecules/NinjaDialog";
 
 function Home(props) {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")

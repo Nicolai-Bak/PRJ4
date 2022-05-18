@@ -1,8 +1,7 @@
-.search-results-item-product {
+.search-result-item {
 	box-shadow: none;
 	padding-bottom: 0;
 }
-
 
 .product-display {
 	padding-inline-start: 0;
@@ -38,22 +37,21 @@
 	color: var(--green);
 }
 
-.organic-logo{
+.organic-logo {
 	width: 3rem;
 }
 
 .product-image {
 	max-width: 5rem;
 	height: 5rem;
-	float:right;
+	float: right;
 	padding-right: 0.75rem;
 	overflow: hidden;
 }
 
 @media screen and (max-width: 768px) {
-    .product-image {
+	.product-image {
 		width: 4rem;
 		height: 4rem;
 	}
-
 }
