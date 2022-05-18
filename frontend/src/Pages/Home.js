@@ -4,8 +4,7 @@ import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
-import DuplicateDialog from "../components/ShoppingList/DuplicateDialog";
-import NinjaDialog from "../components/UI/Molecules/NinjaDialog";
+import StandardDialog from "../components/UI/Molecules/StandardDialog";
 
 function Home(props) {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
@@ -13,7 +12,6 @@ function Home(props) {
 		: [];
 
 	let navigate = useNavigate();
-	// DuplicateDialog states
 	const [duplicateItemOpen, setDuplicateItemOpen] = useState(false);
 	const [emptyListOpen, setEmptyListOpen] = useState(false);
 	const [noItemFoundOpen, setNoItemFoundOpen] = useState(false);
@@ -284,7 +282,7 @@ function Home(props) {
 					className="home-new-item-form"
 					onItemAdded={newItemHandler}
 				/>
-				<NinjaDialog
+				<StandardDialog
 					title="Duplikeret vare"
 					bodyText={duplicateDialogText}
 					buttons={duplicateDialogButtons}
@@ -292,7 +290,7 @@ function Home(props) {
 					addAmount={onAddDialog}
 					open={duplicateItemOpen}
 				/>
-				<NinjaDialog
+				<StandardDialog
 					title="Tom indkøbsliste"
 					bodyText={emptyListDialogText}
 					buttons={emptyListDialogButtons}
@@ -300,7 +298,7 @@ function Home(props) {
 					addAmount={onAddDialog}
 					open={emptyListOpen}
 				/>
-				<NinjaDialog
+				<StandardDialog
 					title="Varen kan ikke findes"
 					bodyText={noItemFoundDialogText}
 					buttons={noItemFoundDialogButtons}

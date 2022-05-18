@@ -8,7 +8,7 @@ import {
 import React, { useState } from "react";
 import Button from "../Atoms/Button/Button";
 
-const NinjaDialog = (props) => {
+const StandardDialog = (props) => {
 	console.log(props);
 	// an array of button objects with text and onClick function
 	const buttonHandler = () => {
@@ -44,4 +44,4 @@ const NinjaDialog = (props) => {
 	);
 };
 
-export default NinjaDialog;
+export default StandardDialog;
