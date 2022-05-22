@@ -12,12 +12,26 @@ import PropTypes from "prop-types";
  * @hideconstructor
  */
 const UnitBox = (props) => {
+	/**
+	 *
+	 * @param {event} event - onChange event that is triggered when the user changes the unit of the item they're adding.
+	 * @returns {event} onUnitSelected custom event
+	 */
 	const unitChangedHandler = (event) => {
-		console.log(event.target.value);
 		return props.onUnitSelected(event.target.value);
 	};
+	/**
+	 * Boolean value that checks whether the props array contains the string "kg"
+	 */
 	const kg = props.unitsAvailable.includes("kg");
+	/**
+	 * Boolean value that checks whether the props array contains the string "l"
+	 */
 	const liter = props.unitsAvailable.includes("l");
+
+	/**
+	 * Boolean value that checks whether the props array contains the string "stk"
+	 */
 	const stk = props.unitsAvailable.includes("stk");
 
 	const radioStyles = {

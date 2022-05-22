@@ -1,5 +1,6 @@
 import { TextField, Autocomplete } from "@mui/material";
 import { v4 as uuid } from "uuid";
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 
 /**
@@ -35,24 +36,46 @@ const SearchField = (props) => {
 			width: "122%",
 		},
 	});
+	/**
+	 * Sets the state of the itemName variable to the value of the input field.
+	 * @const value
+	 * @type {useState}
+	 * @memberof SearchField
+	 */
 	const [value, setValue] = useState("");
+	/**
+	 * Controls the state of the AutoComplete dropdown menu. Only opens when open = true
+	 * @const open
+	 * @type {useState}
+	 * @memberof SearchField
+	 */
 	const [open, setOpen] = useState(false);
 	/**
-	 * State
+	 * Sets the state of the items visible in the AutoComplete dropdown menu.
+	 * @const searchValues
+	 * @type {useState}
+	 * @memberof SearchField
 	 */
 	const [searchValues, setSearchValues] = useState([itemsReceived]);
 
-	// const defaultProps = {
-	// 	options: itemsReceived,
-	// 	getOptionLabel: (option) => option,
-	// };
-
+	/**
+	 * Calls the onItemChanged event containing the current value of the input field every time the value changes.
+	 * @function useEffect
+	 * @memberof SearchField
+	 */
 	useEffect(() => {
 		props.onItemChanged(value);
 		// if (value.length > 1 && itemsReceived.includes(value))
 		// 	handleFocusLoss(value);
 	}, [value]);
 
+	/**
+	 * Calls onFocusLost event when the input field loses focus and the value in the input field can be found in the item names array
+	 * received from the database.
+	 *
+	 * @param {string} newValue The name of the item written in the input field
+	 * @returns {void} Nothing
+	 */
 	const handleFocusLoss = (newValue) => {
 		setOpen(false);
 		// console.log("handleFocusLoss was called with ", newValue);
@@ -61,6 +84,10 @@ const SearchField = (props) => {
 		}
 	};
 
+	/**
+	 * @param {event} onInput - The event that is triggered when the input field is changed.
+	 * @returns {void} Nothing
+	 */
 	const inputEventHandler = (event) => {
 		const input = event.target.value;
 		setValue(input);
@@ -74,6 +101,12 @@ const SearchField = (props) => {
 		} else setOpen(true);
 	};
 
+	/**
+	 * Ensures that the AutoComplete dropdown menu actually closes on focus loss.
+	 *
+	 * @param {event} onBlur - The event that is triggered when the input field loses focusLost
+	 * @returns {void} Nothing
+	 */
 	const blurHandler = (event) => {
 		setOpen(false);
 		handleFocusLoss(event.target.value);
@@ -127,6 +160,21 @@ const SearchField = (props) => {
 			)}
 		/>
 	);
+};
+
+SearchField.propTypes = {
+	/**
+	 * The input prop is only used when the component needs to be cleared.
+	 */
+	input: PropTypes.string,
+	/**
+	 * Fires an event when the user selects an item from the list.
+	 */
+	onItemChanged: PropTypes.func,
+	/**
+	 * Fires an event when the user clicks outside of the component or presses the enter or tabs key.
+	 */
+	onFocusLost: PropTypes.func,
 };
 
 export default SearchField;

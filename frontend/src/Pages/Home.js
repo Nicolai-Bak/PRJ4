@@ -150,7 +150,13 @@ function Home(props) {
 		}
 		return Number(amount + change / 100).toFixed(2);
 	};
-
+/**
+ * Helper function that changes how the amount is displayed in the shopping list depending on
+ * 
+ * 
+ * @param {number} id 
+ * @param {number} change 
+ */
 	const changeAmountHandler = (id, change) => {
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
