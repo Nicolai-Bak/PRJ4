@@ -1,16 +1,19 @@
 {
 	"source": {
-		"include": ["src/components/NewItem"],
+		"include": ["./src"],
 		"includePattern": ".+\\.js(doc|x)?$",
 		"excludePattern": "(^|\\/|\\\\)_"
 	},
 
 	"tags": {
-		"allowUnknownTags": ["component"]
+		"allowUnknownTags": ["component", "category", "subcategory"]
 	},
 
 	"opts": {
-		"template": "node_modules/better-docs"
+		"template": "node_modules/better-docs",
+		"destination": "docs/",
+		"recurse": true,
+		"readme": "README.md"
 	},
 
 	"plugins": [

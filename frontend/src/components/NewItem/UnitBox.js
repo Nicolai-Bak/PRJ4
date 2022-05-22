@@ -1,9 +1,15 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import PropTypes from "prop-types";
 /**
- * This component is where the user can select the unit of the new item they're adding
+ * @classdesc
+ * This component is where the user can select the unit of the new item they're adding.
+ * The component is comprised of multiple components from the Material UI library. Primarily the RadioGroup (https://mui.com/material-ui/react-radio-button/)
  *
+ *
+ * @category Home
+ * @subcategory NewItem
  * @component
+ * @hideconstructor
  */
 const UnitBox = (props) => {
 	const unitChangedHandler = (event) => {
@@ -13,15 +19,6 @@ const UnitBox = (props) => {
 	const kg = props.unitsAvailable.includes("kg");
 	const liter = props.unitsAvailable.includes("l");
 	const stk = props.unitsAvailable.includes("stk");
-	console.log(
-		"units sent to UnitBox : ",
-		"kg:",
-		kg,
-		" - litre:",
-		liter,
-		" - stk :",
-		stk
-	);
 
 	const radioStyles = {
 		color: "white",
@@ -81,8 +78,14 @@ const UnitBox = (props) => {
 };
 
 UnitBox.propTypes = {
+	/**
+	 * The unit that is available is sent down from the parent. It only shows the units that are received from the database, using the productInfo request.
+	 */
 	unitsAvailable: PropTypes.array.isRequired,
-	onUnitSelected: PropTypes.func.isRequired,
+	/**
+	 * An event that fires when the user selects a unit. Tells the parent to update the unit chosen.
+	 */
+	onUnitSelected: PropTypes.func,
 };
 
 export default UnitBox;

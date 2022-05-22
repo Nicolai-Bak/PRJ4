@@ -2,6 +2,17 @@ import { TextField, Autocomplete } from "@mui/material";
 import { v4 as uuid } from "uuid";
 import React, { useState, useEffect } from "react";
 
+/**
+ *  @classdesc
+ * This is the component where the user write the name of the item to add. The main component is the AutoComplete component from MUI component library: https://mui.com/material-ui/react-autocomplete/
+ *
+ *
+ * @category Home
+ * @subcategory NewItem
+ * @component
+ * @hideconstructor
+ */
+
 const SearchField = (props) => {
 	const itemsReceived = localStorage.hasOwnProperty("itemNames")
 		? JSON.parse(localStorage.getItem("itemNames"))
@@ -26,6 +37,9 @@ const SearchField = (props) => {
 	});
 	const [value, setValue] = useState("");
 	const [open, setOpen] = useState(false);
+	/**
+	 * State
+	 */
 	const [searchValues, setSearchValues] = useState([itemsReceived]);
 
 	// const defaultProps = {
