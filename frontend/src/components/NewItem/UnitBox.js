@@ -1,5 +1,10 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-
+import PropTypes from "prop-types";
+/**
+ * This component is where the user can select the unit of the new item they're adding
+ *
+ * @component
+ */
 const UnitBox = (props) => {
 	const unitChangedHandler = (event) => {
 		console.log(event.target.value);
@@ -73,6 +78,11 @@ const UnitBox = (props) => {
 			)}
 		</RadioGroup>
 	);
+};
+
+UnitBox.propTypes = {
+	unitsAvailable: PropTypes.array.isRequired,
+	onUnitSelected: PropTypes.func.isRequired,
 };
 
 export default UnitBox;

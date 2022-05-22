@@ -1,0 +1,20 @@
+{
+	"source": {
+		"include": ["src/components/NewItem"],
+		"includePattern": ".+\\.js(doc|x)?$",
+		"excludePattern": "(^|\\/|\\\\)_"
+	},
+
+	"tags": {
+		"allowUnknownTags": ["component"]
+	},
+
+	"opts": {
+		"template": "node_modules/better-docs"
+	},
+
+	"plugins": [
+		"node_modules/better-docs/category",
+		"node_modules/better-docs/component"
+	]
+}

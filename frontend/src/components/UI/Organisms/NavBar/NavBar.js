@@ -37,7 +37,9 @@ function NavBar(props) {
 					onClick={returnToHomePage}
 					alt={companyName}
 				/>
-				<span className="navbar-company-name" onClick={returnToHomePage}>{companyName}</span>
+				<span className="navbar-company-name" onClick={returnToHomePage}>
+					{companyName}
+				</span>
 			</div>
 			<div className="right-side__container">
 				<div className="navbar-menu">
@@ -61,9 +63,13 @@ function NavBar(props) {
 					className={`hamburger-menu__icon ${showMenu ? "" : "hide"}`}
 				/>
 			</div>
-			{shoppingCart && <div className="shopping-cart-toast">
-				Der er tilføjet {JSON.parse(localStorage.getItem("shoppingList")).length} varer til indkøbslisten.
-			</div>}
+			{shoppingCart && (
+				<div className="shopping-cart-toast">
+					Der er tilføjet{" "}
+					{JSON.parse(localStorage.getItem("shoppingList")).length} varer til
+					indkøbslisten.
+				</div>
+			)}
 		</div>
 	);
 }
