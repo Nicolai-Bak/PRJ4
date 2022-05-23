@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> SearchField</title>
+  <title> ShoppingList</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Components</p>
-                    <h1>SearchField</h1>
+                    <h1>ShoppingList</h1>
                 </header>
                 
 
@@ -86,10 +86,10 @@
 <header>
     
         <h2>
-            &ltSearchField <i>input</i> <i>onItemChanged</i> <i>onFocusLost</i> /&gt
+            &ltShoppingList <i>items</i> <i>onRemoveItem</i> <i>onAmountChanged</i> <i>onNewUnitOrAmount</i> <i>onSearch</i> <i>post</i> /&gt
         </h2>
         
-            <div class="class-description">This is the component where the user write the name of the item to add. The main component is the AutoComplete component from MUI component library: https://mui.com/material-ui/react-autocomplete/</div>
+            <div class="class-description">This is the component where the user can see the list of items they have added and it also includes a button for searching, using the items on the list. Every item is rendered as a ListItem component.</div>
         
     
 </header>
@@ -125,34 +125,67 @@
     <tbody>
     
           <tr class="deep-level-0">
-            <td class="name"><code>input</code></td>
+            <td class="name"><code>items</code></td>
             <td>
-              string
+              array
             </td>
-            <td>No</td>
-            <td>The input prop is only used when the component needs to be cleared.</td>
+            <td>Yes</td>
+            <td>The items on the shopping list is passed down from the parent component</td>
             <td></td>
           </tr>
           
     
           <tr class="deep-level-0">
-            <td class="name"><code>onItemChanged</code></td>
+            <td class="name"><code>onRemoveItem</code></td>
             <td>
               func
             </td>
             <td>No</td>
-            <td>Fires an event when the user selects an item from the list.</td>
+            <td>The function that is called when the user wants to remove an item</td>
             <td></td>
           </tr>
           
     
           <tr class="deep-level-0">
-            <td class="name"><code>onFocusLost</code></td>
+            <td class="name"><code>onAmountChanged</code></td>
             <td>
               func
             </td>
             <td>No</td>
-            <td>Fires an event when the user clicks outside of the component or presses the enter or tabs key.</td>
+            <td>The function that is called when the user wants to change the amount of an item</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>onNewUnitOrAmount</code></td>
+            <td>
+              func
+            </td>
+            <td>No</td>
+            <td>The function that is called when the user has changed the unit or amount of an item</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>onSearch</code></td>
+            <td>
+              func
+            </td>
+            <td>Yes</td>
+            <td>The function that is called when the user wants to search for the items on the list</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>post</code></td>
+            <td>
+              bool
+            </td>
+            <td>No</td>
+            <td>This prop controls when the spinner is shown</td>
             <td></td>
           </tr>
           
@@ -201,9 +234,9 @@
 
     
         <p class="tag-source">
-            <a href="components_NewItem_SearchField.js.html" class="button">View Source</a>
+            <a href="components_ShoppingList_ShoppingList.js.html" class="button">View Source</a>
             <span>
-                <a href="components_NewItem_SearchField.js.html">components/NewItem/SearchField.js</a>, <a href="components_NewItem_SearchField.js.html#line17">line 17</a>
+                <a href="components_ShoppingList_ShoppingList.js.html">components/ShoppingList/ShoppingList.js</a>, <a href="components_ShoppingList_ShoppingList.js.html#line19">line 19</a>
             </span>
         </p>
     
@@ -255,25 +288,17 @@
             
                 <div class="member">
 
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">useState</code>
-
-
-    </span>
-
-<h4 class="name" id=".open">
-    <a class="href-link" href="#.open">#</a>
+<h4 class="name" id="~itemsList">
+    <a class="href-link" href="#~itemsList">#</a>
     
         
-            <span class='tag'>static</span>
+            <span class='tag'>inner</span>
         
             <span class='tag'>constant</span>
         
     
     <span class="code-name">
-        open
+        itemsList
     </span>
     
 </h4>
@@ -282,7 +307,7 @@
 
 
 <div class="description">
-    Controls the state of the AutoComplete dropdown menu. Only opens when open = true
+    This renders the list of items in the shopping list from the items prop.
 </div>
 
 
@@ -322,175 +347,9 @@
 
     
         <p class="tag-source">
-            <a href="components_NewItem_SearchField.js.html" class="button">View Source</a>
+            <a href="components_ShoppingList_ShoppingList.js.html" class="button">View Source</a>
             <span>
-                <a href="components_NewItem_SearchField.js.html">components/NewItem/SearchField.js</a>, <a href="components_NewItem_SearchField.js.html#line46">line 46</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">useState</code>
-
-
-    </span>
-
-<h4 class="name" id=".searchValues">
-    <a class="href-link" href="#.searchValues">#</a>
-    
-        
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        searchValues
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    Sets the state of the items visible in the AutoComplete dropdown menu.
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="components_NewItem_SearchField.js.html" class="button">View Source</a>
-            <span>
-                <a href="components_NewItem_SearchField.js.html">components/NewItem/SearchField.js</a>, <a href="components_NewItem_SearchField.js.html#line53">line 53</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">useState</code>
-
-
-    </span>
-
-<h4 class="name" id=".value">
-    <a class="href-link" href="#.value">#</a>
-    
-        
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        value
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    Sets the state of the itemName variable to the value of the input field.
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="components_NewItem_SearchField.js.html" class="button">View Source</a>
-            <span>
-                <a href="components_NewItem_SearchField.js.html">components/NewItem/SearchField.js</a>, <a href="components_NewItem_SearchField.js.html#line39">line 39</a>
+                <a href="components_ShoppingList_ShoppingList.js.html">components/ShoppingList/ShoppingList.js</a>, <a href="components_ShoppingList_ShoppingList.js.html#line67">line 67</a>
             </span>
         </p>
     
@@ -515,109 +374,8 @@
 
 
     
-    <h4 class="name" id=".useEffect">
-        <a class="href-link" href="#.useEffect">#</a>
-        
-            
-                <span class='tag'>static</span>
-            
-        
-        <span class="code-name">
-            
-                useEffect<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        Calls the onItemChanged event containing the current value of the input field every time the value changes.
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="components_NewItem_SearchField.js.html" class="button">View Source</a>
-            <span>
-                <a href="components_NewItem_SearchField.js.html">components/NewItem/SearchField.js</a>, <a href="components_NewItem_SearchField.js.html#line61">line 61</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~blurHandler">
-        <a class="href-link" href="#~blurHandler">#</a>
+    <h4 class="name" id="~decreaseAmountHandler">
+        <a class="href-link" href="#~decreaseAmountHandler">#</a>
         
             
                 <span class='tag'>inner</span>
@@ -625,7 +383,7 @@
         
         <span class="code-name">
             
-                blurHandler<span class="signature">(onBlur)</span><span class="type-signature"> &rarr; {void}</span>
+                decreaseAmountHandler<span class="signature">(id)</span><span class="type-signature"> &rarr; {void}</span>
             
         </span>
     </h4>
@@ -634,7 +392,7 @@
     
     
     <div class="description">
-        Ensures that the AutoComplete dropdown menu actually closes on focus loss.
+        This is just passing the amountChanged event from ShoppingListItem through ShoppingList to Home
     </div>
     
 
@@ -672,13 +430,13 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>onBlur</code></td>
+      <td class="name"><code>id</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">event</code>
+<code class="param-type">number</code>
 
 
   
@@ -688,7 +446,7 @@
 
   
 
-  <td class="description last">The event that is triggered when the input field loses focusLost</td>
+  <td class="description last">Id for the list item</td>
 </tr>
 
 
@@ -734,9 +492,9 @@
 
     
         <p class="tag-source">
-            <a href="components_NewItem_SearchField.js.html" class="button">View Source</a>
+            <a href="components_ShoppingList_ShoppingList.js.html" class="button">View Source</a>
             <span>
-                <a href="components_NewItem_SearchField.js.html">components/NewItem/SearchField.js</a>, <a href="components_NewItem_SearchField.js.html#line110">line 110</a>
+                <a href="components_ShoppingList_ShoppingList.js.html">components/ShoppingList/ShoppingList.js</a>, <a href="components_ShoppingList_ShoppingList.js.html#line37">line 37</a>
             </span>
         </p>
     
@@ -793,8 +551,8 @@
 
 
     
-    <h4 class="name" id="~handleFocusLoss">
-        <a class="href-link" href="#~handleFocusLoss">#</a>
+    <h4 class="name" id="~increaseAmountHandler">
+        <a class="href-link" href="#~increaseAmountHandler">#</a>
         
             
                 <span class='tag'>inner</span>
@@ -802,7 +560,7 @@
         
         <span class="code-name">
             
-                handleFocusLoss<span class="signature">(newValue)</span><span class="type-signature"> &rarr; {void}</span>
+                increaseAmountHandler<span class="signature">(id)</span><span class="type-signature"> &rarr; {void}</span>
             
         </span>
     </h4>
@@ -811,8 +569,7 @@
     
     
     <div class="description">
-        Calls onFocusLost event when the input field loses focus and the value in the input field can be found in the item names array
-received from the database.
+        This is passing the amountChanged event from ShoppingListItem through ShoppingList to Home
     </div>
     
 
@@ -850,7 +607,209 @@ received from the database.
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>newValue</code></td>
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Id for the list item</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_ShoppingList_ShoppingList.js.html" class="button">View Source</a>
+            <span>
+                <a href="components_ShoppingList_ShoppingList.js.html">components/ShoppingList/ShoppingList.js</a>, <a href="components_ShoppingList_ShoppingList.js.html#line48">line 48</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Nothing</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">void</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~removeItemHandler">
+        <a class="href-link" href="#~removeItemHandler">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                removeItemHandler<span class="signature">(id, name)</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        This is just passing the removeItem event from ShoppingListItem through ShoppingList to Home
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Id for the list item</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>name</code></td>
   
 
   <td class="type">
@@ -866,7 +825,7 @@ received from the database.
 
   
 
-  <td class="description last">The name of the item written in the input field</td>
+  <td class="description last">Name of the item</td>
 </tr>
 
 
@@ -912,9 +871,9 @@ received from the database.
 
     
         <p class="tag-source">
-            <a href="components_NewItem_SearchField.js.html" class="button">View Source</a>
+            <a href="components_ShoppingList_ShoppingList.js.html" class="button">View Source</a>
             <span>
-                <a href="components_NewItem_SearchField.js.html">components/NewItem/SearchField.js</a>, <a href="components_NewItem_SearchField.js.html#line79">line 79</a>
+                <a href="components_ShoppingList_ShoppingList.js.html">components/ShoppingList/ShoppingList.js</a>, <a href="components_ShoppingList_ShoppingList.js.html#line27">line 27</a>
             </span>
         </p>
     
@@ -971,8 +930,8 @@ received from the database.
 
 
     
-    <h4 class="name" id="~inputEventHandler">
-        <a class="href-link" href="#~inputEventHandler">#</a>
+    <h4 class="name" id="~updatedItem">
+        <a class="href-link" href="#~updatedItem">#</a>
         
             
                 <span class='tag'>inner</span>
@@ -980,13 +939,17 @@ received from the database.
         
         <span class="code-name">
             
-                inputEventHandler<span class="signature">(onInput)</span><span class="type-signature"> &rarr; {void}</span>
+                updatedItem<span class="signature">(id, newAmount, unit)</span><span class="type-signature"> &rarr; {void}</span>
             
         </span>
     </h4>
     
 
     
+    
+    <div class="description">
+        This is passing the the information about an updated list item to Home
+    </div>
     
 
 
@@ -1023,13 +986,13 @@ received from the database.
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>onInput</code></td>
+      <td class="name"><code>id</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">event</code>
+<code class="param-type">number</code>
 
 
   
@@ -1039,7 +1002,57 @@ received from the database.
 
   
 
-  <td class="description last">The event that is triggered when the input field is changed.</td>
+  <td class="description last">Id for the list item</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>newAmount</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The new amount for the list item</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>unit</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The unit for the list item</td>
 </tr>
 
 
@@ -1085,9 +1098,9 @@ received from the database.
 
     
         <p class="tag-source">
-            <a href="components_NewItem_SearchField.js.html" class="button">View Source</a>
+            <a href="components_ShoppingList_ShoppingList.js.html" class="button">View Source</a>
             <span>
-                <a href="components_NewItem_SearchField.js.html">components/NewItem/SearchField.js</a>, <a href="components_NewItem_SearchField.js.html#line91">line 91</a>
+                <a href="components_ShoppingList_ShoppingList.js.html">components/ShoppingList/ShoppingList.js</a>, <a href="components_ShoppingList_ShoppingList.js.html#line60">line 60</a>
             </span>
         </p>
     

@@ -6,7 +6,7 @@
 	},
 
 	"tags": {
-		"allowUnknownTags": ["component", "category", "subcategory", "hook"]
+		"allowUnknownTags": ["component", "category", "subcategory"]
 	},
 
 	"opts": {

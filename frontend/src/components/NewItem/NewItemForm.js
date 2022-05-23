@@ -76,18 +76,24 @@ const NewItemForm = (props) => {
 
 	/**
 	 * This is the id of the new item being added, it uses the uuid library to ensure a unique id
+	 * @type {number}
 	 */
 	const id = uuid();
 
 	/**
 	 * Calls the onItemChanged event containing the current value of the input field every time the value changes.
 	 * @function useEffect
-	 * @memberof SearchField
+	 * @memberof NewItemForm
 	 */
 	useEffect(() => {
 		fetchItems();
 	}, []);
 
+	/**
+	 * 
+	 * @param {event} submitEvent 
+	 * @returns {void} Nothing
+	 */
 	const submitItemHandler = (event) => {
 		event.preventDefault();
 

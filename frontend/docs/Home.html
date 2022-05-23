@@ -1,0 +1,3437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Home</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Components</p>
+                    <h1>Home</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltHome <i>onSendLocation</i> /&gt
+        </h2>
+        
+            <div class="class-description">This is the main component on the home page and it is comprised of the ShoppingList component and the NewItemForm component. This is where the user can add items to the list, see the list of items, and search for shopping options for the list items.</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            
+
+
+
+
+
+
+
+
+    
+        <h5>PropTypes:</h5>
+        
+<div class="table-container">
+  <table class="params table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th class="last">Default</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>onSendLocation</code></td>
+            <td>
+              func
+            </td>
+            <td>No</td>
+            <td>An event that fires, telling the parent component, what the current location is</td>
+            <td></td>
+          </tr>
+          
+    
+    </tbody>
+  </table>
+</div>
+    
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line19">line 19</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">useState</code>
+
+
+    </span>
+
+<h4 class="name" id=".amountToChange">
+    <a class="href-link" href="#.amountToChange">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        amountToChange
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    This holds the original amount of an item in order for a user to add additional amount of an item in the duplicate dialog wiindow.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line49">line 49</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">useState</code>
+
+
+    </span>
+
+<h4 class="name" id=".duplicateItem">
+    <a class="href-link" href="#.duplicateItem">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        duplicateItem
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    This state controls whether a dialog window that tells the user that an item already exists on the shopping list is open or not.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line25">line 25</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">useState</code>
+
+
+    </span>
+
+<h4 class="name" id=".emptyListOpen">
+    <a class="href-link" href="#.emptyListOpen">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        emptyListOpen
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    This state controls whether a dialog window that tells the user that they can't search using an empty shopping list.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line33">line 33</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">useState</code>
+
+
+    </span>
+
+<h4 class="name" id=".existingItem">
+    <a class="href-link" href="#.existingItem">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        existingItem
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Holds the current information for an existing item that might be changed in a duplicate dialog window.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line57">line 57</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">useState</code>
+
+
+    </span>
+
+<h4 class="name" id=".latitude">
+    <a class="href-link" href="#.latitude">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        latitude
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Saves the users latitudinal position.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line289">line 289</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">useState</code>
+
+
+    </span>
+
+<h4 class="name" id=".longitude">
+    <a class="href-link" href="#.longitude">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        longitude
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Saves the users longitudinal position.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line296">line 296</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">useState</code>
+
+
+    </span>
+
+<h4 class="name" id=".noItemFoundOpen">
+    <a class="href-link" href="#.noItemFoundOpen">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        noItemFoundOpen
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    This state controls whether a dialog window that tells the user that the item they're trying to add doesn't exist.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line41">line 41</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">useState</code>
+
+
+    </span>
+
+<h4 class="name" id=".shoppingList">
+    <a class="href-link" href="#.shoppingList">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        shoppingList
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Holds all items that are currently on the shopping list.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line71">line 71</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="~duplicateDialogButtons">
+    <a class="href-link" href="#~duplicateDialogButtons">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        duplicateDialogButtons
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Buttons that are to be sent as props to the duplicate dialog window
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line82">line 82</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="~duplicateDialogText">
+    <a class="href-link" href="#~duplicateDialogText">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        duplicateDialogText
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Text that is to be sent as props to the duplicate dialog window
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line89">line 89</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="~emptyListDialogButtons">
+    <a class="href-link" href="#~emptyListDialogButtons">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        emptyListDialogButtons
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Buttons that are to be sent as props to the empty list dialog window
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line95">line 95</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="~emptyListDialogText">
+    <a class="href-link" href="#~emptyListDialogText">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        emptyListDialogText
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Text that is to be sent as props to the empty list dialog window
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line99">line 99</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="~noItemFoundDialogButtons">
+    <a class="href-link" href="#~noItemFoundDialogButtons">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        noItemFoundDialogButtons
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Buttons that are to be sent as props to the no item found dialog window
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line103">line 103</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="~noItemFoundDialogText">
+    <a class="href-link" href="#~noItemFoundDialogText">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        noItemFoundDialogText
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Text that is to be sent as props to the no item found dialog window
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line107">line 107</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~changeAmountHandler">
+        <a class="href-link" href="#~changeAmountHandler">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                changeAmountHandler<span class="signature">(id, change)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper function that changes how the amount is displayed in the shopping list depending on the amount and unit chosen, so less than 1 litre is displayed in mililiters and less than 1 kg is displayed in grams
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Id of the item that is to be changed</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>change</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The amount that is to be added or subtracted</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line267">line 267</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~decimalController">
+        <a class="href-link" href="#~decimalController">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                decimalController<span class="signature">(amount, change)</span><span class="type-signature"> &rarr; {number}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Handles how much of the amount is changed when clicking on the +/- buttons. It depends whether on how many decimals the amount is.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>amount</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The amount that is to be changed</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>change</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The amount that is to be added or subtracted</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line246">line 246</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>The amount after change and formatted correctly.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">number</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~geolocationHandler">
+        <a class="href-link" href="#~geolocationHandler">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                geolocationHandler<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Handler function that is to be passed to App
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line324">line 324</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Nothing</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">void</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~handleClose">
+        <a class="href-link" href="#~handleClose">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                handleClose<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Handles closing of the various dialog windows.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line173">line 173</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Nothing</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">void</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~handleDialogAdd">
+        <a class="href-link" href="#~handleDialogAdd">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                handleDialogAdd<span class="signature">(itemName, amount)</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Handles when a user wants to add an additional amount of an item through the duplicate dialog window.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>itemName</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Name of the item that is to be added to</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>amount</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The that is to be added to an existing item</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line159">line 159</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Nothing</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">void</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~handleItemUpdate">
+        <a class="href-link" href="#~handleItemUpdate">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                handleItemUpdate<span class="signature">(id, amount, unit, adding)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Handles updating the shoppingList state after a user changes a list item through the list item input field.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Id of the item that is to be updated</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>amount</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Amount of the item that is to be updated</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>unit</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Unit of the item that is to be updated</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>adding</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">boolean</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Whether or not a new unit has been added</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line127">line 127</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~newItemHandler">
+        <a class="href-link" href="#~newItemHandler">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                newItemHandler<span class="signature">(name, amount, unit, id, organic)</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Updates the state of shoppingList whenever a new item is added.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>name</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Name of the item that is added</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>amount</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Amount of the item that is added</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>unit</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Unit of the item that is added</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Id of the item that is added</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>organic</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">boolean</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Whether or not the item is organic</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line190">line 190</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>An updated shopping list</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">void</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~onAddDialog">
+        <a class="href-link" href="#~onAddDialog">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                onAddDialog<span class="signature">(onClick)</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>onClick</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">event</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Handles when the user clicks on "Tilføj Mængde" button in the duplicate dialog window</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line402">line 402</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Nothing</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">void</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~removeItemHandler">
+        <a class="href-link" href="#~removeItemHandler">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                removeItemHandler<span class="signature">(id, name)</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        This updates the state of shoppingList after the user has chosen to remove an item from the list.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Id of the item that is to be removed</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>name</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Name of the item that is to be removed</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line233">line 233</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">void</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~searchHandler">
+        <a class="href-link" href="#~searchHandler">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                searchHandler<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        This function handles everything related to search. It formats every list item to the format expected by the database and sends them also including location and desired range. When and if the database responds with a list of items, it navigates to the search results page.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line335">line 335</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Nothing</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">void</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~ValidateItem">
+        <a class="href-link" href="#~ValidateItem">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                ValidateItem<span class="signature">(name, unit)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper function that validates the item being added by checking if the array of item names contains the name of item being added.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>name</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">of the item</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>unit</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">of the item</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Pages_Home.js.html" class="button">View Source</a>
+            <span>
+                <a href="Pages_Home.js.html">Pages/Home.js</a>, <a href="Pages_Home.js.html#line500">line 500</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>true if the name of the item can be found</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div>
                 
             </nav>
         </div>
@@ -87,22 +87,66 @@
         <article>
             <pre class="prettyprint source linenums"><code>import "./Home.css";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
+import PropTypes from "prop-types";
 import NewItemForm from "../components/NewItem/NewItemForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
 import StandardDialog from "../components/UI/Molecules/StandardDialog";
-
+/**
+ * @classdesc
+ * This is the main component on the home page and it is comprised of the ShoppingList component and the NewItemForm component. This is where the user can add items to the list, see the list of items, and search for shopping options for the list items.
+ *
+ *
+ * @category Home
+ * @component
+ * @hideconstructor
+ *
+ */
 function Home(props) {
 	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
 		? JSON.parse(localStorage.getItem("shoppingList"))
 		: [];
 
 	let navigate = useNavigate();
+	/**
+	 * This state controls whether a dialog window that tells the user that an item already exists on the shopping list is open or not.
+	 * @const duplicateItem
+	 * @type {useState}
+	 * @memberof Home
+	 */
 	const [duplicateItemOpen, setDuplicateItemOpen] = useState(false);
+
+	/**
+	 * This state controls whether a dialog window that tells the user that they can't search using an empty shopping list.
+	 * @const emptyListOpen
+	 * @type {useState}
+	 * @memberof Home
+	 */
 	const [emptyListOpen, setEmptyListOpen] = useState(false);
+
+	/**
+	 * This state controls whether a dialog window that tells the user that the item they're trying to add doesn't exist.
+	 * @const noItemFoundOpen
+	 * @type {useState}
+	 * @memberof Home
+	 */
 	const [noItemFoundOpen, setNoItemFoundOpen] = useState(false);
+
+	/**
+	 * This holds the original amount of an item in order for a user to add additional amount of an item in the duplicate dialog wiindow.
+	 * @const amountToChange
+	 * @type {useState}
+	 * @memberof Home
+	 */
 	const [amountToChange, setAmountToChange] = useState(null);
+
+	/**
+	 * Holds the current information for an existing item that might be changed in a duplicate dialog window.
+	 * @const existingItem
+	 * @type {useState}
+	 * @memberof Home
+	 */
 	const [existingItem, setExistingItem] = useState({
 		name: "",
 		amount: 0,
@@ -111,36 +155,63 @@ function Home(props) {
 		organic: false,
 	});
 
+	/**
+	 * Holds all items that are currently on the shopping list.
+	 * @const shoppingList
+	 * @type {useState}
+	 * @memberof Home
+	 */
 	const [shoppingList, setShoppingList] = useState(initialShoppingList);
+
+	/**
+	 * Buttons that are to be sent as props to the duplicate dialog window
+	 */
 	const duplicateDialogButtons = [
 		{ text: "Tilføj Mængde", onClick: "addAmount" },
 		{ text: "Afbryd", onClick: "onCancel" },
 	];
+	/**
+	 * Text that is to be sent as props to the duplicate dialog window
+	 */
 	const duplicateDialogText = `Du har tilsyneladende allerede ${existingItem.amount}
 	${existingItem.unit} ${existingItem.name} på din indkøbsliste. Vil du tilføje
 	yderligere ${amountToChange}?`;
-
+	/**
+	 * Buttons that are to be sent as props to the empty list dialog window
+	 */
 	const emptyListDialogButtons = [{ text: "OK", onClick: "onCancel" }];
+	/**
+	 * Text that is to be sent as props to the empty list dialog window
+	 */
 	const emptyListDialogText = `Der er ingen varer på din indkøbsliste.`;
-
+	/**
+	 * Buttons that are to be sent as props to the no item found dialog window
+	 */
 	const noItemFoundDialogButtons = [{ text: "OK", onClick: "onCancel" }];
+	/**
+	 * Text that is to be sent as props to the no item found dialog window
+	 */
 	const noItemFoundDialogText = `Varen kan ikke findes i vores database`;
 
+	/**
+	 * Updates localStorage whenever the state of the shoppingList changes for the shopping list to persist between sessions.
+	 * @function useEffect
+	 * @memberof NewItemForm
+	 */
 	useEffect(() => {
 		console.log("updating localStorage...");
 		localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
 	}, [shoppingList]);
 
+	/**
+	 * Handles updating the shoppingList state after a user changes a list item through the list item input field.
+	 *
+	 * @param {string} id Id of the item that is to be updated
+	 * @param {string} amount Amount of the item that is to be updated
+	 * @param {string} unit Unit of the item that is to be updated
+	 * @param {boolean} adding Whether or not a new unit has been added
+	 */
 	const handleItemUpdate = (id, amount, unit, adding) => {
-		// console.log(
-		// 	"handleItemUpdate: ",
-		// 	"id: ",
-		// 	id.toString().slice(0, 5),
-		// 	"value: ",
-		// 	amount,
-		// 	"unit :",
-		// 	unit
-		// );
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
 				if (item.id !== id || amount &lt; 0) return item;
@@ -165,6 +236,13 @@ function Home(props) {
 		});
 	};
 
+	/**
+	 * Handles when a user wants to add an additional amount of an item through the duplicate dialog window.
+	 *
+	 * @param {string} itemName Name of the item that is to be added to
+	 * @param {string} amount The that is to be added to an existing item
+	 * @returns {void} Nothing
+	 */
 	const handleDialogAdd = (itemName, amount) => {
 		//find shoppinglist item with itemName
 		const item = shoppingList.find((item) => item.name === itemName);
@@ -174,11 +252,27 @@ function Home(props) {
 		handleClose();
 	};
 
-	const handleClose = (action) => {
+	/**
+	 * Handles closing of the various dialog windows.
+	 *
+	 * @returns {void} Nothing
+	 */
+	const handleClose = () => {
 		setDuplicateItemOpen(false);
 		setEmptyListOpen(false);
 		setNoItemFoundOpen(false);
 	};
+
+	/**
+	 * Updates the state of shoppingList whenever a new item is added.
+	 *
+	 * @param {string} name Name of the item that is added
+	 * @param {string} amount Amount of the item that is added
+	 * @param {string} unit Unit of the item that is added
+	 * @param {string} id Id of the item that is added
+	 * @param {boolean} organic Whether or not the item is organic
+	 * @returns {void} An updated shopping list
+	 */
 
 	const newItemHandler = async (name, amount, unit, id, organic) => {
 		// If an item with the same name exists on the shopping list already
@@ -216,12 +310,26 @@ function Home(props) {
 		});
 	};
 
+	/**
+	 * This updates the state of shoppingList after the user has chosen to remove an item from the list.
+	 *
+	 * @param {string} id Id of the item that is to be removed
+	 * @param {string} name Name of the item that is to be removed
+	 * @returns {void}
+	 */
 	const removeItemHandler = (id, name) => {
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.filter((item) => item.id !== id);
 		});
 	};
 
+	/**
+	 * Handles how much of the amount is changed when clicking on the +/- buttons. It depends whether on how many decimals the amount is.
+	 *
+	 * @param {string} amount The amount that is to be changed
+	 * @param {string} change The amount that is to be added or subtracted
+	 * @returns {number} The amount after change and formatted correctly.
+	 */
 	const decimalController = (amount, change) => {
 		amount = +amount;
 
@@ -237,13 +345,12 @@ function Home(props) {
 		}
 		return Number(amount + change / 100).toFixed(2);
 	};
-/**
- * Helper function that changes how the amount is displayed in the shopping list depending on
- * 
- * 
- * @param {number} id 
- * @param {number} change 
- */
+	/**
+	 * Helper function that changes how the amount is displayed in the shopping list depending on the amount and unit chosen, so less than 1 litre is displayed in mililiters and less than 1 kg is displayed in grams
+	 *
+	 * @param {string} id Id of the item that is to be changed
+	 * @param {number} change The amount that is to be added or subtracted
+	 */
 	const changeAmountHandler = (id, change) => {
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
@@ -266,9 +373,25 @@ function Home(props) {
 	};
 
 	//GEOLOCATION
+	/**
+	 * Saves the users latitudinal position.
+	 * @const latitude
+	 * @type {useState}
+	 * @memberof Home
+	 */
 	const [latitude, setLatitude] = useState(null);
+	/**
+	 * Saves the users longitudinal position.
+	 * @const longitude
+	 * @type {useState}
+	 * @memberof Home
+	 */
 	const [longitude, setLongitude] = useState(null);
-
+	/**
+	 * This updates the longitude and latitude states whenever user position changes
+	 * @function useEffect
+	 * @memberof NewItemForm
+	 */
 	useEffect(() => {
 		if (!navigator.geolocation) {
 			console.log("Fejl i geolokation");
@@ -281,14 +404,21 @@ function Home(props) {
 		}
 	}, [longitude, latitude]);
 
-	//handler function to be passed to app.js
+	/**
+	 * Handler function that is to be passed to App
+	 * @returns {void} Nothing
+	 */
 	function geolocationHandler() {
 		props.onSendLocation(latitude, longitude);
 	}
 
-	// use state for post request
 	const [post, setPost] = useState(true);
 
+	/**
+	 * This function handles everything related to search. It formats every list item to the format expected by the database and sends them also including location and desired range. When and if the database responds with a list of items, it navigates to the search results page.
+	 *
+	 * @returns {void} Nothing
+	 */
 	const searchHandler = async () => {
 		console.log(
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
@@ -351,6 +481,11 @@ function Home(props) {
 		navigate("/SearchResults");
 	};
 
+	/**
+	 *
+	 * @param {event} onClick Handles when the user clicks on "Tilføj Mængde" button in the duplicate dialog window
+	 * @returns {void} Nothing
+	 */
 	const onAddDialog = (event) => {
 		setDuplicateItemOpen(false);
 		handleDialogAdd(existingItem.name, amountToChange);
@@ -442,6 +577,13 @@ function Home(props) {
 		&lt;/div>
 	);
 
+	/**
+	 * Helper function that validates the item being added by checking if the array of item names contains the name of item being added.
+	 *
+	 * @param {string} name of the item
+	 * @param {string} unit of the item
+	 * @returns {boolean} true if the name of the item can be found
+	 */
 	async function ValidateItem(name, unit) {
 		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
 
@@ -470,6 +612,12 @@ function Home(props) {
 		return matchFound;
 	}
 }
+Home.propTypes = {
+	/**
+	 * An event that fires, telling the parent component, what the current location is
+	 */
+	onSendLocation: PropTypes.func,
+};
 export default Home;
 </code></pre>
         </article>
