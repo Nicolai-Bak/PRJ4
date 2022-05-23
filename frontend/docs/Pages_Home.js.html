@@ -1,4 +1,91 @@
-import "./Home.css";
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Pages/Home.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Pages/Home.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import "./Home.css";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import PropTypes from "prop-types";
 import NewItemForm from "../components/NewItem/NewItemForm";
@@ -127,8 +214,8 @@ function Home(props) {
 	const handleItemUpdate = (id, amount, unit, adding) => {
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
-				if (item.id !== id || amount < 0) return item;
-				if (unit && !adding) {
+				if (item.id !== id || amount &lt; 0) return item;
+				if (unit &amp;&amp; !adding) {
 					return {
 						...item,
 						unit: unit,
@@ -249,7 +336,7 @@ function Home(props) {
 		if (amount % 1 === 0) {
 			return amount + change;
 		}
-		if (amount < 1) {
+		if (amount &lt; 1) {
 			return Number(+amount.toFixed(2) + change * 0.01).toFixed(2);
 		}
 		if (amount == amount.toFixed(1)) {
@@ -267,10 +354,10 @@ function Home(props) {
 	const changeAmountHandler = (id, change) => {
 		setShoppingList((prevShoppingList) => {
 			return prevShoppingList.map((item) => {
-				if (item.id !== id || item.amount + change < 0) return item; //change can be positive or negative
+				if (item.id !== id || item.amount + change &lt; 0) return item; //change can be positive or negative
 				let oldAmount = +item.amount;
 
-				if (item.unit !== "stk" && Math.round(item.amount) !== item.amount) {
+				if (item.unit !== "stk" &amp;&amp; Math.round(item.amount) !== item.amount) {
 					return {
 						...item,
 						amount: decimalController(oldAmount, +change),
@@ -336,7 +423,7 @@ function Home(props) {
 		console.log(
 			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
 		);
-		if (shoppingList.length < 1) {
+		if (shoppingList.length &lt; 1) {
 			setEmptyListOpen(true);
 			return;
 		}
@@ -405,25 +492,25 @@ function Home(props) {
 	};
 
 	return (
-		<div className="home">
-			<Banner />
-			<div className="home-shopping-list-wrapper-upper">
-				<div className="instructions-step-one">
-					<div className="instructions-step-one-text">
+		&lt;div className="home">
+			&lt;Banner />
+			&lt;div className="home-shopping-list-wrapper-upper">
+				&lt;div className="instructions-step-one">
+					&lt;div className="instructions-step-one-text">
 						Trin 1: Søg efter din varer her!
-					</div>
-					<br />
-					<img
+					&lt;/div>
+					&lt;br />
+					&lt;img
 						src="/images/arrow.svg"
 						alt="arrow"
 						className="instructions-arrow-one"
 					/>
-				</div>
-				<NewItemForm
+				&lt;/div>
+				&lt;NewItemForm
 					className="home-new-item-form"
 					onItemAdded={newItemHandler}
 				/>
-				<StandardDialog
+				&lt;StandardDialog
 					title="Duplikeret vare"
 					bodyText={duplicateDialogText}
 					buttons={duplicateDialogButtons}
@@ -431,7 +518,7 @@ function Home(props) {
 					addAmount={onAddDialog}
 					open={duplicateItemOpen}
 				/>
-				<StandardDialog
+				&lt;StandardDialog
 					title="Tom indkøbsliste"
 					bodyText={emptyListDialogText}
 					buttons={emptyListDialogButtons}
@@ -439,7 +526,7 @@ function Home(props) {
 					addAmount={onAddDialog}
 					open={emptyListOpen}
 				/>
-				<StandardDialog
+				&lt;StandardDialog
 					title="Varen kan ikke findes"
 					bodyText={noItemFoundDialogText}
 					buttons={noItemFoundDialogButtons}
@@ -447,25 +534,25 @@ function Home(props) {
 					addAmount={onAddDialog}
 					open={noItemFoundOpen}
 				/>
-				<div className="filler" />
-			</div>
-			<div className="home-shopping-list-wrapper-lower">
-				<div className="instructions-step-three">
-					<div className="instructions-step-three-wrapper">
-						<div className="instructions-step-three-text">
-							Trin 3: Tryk 'søg' og <br />
+				&lt;div className="filler" />
+			&lt;/div>
+			&lt;div className="home-shopping-list-wrapper-lower">
+				&lt;div className="instructions-step-three">
+					&lt;div className="instructions-step-three-wrapper">
+						&lt;div className="instructions-step-three-text">
+							Trin 3: Tryk 'søg' og &lt;br />
 							se hvor du skal handle!
-						</div>
-						<br />
-						<img
+						&lt;/div>
+						&lt;br />
+						&lt;img
 							src="/images/arrow.svg"
 							alt="arrow"
 							className="instructions-arrow-three"
 						/>
-					</div>
-				</div>
+					&lt;/div>
+				&lt;/div>
 
-				<ShoppingList
+				&lt;ShoppingList
 					className="home-shopping-list"
 					items={shoppingList}
 					onSearch={searchHandler}
@@ -474,20 +561,20 @@ function Home(props) {
 					onNewUnitOrAmount={handleItemUpdate}
 					post={post}
 				/>
-				<div className="instructions-step-two">
-					<div className="instructions-step-two-text">
-						Trin 2: Dine varer tilføjes <br />
+				&lt;div className="instructions-step-two">
+					&lt;div className="instructions-step-two-text">
+						Trin 2: Dine varer tilføjes &lt;br />
 						herefter til din indkøbsliste
-					</div>
-					<br />
-					<img
+					&lt;/div>
+					&lt;br />
+					&lt;img
 						src="/images/arrow.svg"
 						alt="arrow"
 						className="instructions-arrow-two"
 					/>
-				</div>
-			</div>
-		</div>
+				&lt;/div>
+			&lt;/div>
+		&lt;/div>
 	);
 
 	/**
@@ -502,7 +589,7 @@ function Home(props) {
 
 		let matchFound = false;
 		let foundItems = [];
-		if (itemNames.length < 1) {
+		if (itemNames.length &lt; 1) {
 			console.log("No items in localStorage");
 			return;
 		}
@@ -532,3 +619,33 @@ Home.propTypes = {
 	onSendLocation: PropTypes.func,
 };
 export default Home;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>
