@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Pages/SearchResultsPage.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Pages/SearchResultsPage.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Card from "../components/UI/Atoms/Card/Card";
+import "./SearchResultsPage.css";
+import Button from "../components/UI/Atoms/Button/Button";
+import SearchResult from "../components/SearchResult/SearchResult";
+import { IoArrowBack } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import Dropdown from "../components/Dropdown/Dropdown";
+import { useState } from "react";
+import PropTypes from "prop-types";
+
+/**
+ * @classdesc
+ * This is the search results page. It displays the search results based on the user's search query and location.
+ *
+ * @category SearchResultsPage
+ * @subcategory SearchResultsPage
+ * @component
+ * @hideconstructor
+ *
+ */
+
+function SearchResultsPage(props) {
+	/**
+	 * useNavigate hook that is used to navigate to the home page.
+	 * @type {useNavigate}
+	 * @memberof SearchResultsPage
+	 */
+	let navigate = useNavigate();
+	/**
+	 * The state of the dropdown. Used to keep track of the selected options so that the options are displayed according to the user's preference.
+	 * @const activeState
+	 * @type {useState}
+	 * @memberof SearchResultsPage
+	 */
+	const [selectedOptionState, setSelectedOptionState] = useState("best");
+	/**
+	 * Redirects the user to the home page.
+	 * @returns {void}
+	 */
+	const goBack = () => {
+		navigate("/");
+	};
+	/**
+	 * Method that inserts the cheapest, best and nearest options into and array and returns it.
+	 * @returns {array}
+	 */
+	const GetShoppingOptions = () => {
+		const options = JSON.parse(localStorage.getItem("SearchResults"));
+		let cheapest = null;
+		let best = null;
+		let nearest = null;
+
+		if (options.cheapest !== null) {
+			cheapest = Array.from(options.cheapest);
+		}
+		if (options.best !== null) {
+			best = Array.from(options.best);
+		}
+		if (options.nearest !== null) {
+			nearest = Array.from(options.nearest);
+		}
+		const allOptions = [cheapest, best, nearest];
+
+		return allOptions;
+	};
+	const options = GetShoppingOptions();
+	console.log("options0: ", options[0]);
+
+	/**
+	 * Method that sets the selected option state to the selected option.
+	 * @param {string} value - The option that the user has selected in the dropdown.
+	 * @returns {void}
+	 */
+	const selectedOptionHandler = (value) => {
+		switch (value) {
+			case "billigste":
+				setSelectedOptionState("cheapest");
+				break;
+			case "vores anbefaling":
+				setSelectedOptionState("best");
+				break;
+			case "nærmeste":
+				setSelectedOptionState("nearest");
+				break;
+
+			default:
+				console.log("selectedOptionHandler error");
+		}
+	};
+
+	let displayOptions = null;
+
+	/**
+	 * Method that renders the search results based on the selectedOptionState.
+	 * @param {const} selectedOptionState - The state of the dropdown used to determine which options to display.
+	 * @returns {JSX}
+	 */
+	switch (selectedOptionState) {
+		case "cheapest":
+			displayOptions = options[0].map((item) => (
+				&lt;div>
+					&lt;SearchResult
+						latitude={props.latitude}
+						longitude={props.longitude}
+						products={item.products}
+						price={item.totalPrice}
+						distance={item.distance}
+						storeName={item.brand}
+						address={item.address}
+					>&lt;/SearchResult>
+				&lt;/div>
+			));
+			break;
+		case "best":
+			displayOptions = options[1].map((item) => (
+				&lt;SearchResult
+					latitude={props.latitude}
+					longitude={props.longitude}
+					products={item.products}
+					price={item.totalPrice}
+					distance={item.distance}
+					storeName={item.brand}
+					address={item.address}
+				>&lt;/SearchResult>
+			));
+			break;
+		case "nearest":
+			displayOptions = options[2].map((item) => (
+				&lt;SearchResult
+					latitude={props.latitude}
+					longitude={props.longitude}
+					products={item.products}
+					price={item.totalPrice}
+					distance={item.distance}
+					storeName={item.brand}
+					address={item.address}
+				>&lt;/SearchResult>
+			));
+			break;
+		default:
+			console.log("default");
+	}
+
+	/**
+	 * useState that checks if the options array is empty and if so renders an error message instead of the search results.
+	 * @const activeState
+	 * @type {useState}
+	 * @memberof SearchResultsPage
+	 */
+	const [showError, setShowError] = useState(
+		options[0].length &lt; 1 ? true : false
+	);
+
+	return (
+		&lt;div className="search-results-page">
+			{!showError &amp;&amp; (
+				&lt;Card className="results-container">
+					&lt;div className="dropdown-menu-container">
+						&lt;Dropdown
+							className="results-page-dropdown"
+							selectedOption={selectedOptionHandler}
+						>&lt;/Dropdown>
+					&lt;/div>
+					{displayOptions}
+				&lt;/Card>
+			)}
+			{!showError &amp;&amp; (
+				&lt;div className="search-results-page-text-box">
+					Fandt du ikke det, du søgte? &lt;a onClick={goBack}>Klik her&lt;/a>, for at
+					gå tilbage og foretage en ny søgning.
+				&lt;/div>
+			)}
+			{showError &amp;&amp; (
+				&lt;div className="search-results-not-found">
+					&lt;div className="image-wrapper">
+						&lt;img
+							src="https://svgshare.com/i/h6r.svg"
+							alt="ninja holding an apple"
+						>&lt;/img>
+					&lt;/div>
+					&lt;div className="text-wrapper">
+						&lt;h1>Hovsa!&lt;/h1>
+						&lt;h2>Noget gik galt ved din søgning.&lt;/h2>
+						&lt;h3>
+							Dette kan skyldes, at du har søgt efter nogle varer, som ikke kan
+							findes i samme butik. Vi arbejder på en løsning! I mellemtiden kan
+							du &lt;a onClick={goBack}>gå tilbage her&lt;/a> og prøve igen.
+						&lt;/h3>
+					&lt;/div>
+				&lt;/div>
+			)}
+		&lt;/div>
+	);
+}
+
+SearchResultsPage.propTypes = {
+	/** 
+	 * The address of the store.
+	*/
+	address: PropTypes.string,
+	/** 
+	 * The name of the store.
+	*/
+	storeName: PropTypes.string,
+	/** 
+	 * The total price of all the products in the shopping list.
+	*/
+	price: PropTypes.number,
+	/** 
+	 * The distance between the user and the store.
+	*/
+	distance: PropTypes.number,
+	/** 
+	 * contains all the products in the shopping list, to be passed in to the searchResultItem component.
+	*/
+	products: PropTypes.array,
+	/** 
+	 * latitude coordinate of the user.
+	*/
+	latitude: PropTypes.number,
+	/** 
+	 * longitude coordinate of the user.
+	*/
+	longitude: PropTypes.number,
+	
+};
+
+export default SearchResultsPage;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

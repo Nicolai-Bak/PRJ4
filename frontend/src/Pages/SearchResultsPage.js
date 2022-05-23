@@ -6,15 +6,44 @@ import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown/Dropdown";
 import { useState } from "react";
+import PropTypes from "prop-types";
+
+/**
+ * @classdesc
+ * This is the search results page. It displays the search results based on the user's search query and location.
+ *
+ * @category SearchResultsPage
+ * @subcategory SearchResultsPage
+ * @component
+ * @hideconstructor
+ *
+ */
 
 function SearchResultsPage(props) {
+	/**
+	 * useNavigate hook that is used to navigate to the home page.
+	 * @type {useNavigate}
+	 * @memberof SearchResultsPage
+	 */
 	let navigate = useNavigate();
+	/**
+	 * The state of the dropdown. Used to keep track of the selected options so that the options are displayed according to the user's preference.
+	 * @const activeState
+	 * @type {useState}
+	 * @memberof SearchResultsPage
+	 */
 	const [selectedOptionState, setSelectedOptionState] = useState("best");
-
+	/**
+	 * Redirects the user to the home page.
+	 * @returns {void}
+	 */
 	const goBack = () => {
 		navigate("/");
 	};
-
+	/**
+	 * Method that inserts the cheapest, best and nearest options into and array and returns it.
+	 * @returns {array}
+	 */
 	const GetShoppingOptions = () => {
 		const options = JSON.parse(localStorage.getItem("SearchResults"));
 		let cheapest = null;
@@ -37,6 +66,11 @@ function SearchResultsPage(props) {
 	const options = GetShoppingOptions();
 	console.log("options0: ", options[0]);
 
+	/**
+	 * Method that sets the selected option state to the selected option.
+	 * @param {string} value - The option that the user has selected in the dropdown.
+	 * @returns {void}
+	 */
 	const selectedOptionHandler = (value) => {
 		switch (value) {
 			case "billigste":
@@ -56,6 +90,11 @@ function SearchResultsPage(props) {
 
 	let displayOptions = null;
 
+	/**
+	 * Method that renders the search results based on the selectedOptionState.
+	 * @param {const} selectedOptionState - The state of the dropdown used to determine which options to display.
+	 * @returns {JSX}
+	 */
 	switch (selectedOptionState) {
 		case "cheapest":
 			displayOptions = options[0].map((item) => (
@@ -101,6 +140,13 @@ function SearchResultsPage(props) {
 		default:
 			console.log("default");
 	}
+
+	/**
+	 * useState that checks if the options array is empty and if so renders an error message instead of the search results.
+	 * @const activeState
+	 * @type {useState}
+	 * @memberof SearchResultsPage
+	 */
 	const [showError, setShowError] = useState(
 		options[0].length < 1 ? true : false
 	);
@@ -146,5 +192,37 @@ function SearchResultsPage(props) {
 		</div>
 	);
 }
+
+SearchResultsPage.propTypes = {
+	/** 
+	 * The address of the store.
+	*/
+	address: PropTypes.string,
+	/** 
+	 * The name of the store.
+	*/
+	storeName: PropTypes.string,
+	/** 
+	 * The total price of all the products in the shopping list.
+	*/
+	price: PropTypes.number,
+	/** 
+	 * The distance between the user and the store.
+	*/
+	distance: PropTypes.number,
+	/** 
+	 * contains all the products in the shopping list, to be passed in to the searchResultItem component.
+	*/
+	products: PropTypes.array,
+	/** 
+	 * latitude coordinate of the user.
+	*/
+	latitude: PropTypes.number,
+	/** 
+	 * longitude coordinate of the user.
+	*/
+	longitude: PropTypes.number,
+	
+};
 
 export default SearchResultsPage;

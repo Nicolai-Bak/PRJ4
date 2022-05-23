@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> components/SearchResult/SearchResultItem/SearchResultItem.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,38 +75,89 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>components/SearchResult/SearchResultItem/SearchResultItem.js</h1>
                 </header>
                 
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><p>Denne side indeholder dokumentation for frontend delen af semesterprojektet for 4. semester hold 1.</p>
-<p>Frontenden er skrevet i React</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Card from "../../UI/Atoms/Card/Card";
+import "./SearchResultItem.css";
+import PropTypes from "prop-types";
+
+/**
+ * @classdesc
+ * This is the component that displays the idividual shopping list items in the search result component when the user clicks on the dropdown icon.
+ *
+ * @category SearchResultsPage
+ * @subcategory SearchResult
+ * @component
+ * @hideconstructor
+ *
+ */
+
+const SearchResultItem = (props) => {
+
+	/**
+	 * The method that takes the individual shopping list items from the props.products array with the product information
+	 * including product name, price, unit and so forth, and creates a JSX element for each item using javascript's map function.
+	 * @returns {JSX}
+	 */
+	const displayProducts = () => {
+		const newProducts = props.products.map((product) => {
+			return (
+				&lt;li className="product-information">
+					&lt;p className="product-name">
+						{product.name}, {product.brand}
+						{product.organic &amp;&amp; (
+							&lt;img
+								className="organic-logo"
+								src="/images/organic-logo.svg"
+								alt={product.name}
+							/>
+						)}
+						&lt;span className="product-price"> {product.price / 100}kr&lt;/span>
+						&lt;img
+							className="product-image"
+							src={product.imageUrl}
+							alt={product.name}
+						/>
+					&lt;/p>
+					&lt;p className="product-unit">
+						{product.amount} stk af {product.units}
+						{product.measurement}
+					&lt;/p>
+				&lt;/li>
+			);
+		});
+		return newProducts;
+	};
+
+	return (
+		&lt;Card className="search-result-item">
+			&lt;div className="item-product">
+				&lt;ul className="product-display">{displayProducts()}&lt;/ul>
+			&lt;/div>
+		&lt;/Card>
+	);
+};
+
+SearchResultItem.propTypes = {
+	/** 
+	 * The address of the store.
+	*/
+	products: PropTypes.array,
+
+};
+
+export default SearchResultItem;
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

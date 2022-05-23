@@ -4,6 +4,18 @@ import { IoMenu, IoClose } from "react-icons/io5";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+/**
+ * @classdesc
+ * This is the navbar of the website. It contains links to the different pages and the company name.
+ *
+ * @category UI
+ * @subcategory Organisms
+ * @component
+ * @hideconstructor
+ *
+ */
+
+
 function NavBar(props) {
 	const [showMenu, setShowMenu] = useState(false);
 	const toggleMenu = () => setShowMenu(!showMenu);

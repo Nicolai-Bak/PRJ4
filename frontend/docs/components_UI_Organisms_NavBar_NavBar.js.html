@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> components/UI/Organisms/NavBar/NavBar.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,38 +75,108 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>components/UI/Organisms/NavBar/NavBar.js</h1>
                 </header>
                 
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><p>Denne side indeholder dokumentation for frontend delen af semesterprojektet for 4. semester hold 1.</p>
-<p>Frontenden er skrevet i React</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./NavBar.css";
+import { IoMenu, IoClose } from "react-icons/io5";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+/**
+ * @classdesc
+ * This is the navbar of the website. It contains links to the different pages and the company name.
+ *
+ * @category UI
+ * @subcategory Organisms
+ * @component
+ * @hideconstructor
+ *
+ */
+
+
+function NavBar(props) {
+	const [showMenu, setShowMenu] = useState(false);
+	const toggleMenu = () => setShowMenu(!showMenu);
+	const [shoppingCart, setShoppingCart] = useState(false);
+	const toggleShoppingCart = () => setShoppingCart(!shoppingCart);
+	const { pageLinks, companyName } = props;
+	let navigate = useNavigate();
+
+	const linkRefs = () => {
+		const links = pageLinks.map((link) => {
+			return (
+				&lt;div className="link" key={(Math.random() * 20).toFixed(4)}>
+					&lt;Link to={link.link}>{link.text}&lt;/Link>
+				&lt;/div>
+			);
+		});
+		// console.log(pageLinks);
+		return links;
+	};
+
+	const returnToHomePage = () => {
+		navigate("/");
+	};
+
+	return (
+		&lt;div className="navbar">
+			&lt;div className="left-side__container">
+				&lt;img
+					id="ninja__logo"
+					src="/images/ninja-desk.svg"
+					onClick={returnToHomePage}
+					alt={companyName}
+				/>
+				&lt;span className="navbar-company-name" onClick={returnToHomePage}>
+					{companyName}
+				&lt;/span>
+			&lt;/div>
+			&lt;div className="right-side__container">
+				&lt;div className="navbar-menu">
+					&lt;div className={`navbar-links ${!showMenu ? "hide" : ""}`}>
+						{linkRefs()}
+					&lt;/div>
+				&lt;/div>
+				&lt;img
+					id="shopping__cart"
+					src="/images/shopping-cart.svg"
+					alt="indkøbsvogn"
+					onMouseEnter={toggleShoppingCart}
+					onMouseLeave={toggleShoppingCart}
+				/>
+				&lt;IoMenu
+					onClick={toggleMenu}
+					className={`hamburger-menu__icon ${showMenu ? "hide" : ""}`}
+				/>
+				&lt;IoClose
+					onClick={toggleMenu}
+					className={`hamburger-menu__icon ${showMenu ? "" : "hide"}`}
+				/>
+			&lt;/div>
+			{shoppingCart &amp;&amp; (
+				&lt;div className="shopping-cart-toast">
+					Der er tilføjet{" "}
+					{JSON.parse(localStorage.getItem("shoppingList")).length} varer til
+					indkøbslisten.
+				&lt;/div>
+			)}
+		&lt;/div>
+	);
+}
+
+export default NavBar;
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

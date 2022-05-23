@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> components/SearchResult/SearchResult.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,38 +75,161 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>components/SearchResult/SearchResult.js</h1>
                 </header>
                 
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><p>Denne side indeholder dokumentation for frontend delen af semesterprojektet for 4. semester hold 1.</p>
-<p>Frontenden er skrevet i React</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Card from "../UI/Atoms/Card/Card";
+import "./SearchResult.css";
+import { IoChevronDownSharp, IoLocation } from "react-icons/io5";
+import Button from "../UI/Atoms/Button/Button";
+import { useState } from "react";
+import SearchResultItem from "./SearchResultItem/SearchResultItem";
+import PropTypes from "prop-types";
+
+/**
+ * @classdesc
+ * This is the component that displays the individual shopping options based on the shoppinglist items and user location.
+ *
+ * @category SearchResultsPage
+ * @subcategory SearchResult
+ * @component
+ * @hideconstructor
+ *
+ */
+const SearchResult = (props) => {
+	/**
+	 * The state of the dropdown button.
+	 * @const activeState
+	 * @type {useState}
+	 * @memberof SearchResult
+	 */
+	const [activeState, setActiveState] = useState(true);
+
+	/**
+	 * When a user clicks the button, the state of the button is toggled.
+	 *
+	 * @returns {void}
+	 */
+	const toggleDetails = () => {
+		setActiveState(!activeState);
+	};
+
+	let addressString = props.address;
+
+	addressString = addressString.replace(/^, DK+|, DK+$/g, "");
+
+	let addressStringforMaps = addressString.replace(/ /g, "+");
+
+	let displayStoreName = null;
+
+	/**
+	 * switch statement that checks the store name and sets the displayStoreName variable to the correct store name.
+	 */
+	switch (props.storeName) {
+		case "foetex":
+			displayStoreName = &lt;div className="list-item-store-name">føtex&lt;/div>;
+			break;
+		case "Fakta":
+		case "Dagli'Brugsen":
+		case "SuperBrugsen":
+		case "Kvickly":
+			displayStoreName = (
+				&lt;div className="list-item-store-name store-name-red">
+					{props.storeName}
+				&lt;/div>
+			);
+			break;
+		case "Coop365":
+			displayStoreName = (
+				&lt;div className="list-item-store-name store-name-green">
+					{props.storeName}
+				&lt;/div>
+			);
+			break;
+		default:
+			displayStoreName = (
+				&lt;div className="list-item-store-name">{props.storeName}&lt;/div>
+			);
+			break;
+	}
+
+	/**
+	 * Variable that contains the google maps link.
+	 * @type {let}
+	 */
+	let GoogleMapsDirections = `https://www.google.com/maps/dir/${props.latitude},${props.longitude}/${addressStringforMaps}`;
+
+	return (
+		&lt;div className="search-result">
+			&lt;Card className="search-result-list-item">
+				&lt;div className="list-item-wrapper">
+					&lt;div className="list-item-price">
+						Pris: &lt;span className="total-price">{props.price / 100}kr&lt;/span>
+					&lt;/div>
+					{displayStoreName}
+					&lt;div className="list-item-address" title="vis rutevejledning">
+						&lt;a href={GoogleMapsDirections} target="_blank">
+							&lt;IoLocation />
+							{addressString} ({props.distance.toFixed(2)}km)
+						&lt;/a>
+					&lt;/div>
+					&lt;Button className="chevron-button" onClick={toggleDetails}>
+						&lt;IoChevronDownSharp
+							className={`chevron-icon ${!activeState ? "rotate" : ""}`}
+						/>
+					&lt;/Button>
+				&lt;/div>
+				&lt;div className={`search-result-details ${!activeState ? "show" : ""}`}>
+					&lt;SearchResultItem products={props.products} />
+				&lt;/div>
+			&lt;/Card>
+		&lt;/div>
+	);
+};
+
+SearchResult.propTypes = {
+	/** 
+	 * The address of the store.
+	*/
+	address: PropTypes.string,
+	/** 
+	 * The name of the store.
+	*/
+	storeName: PropTypes.string,
+	/** 
+	 * The total price of all the products in the shopping list.
+	*/
+	price: PropTypes.number,
+	/** 
+	 * The distance between the user and the store.
+	*/
+	distance: PropTypes.number,
+	/** 
+	 * contains all the products in the shopping list, to be passed in to the searchResultItem component.
+	*/
+	products: PropTypes.array,
+	/** 
+	 * latitude coordinate of the user.
+	*/
+	latitude: PropTypes.number,
+	/** 
+	 * longitude coordinate of the user.
+	*/
+	longitude: PropTypes.number,
+	
+};
+
+export default SearchResult;
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

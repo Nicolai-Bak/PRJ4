@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> components/UI/Atoms/Button/Button.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,38 +75,45 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>components/UI/Atoms/Button/Button.js</h1>
                 </header>
                 
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><p>Denne side indeholder dokumentation for frontend delen af semesterprojektet for 4. semester hold 1.</p>
-<p>Frontenden er skrevet i React</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import "./Button.css"
+
+/**
+ * @classdesc
+ * This is the form where the user can add a new item to the list. This is comprised of two other components, specifically the UnitBox and SearchField.
+ * The UnitBox is w	here the user can select the unit of the new item they're adding. The SearchField is where the user can search for an item to add to the list.
+ *
+ *
+ * @category UI
+ * @subcategory Atoms
+ * @component
+ * @hideconstructor
+ *
+ */
+
+const Button = (props) => {
+
+	const button = `button-container ${props.className}`;
+
+	return (
+		&lt;button onClick={props.onClick} className={button}>{props.children}&lt;/button>
+		// can't get normal onClick event to work for some reason, so added a custom event :/
+	)
+}
+
+export default Button</code></pre>
+        </article>
     </section>
-
-
 
 
 

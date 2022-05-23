@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/NewItem/NewItemForm.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/NewItem/NewItemForm.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import "./NewItemForm.css";
+import PropTypes from "prop-types";
+import UnitBox from "./UnitBox";
+import React, { useState, useEffect } from "react";
+import { v4 as uuid } from "uuid";
+import SearchField from "./SearchField";
+import Card from "../UI/Atoms/Card/Card";
+import Button from "../UI/Atoms/Button/Button";
+import { FormControlLabel, Switch } from "@mui/material";
+
+/**
+ * @classdesc
+ * This is the form where the user can add a new item to the list. This is comprised of two other components, specifically the UnitBox and SearchField.
+ * The UnitBox is where the user can select the unit of the new item they're adding. The SearchField is where the user can search for an item to add to the list.
+ *
+ *
+ * @category Home
+ * @subcategory NewItem
+ * @component
+ * @hideconstructor
+ *
+ */
+
+const NewItemForm = (props) => {
+	/**
+	 * The state of the name of the item the user is adding as received from the SearchField component.
+	 * @const newItem
+	 * @type {useState}
+	 * @memberof NewItemForm
+	 */
+	const [newItem, setNewItem] = useState(null);
+
+	/**
+	 * The state of the amount of the item the user is adding.
+	 * @const amount
+	 * @type {useState}
+	 * @memberof NewItemForm
+	 */
+	const [amount, setAmount] = useState("");
+
+	/**
+	 * The state of the unit of the item the user is adding as received from the UnitBox component. Default value is "kg"
+	 * @const unit
+	 * @type {useState}
+	 * @memberof NewItemForm
+	 */
+	const [unit, setUnit] = useState("kg");
+
+	/**
+	 * This state controls which units are rendered by the UnitBox component.
+	 * @const unitsAvailable
+	 * @type {useState}
+	 * @memberof NewItemForm
+	 */
+	const [unitsAvailable, setUnitsAvailable] = useState(["kg", "l", "stk"]);
+
+	/**
+	 * This state controls whether the item being added should be organic or not.
+	 * @const organic
+	 * @type {useState}
+	 * @memberof NewItemForm
+	 */
+	const [organic, setOrganic] = useState(false);
+
+	/**
+	 * This state controls whether the "organic" switch is rendered or not.
+	 * @const organicPossible
+	 * @type {useState}
+	 * @memberof NewItemForm
+	 */
+	const [organicPossible, setOrganicPossible] = useState(false);
+
+	// changed validInput
+	// const [isSearchFieldValid, SetIsSearchFieldValid] = useState(true);
+	// const [isAmountValid, SetIsAmountValid] = useState(true);
+
+	/**
+	 * This is the id of the new item being added, it uses the uuid library to ensure a unique id
+	 */
+	const id = uuid();
+
+	/**
+	 * Calls the onItemChanged event containing the current value of the input field every time the value changes.
+	 * @function useEffect
+	 * @memberof SearchField
+	 */
+	useEffect(() => {
+		fetchItems();
+	}, []);
+
+	const submitItemHandler = (event) => {
+		event.preventDefault();
+
+		if (validInput(newItem, amount)) {
+			props.onItemAdded(newItem, amount, unit, id, organic);
+		} else return;
+
+		setAmount("");
+		setNewItem("");
+		setUnit(`kg`);
+		setOrganicPossible(false);
+		setOrganic(false);
+	};
+
+	const switchStyling = {
+		color: "white",
+		"&amp;:checked": {
+			color: "green",
+		},
+		icon: "../../../public/images/økomærke.png",
+	};
+
+	/**
+	 * When a user inputs an amount in the form, this updates the component state
+	 *
+	 * @param {event} event - The input event that triggered the function
+	 * @returns {void}
+	 */
+	const amountChangeHandler = (event) => {
+		const added = event.target.value;
+		added > 0 ? setAmount(added) : setAmount("");
+	};
+
+	/**
+	 * Helper function that checks whether the input format is correct
+	 * @param {string} newItem - The name of the item
+	 * @param {string} amount - The amount of the item
+	 * @returns {boolean} Whether the input is valid or not
+	 */
+	const validInput = (newItem, amount) => {
+		if (newItem === null || !newItem.length > 0) {
+			// SetIsSearchFieldValid(false);
+			console.log("No item was detected in the input field");
+			return false;
+		}
+		if (amount === null || !amount.length > 0) {
+			// SetIsAmountValid(false);
+		}
+		if (!amount > 0) {
+			console.log("amount too small");
+			return false;
+		}
+		// SetIsSearchFieldValid(true);
+		// SetIsAmountValid(true);
+		return true;
+	};
+
+	/**
+	 * Clears the amount field on focus
+	 * @returns {void}
+	 */
+	const clearInput = () => {
+		setAmount("");
+	};
+
+	/**
+	 * This handles when the organic switch is toggled.
+	 *
+	 * @param {event} onChange
+	 *
+	 */
+	const organicHandler = (event) => {
+		console.log(event.target.checked);
+		setOrganic(event.target.checked);
+	};
+
+	/**
+	 * When a user no longer has focus on the item name input field, this checks the database for the unit(s) this item normally has and
+	 * whether there are organic variants and then rerenders the UnitBox component based on the info received
+	 *
+	 * @param {event} customEvent - From the SearchField component
+	 * @returns {void} Nothing
+	 */
+	const focusLost = async (event) => {
+		const item = await getUnitAndOrganic(event);
+		if (!item) return;
+		console.log("These units are available: ", item.units);
+		setUnitsAvailable(item.units);
+		setUnit(item.units[0]);
+
+		if (item) {
+			setOrganicPossible(item.organic);
+		}
+	};
+
+	return (
+		&lt;Card className="add-item-container">
+			&lt;form
+				onSubmit={submitItemHandler}
+				// className={`${!isSearchFieldValid ? "invalid" : ""}`}
+				className={"add-item-form"}
+			>
+				&lt;SearchField
+					onItemChanged={(item) => setNewItem(item)}
+					onFocusLost={focusLost}
+					input={newItem}
+				/>
+				&lt;div className="unit-organic-switch">
+					&lt;UnitBox
+						className="form-units"
+						onUnitSelected={(event) => setUnit(event)}
+						unitChosen={unit}
+						unitsAvailable={unitsAvailable}
+					/>
+					{organicPossible &amp;&amp; (
+						&lt;FormControlLabel
+							control={&lt;Switch sx={switchStyling} onChange={organicHandler} />}
+							label="Øko"
+							sx={{
+								color: "white",
+							}}
+						/>
+					)}
+				&lt;/div>
+				&lt;input
+					tabIndex="0"
+					// className={`input-amount-field ${!isAmountValid ? "invalid" : ""}`}
+					className="amount-input"
+					type="number"
+					step="0.01"
+					id="amount"
+					placeholder="antal/mængde"
+					onFocus={clearInput}
+					value={amount}
+					onChange={amountChangeHandler}
+				>&lt;/input>
+				&lt;Button type="submit" className="add-item-button">
+					Tilføj Vare
+				&lt;/Button>
+			&lt;/form>
+		&lt;/Card>
+	);
+
+	/**
+	 * This function fetches the unit and organic status of the item written in SearchField from the database. If the items is not found, it returns false.
+	 *
+	 * @param {string} itemInfo The name of the item written in the SearchField
+	 * @returns {object | boolean} The unit and organic status of the item
+	 */
+
+	async function fetchItemInfo(itemInfo) {
+		let response;
+		try {
+			const request = await fetch(
+				`https://prisninjawebapi.azurewebsites.net/productinfo/${itemInfo}/`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			response = await request.json();
+		} catch (error) {
+			console.log("API call error : ", error);
+			response = false;
+		}
+		return response;
+	}
+
+	/**
+	 * This function checks the database for the unit this item normally has and whether there are organic variants and then rerenders based on the info received
+	 *
+	 * @returns {void} Nothing
+	 */
+	async function fetchItems() {
+		let request = false;
+		try {
+			request = await fetch(
+				"https://prisninjawebapi.azurewebsites.net/names/",
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+		} catch (error) {
+			console.log("itemName API call error : ", error);
+		}
+
+		if (request)
+			localStorage.setItem("itemNames", JSON.stringify(await request.json()));
+
+		const response = await JSON.parse(localStorage.getItem("itemNames"));
+		if (response.length > 15)
+			console.log(`${response.length} item names were fetched`);
+	}
+
+	/**
+	 * This function fetches the unit and organic status of the item written in SearchField from the database. If the items is not found, it returns null.
+	 * @param {string} itemName The name of the item written in the SearchField
+	 * @returns {object | null} The unit and organic status of the item or null
+	 */
+	async function getUnitAndOrganic(item) {
+		const units = [];
+		const info = await fetchItemInfo(item);
+		console.log("Item info: ", info);
+		if (!info) return;
+		const organic = info.organic;
+		const unitInfo = Object.keys(info).filter((i) => info[i] === true);
+
+		// saves all units that are available for the item
+		if (unitInfo.includes("measureG")) units.push("kg");
+		if (unitInfo.includes("measureL")) units.push("l");
+		if (unitInfo.includes("measureStk")) units.push("stk");
+
+		return { units, organic };
+	}
+};
+
+NewItemForm.propTypes = {
+	/** Event that is fired when the user submits the form. Sends the name of the item, amount, unit, id and whether the item should be organic to the parent component.
+	 */
+	onItemAdded: PropTypes.func,
+};
+
+export default NewItemForm;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

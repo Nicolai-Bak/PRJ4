@@ -2,6 +2,17 @@ import React from "react";
 import "./Footer.css";
 import { Link } from "react-router-dom";
 
+/**
+ * @classdesc
+ * This is the footer of the website. It contains links to the different pages and the company name.
+ *
+ * @category UI
+ * @subcategory Organisms
+ * @component
+ * @hideconstructor
+ *
+ */
+
 function Footer(props) {
 	const { pageLinks, companyName } = props;
 

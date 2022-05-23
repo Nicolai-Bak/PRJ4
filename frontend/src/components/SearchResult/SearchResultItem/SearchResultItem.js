@@ -1,7 +1,25 @@
 import Card from "../../UI/Atoms/Card/Card";
 import "./SearchResultItem.css";
+import PropTypes from "prop-types";
+
+/**
+ * @classdesc
+ * This is the component that displays the idividual shopping list items in the search result component when the user clicks on the dropdown icon.
+ *
+ * @category SearchResultsPage
+ * @subcategory SearchResult
+ * @component
+ * @hideconstructor
+ *
+ */
 
 const SearchResultItem = (props) => {
+
+	/**
+	 * The method that takes the individual shopping list items from the props.products array with the product information
+	 * including product name, price, unit and so forth, and creates a JSX element for each item using javascript's map function.
+	 * @returns {JSX}
+	 */
 	const displayProducts = () => {
 		const newProducts = props.products.map((product) => {
 			return (
@@ -39,6 +57,14 @@ const SearchResultItem = (props) => {
 			</div>
 		</Card>
 	);
+};
+
+SearchResultItem.propTypes = {
+	/** 
+	 * The address of the store.
+	*/
+	products: PropTypes.array,
+
 };
 
 export default SearchResultItem;

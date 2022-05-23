@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Pages/Home.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Pages/Home.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import "./Home.css";
+import ShoppingList from "../components/ShoppingList/ShoppingList";
+import NewItemForm from "../components/NewItem/NewItemForm";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Banner from "../components/Banner/Banner";
+import StandardDialog from "../components/UI/Molecules/StandardDialog";
+
+function Home(props) {
+	const initialShoppingList = localStorage.hasOwnProperty("shoppingList")
+		? JSON.parse(localStorage.getItem("shoppingList"))
+		: [];
+
+	let navigate = useNavigate();
+	const [duplicateItemOpen, setDuplicateItemOpen] = useState(false);
+	const [emptyListOpen, setEmptyListOpen] = useState(false);
+	const [noItemFoundOpen, setNoItemFoundOpen] = useState(false);
+	const [amountToChange, setAmountToChange] = useState(null);
+	const [existingItem, setExistingItem] = useState({
+		name: "",
+		amount: 0,
+		unit: "",
+		id: "",
+		organic: false,
+	});
+
+	const [shoppingList, setShoppingList] = useState(initialShoppingList);
+	const duplicateDialogButtons = [
+		{ text: "Tilføj Mængde", onClick: "addAmount" },
+		{ text: "Afbryd", onClick: "onCancel" },
+	];
+	const duplicateDialogText = `Du har tilsyneladende allerede ${existingItem.amount}
+	${existingItem.unit} ${existingItem.name} på din indkøbsliste. Vil du tilføje
+	yderligere ${amountToChange}?`;
+
+	const emptyListDialogButtons = [{ text: "OK", onClick: "onCancel" }];
+	const emptyListDialogText = `Der er ingen varer på din indkøbsliste.`;
+
+	const noItemFoundDialogButtons = [{ text: "OK", onClick: "onCancel" }];
+	const noItemFoundDialogText = `Varen kan ikke findes i vores database`;
+
+	useEffect(() => {
+		console.log("updating localStorage...");
+		localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+	}, [shoppingList]);
+
+	const handleItemUpdate = (id, amount, unit, adding) => {
+		// console.log(
+		// 	"handleItemUpdate: ",
+		// 	"id: ",
+		// 	id.toString().slice(0, 5),
+		// 	"value: ",
+		// 	amount,
+		// 	"unit :",
+		// 	unit
+		// );
+		setShoppingList((prevShoppingList) => {
+			return prevShoppingList.map((item) => {
+				if (item.id !== id || amount &lt; 0) return item;
+				if (unit &amp;&amp; !adding) {
+					return {
+						...item,
+						unit: unit,
+						amount: amount,
+					};
+				} else if (!adding) {
+					return {
+						...item,
+						amount: amount,
+					};
+				} else {
+					return {
+						...item,
+						amount: amount,
+					};
+				}
+			});
+		});
+	};
+
+	const handleDialogAdd = (itemName, amount) => {
+		//find shoppinglist item with itemName
+		const item = shoppingList.find((item) => item.name === itemName);
+		if (item) {
+			handleItemUpdate(item.id, +item.amount + +amount, item.unit, true);
+		}
+		handleClose();
+	};
+
+	const handleClose = (action) => {
+		setDuplicateItemOpen(false);
+		setEmptyListOpen(false);
+		setNoItemFoundOpen(false);
+	};
+
+	const newItemHandler = async (name, amount, unit, id, organic) => {
+		// If an item with the same name exists on the shopping list already
+
+		const existingItem = shoppingList.find(
+			(item) => item.name.toLowerCase() === name.toLowerCase()
+		);
+		if (existingItem) {
+			// console.log("Item already exists on the shopping list : ", existingItem);
+			setExistingItem(existingItem);
+			setAmountToChange(amount);
+			setDuplicateItemOpen(true);
+			return;
+		}
+
+		// if the item doesn't exists in the database
+		if (!(await ValidateItem(name, unit))) {
+			console.log("item not found in database");
+			setNoItemFoundOpen(true);
+			return;
+		}
+
+		setShoppingList((prevShoppingList) => {
+			return [
+				...prevShoppingList,
+				{
+					name: name,
+					amount: amount,
+					unit: unit,
+					id: id, //uuid()
+					key: id,
+					organic: organic,
+				},
+			];
+		});
+	};
+
+	const removeItemHandler = (id, name) => {
+		setShoppingList((prevShoppingList) => {
+			return prevShoppingList.filter((item) => item.id !== id);
+		});
+	};
+
+	const decimalController = (amount, change) => {
+		amount = +amount;
+
+		if (amount % 1 === 0) {
+			return amount + change;
+		}
+		if (amount &lt; 1) {
+			return Number(+amount.toFixed(2) + change * 0.01).toFixed(2);
+		}
+		if (amount == amount.toFixed(1)) {
+			console.log("1 decimal");
+			return Number(+amount.toFixed(1) + +change / 10).toFixed(1);
+		}
+		return Number(amount + change / 100).toFixed(2);
+	};
+/**
+ * Helper function that changes how the amount is displayed in the shopping list depending on
+ * 
+ * 
+ * @param {number} id 
+ * @param {number} change 
+ */
+	const changeAmountHandler = (id, change) => {
+		setShoppingList((prevShoppingList) => {
+			return prevShoppingList.map((item) => {
+				if (item.id !== id || item.amount + change &lt; 0) return item; //change can be positive or negative
+				let oldAmount = +item.amount;
+
+				if (item.unit !== "stk" &amp;&amp; Math.round(item.amount) !== item.amount) {
+					return {
+						...item,
+						amount: decimalController(oldAmount, +change),
+					};
+				} else {
+					return {
+						...item,
+						amount: decimalController(oldAmount, +change),
+					};
+				}
+			});
+		});
+	};
+
+	//GEOLOCATION
+	const [latitude, setLatitude] = useState(null);
+	const [longitude, setLongitude] = useState(null);
+
+	useEffect(() => {
+		if (!navigator.geolocation) {
+			console.log("Fejl i geolokation");
+		} else {
+			navigator.geolocation.getCurrentPosition((position) => {
+				setLatitude(position.coords.latitude);
+				setLongitude(position.coords.longitude);
+				// console.log(`latitude: ${latitude}, longitude: ${longitude}`);
+			});
+		}
+	}, [longitude, latitude]);
+
+	//handler function to be passed to app.js
+	function geolocationHandler() {
+		props.onSendLocation(latitude, longitude);
+	}
+
+	// use state for post request
+	const [post, setPost] = useState(true);
+
+	const searchHandler = async () => {
+		console.log(
+			`searchHandler called with list: ${JSON.stringify(shoppingList)}`
+		);
+		if (shoppingList.length &lt; 1) {
+			setEmptyListOpen(true);
+			return;
+		}
+		// const searchList = shoppingList.map((item) => item);
+		// console.log("searchlist: " + JSON.stringify(searchList));
+		const searchList = [];
+
+		// Sending the item information that is relevant to the database with the naming scheme that they are working with
+		shoppingList.forEach((item) => {
+			console.log(item);
+			const itemDTO = {
+				Name: item.name,
+				Unit: item.amount,
+				Measurement: item.unit,
+				Organic: item.organic,
+			};
+			// console.log(itemDTO);
+			searchList.push(itemDTO);
+		});
+		//send coordinates to- 'searchresultspage in order to get google maps directions
+		geolocationHandler();
+
+		// searchList.forEach((item) => console.log(item));
+		let request = false;
+		try {
+			setPost(request);
+			request = await fetch(
+				"https://prisninjawebapi.azurewebsites.net/options/ ",
+				{
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						products: searchList,
+						Range: 50,
+						y: latitude,
+						x: longitude,
+					}),
+				}
+			);
+		} catch (error) {
+			console.log(error);
+			return;
+		}
+
+		console.log("request received: " + request);
+
+		const data = await request.json();
+
+		console.log("Data received from database: " + JSON.stringify(data));
+		localStorage.setItem("SearchResults", JSON.stringify(data));
+
+		navigate("/SearchResults");
+	};
+
+	const onAddDialog = (event) => {
+		setDuplicateItemOpen(false);
+		handleDialogAdd(existingItem.name, amountToChange);
+	};
+
+	return (
+		&lt;div className="home">
+			&lt;Banner />
+			&lt;div className="home-shopping-list-wrapper-upper">
+				&lt;div className="instructions-step-one">
+					&lt;div className="instructions-step-one-text">
+						Trin 1: Søg efter din varer her!
+					&lt;/div>
+					&lt;br />
+					&lt;img
+						src="/images/arrow.svg"
+						alt="arrow"
+						className="instructions-arrow-one"
+					/>
+				&lt;/div>
+				&lt;NewItemForm
+					className="home-new-item-form"
+					onItemAdded={newItemHandler}
+				/>
+				&lt;StandardDialog
+					title="Duplikeret vare"
+					bodyText={duplicateDialogText}
+					buttons={duplicateDialogButtons}
+					onCancel={handleClose}
+					addAmount={onAddDialog}
+					open={duplicateItemOpen}
+				/>
+				&lt;StandardDialog
+					title="Tom indkøbsliste"
+					bodyText={emptyListDialogText}
+					buttons={emptyListDialogButtons}
+					onCancel={handleClose}
+					addAmount={onAddDialog}
+					open={emptyListOpen}
+				/>
+				&lt;StandardDialog
+					title="Varen kan ikke findes"
+					bodyText={noItemFoundDialogText}
+					buttons={noItemFoundDialogButtons}
+					onCancel={handleClose}
+					addAmount={onAddDialog}
+					open={noItemFoundOpen}
+				/>
+				&lt;div className="filler" />
+			&lt;/div>
+			&lt;div className="home-shopping-list-wrapper-lower">
+				&lt;div className="instructions-step-three">
+					&lt;div className="instructions-step-three-wrapper">
+						&lt;div className="instructions-step-three-text">
+							Trin 3: Tryk 'søg' og &lt;br />
+							se hvor du skal handle!
+						&lt;/div>
+						&lt;br />
+						&lt;img
+							src="/images/arrow.svg"
+							alt="arrow"
+							className="instructions-arrow-three"
+						/>
+					&lt;/div>
+				&lt;/div>
+
+				&lt;ShoppingList
+					className="home-shopping-list"
+					items={shoppingList}
+					onSearch={searchHandler}
+					onRemoveItem={removeItemHandler}
+					onAmountChanged={changeAmountHandler}
+					onNewUnitOrAmount={handleItemUpdate}
+					post={post}
+				/>
+				&lt;div className="instructions-step-two">
+					&lt;div className="instructions-step-two-text">
+						Trin 2: Dine varer tilføjes &lt;br />
+						herefter til din indkøbsliste
+					&lt;/div>
+					&lt;br />
+					&lt;img
+						src="/images/arrow.svg"
+						alt="arrow"
+						className="instructions-arrow-two"
+					/>
+				&lt;/div>
+			&lt;/div>
+		&lt;/div>
+	);
+
+	async function ValidateItem(name, unit) {
+		const itemNames = JSON.parse(localStorage.getItem("itemNames"));
+
+		let matchFound = false;
+		let foundItems = [];
+		if (itemNames.length &lt; 1) {
+			console.log("No items in localStorage");
+			return;
+		}
+
+		itemNames.forEach((item) => {
+			if (item.toLowerCase().includes(name.toLowerCase())) {
+				// this needs to be uncommented when a unit is received
+
+				// if (item.unit !== unit) {
+				// 	console.log(`unit not found, received: ${item.unit}`);
+				// 	return;
+				// }
+				foundItems.push(item);
+				console.log("unit found");
+			}
+		});
+		if (foundItems.length > 0) {
+			matchFound = true;
+		}
+		return matchFound;
+	}
+}
+export default Home;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

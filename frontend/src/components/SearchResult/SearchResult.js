@@ -4,21 +4,47 @@ import { IoChevronDownSharp, IoLocation } from "react-icons/io5";
 import Button from "../UI/Atoms/Button/Button";
 import { useState } from "react";
 import SearchResultItem from "./SearchResultItem/SearchResultItem";
+import PropTypes from "prop-types";
 
+/**
+ * @classdesc
+ * This is the component that displays the individual shopping options based on the shoppinglist items and user location.
+ *
+ * @category SearchResultsPage
+ * @subcategory SearchResult
+ * @component
+ * @hideconstructor
+ *
+ */
 const SearchResult = (props) => {
+	/**
+	 * The state of the dropdown button.
+	 * @const activeState
+	 * @type {useState}
+	 * @memberof SearchResult
+	 */
 	const [activeState, setActiveState] = useState(true);
 
+	/**
+	 * When a user clicks the button, the state of the button is toggled.
+	 *
+	 * @returns {void}
+	 */
 	const toggleDetails = () => {
 		setActiveState(!activeState);
 	};
 
 	let addressString = props.address;
+
 	addressString = addressString.replace(/^, DK+|, DK+$/g, "");
 
 	let addressStringforMaps = addressString.replace(/ /g, "+");
 
 	let displayStoreName = null;
 
+	/**
+	 * switch statement that checks the store name and sets the displayStoreName variable to the correct store name.
+	 */
 	switch (props.storeName) {
 		case "foetex":
 			displayStoreName = <div className="list-item-store-name">føtex</div>;
@@ -47,6 +73,10 @@ const SearchResult = (props) => {
 			break;
 	}
 
+	/**
+	 * Variable that contains the google maps link.
+	 * @type {let}
+	 */
 	let GoogleMapsDirections = `https://www.google.com/maps/dir/${props.latitude},${props.longitude}/${addressStringforMaps}`;
 
 	return (
@@ -75,6 +105,38 @@ const SearchResult = (props) => {
 			</Card>
 		</div>
 	);
+};
+
+SearchResult.propTypes = {
+	/** 
+	 * The address of the store.
+	*/
+	address: PropTypes.string,
+	/** 
+	 * The name of the store.
+	*/
+	storeName: PropTypes.string,
+	/** 
+	 * The total price of all the products in the shopping list.
+	*/
+	price: PropTypes.number,
+	/** 
+	 * The distance between the user and the store.
+	*/
+	distance: PropTypes.number,
+	/** 
+	 * contains all the products in the shopping list, to be passed in to the searchResultItem component.
+	*/
+	products: PropTypes.array,
+	/** 
+	 * latitude coordinate of the user.
+	*/
+	latitude: PropTypes.number,
+	/** 
+	 * longitude coordinate of the user.
+	*/
+	longitude: PropTypes.number,
+	
 };
 
 export default SearchResult;
