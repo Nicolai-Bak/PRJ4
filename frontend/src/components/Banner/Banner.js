@@ -1,6 +1,17 @@
 import React from "react";
 import "./Banner.css";
 
+/**
+ * @classdesc
+ * This is the banner component holding the background image and Call-to-Action text on the home page.
+ *
+ * @category Home
+ * @subcategory Banner
+ * @component
+ * @hideconstructor
+ *
+ */
+
 function Banner() {
   return (
     <div className='banner'>

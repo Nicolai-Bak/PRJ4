@@ -34,12 +34,24 @@ const SearchResult = (props) => {
 		setActiveState(!activeState);
 	};
 
+	/**
+	 * variable containing the address of the store, to be filtered using regex.
+	 * @type {let}
+	 */	
 	let addressString = props.address;
 
 	addressString = addressString.replace(/^, DK+|, DK+$/g, "");
 
+	/**
+	 * variable that takes the address string and formats it to be used for the google maps link.
+	 * @type {let}
+	 */	
 	let addressStringforMaps = addressString.replace(/ /g, "+");
 
+	/**
+	 * Variable that gets assigned the code to display the store's name.
+	 * @type {let}
+	 */
 	let displayStoreName = null;
 
 	/**

@@ -1,6 +1,8 @@
 import React from "react";
 import "./Footer.css";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+
 
 /**
  * @classdesc
@@ -14,8 +16,18 @@ import { Link } from "react-router-dom";
  */
 
 function Footer(props) {
+	/**
+	 * 
+	 * @param {const} 
+	 * @returns {JSX}
+	 */
 	const { pageLinks, companyName } = props;
 
+	/**
+	 * Function that returns the links to the different pages
+	 * @param {const} 
+	 * @returns {JSX}
+	 */
 	const linkRefs = () => {
 		const links = pageLinks.map((link) => {
 			return (

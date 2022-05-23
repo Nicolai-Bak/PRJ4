@@ -3,6 +3,7 @@ import "./NavBar.css";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 /**
  * @classdesc
@@ -17,13 +18,45 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 function NavBar(props) {
+	/**
+	 * state management of the hamburger menu
+	 * @const activeState
+	 * @type {useState}
+	 * @memberof NavBar
+	 */
 	const [showMenu, setShowMenu] = useState(false);
+	/**
+	 * method that toggles the hamburger menu
+	 * @const activeState
+	 */
 	const toggleMenu = () => setShowMenu(!showMenu);
+	/**
+	 * state management of shoppingCart to display amount of items in cart
+	 * @const activeState
+	 * @type {useState}
+	 @memberof NavBar
+	 */
 	const [shoppingCart, setShoppingCart] = useState(false);
+	/**
+	 * method that toggles the shoppingCart
+	 * @const activeState
+	 */
 	const toggleShoppingCart = () => setShoppingCart(!shoppingCart);
+
 	const { pageLinks, companyName } = props;
+
+	/**
+	 * useNavigate hook that is used to navigate to the home page.
+	 * @type {useNavigate}
+	 * @memberof SearchResultsPage
+	 */
 	let navigate = useNavigate();
 
+	/**
+	 * Function that returns the links to the different pages
+	 * @param {const} 
+	 * @returns {JSX}
+	 */
 	const linkRefs = () => {
 		const links = pageLinks.map((link) => {
 			return (
@@ -36,6 +69,10 @@ function NavBar(props) {
 		return links;
 	};
 
+	/**
+	 * Redirects the user to the home page.
+	 * @returns {void}
+	 */
 	const returnToHomePage = () => {
 		navigate("/");
 	};

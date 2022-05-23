@@ -7,10 +7,16 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import Button from "../Atoms/Button/Button";
+import PropTypes from "prop-types";
+
 
 const StandardDialog = (props) => {
 	console.log(props);
-	// an array of button objects with text and onClick function
+	/**
+	 * Method that returns an array of button objects with text and onClick function.
+	 * @param {const} 
+	 * @returns {JSX}
+	 */
 	const buttonHandler = () => {
 		const buttons = props.buttons.map((button) => {
 			console.log(button);
@@ -42,6 +48,29 @@ const StandardDialog = (props) => {
 			</DialogContent>
 		</Dialog>
 	);
+};
+
+StandardDialog.propTypes = {
+	/** 
+	 * a variable used to write text to the button.
+	*/
+	buttons: PropTypes.string,
+	/** 
+	 * a variable used to write text to the button.
+	*/
+	open: PropTypes.string,
+	/** 
+	 * function that is called when the user closes the dialog.
+	*/
+	onCancel: PropTypes.func,
+	/** 
+	 * a variable used to set the title of the dialog.
+	*/
+	title: PropTypes.string,
+	/** 
+	 * a variable used to write text to the body of the dialog.
+	*/
+	bodyText: PropTypes.string,
 };
 
 export default StandardDialog;
