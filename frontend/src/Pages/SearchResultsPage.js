@@ -28,7 +28,6 @@ function SearchResultsPage(props) {
 	let navigate = useNavigate();
 	/**
 	 * The state of the dropdown. Used to keep track of the selected options so that the options are displayed according to the user's preference.
-	 * @const activeState
 	 * @type {useState}
 	 * @memberof SearchResultsPage
 	 */
@@ -64,7 +63,6 @@ function SearchResultsPage(props) {
 		return allOptions;
 	};
 	const options = GetShoppingOptions();
-	console.log("options0: ", options[0]);
 
 	/**
 	 * Method that sets the selected option state to the selected option.
@@ -92,7 +90,7 @@ function SearchResultsPage(props) {
 
 	/**
 	 * Method that renders the search results based on the selectedOptionState.
-	 * @param {const} selectedOptionState - The state of the dropdown used to determine which options to display.
+	 * @param {string} selectedOptionState - The state of the dropdown used to determine which options to display.
 	 * @returns {JSX}
 	 */
 	switch (selectedOptionState) {
@@ -194,35 +192,34 @@ function SearchResultsPage(props) {
 }
 
 SearchResultsPage.propTypes = {
-	/** 
+	/**
 	 * The address of the store.
-	*/
+	 */
 	address: PropTypes.string,
-	/** 
+	/**
 	 * The name of the store.
-	*/
+	 */
 	storeName: PropTypes.string,
-	/** 
+	/**
 	 * The total price of all the products in the shopping list.
-	*/
+	 */
 	price: PropTypes.number,
-	/** 
+	/**
 	 * The distance between the user and the store.
-	*/
+	 */
 	distance: PropTypes.number,
-	/** 
+	/**
 	 * contains all the products in the shopping list, to be passed in to the searchResultItem component.
-	*/
+	 */
 	products: PropTypes.array,
-	/** 
+	/**
 	 * latitude coordinate of the user.
-	*/
+	 */
 	latitude: PropTypes.number,
-	/** 
+	/**
 	 * longitude coordinate of the user.
-	*/
+	 */
 	longitude: PropTypes.number,
-	
 };
 
 export default SearchResultsPage;

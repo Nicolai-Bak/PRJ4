@@ -2,7 +2,6 @@ import React from "react";
 import "./Card.css";
 import PropTypes from "prop-types";
 
-
 /**
  * @classdesc
  * This is the form where the user can add a new item to the list. This is comprised of two other components, specifically the UnitBox and SearchField.
@@ -10,7 +9,7 @@ import PropTypes from "prop-types";
  *
  *
  * @category UI
- * @subcategory Card
+ * @subcategory Atoms
  * @component
  * @hideconstructor
  *
@@ -19,8 +18,7 @@ import PropTypes from "prop-types";
 const Card = (props) => {
 	/**
 	 * Variable containing the className of the Card
-	 * @const activeState
-	 * @memberof Card
+	 * @type {string}
 	 */
 	const classes = `card-container ${props.className}`;
 
@@ -28,9 +26,9 @@ const Card = (props) => {
 };
 
 Card.propTypes = {
-	/** 
+	/**
 	 * a variable used to write text to the button.
-	*/
+	 */
 	children: PropTypes.string,
 };
 

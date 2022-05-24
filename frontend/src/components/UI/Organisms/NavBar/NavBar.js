@@ -16,30 +16,27 @@ import PropTypes from "prop-types";
  *
  */
 
-
 function NavBar(props) {
 	/**
 	 * state management of the hamburger menu
-	 * @const activeState
+	 * @const showMenu
 	 * @type {useState}
 	 * @memberof NavBar
 	 */
 	const [showMenu, setShowMenu] = useState(false);
 	/**
 	 * method that toggles the hamburger menu
-	 * @const activeState
 	 */
 	const toggleMenu = () => setShowMenu(!showMenu);
 	/**
 	 * state management of shoppingCart to display amount of items in cart
-	 * @const activeState
+	 * @const shoppingCart
 	 * @type {useState}
 	 @memberof NavBar
 	 */
 	const [shoppingCart, setShoppingCart] = useState(false);
 	/**
 	 * method that toggles the shoppingCart
-	 * @const activeState
 	 */
 	const toggleShoppingCart = () => setShoppingCart(!shoppingCart);
 
@@ -53,8 +50,7 @@ function NavBar(props) {
 	let navigate = useNavigate();
 
 	/**
-	 * Function that returns the links to the different pages
-	 * @param {const} 
+	 * Function that returns the links to the different pages based on the props received from the parent component
 	 * @returns {JSX}
 	 */
 	const linkRefs = () => {

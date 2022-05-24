@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> SearchResultItem</title>
+  <title> components/UI/Molecules/StandardDialog.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,300 +75,95 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Components</p>
-                    <h1>SearchResultItem</h1>
+                    <p>Source</p>
+                    <h1>components/UI/Molecules/StandardDialog.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-            &ltSearchResultItem <i>products</i> /&gt
-        </h2>
-        
-            <div class="class-description">This is the component that displays the idividual shopping list items in the search result component when the user clicks on the dropdown icon.</div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            
-
-
-
-
-
-
-
-
-    
-        <h5>PropTypes:</h5>
-        
-<div class="table-container">
-  <table class="params table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th class="last">Default</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-          <tr class="deep-level-0">
-            <td class="name"><code>products</code></td>
-            <td>
-              array
-            </td>
-            <td>No</td>
-            <td>The address of the store.</td>
-            <td></td>
-          </tr>
-          
-    
-    </tbody>
-  </table>
-</div>
-    
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="components_SearchResult_SearchResultItem_SearchResultItem.js.html" class="button">View Source</a>
-            <span>
-                <a href="components_SearchResult_SearchResultItem_SearchResultItem.js.html">components/SearchResult/SearchResultItem/SearchResultItem.js</a>, <a href="components_SearchResult_SearchResultItem_SearchResultItem.js.html#line16">line 16</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-    
-        
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Methods</h1>
-            <div class="members">
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="~displayProducts">
-        <a class="href-link" href="#~displayProducts">#</a>
-        
-            
-                <span class='tag'>inner</span>
-            
-        
-        <span class="code-name">
-            
-                displayProducts<span class="signature">()</span><span class="type-signature"> &rarr; {JSX}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        The method that takes the individual shopping list items from the props.products array with the product informationincluding product name, price, unit and so forth, and creates a JSX element for each item using javascript's map function.
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="components_SearchResult_SearchResultItem_SearchResultItem.js.html" class="button">View Source</a>
-            <span>
-                <a href="components_SearchResult_SearchResultItem_SearchResultItem.js.html">components/SearchResult/SearchResultItem/SearchResultItem.js</a>, <a href="components_SearchResult_SearchResultItem_SearchResultItem.js.html#line23">line 23</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">JSX</code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+} from "@mui/material";
+import React, { useState } from "react";
+import Button from "../Atoms/Button/Button";
+import PropTypes from "prop-types";
+
+
+const StandardDialog = (props) => {
+	console.log(props);
+	/**
+	 * Method that returns an array of button objects with text and onClick function.
+	 * @param {const} 
+	 * @returns {JSX}
+	 */
+	const buttonHandler = () => {
+		const buttons = props.buttons.map((button) => {
+			console.log(button);
+			return (
+				/*eslint-disable */
+				&lt;Button
+					key={button.onClick}
+					// eval returns js code from string - bad practice
+					onClick={eval("props." + eval("button.onClick"))}
+				>
+					{button.text}
+				&lt;/Button>
+				/*eslint-enable */
+			);
+		});
+		return buttons;
+	};
+
+	return (
+		&lt;Dialog open={props.open} onClose={props.onCancel}>
+			&lt;DialogTitle>
+				{props.title ? props.title : "There's no title props set :)"}
+			&lt;/DialogTitle>
+			&lt;DialogContent>
+				&lt;DialogContentText>
+					{props.bodyText ? props.bodyText : "No bodyText prop has been set :)"}
+				&lt;/DialogContentText>
+				&lt;DialogActions>{buttonHandler()}&lt;/DialogActions>
+			&lt;/DialogContent>
+		&lt;/Dialog>
+	);
+};
+
+StandardDialog.propTypes = {
+	/** 
+	 * a variable used to write text to the button.
+	*/
+	buttons: PropTypes.string,
+	/** 
+	 * a variable used to write text to the button.
+	*/
+	open: PropTypes.string,
+	/** 
+	 * function that is called when the user closes the dialog.
+	*/
+	onCancel: PropTypes.func,
+	/** 
+	 * a variable used to set the title of the dialog.
+	*/
+	title: PropTypes.string,
+	/** 
+	 * a variable used to write text to the body of the dialog.
+	*/
+	bodyText: PropTypes.string,
+};
+
+export default StandardDialog;
+</code></pre>
+        </article>
+    </section>
 
 
 

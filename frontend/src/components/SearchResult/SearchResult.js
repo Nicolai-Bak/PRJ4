@@ -36,21 +36,21 @@ const SearchResult = (props) => {
 
 	/**
 	 * variable containing the address of the store, to be filtered using regex.
-	 * @type {let}
-	 */	
+	 * @type {string}
+	 */
 	let addressString = props.address;
 
 	addressString = addressString.replace(/^, DK+|, DK+$/g, "");
 
 	/**
 	 * variable that takes the address string and formats it to be used for the google maps link.
-	 * @type {let}
-	 */	
+	 * @type {string}
+	 */
 	let addressStringforMaps = addressString.replace(/ /g, "+");
 
 	/**
 	 * Variable that gets assigned the code to display the store's name.
-	 * @type {let}
+	 * @type {string}
 	 */
 	let displayStoreName = null;
 
@@ -87,7 +87,7 @@ const SearchResult = (props) => {
 
 	/**
 	 * Variable that contains the google maps link.
-	 * @type {let}
+	 * @type {string}
 	 */
 	let GoogleMapsDirections = `https://www.google.com/maps/dir/${props.latitude},${props.longitude}/${addressStringforMaps}`;
 
@@ -120,35 +120,34 @@ const SearchResult = (props) => {
 };
 
 SearchResult.propTypes = {
-	/** 
+	/**
 	 * The address of the store.
-	*/
+	 */
 	address: PropTypes.string,
-	/** 
+	/**
 	 * The name of the store.
-	*/
+	 */
 	storeName: PropTypes.string,
-	/** 
+	/**
 	 * The total price of all the products in the shopping list.
-	*/
+	 */
 	price: PropTypes.number,
-	/** 
+	/**
 	 * The distance between the user and the store.
-	*/
+	 */
 	distance: PropTypes.number,
-	/** 
+	/**
 	 * contains all the products in the shopping list, to be passed in to the searchResultItem component.
-	*/
+	 */
 	products: PropTypes.array,
-	/** 
+	/**
 	 * latitude coordinate of the user.
-	*/
+	 */
 	latitude: PropTypes.number,
-	/** 
+	/**
 	 * longitude coordinate of the user.
-	*/
+	 */
 	longitude: PropTypes.number,
-	
 };
 
 export default SearchResult;

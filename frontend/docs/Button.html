@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#activeState">activeState</a></li></ul></div><div class="category"><h2>Home</h2><h3>Components / Banner</h3><ul><li><a href="Banner.html">Banner</a></li></ul><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li><li><a href="Card.html">Card</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul></div>
                 
             </nav>
         </div>
@@ -86,7 +86,7 @@
 <header>
     
         <h2>
-            &ltButton  /&gt
+            &ltButton <i>onClick</i> <i>children</i> /&gt
         </h2>
         
             <div class="class-description">This is the form where the user can add a new item to the list. This is comprised of two other components, specifically the UnitBox and SearchField.The UnitBox is w	here the user can select the unit of the new item they're adding. The SearchField is where the user can search for an item to add to the list.</div>
@@ -107,6 +107,48 @@
 
 
 
+    
+        <h5>PropTypes:</h5>
+        
+<div class="table-container">
+  <table class="params table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th class="last">Default</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>onClick</code></td>
+            <td>
+              func
+            </td>
+            <td>No</td>
+            <td>a function that is called when the button is clicked.</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>children</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>a variable used to write text to the button.</td>
+            <td></td>
+          </tr>
+          
+    
+    </tbody>
+  </table>
+</div>
     
 
 
@@ -150,7 +192,7 @@
         <p class="tag-source">
             <a href="components_UI_Atoms_Button_Button.js.html" class="button">View Source</a>
             <span>
-                <a href="components_UI_Atoms_Button_Button.js.html">components/UI/Atoms/Button/Button.js</a>, <a href="components_UI_Atoms_Button_Button.js.html#line17">line 17</a>
+                <a href="components_UI_Atoms_Button_Button.js.html">components/UI/Atoms/Button/Button.js</a>, <a href="components_UI_Atoms_Button_Button.js.html#line19">line 19</a>
             </span>
         </p>
     
@@ -195,6 +237,88 @@
 
     
 
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+<h4 class="name" id=".activeState">
+    <a class="href-link" href="#.activeState">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        activeState
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Variable containing the className of the button.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_UI_Atoms_Button_Button.js.html" class="button">View Source</a>
+            <span>
+                <a href="components_UI_Atoms_Button_Button.js.html">components/UI/Atoms/Button/Button.js</a>, <a href="components_UI_Atoms_Button_Button.js.html#line20">line 20</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
     
 
     

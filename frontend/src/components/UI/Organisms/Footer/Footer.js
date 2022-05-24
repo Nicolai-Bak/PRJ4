@@ -3,7 +3,6 @@ import "./Footer.css";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-
 /**
  * @classdesc
  * This is the footer of the website. It contains links to the different pages and the company name.
@@ -17,15 +16,14 @@ import PropTypes from "prop-types";
 
 function Footer(props) {
 	/**
-	 * 
-	 * @param {const} 
+	 *
+	 * @param {const}
 	 * @returns {JSX}
 	 */
 	const { pageLinks, companyName } = props;
 
 	/**
 	 * Function that returns the links to the different pages
-	 * @param {const} 
 	 * @returns {JSX}
 	 */
 	const linkRefs = () => {
