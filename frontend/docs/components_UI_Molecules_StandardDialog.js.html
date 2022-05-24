@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#activeState">activeState</a></li></ul></div><div class="category"><h2>Home</h2><h3>Components / Banner</h3><ul><li><a href="Banner.html">Banner</a></li></ul><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li><li><a href="Card.html">Card</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components / Banner</h3><ul><li><a href="Banner.html">Banner</a></li></ul><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li><li><a href="Card.html">Card</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul><h3>Components / Molecules</h3><ul><li><a href="StandardDialog.html">StandardDialog</a></li></ul></div>
                 
             </nav>
         </div>
@@ -96,12 +96,22 @@ import React, { useState } from "react";
 import Button from "../Atoms/Button/Button";
 import PropTypes from "prop-types";
 
+/**
+ * @classdesc
+ * This is a generic dialog component that can be used in different situations. It receives a title, bodyText, and an array of button objects.
+ *
+ *
+ * @category UI
+ * @subcategory Molecules
+ * @component
+ * @hideconstructor
+ *
+ */
 
 const StandardDialog = (props) => {
 	console.log(props);
 	/**
 	 * Method that returns an array of button objects with text and onClick function.
-	 * @param {const} 
 	 * @returns {JSX}
 	 */
 	const buttonHandler = () => {
@@ -138,25 +148,25 @@ const StandardDialog = (props) => {
 };
 
 StandardDialog.propTypes = {
-	/** 
-	 * a variable used to write text to the button.
-	*/
-	buttons: PropTypes.string,
-	/** 
-	 * a variable used to write text to the button.
-	*/
+	/**
+	 * An array of objects each consisting of the text for the button and name of the function to be called when the button is clicked. Both are strings but the onClick function is interpreted as JavaScript using eval.
+	 */
+	buttons: PropTypes.array,
+	/**
+	 * Prop that determines if the dialog is open or not.
+	 */
 	open: PropTypes.string,
-	/** 
-	 * function that is called when the user closes the dialog.
-	*/
+	/**
+	 * Function that is called when the user closes the dialog.
+	 */
 	onCancel: PropTypes.func,
-	/** 
-	 * a variable used to set the title of the dialog.
-	*/
+	/**
+	 * Sets the title of the dialog.
+	 */
 	title: PropTypes.string,
-	/** 
-	 * a variable used to write text to the body of the dialog.
-	*/
+	/**
+	 * Determines the main text of the dialog.
+	 */
 	bodyText: PropTypes.string,
 };
 

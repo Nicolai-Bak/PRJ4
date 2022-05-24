@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Card</title>
+  <title> StandardDialog</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Components</p>
-                    <h1>Card</h1>
+                    <h1>StandardDialog</h1>
                 </header>
                 
 
@@ -86,10 +86,10 @@
 <header>
     
         <h2>
-            &ltCard <i>children</i> /&gt
+            &ltStandardDialog <i>buttons</i> <i>open</i> <i>onCancel</i> <i>title</i> <i>bodyText</i> /&gt
         </h2>
         
-            <div class="class-description">A generic wrapper component used for styling</div>
+            <div class="class-description">This is a generic dialog component that can be used in different situations. It receives a title, bodyText, and an array of button objects.</div>
         
     
 </header>
@@ -125,12 +125,56 @@
     <tbody>
     
           <tr class="deep-level-0">
-            <td class="name"><code>children</code></td>
+            <td class="name"><code>buttons</code></td>
+            <td>
+              array
+            </td>
+            <td>No</td>
+            <td>An array of objects each consisting of the text for the button and name of the function to be called when the button is clicked. Both are strings but the onClick function is interpreted as JavaScript using eval.</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>open</code></td>
             <td>
               string
             </td>
             <td>No</td>
-            <td>a variable used to write text to the button.</td>
+            <td>Prop that determines if the dialog is open or not.</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>onCancel</code></td>
+            <td>
+              func
+            </td>
+            <td>No</td>
+            <td>Function that is called when the user closes the dialog.</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>title</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>Sets the title of the dialog.</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>bodyText</code></td>
+            <td>
+              string
+            </td>
+            <td>No</td>
+            <td>Determines the main text of the dialog.</td>
             <td></td>
           </tr>
           
@@ -179,9 +223,9 @@
 
     
         <p class="tag-source">
-            <a href="components_UI_Atoms_Card_Card.js.html" class="button">View Source</a>
+            <a href="components_UI_Molecules_StandardDialog.js.html" class="button">View Source</a>
             <span>
-                <a href="components_UI_Atoms_Card_Card.js.html">components/UI/Atoms/Card/Card.js</a>, <a href="components_UI_Atoms_Card_Card.js.html#line17">line 17</a>
+                <a href="components_UI_Molecules_StandardDialog.js.html">components/UI/Molecules/StandardDialog.js</a>, <a href="components_UI_Molecules_StandardDialog.js.html#line24">line 24</a>
             </span>
         </p>
     
@@ -227,41 +271,45 @@
     
 
     
+
+    
         <div class='vertical-section'>
-            <h1>Members</h1>
+            <h1>Methods</h1>
             <div class="members">
             
                 <div class="member">
 
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">string</code>
 
-
-    </span>
-
-<h4 class="name" id="~classes">
-    <a class="href-link" href="#~classes">#</a>
     
+    <h4 class="name" id="~buttonHandler">
+        <a class="href-link" href="#~buttonHandler">#</a>
         
-            <span class='tag'>inner</span>
+            
+                <span class='tag'>inner</span>
+            
         
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                buttonHandler<span class="signature">()</span><span class="type-signature"> &rarr; {JSX}</span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        classes
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        Method that returns an array of button objects with text and onClick function.
+    </div>
+    
 
 
 
 
-<div class="description">
-    Variable containing the className of the Card
-</div>
+
+
+
+
 
 
 
@@ -300,9 +348,9 @@
 
     
         <p class="tag-source">
-            <a href="components_UI_Atoms_Card_Card.js.html" class="button">View Source</a>
+            <a href="components_UI_Molecules_StandardDialog.js.html" class="button">View Source</a>
             <span>
-                <a href="components_UI_Atoms_Card_Card.js.html">components/UI/Atoms/Card/Card.js</a>, <a href="components_UI_Atoms_Card_Card.js.html#line22">line 22</a>
+                <a href="components_UI_Molecules_StandardDialog.js.html">components/UI/Molecules/StandardDialog.js</a>, <a href="components_UI_Molecules_StandardDialog.js.html#line30">line 30</a>
             </span>
         </p>
     
@@ -312,12 +360,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
 </div>
             
             </div>
         </div>
-    
-
     
 
     

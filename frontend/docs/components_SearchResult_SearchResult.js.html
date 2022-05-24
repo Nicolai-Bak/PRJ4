@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#activeState">activeState</a></li></ul></div><div class="category"><h2>Home</h2><h3>Components / Banner</h3><ul><li><a href="Banner.html">Banner</a></li></ul><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li><li><a href="Card.html">Card</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components / Banner</h3><ul><li><a href="Banner.html">Banner</a></li></ul><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li><li><a href="Card.html">Card</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul><h3>Components / Molecules</h3><ul><li><a href="StandardDialog.html">StandardDialog</a></li></ul></div>
                 
             </nav>
         </div>
@@ -123,21 +123,21 @@ const SearchResult = (props) => {
 
 	/**
 	 * variable containing the address of the store, to be filtered using regex.
-	 * @type {let}
-	 */	
+	 * @type {string}
+	 */
 	let addressString = props.address;
 
 	addressString = addressString.replace(/^, DK+|, DK+$/g, "");
 
 	/**
 	 * variable that takes the address string and formats it to be used for the google maps link.
-	 * @type {let}
-	 */	
+	 * @type {string}
+	 */
 	let addressStringforMaps = addressString.replace(/ /g, "+");
 
 	/**
 	 * Variable that gets assigned the code to display the store's name.
-	 * @type {let}
+	 * @type {string}
 	 */
 	let displayStoreName = null;
 
@@ -174,7 +174,7 @@ const SearchResult = (props) => {
 
 	/**
 	 * Variable that contains the google maps link.
-	 * @type {let}
+	 * @type {string}
 	 */
 	let GoogleMapsDirections = `https://www.google.com/maps/dir/${props.latitude},${props.longitude}/${addressStringforMaps}`;
 
@@ -207,35 +207,34 @@ const SearchResult = (props) => {
 };
 
 SearchResult.propTypes = {
-	/** 
+	/**
 	 * The address of the store.
-	*/
+	 */
 	address: PropTypes.string,
-	/** 
+	/**
 	 * The name of the store.
-	*/
+	 */
 	storeName: PropTypes.string,
-	/** 
+	/**
 	 * The total price of all the products in the shopping list.
-	*/
+	 */
 	price: PropTypes.number,
-	/** 
+	/**
 	 * The distance between the user and the store.
-	*/
+	 */
 	distance: PropTypes.number,
-	/** 
+	/**
 	 * contains all the products in the shopping list, to be passed in to the searchResultItem component.
-	*/
+	 */
 	products: PropTypes.array,
-	/** 
+	/**
 	 * latitude coordinate of the user.
-	*/
+	 */
 	latitude: PropTypes.number,
-	/** 
+	/**
 	 * longitude coordinate of the user.
-	*/
+	 */
 	longitude: PropTypes.number,
-	
 };
 
 export default SearchResult;

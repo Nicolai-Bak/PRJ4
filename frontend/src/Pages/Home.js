@@ -436,7 +436,6 @@ function Home(props) {
 					bodyText={emptyListDialogText}
 					buttons={emptyListDialogButtons}
 					onCancel={handleClose}
-					addAmount={onAddDialog}
 					open={emptyListOpen}
 				/>
 				<StandardDialog
@@ -444,7 +443,6 @@ function Home(props) {
 					bodyText={noItemFoundDialogText}
 					buttons={noItemFoundDialogButtons}
 					onCancel={handleClose}
-					addAmount={onAddDialog}
 					open={noItemFoundOpen}
 				/>
 				<div className="filler" />

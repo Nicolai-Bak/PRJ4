@@ -64,5 +64,8 @@ reactComponents['SearchResultsPage'] = Component12;
 import Component13 from '../src/components/ShoppingList/ShoppingList.js';
 reactComponents['ShoppingList'] = Component13;
 
-import Component14 from '../src/components/NewItem/UnitBox.js';
-reactComponents['UnitBox'] = Component14;
+import Component14 from '../src/components/UI/Molecules/StandardDialog.js';
+reactComponents['StandardDialog'] = Component14;
+
+import Component15 from '../src/components/NewItem/UnitBox.js';
+reactComponents['UnitBox'] = Component15;

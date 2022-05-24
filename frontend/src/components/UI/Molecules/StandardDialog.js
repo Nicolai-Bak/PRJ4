@@ -9,12 +9,22 @@ import React, { useState } from "react";
 import Button from "../Atoms/Button/Button";
 import PropTypes from "prop-types";
 
+/**
+ * @classdesc
+ * This is a generic dialog component that can be used in different situations. It receives a title, bodyText, and an array of button objects.
+ *
+ *
+ * @category UI
+ * @subcategory Molecules
+ * @component
+ * @hideconstructor
+ *
+ */
 
 const StandardDialog = (props) => {
 	console.log(props);
 	/**
 	 * Method that returns an array of button objects with text and onClick function.
-	 * @param {const} 
 	 * @returns {JSX}
 	 */
 	const buttonHandler = () => {
@@ -51,25 +61,25 @@ const StandardDialog = (props) => {
 };
 
 StandardDialog.propTypes = {
-	/** 
-	 * a variable used to write text to the button.
-	*/
-	buttons: PropTypes.string,
-	/** 
-	 * a variable used to write text to the button.
-	*/
+	/**
+	 * An array of objects each consisting of the text for the button and name of the function to be called when the button is clicked. Both are strings but the onClick function is interpreted as JavaScript using eval.
+	 */
+	buttons: PropTypes.array,
+	/**
+	 * Prop that determines if the dialog is open or not.
+	 */
 	open: PropTypes.string,
-	/** 
-	 * function that is called when the user closes the dialog.
-	*/
+	/**
+	 * Function that is called when the user closes the dialog.
+	 */
 	onCancel: PropTypes.func,
-	/** 
-	 * a variable used to set the title of the dialog.
-	*/
+	/**
+	 * Sets the title of the dialog.
+	 */
 	title: PropTypes.string,
-	/** 
-	 * a variable used to write text to the body of the dialog.
-	*/
+	/**
+	 * Determines the main text of the dialog.
+	 */
 	bodyText: PropTypes.string,
 };
 

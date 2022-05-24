@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#activeState">activeState</a></li></ul></div><div class="category"><h2>Home</h2><h3>Components / Banner</h3><ul><li><a href="Banner.html">Banner</a></li></ul><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li><li><a href="Card.html">Card</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Home</h2><h3>Components / Banner</h3><ul><li><a href="Banner.html">Banner</a></li></ul><h3>Components</h3><ul><li><a href="Home.html">Home</a></li></ul><h3>Components / ShoppingList</h3><ul><li><a href="ListItem.html">ListItem</a></li><li><a href="ShoppingList.html">ShoppingList</a></li></ul><h3>Components / NewItem</h3><ul><li><a href="NewItemForm.html">NewItemForm</a></li><li><a href="SearchField.html">SearchField</a></li><li><a href="UnitBox.html">UnitBox</a></li></ul></div><div class="category"><h2>SearchResultsPage</h2><h3>Components / Dropdown</h3><ul><li><a href="Dropdown.html">Dropdown</a></li></ul><h3>Components / SearchResult</h3><ul><li><a href="SearchResult.html">SearchResult</a></li><li><a href="SearchResultItem.html">SearchResultItem</a></li></ul><h3>Components / SearchResultsPage</h3><ul><li><a href="SearchResultsPage.html">SearchResultsPage</a></li></ul></div><div class="category"><h2>UI</h2><h3>Components / Atoms</h3><ul><li><a href="Button.html">Button</a></li><li><a href="Card.html">Card</a></li></ul><h3>Components / Organisms</h3><ul><li><a href="Footer.html">Footer</a></li><li><a href="NavBar.html">NavBar</a></li></ul><h3>Components / Molecules</h3><ul><li><a href="StandardDialog.html">StandardDialog</a></li></ul></div>
                 
             </nav>
         </div>
@@ -85,15 +85,13 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
-import "./Button.css"
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./Button.css";
 import PropTypes from "prop-types";
-
 
 /**
  * @classdesc
- * This is the form where the user can add a new item to the list. This is comprised of two other components, specifically the UnitBox and SearchField.
- * The UnitBox is w	here the user can select the unit of the new item they're adding. The SearchField is where the user can search for an item to add to the list.
+ * A generic button component that is used to keep the UI consistent.
  *
  *
  * @category UI
@@ -106,29 +104,32 @@ import PropTypes from "prop-types";
 const Button = (props) => {
 	/**
 	 * Variable containing the className of the button.
-	 * @const activeState
+	 * @type {string}
 	 * @memberof Button
 	 */
 	const button = `button-container ${props.className}`;
 
 	return (
-		&lt;button onClick={props.onClick} className={button}>{props.children}&lt;/button>
+		&lt;button onClick={props.onClick} className={button}>
+			{props.children}
+		&lt;/button>
 		// can't get normal onClick event to work for some reason, so added a custom event :/
-	)
-}
+	);
+};
 
 Button.propTypes = {
-	/** 
+	/**
 	 * a function that is called when the button is clicked.
-	*/
+	 */
 	onClick: PropTypes.func,
-	/** 
+	/**
 	 * a variable used to write text to the button.
-	*/
+	 */
 	children: PropTypes.string,
 };
 
-export default Button</code></pre>
+export default Button;
+</code></pre>
         </article>
     </section>
 

@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 
 /**
  * @classdesc
- * This is the form where the user can add a new item to the list. This is comprised of two other components, specifically the UnitBox and SearchField.
- * The UnitBox is w	here the user can select the unit of the new item they're adding. The SearchField is where the user can search for an item to add to the list.
+ * A generic button component that is used to keep the UI consistent.
  *
  *
  * @category UI
